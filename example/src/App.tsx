@@ -1,4 +1,4 @@
-import {HelloWorld} from 'react-native-insurances';
+import { multiply } from 'react-native-insurances';
 import { Text, View, StyleSheet } from 'react-native';
 
 const result = multiply(3, 7);
@@ -6,7 +6,7 @@ const result = multiply(3, 7);
 export default function App() {
   return (
     <View style={styles.container}>
-      <HelloWorld />
+      <Text>Result: {result}</Text>
     </View>
   );
 }

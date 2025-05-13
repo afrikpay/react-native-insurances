@@ -1,1 +1,3 @@
-export {default as HelloWorld} from './components/HelloWorld'
+export function multiply(a: number, b: number): number {
+  return a * b;
+}
