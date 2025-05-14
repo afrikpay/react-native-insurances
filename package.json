@@ -46,14 +46,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ukev-ap/react-native-insurances.git"
+    "url": "git+https://github.com/afrikpay/react-native-insurances.git"
   },
-  "author": "kev205 <k.tchonkap@afrikpay.com> (https://github.com/ukev-ap)",
+  "author": "kev205 <k.tchonkap@afrikpay.com> (https://github.com/afrikpay)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ukev-ap/react-native-insurances/issues"
+    "url": "https://github.com/afrikpay/react-native-insurances/issues"
   },
-  "homepage": "https://github.com/ukev-ap/react-native-insurances#readme",
+  "homepage": "https://github.com/afrikpay/react-native-insurances#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
