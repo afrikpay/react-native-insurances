@@ -1,12 +1,11 @@
-import { multiply } from 'react-native-insurances';
-import { Text, View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { InsuranceApp } from 'react-native-insurances';
 
-const result = multiply(3, 7);
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <InsuranceApp />
     </View>
   );
 }
