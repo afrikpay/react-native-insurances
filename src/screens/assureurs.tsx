@@ -1,4 +1,4 @@
-import { Image, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+import { Image, ScrollView, StatusBar, Pressable, Text, TouchableOpacity, View } from 'react-native'
 import * as Icon from "react-native-feather"
 import { Box } from '../components/ui/Box'
 import { COLORS } from '../constants/Colors'
@@ -6,7 +6,6 @@ import { ImageSante } from '../constants/Images'
 import { height, width } from '../constants/size'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Navigation from '../services/Navigation'
-import { Pressable } from 'react-native-gesture-handler'
 import { ROUTES } from '../constants/Routes'
 
 export default function Assureurs(props: any) {
@@ -82,7 +81,7 @@ export default function Assureurs(props: any) {
                         ))
                     }
                 </View>
-
+                <View style={{ height: 40}} />
             </ScrollView>
         </SafeAreaView>
   )

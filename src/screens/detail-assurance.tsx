@@ -6,11 +6,12 @@ import { ImageSante } from '../constants/Images'
 import { height, width } from '../constants/size'
 import Navigation from '../services/Navigation'
 import { ROUTES } from '../constants/Routes'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 
 export default function DetailAssurance() {
   return (
-    <View style={{flex: 1, 
+    <SafeAreaView style={{flex: 1, 
         height: height, width: width,  
         backgroundColor: COLORS.white,
         flexDirection: 'column',
@@ -103,7 +104,8 @@ export default function DetailAssurance() {
                         )
                 } />
             </View>
+            <View style={{ height: 40 }}/>
         </ScrollView>
-    </View>
+    </SafeAreaView>
   )
 }
