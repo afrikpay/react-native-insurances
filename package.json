@@ -87,6 +87,7 @@
     "react-native-builder-bob": "^0.38.3",
     "react-native-feather": "^1.1.2",
     "react-native-gesture-handler": "^2.25.0",
+    "react-native-paper": "^5.14.5",
     "react-native-render-html": "^6.3.4",
     "react-native-safe-area-context": "^5.4.0",
     "react-native-screens": "^4.10.0",
@@ -105,6 +106,7 @@
     "react-native": "*",
     "react-native-feather": "*",
     "react-native-gesture-handler": "*",
+    "react-native-paper": "*",
     "react-native-render-html": "*",
     "react-native-safe-area-context": "*",
     "react-native-screens": "*"

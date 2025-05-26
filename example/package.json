@@ -31,6 +31,7 @@
     "intl-messageformat": "^10.7.16",
     "react-native-builder-bob": "^0.38.3",
     "react-native-gesture-handler": "^2.25.0",
+    "react-native-paper": "^5.14.5",
     "react-native-safe-area-context": "^5.4.0",
     "react-native-screens": "^4.10.0"
   },
