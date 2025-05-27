@@ -9,6 +9,7 @@ import Navigation from '../services/Navigation'
 import { Button, Modal, Portal } from 'react-native-paper'
 import { RadioButton } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
+import DropdownComponent from '../components/ui/DropdownComponent'
 
 export default function Souscriptions() {
     const [search, setSearch] = useState('')
@@ -143,26 +144,59 @@ export default function Souscriptions() {
                                 <Text>En attente</Text>
                             </View>
                         </View>
-                    </RadioButton.Group>
-                    <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 4 }} >Produit</Text>
-                    <View style={{ marginTop: 20}}>
-                        <Text>Select an option:</Text>
-                        <RNPickerSelect
-                            items={items}
-                            onValueChange={(value) => setSelectedItem(value)}
-                            value={selectedItem}
-                            placeholder={{ label: 'Select an item...', value: null }}
-                        />
-                        {/** Display selected item
-                            {selectedItem && <Text>Selected: {selectedItem}</Text>}
-                        */}
+                    </RadioButton.Group>        
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10, marginTop: 20 }}>
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 25 }} >Produit</Text>
+                        <View style={{ flex: 1 }}>
+                            <DropdownComponent
+                                label="Sélectionner un produit"
+                                placeholder="Sélectionner un produit"
+                                data={
+                                    [
+                                        { label: 'Assurance santé', value: 'assurance_sante' },
+                                        { label: 'Assurance auto', value: 'assurance_auto' },
+                                        { label: 'Assurance habitation', value: 'assurance_habitation' },
+                                        { label: 'Assurance voyage', value: 'assurance_voyage' },
+                                        { label: 'Assurance vie', value: 'assurance_vie' },
+                                        { label: 'Assurance responsabilité civile', value: 'assurance_responsabilite_civile' },
+                                        { label: 'Assurance scolaire', value: 'assurance_scolaire' },
+                                        { label: 'Assurance animaux de compagnie', value: 'assurance_animaux_de_compagnie' },
+                                        { label: 'Assurance professionnelle', value: 'assurance_professionnelle' },
+                                    ]
+                                }
+                                onChangeValue={(item) => console.log(item)}
+                            />
+                        </View>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10, marginTop: 20, }}>
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 25 }}>Formule</Text>
+                        <View style={{ flex: 1 }}>
+                            <DropdownComponent
+                                label="Sélectionner une formule"
+                                placeholder="Sélectionner une formule"
+                                data={
+                                    [
+                                        { label: 'Formule de base', value: 'formule_de_base' },
+                                        { label: 'Formule standard', value: 'formule_standard' },
+                                        { label: 'Formule premium', value: 'formule_premium' },
+                                        { label: 'Formule gold', value: 'formule_gold' },
+                                        { label: 'Formule platinum', value: 'formule_platinum' },
+                                        { label: 'Formule silver', value: 'formule_silver' },
+                                        { label: 'Formule bronze', value: 'formule_bronze' },
+                                        { label: 'Formule familiale', value: 'formule_familiale' },
+                                        { label: 'Formule individuelle', value: 'formule_individuelle' },
+                                        { label: 'Formule entreprise', value: 'formule_entreprise' },
+                                    ]
+                                }
+                                onChangeValue={(item) => console.log(item)}
+                            />
+                        </View>
                     </View>
                     <View style={{ marginTop: 40 }}>
                         <Button style={{  backgroundColor: COLORS.primary }} mode="contained" onPress={() => console.log('Pressed')}>
                             Appliquer
                         </Button>
                     </View>
-
                 </Modal>
             </Portal> 
         </SafeAreaView>

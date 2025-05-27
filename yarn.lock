@@ -11869,6 +11869,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-element-dropdown@npm:^2.12.4":
+  version: 2.12.4
+  resolution: "react-native-element-dropdown@npm:2.12.4"
+  dependencies:
+    lodash: ^4.17.21
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 4ac8962df350beb1a89d7994c4a96f06a5956f5ca7755e41b93c4d23873eedf4150903be74bbab8ebba9710da07c0c93ab29d2ff4345db797898ffef198bbadf
+  languageName: node
+  linkType: hard
+
 "react-native-feather@npm:^1.1.2":
   version: 1.1.2
   resolution: "react-native-feather@npm:1.1.2"
@@ -11913,6 +11925,7 @@ __metadata:
     react-dom: 19.0.0
     react-native: 0.79.2
     react-native-builder-bob: ^0.38.3
+    react-native-element-dropdown: ^2.12.4
     react-native-feather: ^1.1.2
     react-native-gesture-handler: ^2.25.0
     react-native-paper: ^5.14.5
@@ -11956,6 +11969,7 @@ __metadata:
     react: 19.0.0
     react-native: 0.79.2
     react-native-builder-bob: ^0.38.3
+    react-native-element-dropdown: ^2.12.4
     react-native-feather: ^1.1.2
     react-native-gesture-handler: ^2.25.0
     react-native-paper: ^5.14.5
@@ -11975,6 +11989,7 @@ __metadata:
     intl-messageformat: "*"
     react: "*"
     react-native: "*"
+    react-native-element-dropdown: "*"
     react-native-feather: "*"
     react-native-gesture-handler: "*"
     react-native-paper: "*"
