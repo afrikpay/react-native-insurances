@@ -66,7 +66,7 @@ export default function Products() {
                                 width: width / 2-25,
                                 borderWidth: 0.05,
                                 borderRadius: 8, 
-                                height: 220,
+                                height: 235,
                                 paddingVertical: 15,
                                 backgroundColor: COLORS.white, // Ajout d'une couleur de fond pour l'ombre
                                 shadowColor: COLORS.dark, // Couleur de l'ombre
@@ -89,15 +89,15 @@ export default function Products() {
                                 />
                                 <View style={{ width: '100%', borderBottomWidth: 0.2001, borderBottomColor: COLORS.primary, marginVertical: 10 }} />
                                 <View style={{ gap: 8, paddingHorizontal: 15 }}>
-                                    <Text numberOfLines={2} ellipsizeMode="tail" style={{ fontWeight: '400', fontSize: 14, }}>Assurance santé classique</Text>
-                                    <Text numberOfLines={3} ellipsizeMode="tail" style={{ fontSize: 12, color: COLORS.gray }}>Essentielle pour couvrir les frais médicaux en cas de maladie ou d'accident.</Text>
+                                    <Text numberOfLines={2} ellipsizeMode="tail" style={{ fontWeight: '500' }}>Assurance santé classique</Text>
+                                    <Text numberOfLines={3} ellipsizeMode="tail" style={{ color: COLORS.gray }}>Essentielle pour couvrir les frais médicaux en cas de maladie ou d'accident.</Text>
                                     <Pressable
                                         onPress={() => { Navigation.navigate(ROUTES.ASSUREURS, { id: item }) }}
-                                        style= {{ paddingVertical: 5, paddingHorizontal: 10, 
+                                        style= {{ paddingVertical: 8, paddingHorizontal: 10, 
                                         borderColor: COLORS.primary, borderWidth: 0.3, 
                                         marginTop: 10,
                                         backgroundColor: COLORS.white, borderRadius: 100 }}>
-                                        <Text style={{ color: COLORS.primary, fontWeight: "bold", textAlign: "center", fontSize: 10,}}>Voir les formules</Text>
+                                        <Text style={{ color: COLORS.primary, fontWeight: "bold", textAlign: "center", fontSize: 12,}}>Voir les formules</Text>
                                     </Pressable>
                                 </View>
                             </View>

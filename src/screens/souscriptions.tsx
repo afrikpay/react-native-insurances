@@ -6,105 +6,165 @@ import { COLORS } from '../constants/Colors'
 import { ROUTES } from '../constants/Routes'
 import { height, width } from '../constants/size'
 import Navigation from '../services/Navigation'
+import { Button, Modal, Portal } from 'react-native-paper'
+import { RadioButton } from 'react-native-paper';
+import RNPickerSelect from 'react-native-picker-select';
 
 export default function Souscriptions() {
     const [search, setSearch] = useState('')
-        return (
-            <SafeAreaView style={{flex: 1, 
-                height: height, width: width,  
-                backgroundColor: COLORS.white,
-                flexDirection: 'column',
-                gap: 20
-            }}>
-                <View style={{ backgroundColor: COLORS.white, paddingHorizontal: 20, paddingTop: 35, gap: 30}}>
-                    {/** Navigation bar  */}
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10}}>
-                        <TouchableOpacity onPress={() => { Navigation.back() }}>
-                            <Icon.ChevronLeft color={COLORS.dark} strokeWidth={1.5} width={30} height={30} />
-                        </TouchableOpacity>
-                        <Text style={{ fontSize: 18,textAlign: 'center', flex: 1, fontWeight: 'bold' }}>Mes souscriptions</Text>
-                        <TouchableOpacity onPress={() => { }}>
-                            <Icon.Filter color={COLORS.primary} strokeWidth={1.5} width={25} height={25} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ height: 45 }}>
-                        {/** Search input */}
-                        <TextInput
-                            style={{ 
-                                flex: 1,
-                                fontSize: 16,
-                                borderWidth: 0.6,
-                                borderColor: COLORS.primary,
-                                paddingHorizontal: 15,
-                                borderRadius: 100,
-                                height: 50
-                            }}
-                            placeholder={'Rechercher une souscription'}
-                            returnKeyType="next"
-                            underlineColorAndroid="transparent"
-                            onChangeText={setSearch}
-                            // onFocus={onFocus}
-                            value={search}
-                            placeholderTextColor={'#9D9D9D'}
-                            secureTextEntry={false}
-                            keyboardType={'default'}
-                            multiline={false}
-                            editable={true}
-                        />
-                        <TouchableOpacity style={{ marginRight: 4, position: 'absolute', top: 12, right: 10}} onPress={() => { console.log(search); }}>
-                            <Icon.Search color={COLORS.light_blue} strokeWidth={2} width={25} height={25} />
-                        </TouchableOpacity>
-                    </View>
+    const [visible, setVisible] = useState(false);
+    const [value, setValue] = useState('actif');
+
+    const showModal = () => setVisible(true);
+    const hideModal = () => setVisible(false);
+
+    const [selectedItem, setSelectedItem] = useState(null);
+    const items = [
+        { label: 'Option 1', value: 'option1' },
+        { label: 'Option 2', value: 'option2' },
+        { label: 'Option 3', value: 'option3' },
+    ];
+    
+    return (
+        <SafeAreaView style={{flex: 1, 
+            height: height, width: width,  
+            backgroundColor: COLORS.white,
+            flexDirection: 'column',
+            gap: 20
+        }}>
+            <View style={{ backgroundColor: COLORS.white, paddingHorizontal: 20, paddingTop: 35, gap: 30}}>
+                {/** Navigation bar  */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10}}>
+                    <TouchableOpacity onPress={() => { Navigation.back() }}>
+                        <Icon.ChevronLeft color={COLORS.dark} strokeWidth={1.5} width={30} height={30} />
+                    </TouchableOpacity>
+                    <Text style={{ fontSize: 18,textAlign: 'center', flex: 1, fontWeight: 'bold' }}>Mes souscriptions</Text>
+                    <TouchableOpacity onPress={showModal}>
+                        <Icon.Filter color={COLORS.primary} strokeWidth={1.5} width={25} height={25} />
+                    </TouchableOpacity>
                 </View>
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6'}}>   
-                    <View style={{display: 'flex',
-                        flexWrap: 'wrap',
-                        flexDirection: 'row',
-                        gap: 10}}>
-                        {
-                            [0,1,2,3,4,5,6,7,8,9,].map((item) => (
-                                <Box key={item} width={'100%'} padding={18}>
-                                    <Pressable onPress={() => { Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS) }}>
-                                        <View>
-                                            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', gap: 10 }}>
-                                                <View style={{ flexDirection: 'column' }}>
-                                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 20 }}>
-                                                        <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Premium Gold</Text>
-                                                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                                                            <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
-                                                            <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
-                                                        </View>
+                <View style={{ height: 45 }}>
+                    {/** Search input */}
+                    <TextInput
+                        style={{ 
+                            flex: 1,
+                            fontSize: 16,
+                            borderWidth: 0.6,
+                            borderColor: COLORS.primary,
+                            paddingHorizontal: 15,
+                            borderRadius: 100,
+                            height: 50
+                        }}
+                        placeholder={'Rechercher une souscription'}
+                        returnKeyType="next"
+                        underlineColorAndroid="transparent"
+                        onChangeText={setSearch}
+                        // onFocus={onFocus}
+                        value={search}
+                        placeholderTextColor={'#9D9D9D'}
+                        secureTextEntry={false}
+                        keyboardType={'default'}
+                        multiline={false}
+                        editable={true}
+                    />
+                    <TouchableOpacity style={{ marginRight: 4, position: 'absolute', top: 12, right: 10}} onPress={() => { console.log(search); }}>
+                        <Icon.Search color={COLORS.light_blue} strokeWidth={2} width={25} height={25} />
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6'}}>   
+                <View style={{display: 'flex',
+                    flexWrap: 'wrap',
+                    flexDirection: 'row',
+                    gap: 10}}>
+                    {
+                        [0,1,2,3,4,5,6,7,8,9,].map((item) => (
+                            <Box key={item} width={'100%'} padding={18}>
+                                <Pressable onPress={() => { Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS) }}>
+                                    <View>
+                                        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', gap: 10 }}>
+                                            <View style={{ flexDirection: 'column' }}>
+                                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 20 }}>
+                                                    <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Premium Gold</Text>
+                                                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                                                        <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
+                                                        <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
                                                     </View>
-                                                    <Text>Assurance santé classique</Text>
                                                 </View>
-                                                <Image
-                                                    alt="Image de l'assurance santé"
-                                                    source={require("../assets/logo.png")}
-                                                    style={{
-                                                        height: 50,
-                                                        width: 50
-                                                    }}
-                                                />
+                                                <Text>Assurance santé classique</Text>
                                             </View>
-                                            <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
-                                                <Text style={{ fontSize: 12}}>Couverture jusqu’a 1 500 000 XAF</Text>
-                                                <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
-                                                    <Text style={{ fontWeight: 'bold'}}>107 250 </Text>
-                                                    <Text style={{ fontSize: 10, opacity: 0.7}}>XAF/mois</Text>
-                                                </View>
-                                            </View>
-                                            <Text style={{ fontSize: 10, opacity: 0.7, marginTop: 5}}>Validité: 15/05/2025</Text>
+                                            <Image
+                                                alt="Image de l'assurance santé"
+                                                source={require("../assets/logo.png")}
+                                                style={{
+                                                    height: 50,
+                                                    width: 50
+                                                }}
+                                            />
                                         </View>
-                                    </Pressable>
-                                </Box>
-                            ))
-                        }
+                                        <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+                                            <Text style={{ fontSize: 12}}>Couverture jusqu’a 1 500 000 XAF</Text>
+                                            <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
+                                                <Text style={{ fontWeight: 'bold'}}>107 250 </Text>
+                                                <Text style={{ fontSize: 10, opacity: 0.7}}>XAF/mois</Text>
+                                            </View>
+                                        </View>
+                                        <Text style={{ fontSize: 10, opacity: 0.7, marginTop: 5}}>Validité: 15/05/2025</Text>
+                                    </View>
+                                </Pressable>
+                            </Box>
+                        ))
+                    }
+                </View>
+                <View style={{ height: 40}}/>
+                
+            </ScrollView>
+
+            {/** Modal de filtre des souscriptions */}
+            <Portal>
+                <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{backgroundColor: 'white', padding: 20, width: '90%', marginLeft: '5%', borderRadius: 10}}>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold' }} >Définissez vos options de filtre</Text>
+                    <View style={{ borderBottomWidth: 0.6, borderBottomColor: 'gray', opacity: 0.3, marginVertical: 10}}></View>
+                    <Text style={{ fontSize: 12, fontWeight: 'bold' }} >Statut</Text>
+                    <RadioButton.Group onValueChange={newValue => setValue(newValue)} value={value}>
+                        <View style={{ flexDirection: 'row', gap: 10, marginTop: 5}}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                                <RadioButton value="actif" />
+                                <Text>Actif</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                                <RadioButton value="inactif" />
+                                <Text>Inactif</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                                <RadioButton value="attente" />
+                                <Text>En attente</Text>
+                            </View>
+                        </View>
+                    </RadioButton.Group>
+                    <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 4 }} >Produit</Text>
+                    <View style={{ marginTop: 20}}>
+                        <Text>Select an option:</Text>
+                        <RNPickerSelect
+                            items={items}
+                            onValueChange={(value) => setSelectedItem(value)}
+                            value={selectedItem}
+                            placeholder={{ label: 'Select an item...', value: null }}
+                        />
+                        {/** Display selected item
+                            {selectedItem && <Text>Selected: {selectedItem}</Text>}
+                        */}
                     </View>
-                    <View style={{ height: 40}}/>
-                    
-                </ScrollView>
-          </SafeAreaView>
+                    <View style={{ marginTop: 40 }}>
+                        <Button style={{  backgroundColor: COLORS.primary }} mode="contained" onPress={() => console.log('Pressed')}>
+                            Appliquer
+                        </Button>
+                    </View>
+
+                </Modal>
+            </Portal> 
+        </SafeAreaView>
     )
 }
