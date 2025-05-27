@@ -6,9 +6,16 @@ import { Box } from '../components/ui/Box'
 import { COLORS } from '../constants/Colors'
 import { height, width } from '../constants/size'
 import Navigation from '../services/Navigation'
+import { Button, Modal, Portal, TextInput } from 'react-native-paper'
+import DropdownComponent from '../components/ui/DropdownComponent'
 
 
 export default function DetailSouscription() {
+    const [visible, setVisible] = useState(false);
+    const showModal = () => setVisible(true);
+    const hideModal = () => setVisible(false);
+
+    const [text, setText] = useState("");
     
     return (
         <View style={{flex: 1, 
@@ -28,7 +35,7 @@ export default function DetailSouscription() {
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Text style={{ fontSize: 22, fontWeight: 'bold', color: COLORS.primary }}>Premium Gold</Text>
-                    <TouchableOpacity onPress={() => { }} style={{
+                    <TouchableOpacity onPress={() => { showModal() }} style={{
                         width: 40, height: 40,
                         borderRadius: 20, backgroundColor: COLORS.primary,
                         justifyContent: 'center', alignItems: 'center'
@@ -101,6 +108,87 @@ export default function DetailSouscription() {
                     }}
                 />
             </ScrollView>
+
+            {/** Modal de filtre des souscriptions */}
+            <Portal>
+                <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{backgroundColor: 'white', padding: 20, width: '90%', marginLeft: '5%', borderRadius: 10}}>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Aide souscription</Text>
+                    <View style={{ borderBottomWidth: 0.6, borderBottomColor: 'gray', opacity: 0.3, marginVertical: 10}}></View>
+                    <Text style={{ lineHeight: 20 }} >Veuillez nous decrire votre préoccupation. Un de nos assistants vous prendra en charge dans de brefs délais.</Text>
+                           
+                    <View style={{ flexDirection: 'column', marginVertical: 20 }}>
+                        <Text style={{ fontWeight: 'bold' }} >Type assurance</Text>
+                        <DropdownComponent
+                            label="Sélectionner un type "
+                            placeholder="Sélectionner un type"
+                            data={
+                                [
+                                    { label: 'Assurance santé', value: 'assurance_sante' },
+                                    { label: 'Assurance auto', value: 'assurance_auto' },
+                                    { label: 'Assurance habitation', value: 'assurance_habitation' },
+                                    { label: 'Assurance voyage', value: 'assurance_voyage' },
+                                    { label: 'Assurance vie', value: 'assurance_vie' },
+                                    { label: 'Assurance responsabilité civile', value: 'assurance_responsabilite_civile' },
+                                    { label: 'Assurance scolaire', value: 'assurance_scolaire' },
+                                    { label: 'Assurance animaux de compagnie', value: 'assurance_animaux_de_compagnie' },
+                                    { label: 'Assurance professionnelle', value: 'assurance_professionnelle' },
+                                ]
+                            }
+                            onChangeValue={(item) => console.log(item)}
+                        />
+                    </View>
+                    <View style={{ flexDirection: 'column', marginBottom: 20, marginTop: 10 }}>
+                        <Text style={{  fontWeight: 'bold', marginTop: 25 }}>Formule</Text>
+                        <DropdownComponent
+                            label="Sélectionner une formule"
+                            placeholder="Sélectionner une formule"
+                            data={
+                                [
+                                    { label: 'Formule de base', value: 'formule_de_base' },
+                                    { label: 'Formule standard', value: 'formule_standard' },
+                                    { label: 'Formule premium', value: 'formule_premium' },
+                                    { label: 'Formule gold', value: 'formule_gold' },
+                                    { label: 'Formule platinum', value: 'formule_platinum' },
+                                    { label: 'Formule silver', value: 'formule_silver' },
+                                    { label: 'Formule bronze', value: 'formule_bronze' },
+                                    { label: 'Formule familiale', value: 'formule_familiale' },
+                                    { label: 'Formule individuelle', value: 'formule_individuelle' },
+                                    { label: 'Formule entreprise', value: 'formule_entreprise' },
+                                ]
+                            }
+                            onChangeValue={(item) => console.log(item)}
+                        />
+                    </View>
+                    <View style={{ marginTop: 35, height: 140}}>
+                        <Text style={{  fontWeight: 'bold', marginBottom: 10 }}>Votre message *</Text>
+                        <TextInput
+                            style={{ flex: 1, 
+                                borderWidth: 1,
+                                textDecorationColor: COLORS.white, 
+                                backgroundColor: COLORS.white,
+                                borderColor: COLORS.light_gray,
+                                borderRadius: 4,
+                            }}
+                            underlineColor='transparent'
+                            activeUnderlineColor='transparent'
+                            placeholder={'Saisir le message ici...'}
+                            returnKeyType="next"
+                            underlineColorAndroid="transparent"
+                            onChangeText={setText}
+                            value={text}
+                            placeholderTextColor={'#9D9D9D'}
+                            multiline={true}
+                            numberOfLines={10}
+                        />
+                    </View>
+                    
+                    <View style={{ marginTop: 40 }}>
+                        <Button style={{  backgroundColor: COLORS.primary }} mode="contained" onPress={() => console.log('Pressed')}>
+                            Soumettre
+                        </Button>
+                    </View>
+                </Modal>
+            </Portal> 
         </View>
   )
 }

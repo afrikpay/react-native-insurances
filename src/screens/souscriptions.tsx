@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Image, Pressable, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { Image, Platform, Pressable, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import * as Icon from "react-native-feather"
 import { Box } from '../components/ui/Box'
 import { COLORS } from '../constants/Colors'
@@ -8,8 +9,10 @@ import { height, width } from '../constants/size'
 import Navigation from '../services/Navigation'
 import { Button, Modal, Portal } from 'react-native-paper'
 import { RadioButton } from 'react-native-paper';
-import RNPickerSelect from 'react-native-picker-select';
 import DropdownComponent from '../components/ui/DropdownComponent'
+import moment from 'moment'
+
+const pattern = 'YYYY/MM/DD'//  HH:mm:ss'
 
 export default function Souscriptions() {
     const [search, setSearch] = useState('')
@@ -19,12 +22,27 @@ export default function Souscriptions() {
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
 
-    const [selectedItem, setSelectedItem] = useState(null);
-    const items = [
-        { label: 'Option 1', value: 'option1' },
-        { label: 'Option 2', value: 'option2' },
-        { label: 'Option 3', value: 'option3' },
-    ];
+    const [startDate, setStartDate] = useState(new Date())
+    const [endDate, setEndDate] = useState(new Date())
+
+    const [mode, setMode] = useState<"date" | "countdown" | "time" | "datetime">("date")
+    const [showStartDatePicker, setShowStartDatePicker] = useState(false)
+    const [showEndDatePicker, setShowEndDatePicker] = useState(false)
+    const [selectedStartDate, setSelectedStartDate] = useState(moment(startDate).format(pattern))
+    const [selectedEndDate, setSelectedEndDate] = useState(moment(endDate).format(pattern))
+
+    const onChangeStart = (event: any, seletedDate: any) => {
+        const currentDate = seletedDate || startDate
+        setShowStartDatePicker(Platform.OS === 'ios')
+        setStartDate(currentDate)
+        setSelectedStartDate(moment(currentDate).format(pattern))
+    }
+    const onChangeEnd = (event: any, seletedDate: any) => {
+        const currentDate = seletedDate || endDate
+        setShowEndDatePicker(Platform.OS === 'ios')
+        setEndDate(currentDate)
+        setSelectedEndDate(moment(currentDate).format(pattern))
+    }
     
     return (
         <SafeAreaView style={{flex: 1, 
@@ -146,7 +164,7 @@ export default function Souscriptions() {
                         </View>
                     </RadioButton.Group>        
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10, marginTop: 20 }}>
-                        <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 25 }} >Produit</Text>
+                        <Text style={{ fontWeight: 'bold', marginTop: 25 }} >Produit</Text>
                         <View style={{ flex: 1 }}>
                             <DropdownComponent
                                 label="Sélectionner un produit"
@@ -169,7 +187,7 @@ export default function Souscriptions() {
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10, marginTop: 20, }}>
-                        <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 25 }}>Formule</Text>
+                        <Text style={{  fontWeight: 'bold', marginTop: 25 }}>Formule</Text>
                         <View style={{ flex: 1 }}>
                             <DropdownComponent
                                 label="Sélectionner une formule"
@@ -191,6 +209,66 @@ export default function Souscriptions() {
                                 onChangeValue={(item) => console.log(item)}
                             />
                         </View>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10}}>
+                        <Text style={{ fontWeight: 'bold', marginTop: 25 }}>Période</Text>
+                    </View>
+                    <View style={{
+                        flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Text style={{ fontSize: 12, marginTop: 25 }}>Entre: </Text>
+                        <TouchableOpacity onPress={() => { setShowStartDatePicker(true); setMode('date'); }} style={{ 
+                            paddingHorizontal: 15, 
+                            paddingVertical: 10, 
+                            marginTop: 10,
+                            flexDirection: 'row',
+                            width: 'auto',
+                            alignItems: 'center',
+                            gap: 10
+                        }}>
+                            <Icon.Calendar style={{ width: 20, height: 20, color: COLORS.gray }} />
+                            <Text style={{ color: COLORS.dark }}>{selectedStartDate}</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{
+                        flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Text style={{ fontSize: 12, marginTop: 25 }}>Et: </Text>
+                        <TouchableOpacity onPress={() => { setShowEndDatePicker(true); setMode('date'); }} style={{ 
+                            paddingHorizontal: 15, 
+                            paddingVertical: 10, 
+                            marginTop: 10,
+                            flexDirection: 'row',
+                            width: 'auto',
+                            alignItems: 'center',
+                            gap: 10
+                        }}>
+                            <Icon.Calendar style={{ width: 20, height: 20, color: COLORS.gray }} />
+                            <Text style={{ color: COLORS.dark }}>{selectedEndDate} </Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{}}>
+                        {
+                            showStartDatePicker &&
+                            <DateTimePicker
+                                testID="dateTimePicker"
+                                value={startDate}
+                                mode={mode}
+                                is24Hour={true}
+                                display="default"
+                                onChange={onChangeStart}
+                            />
+                        }
+                        {
+                            showEndDatePicker &&
+                            <DateTimePicker
+                                testID="dateTimePicker"
+                                value={endDate}
+                                mode={mode}
+                                is24Hour={true}
+                                display="default"
+                                onChange={onChangeEnd}
+                            />
+                        }
+
                     </View>
                     <View style={{ marginTop: 40 }}>
                         <Button style={{  backgroundColor: COLORS.primary }} mode="contained" onPress={() => console.log('Pressed')}>

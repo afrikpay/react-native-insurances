@@ -3189,6 +3189,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-community/datetimepicker@npm:^8.4.1":
+  version: 8.4.1
+  resolution: "@react-native-community/datetimepicker@npm:8.4.1"
+  dependencies:
+    invariant: ^2.2.4
+  peerDependencies:
+    expo: ">=52.0.0"
+    react: "*"
+    react-native: "*"
+    react-native-windows: "*"
+  peerDependenciesMeta:
+    expo:
+      optional: true
+    react-native-windows:
+      optional: true
+  checksum: 5a0e86a44492ad99f34d20556a707c0cf2961df2164964a3a8b96a125277e23fe3269f5dce0c6c8a4f0b68278ab180ca45cc5d89815ee5fa79bbaeec68017e2d
+  languageName: node
+  linkType: hard
+
 "@react-native-masked-view/masked-view@npm:^0.3.2":
   version: 0.3.2
   resolution: "@react-native-masked-view/masked-view@npm:0.3.2"
@@ -9587,20 +9606,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.isequal@npm:^4.5.0":
-  version: 4.5.0
-  resolution: "lodash.isequal@npm:4.5.0"
-  checksum: da27515dc5230eb1140ba65ff8de3613649620e8656b19a6270afe4866b7bd461d9ba2ac8a48dcc57f7adac4ee80e1de9f965d89d4d81a0ad52bb3eec2609644
-  languageName: node
-  linkType: hard
-
-"lodash.isobject@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "lodash.isobject@npm:3.0.2"
-  checksum: 6c1667cbc4494d0a13a3617a4b23278d6d02dac520311f2bbb43f16f2cf71d2e6eb9dec8057315b77459df4890c756a256a087d3f4baa44a79ab5d6c968b060e
-  languageName: node
-  linkType: hard
-
 "lodash.isplainobject@npm:^4.0.6":
   version: 4.0.6
   resolution: "lodash.isplainobject@npm:4.0.6"
@@ -10583,6 +10588,13 @@ __metadata:
   bin:
     mkdirp: dist/cjs/src/bin.js
   checksum: 972deb188e8fb55547f1e58d66bd6b4a3623bf0c7137802582602d73e6480c1c2268dcbafbfb1be466e00cc7e56ac514d7fd9334b7cf33e3e2ab547c16f83a8d
+  languageName: node
+  linkType: hard
+
+"moment@npm:^2.30.1":
+  version: 2.30.1
+  resolution: "moment@npm:2.30.1"
+  checksum: 859236bab1e88c3e5802afcf797fc801acdbd0ee509d34ea3df6eea21eb6bcc2abd4ae4e4e64aa7c986aa6cba563c6e62806218e6412a765010712e5fa121ba6
   languageName: node
   linkType: hard
 
@@ -11911,6 +11923,7 @@ __metadata:
   dependencies:
     "@babel/core": ^7.20.0
     "@expo/metro-runtime": ~5.0.4
+    "@react-native-community/datetimepicker": ^8.4.1
     "@react-native-masked-view/masked-view": ^0.3.2
     "@react-native-picker/picker": ^2.11.0
     "@react-navigation/bottom-tabs": ^7.3.13
@@ -11921,6 +11934,7 @@ __metadata:
     expo-localization: ^16.1.5
     expo-status-bar: ~2.2.3
     intl-messageformat: ^10.7.16
+    moment: ^2.30.1
     react: 19.0.0
     react-dom: 19.0.0
     react-native: 0.79.2
@@ -11929,7 +11943,6 @@ __metadata:
     react-native-feather: ^1.1.2
     react-native-gesture-handler: ^2.25.0
     react-native-paper: ^5.14.5
-    react-native-picker-select: ^9.3.1
     react-native-render-html: ^6.3.4
     react-native-safe-area-context: ^5.4.0
     react-native-screens: ^4.10.0
@@ -11947,6 +11960,7 @@ __metadata:
     "@eslint/eslintrc": ^3.3.0
     "@eslint/js": ^9.22.0
     "@evilmartians/lefthook": ^1.5.0
+    "@react-native-community/datetimepicker": ^8.4.1
     "@react-native-masked-view/masked-view": ^0.3.2
     "@react-native/eslint-config": ^0.78.0
     "@react-navigation/bottom-tabs": ^7.3.13
@@ -11965,6 +11979,7 @@ __metadata:
     expo-localization: ^16.1.5
     intl-messageformat: ^10.7.16
     jest: ^29.7.0
+    moment: ^2.30.1
     prettier: ^3.0.3
     react: 19.0.0
     react-native: 0.79.2
@@ -11973,7 +11988,6 @@ __metadata:
     react-native-feather: ^1.1.2
     react-native-gesture-handler: ^2.25.0
     react-native-paper: ^5.14.5
-    react-native-picker-select: ^9.3.1
     react-native-render-html: ^6.3.4
     react-native-safe-area-context: ^5.4.0
     react-native-screens: ^4.10.0
@@ -11981,19 +11995,20 @@ __metadata:
     release-it: ^19.0.2
     typescript: ^5.2.2
   peerDependencies:
+    "@react-native-community/datetimepicker": "*"
     "@react-native-masked-view/masked-view": "*"
     "@react-navigation/bottom-tabs": "*"
     "@react-navigation/native": "*"
     "@react-navigation/stack": "*"
     expo-localization: "*"
     intl-messageformat: "*"
+    moment: "*"
     react: "*"
     react-native: "*"
     react-native-element-dropdown: "*"
     react-native-feather: "*"
     react-native-gesture-handler: "*"
     react-native-paper: "*"
-    react-native-picker-select: "*"
     react-native-render-html: "*"
     react-native-safe-area-context: "*"
     react-native-screens: "*"
@@ -12022,18 +12037,6 @@ __metadata:
     react-native: "*"
     react-native-safe-area-context: "*"
   checksum: f986937ebeb2cdea338d384dfc7814d2c0dbe3e8cd3645ce720832b78f588eccf3fc490bf1afb942a9d6046cd842984c011316c4d9c2fabf59a38ae1a47fccb3
-  languageName: node
-  linkType: hard
-
-"react-native-picker-select@npm:^9.3.1":
-  version: 9.3.1
-  resolution: "react-native-picker-select@npm:9.3.1"
-  dependencies:
-    lodash.isequal: ^4.5.0
-    lodash.isobject: ^3.0.2
-  peerDependencies:
-    "@react-native-picker/picker": ^2.4.0
-  checksum: ba03c79bff736f225f6cf06a971a5058739ef27c26d2f66edf31e80250fc40be29085d4b15a35339c31b4d4830d362594f8d5933a25a0f2f1f9d702189e2d611
   languageName: node
   linkType: hard
 
