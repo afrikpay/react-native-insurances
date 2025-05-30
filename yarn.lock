@@ -48,32 +48,32 @@ __metadata:
   linkType: hard
 
 "@babel/compat-data@npm:^7.22.6, @babel/compat-data@npm:^7.27.2":
-  version: 7.27.2
-  resolution: "@babel/compat-data@npm:7.27.2"
-  checksum: 8d4066324e5f1275adc43f2e22110cac29ee09fe926260c43f0eaa432c148859367df4152574a28ee02dbb3e3d11dd57145eed345d49cc07f9b6e11fee06535f
+  version: 7.27.3
+  resolution: "@babel/compat-data@npm:7.27.3"
+  checksum: c6087989612312de697b21e6855d087c8b7376e5cf47e05a2a990fc67318e439e117ae2d977d317e5912e0323a3da13d6aca88348ef3c1218b0c74cc58b0a0cf
   languageName: node
   linkType: hard
 
 "@babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.20.0, @babel/core@npm:^7.23.9, @babel/core@npm:^7.25.2":
-  version: 7.27.1
-  resolution: "@babel/core@npm:7.27.1"
+  version: 7.27.3
+  resolution: "@babel/core@npm:7.27.3"
   dependencies:
     "@ampproject/remapping": ^2.2.0
     "@babel/code-frame": ^7.27.1
-    "@babel/generator": ^7.27.1
-    "@babel/helper-compilation-targets": ^7.27.1
-    "@babel/helper-module-transforms": ^7.27.1
-    "@babel/helpers": ^7.27.1
-    "@babel/parser": ^7.27.1
-    "@babel/template": ^7.27.1
-    "@babel/traverse": ^7.27.1
-    "@babel/types": ^7.27.1
+    "@babel/generator": ^7.27.3
+    "@babel/helper-compilation-targets": ^7.27.2
+    "@babel/helper-module-transforms": ^7.27.3
+    "@babel/helpers": ^7.27.3
+    "@babel/parser": ^7.27.3
+    "@babel/template": ^7.27.2
+    "@babel/traverse": ^7.27.3
+    "@babel/types": ^7.27.3
     convert-source-map: ^2.0.0
     debug: ^4.1.0
     gensync: ^1.0.0-beta.2
     json5: ^2.2.3
     semver: ^6.3.1
-  checksum: fce205f9eea387ed8a9c6de64e5a8f50256359bfc8f1352c576c843b4c148a6c2ef187cfe8d729453e520fdcc997f65920aca6cb8911fb25dfd2286966b9b914
+  checksum: d70d5e4e99d87d07e9dd51ef20f6558e2145562c6bab9db4b26a9d1ca3fe96db87f3b0385d85df6e6582faf623e4bec4150a417095fdb598956dbd8608cd6270
   languageName: node
   linkType: hard
 
@@ -91,25 +91,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/generator@npm:^7.20.0, @babel/generator@npm:^7.20.5, @babel/generator@npm:^7.25.0, @babel/generator@npm:^7.27.1, @babel/generator@npm:^7.7.2":
-  version: 7.27.1
-  resolution: "@babel/generator@npm:7.27.1"
+"@babel/generator@npm:^7.20.0, @babel/generator@npm:^7.20.5, @babel/generator@npm:^7.25.0, @babel/generator@npm:^7.27.3, @babel/generator@npm:^7.7.2":
+  version: 7.27.3
+  resolution: "@babel/generator@npm:7.27.3"
   dependencies:
-    "@babel/parser": ^7.27.1
-    "@babel/types": ^7.27.1
+    "@babel/parser": ^7.27.3
+    "@babel/types": ^7.27.3
     "@jridgewell/gen-mapping": ^0.3.5
     "@jridgewell/trace-mapping": ^0.3.25
     jsesc: ^3.0.2
-  checksum: d5e220eb20aca1d93aef85c4c716237f84c5aab7d3ed8dfeb7060dcd73d20c593a687fe74cfb6d3dc1604ef9faff2ca24e6cfdb1af18e03e3a5f9f63a04c0bdc
+  checksum: c0b1b399ff62fa0f1903679ab2b088fd4312c33154c0ae78228094c196ecf53ce8e525b8f5e537ac3117ff9a49cdf7b3640f129114908dfadc6541853f3747a2
   languageName: node
   linkType: hard
 
 "@babel/helper-annotate-as-pure@npm:^7.27.1":
-  version: 7.27.1
-  resolution: "@babel/helper-annotate-as-pure@npm:7.27.1"
+  version: 7.27.3
+  resolution: "@babel/helper-annotate-as-pure@npm:7.27.3"
   dependencies:
-    "@babel/types": ^7.27.1
-  checksum: 3f8e4d591458d6c0621a3d670f8798b8895580214287390126e3e621ddf3df0bd07cbcc9500c2671b9ec10162c2f9feb1194da5cf039d40df8cb69d181fc0cd8
+    "@babel/types": ^7.27.3
+  checksum: 63863a5c936ef82b546ca289c9d1b18fabfc24da5c4ee382830b124e2e79b68d626207febc8d4bffc720f50b2ee65691d7d12cc0308679dee2cd6bdc926b7190
   languageName: node
   linkType: hard
 
@@ -191,16 +191,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-module-transforms@npm:^7.27.1":
-  version: 7.27.1
-  resolution: "@babel/helper-module-transforms@npm:7.27.1"
+"@babel/helper-module-transforms@npm:^7.27.1, @babel/helper-module-transforms@npm:^7.27.3":
+  version: 7.27.3
+  resolution: "@babel/helper-module-transforms@npm:7.27.3"
   dependencies:
     "@babel/helper-module-imports": ^7.27.1
     "@babel/helper-validator-identifier": ^7.27.1
-    "@babel/traverse": ^7.27.1
+    "@babel/traverse": ^7.27.3
   peerDependencies:
     "@babel/core": ^7.0.0
-  checksum: 816dd166f0a850616d01ca198715d78fef052a834dc155dd57e4405d702f288071077be3ed58e13c86ac9e63ca560e876cc6d70cf5ef0f1f62bd9321084d4c06
+  checksum: c611d42d3cb7ba23b1a864fcf8d6cde0dc99e876ca1c9a67e4d7919a70706ded4aaa45420de2bf7f7ea171e078e59f0edcfa15a56d74b9485e151b95b93b946e
   languageName: node
   linkType: hard
 
@@ -288,13 +288,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helpers@npm:^7.27.1":
-  version: 7.27.1
-  resolution: "@babel/helpers@npm:7.27.1"
+"@babel/helpers@npm:^7.27.3":
+  version: 7.27.3
+  resolution: "@babel/helpers@npm:7.27.3"
   dependencies:
-    "@babel/template": ^7.27.1
-    "@babel/types": ^7.27.1
-  checksum: 19ede1e996cbd295fb3a881ff70bc0f91c5133ebac256441e9ecd69dfba89456e75cf7ecf06cd276c638a4de7bd6eff21151961c78038d0b23d94b4d23415ee4
+    "@babel/template": ^7.27.2
+    "@babel/types": ^7.27.3
+  checksum: c572acf07cb4248a67eca76c9bfa6d4f120594e0c73ae6b014159509583981a519935f8997f611896272a1d38dc46dbb8e81f645ab52ad82da78a930b2dd4e8c
   languageName: node
   linkType: hard
 
@@ -310,14 +310,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.0, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.25.3, @babel/parser@npm:^7.27.1, @babel/parser@npm:^7.27.2":
-  version: 7.27.2
-  resolution: "@babel/parser@npm:7.27.2"
+"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.0, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.25.3, @babel/parser@npm:^7.27.2, @babel/parser@npm:^7.27.3":
+  version: 7.27.3
+  resolution: "@babel/parser@npm:7.27.3"
   dependencies:
-    "@babel/types": ^7.27.1
+    "@babel/types": ^7.27.3
   bin:
     parser: ./bin/babel-parser.js
-  checksum: 1ac70a75028f1cc10eefb10ed2d83cf700ca3e1ddb4cf556a003fc5c4ca53ae83350bbb8065020fcc70d476fcf7bf1c17191b72384f719614ae18397142289cf
+  checksum: aef2cfd154e47a639615d173d3f05a8ce8007fcc5a0ade013c953adee71a8bc19465a147e060cc67388fd748b62a3b42bf3b5cc3e83d4f8add526b3b722e2231
   languageName: node
   linkType: hard
 
@@ -716,13 +716,13 @@ __metadata:
   linkType: hard
 
 "@babel/plugin-transform-block-scoping@npm:^7.25.0, @babel/plugin-transform-block-scoping@npm:^7.27.1":
-  version: 7.27.1
-  resolution: "@babel/plugin-transform-block-scoping@npm:7.27.1"
+  version: 7.27.3
+  resolution: "@babel/plugin-transform-block-scoping@npm:7.27.3"
   dependencies:
     "@babel/helper-plugin-utils": ^7.27.1
   peerDependencies:
     "@babel/core": ^7.0.0-0
-  checksum: 490773ee111fd298d74bd0ba454c941ae23a39db5cd08bf4258997f44f7584399fc4214a7c3816ee70f0273c263fe2ea4e11bb07939e57845702ba05258a9cb0
+  checksum: 03e85d9a5578e4a22618ae9b010cdbb883b8fea100007f81e919cbd37704d6b237ce657ab9320d216c84a8212239662252d5eb60f2d45520346c8722050e1624
   languageName: node
   linkType: hard
 
@@ -778,14 +778,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-destructuring@npm:^7.24.8, @babel/plugin-transform-destructuring@npm:^7.27.1":
-  version: 7.27.1
-  resolution: "@babel/plugin-transform-destructuring@npm:7.27.1"
+"@babel/plugin-transform-destructuring@npm:^7.24.8, @babel/plugin-transform-destructuring@npm:^7.27.1, @babel/plugin-transform-destructuring@npm:^7.27.3":
+  version: 7.27.3
+  resolution: "@babel/plugin-transform-destructuring@npm:7.27.3"
   dependencies:
     "@babel/helper-plugin-utils": ^7.27.1
   peerDependencies:
     "@babel/core": ^7.0.0-0
-  checksum: 492013fc4befd5f3554853f983b82cfa748dd2004a525f1f16a37f841ac402a51e891cac2084b03e2b89553f0e1e685cf5bf8bf9df8fed82114c580b3c567bb6
+  checksum: 1b00a609e6292a1e48104d63dd479a688e773dcf42c715f7b342ba1725ae9335d75c8569aa0518388ed359f98f0b7155fd7bb0453fbc36445e986b17e5ccaa98
   languageName: node
   linkType: hard
 
@@ -1034,16 +1034,16 @@ __metadata:
   linkType: hard
 
 "@babel/plugin-transform-object-rest-spread@npm:^7.24.7, @babel/plugin-transform-object-rest-spread@npm:^7.27.2":
-  version: 7.27.2
-  resolution: "@babel/plugin-transform-object-rest-spread@npm:7.27.2"
+  version: 7.27.3
+  resolution: "@babel/plugin-transform-object-rest-spread@npm:7.27.3"
   dependencies:
     "@babel/helper-compilation-targets": ^7.27.2
     "@babel/helper-plugin-utils": ^7.27.1
-    "@babel/plugin-transform-destructuring": ^7.27.1
+    "@babel/plugin-transform-destructuring": ^7.27.3
     "@babel/plugin-transform-parameters": ^7.27.1
   peerDependencies:
     "@babel/core": ^7.0.0-0
-  checksum: 6d518c21cddfa436029d72409aac8f680d3ba3a10eb94477112869132226498474a61218893ac9958f8bc079109af0f684d1347d5036fee8e9b477daecf2d8f3
+  checksum: 624db8badc844d3256ce9b5d062f1716f01c15ab3ed023dc971eb8083bba55e83be8dc25971b4570d2cd8979eb2c61a3b08d332bd0ec1816ee8afbf1659472bf
   languageName: node
   linkType: hard
 
@@ -1235,8 +1235,8 @@ __metadata:
   linkType: hard
 
 "@babel/plugin-transform-runtime@npm:^7.24.7":
-  version: 7.27.1
-  resolution: "@babel/plugin-transform-runtime@npm:7.27.1"
+  version: 7.27.3
+  resolution: "@babel/plugin-transform-runtime@npm:7.27.3"
   dependencies:
     "@babel/helper-module-imports": ^7.27.1
     "@babel/helper-plugin-utils": ^7.27.1
@@ -1246,7 +1246,7 @@ __metadata:
     semver: ^6.3.1
   peerDependencies:
     "@babel/core": ^7.0.0-0
-  checksum: 9328060b54e430732883cac672cfd4c952c2bf2d9fb5268c675ae01f74ccb224ecdf105f5ad52b6277ad8b34b6df1e7cec6d1c02a0d17be54414265414e8ac88
+  checksum: 61b5a64e8206193b6ee30281e5e8949d9772504fb680b9fea628f4df7a80d08b1211cc1c3c2cb5d878d141af6fb1a4bb8ee8859ca7199fe8ea3999013eb17290
   languageName: node
   linkType: hard
 
@@ -1516,13 +1516,13 @@ __metadata:
   linkType: hard
 
 "@babel/runtime@npm:^7.18.6, @babel/runtime@npm:^7.20.0, @babel/runtime@npm:^7.25.0":
-  version: 7.27.1
-  resolution: "@babel/runtime@npm:7.27.1"
-  checksum: 11339838a54783e5b14e04d94d7a4d032e9965c5823f3f687e41556fa40344ae7aeb57c535720b7a74ab3e8217def7834a6f1a665ee55bbb3befede141419913
+  version: 7.27.3
+  resolution: "@babel/runtime@npm:7.27.3"
+  checksum: 4eadd745756c9de7a9bba1b2b138b8b99f34aa544cf69c7e6fd1d2a120ba6d31580e93f00657145add7a8945db8ffea5ef7fdbe18f0f0f8e82f2929cb56a0d61
   languageName: node
   linkType: hard
 
-"@babel/template@npm:^7.0.0, @babel/template@npm:^7.25.0, @babel/template@npm:^7.27.1, @babel/template@npm:^7.3.3":
+"@babel/template@npm:^7.0.0, @babel/template@npm:^7.25.0, @babel/template@npm:^7.27.1, @babel/template@npm:^7.27.2, @babel/template@npm:^7.3.3":
   version: 7.27.2
   resolution: "@babel/template@npm:7.27.2"
   dependencies:
@@ -1533,28 +1533,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/traverse--for-generate-function-map@npm:@babel/traverse@^7.25.3, @babel/traverse@npm:^7.20.0, @babel/traverse@npm:^7.25.3, @babel/traverse@npm:^7.27.1":
-  version: 7.27.1
-  resolution: "@babel/traverse@npm:7.27.1"
+"@babel/traverse--for-generate-function-map@npm:@babel/traverse@^7.25.3, @babel/traverse@npm:^7.20.0, @babel/traverse@npm:^7.25.3, @babel/traverse@npm:^7.27.1, @babel/traverse@npm:^7.27.3":
+  version: 7.27.3
+  resolution: "@babel/traverse@npm:7.27.3"
   dependencies:
     "@babel/code-frame": ^7.27.1
-    "@babel/generator": ^7.27.1
-    "@babel/parser": ^7.27.1
-    "@babel/template": ^7.27.1
-    "@babel/types": ^7.27.1
+    "@babel/generator": ^7.27.3
+    "@babel/parser": ^7.27.3
+    "@babel/template": ^7.27.2
+    "@babel/types": ^7.27.3
     debug: ^4.3.1
     globals: ^11.1.0
-  checksum: 7ea3ec36a65e734f2921f5dba6f417f5dd0c90eb44a60f6addbacbbedb44e8c82eba415a74feb7d6df58e351519b81b11b6ca3c0c7c41a3f73ebeaf6895a826c
+  checksum: 914402382921b796b740f7c90d56ba130ffd5eeda8d18dc82f1243a1a510ff21a26d5b713df08c8e8aad2ffc969ce4624cee309406d69bcee8efa350483688c9
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.0.0, @babel/types@npm:^7.20.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.25.2, @babel/types@npm:^7.27.1, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.4":
-  version: 7.27.1
-  resolution: "@babel/types@npm:7.27.1"
+"@babel/types@npm:^7.0.0, @babel/types@npm:^7.20.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.25.2, @babel/types@npm:^7.27.1, @babel/types@npm:^7.27.3, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.4":
+  version: 7.27.3
+  resolution: "@babel/types@npm:7.27.3"
   dependencies:
     "@babel/helper-string-parser": ^7.27.1
     "@babel/helper-validator-identifier": ^7.27.1
-  checksum: 357c13f37aaa2f2e2cfcdb63f986d5f7abc9f38df20182b620ace34387d2460620415770fe5856eb54d70c9f0ba2f71230d29465e789188635a948476b830ae4
+  checksum: f0d43c0231f3ebc118480e149292dcd92ea128e2650285ced99ff2e5610db2171305f59aa07406ba0cb36af8e4331a53a69576d6b0c3f3176144dd3ad514b9ae
   languageName: node
   linkType: hard
 
@@ -2345,13 +2345,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/checkbox@npm:^4.1.6":
-  version: 4.1.6
-  resolution: "@inquirer/checkbox@npm:4.1.6"
+"@inquirer/checkbox@npm:^4.1.8":
+  version: 4.1.8
+  resolution: "@inquirer/checkbox@npm:4.1.8"
   dependencies:
-    "@inquirer/core": ^10.1.11
-    "@inquirer/figures": ^1.0.11
-    "@inquirer/type": ^3.0.6
+    "@inquirer/core": ^10.1.13
+    "@inquirer/figures": ^1.0.12
+    "@inquirer/type": ^3.0.7
     ansi-escapes: ^4.3.2
     yoctocolors-cjs: ^2.1.2
   peerDependencies:
@@ -2359,31 +2359,31 @@ __metadata:
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: 98e7a1851de155572d4c477d4f2bf3e611fad032a0e8e1f273911b8135075155d4aa2dd5cae514fb61f645f4afbce65aa4d9d109741cc8362feeef01426b06cb
+  checksum: e54d936e36b411705205d29ee90b4b174de98eaaf3d71f52c88cdad5e2f89b66bb4f097fdc56a82e3a8344352299f9c66662ea693e96a015b26a3ba844239bd2
   languageName: node
   linkType: hard
 
-"@inquirer/confirm@npm:^5.1.10":
-  version: 5.1.10
-  resolution: "@inquirer/confirm@npm:5.1.10"
+"@inquirer/confirm@npm:^5.1.12":
+  version: 5.1.12
+  resolution: "@inquirer/confirm@npm:5.1.12"
   dependencies:
-    "@inquirer/core": ^10.1.11
-    "@inquirer/type": ^3.0.6
+    "@inquirer/core": ^10.1.13
+    "@inquirer/type": ^3.0.7
   peerDependencies:
     "@types/node": ">=18"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: d2972697eb14c4753745fdb6e8087d2b08bfde947e615d2380260c4430d54fdd243d78b033cc948011e41b30ac46da5d5b37ee4c19a0fa28f54cf34781a2ef99
+  checksum: 858b0ce79e0893851ad81c322b720130eae65f700db4688b53dbd3c7a0e339d3bc6a728f48f2b78fcc1cd5a1f2ea01e756a8c7d55af83b0aec0e354119ced661
   languageName: node
   linkType: hard
 
-"@inquirer/core@npm:^10.1.10, @inquirer/core@npm:^10.1.11":
-  version: 10.1.11
-  resolution: "@inquirer/core@npm:10.1.11"
+"@inquirer/core@npm:^10.1.10, @inquirer/core@npm:^10.1.13":
+  version: 10.1.13
+  resolution: "@inquirer/core@npm:10.1.13"
   dependencies:
-    "@inquirer/figures": ^1.0.11
-    "@inquirer/type": ^3.0.6
+    "@inquirer/figures": ^1.0.12
+    "@inquirer/type": ^3.0.7
     ansi-escapes: ^4.3.2
     cli-width: ^4.1.0
     mute-stream: ^2.0.0
@@ -2395,158 +2395,158 @@ __metadata:
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: e251efde363b75e5ec2e86919d759597141aec38b0b30592cd25d2dc38fa6b59b6e7f7b0bada5680d2174b7027c118987ae56cf936efa7fef349b1ca7f8dd381
+  checksum: 887931e3a628922c97772d52d000975c7fa93b231f49c44e140a9e5ccb0412aad7d8a1492ceab8767835df9780275183817efd270a1cc3f0f486d55294edde2c
   languageName: node
   linkType: hard
 
-"@inquirer/editor@npm:^4.2.11":
-  version: 4.2.11
-  resolution: "@inquirer/editor@npm:4.2.11"
+"@inquirer/editor@npm:^4.2.13":
+  version: 4.2.13
+  resolution: "@inquirer/editor@npm:4.2.13"
   dependencies:
-    "@inquirer/core": ^10.1.11
-    "@inquirer/type": ^3.0.6
+    "@inquirer/core": ^10.1.13
+    "@inquirer/type": ^3.0.7
     external-editor: ^3.1.0
   peerDependencies:
     "@types/node": ">=18"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: 8b2756de3cff6c46126c317d4de18bab24f22555d1f6a5dd042d9550f2b5c02af92480ddc2ec03b0ce879cb24df7a60c9b110e04803835e6b758458868f4c89d
+  checksum: 859d754dcaa793f88a505ecff2e158f42b48a84d3bf39e72ef4e8c3e437255528701082ded0ef7810207692e61d25ccd725aeeb09815d7c94b84e48632efa4d6
   languageName: node
   linkType: hard
 
-"@inquirer/expand@npm:^4.0.13":
-  version: 4.0.13
-  resolution: "@inquirer/expand@npm:4.0.13"
+"@inquirer/expand@npm:^4.0.15":
+  version: 4.0.15
+  resolution: "@inquirer/expand@npm:4.0.15"
   dependencies:
-    "@inquirer/core": ^10.1.11
-    "@inquirer/type": ^3.0.6
+    "@inquirer/core": ^10.1.13
+    "@inquirer/type": ^3.0.7
     yoctocolors-cjs: ^2.1.2
   peerDependencies:
     "@types/node": ">=18"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: 25ac3a84dbd0b7763aa85ce75c9f3d2022bcc307973a5a3e0b538e2c1e2a94b5eef0b786536589e5f1554a7654853887d150c80b66e3335cc831aa0a5e7d088a
+  checksum: c0935eec81137ce1a9d4ced4544a02f2f69bdf3df85e70c0ed27d54d62ea9c3c0df27c552010a410b1117ecd04bb16679e12b71ed8eb4d7e5b6e9433ed62f2d8
   languageName: node
   linkType: hard
 
-"@inquirer/figures@npm:^1.0.11":
-  version: 1.0.11
-  resolution: "@inquirer/figures@npm:1.0.11"
-  checksum: 6be2867050f5c179d9fcc389a4a3e9aca6ac45fd02106918eba2d6c27a7251a48693ac13fcf9f084e25bf963eb51045c23ca9e87c523e318b0e286d4173449a9
+"@inquirer/figures@npm:^1.0.12":
+  version: 1.0.12
+  resolution: "@inquirer/figures@npm:1.0.12"
+  checksum: db4446e45adb921686bda06ee3bfb0e96d0b656569392613042c67e7ba4b4b15c04459b22e2e2a9ef3750b34b7fcab6a784114c64922d3d211558cc8b5458027
   languageName: node
   linkType: hard
 
-"@inquirer/input@npm:^4.1.10":
-  version: 4.1.10
-  resolution: "@inquirer/input@npm:4.1.10"
+"@inquirer/input@npm:^4.1.12":
+  version: 4.1.12
+  resolution: "@inquirer/input@npm:4.1.12"
   dependencies:
-    "@inquirer/core": ^10.1.11
-    "@inquirer/type": ^3.0.6
+    "@inquirer/core": ^10.1.13
+    "@inquirer/type": ^3.0.7
   peerDependencies:
     "@types/node": ">=18"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: 9b0a1310028fdcb6c4464dd573d0c7dbea9eda3acbd4ab259ab180e9c372ffaa3eb444035a1a04e2e9e19385e59262c3934eef5f7fb00218fd047272ae892a31
+  checksum: 278cf723ec35b98e134e5742666b794aed342e254b3d62b784a733cbe19448a0abcd3b2757c8e3d39e324e614cd230563d9fd057e277e3488a7b7504b938e7b6
   languageName: node
   linkType: hard
 
-"@inquirer/number@npm:^3.0.13":
-  version: 3.0.13
-  resolution: "@inquirer/number@npm:3.0.13"
+"@inquirer/number@npm:^3.0.15":
+  version: 3.0.15
+  resolution: "@inquirer/number@npm:3.0.15"
   dependencies:
-    "@inquirer/core": ^10.1.11
-    "@inquirer/type": ^3.0.6
+    "@inquirer/core": ^10.1.13
+    "@inquirer/type": ^3.0.7
   peerDependencies:
     "@types/node": ">=18"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: d6fed09e563c4d52ebb99ba7d94a548326fad27157da81349694083795409ab0ab601520f46a9111c14e886c0374a2a26a1d23ca80d6db4cca02eecc062833d7
+  checksum: 80f4888b8ecb808cf5386b2f32ed7e247a403ce03594690e20dbf9a77f332b81e51a99b8bb2b7e72d48d34e994cea9e68f0e391d75c4d18ff237b94a4b56144b
   languageName: node
   linkType: hard
 
-"@inquirer/password@npm:^4.0.13":
-  version: 4.0.13
-  resolution: "@inquirer/password@npm:4.0.13"
+"@inquirer/password@npm:^4.0.15":
+  version: 4.0.15
+  resolution: "@inquirer/password@npm:4.0.15"
   dependencies:
-    "@inquirer/core": ^10.1.11
-    "@inquirer/type": ^3.0.6
+    "@inquirer/core": ^10.1.13
+    "@inquirer/type": ^3.0.7
     ansi-escapes: ^4.3.2
   peerDependencies:
     "@types/node": ">=18"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: 098df55e636337b2b9b2278258defed8bd0fbc13c58ce3908c58671d0de41e9b4721347db00143433992fbe44faee519d233e45dac547c72562adadd8e5a00af
+  checksum: 733d146bc511ddd07df1b66aed09deccf663783ba69b0a8b07b40fada9e8f904de83e3cbf24e5e69d4228b01abd8d923bdc5109a68befe8c40c0cb7769d0ea9a
   languageName: node
   linkType: hard
 
 "@inquirer/prompts@npm:^7.5.0":
-  version: 7.5.1
-  resolution: "@inquirer/prompts@npm:7.5.1"
+  version: 7.5.3
+  resolution: "@inquirer/prompts@npm:7.5.3"
   dependencies:
-    "@inquirer/checkbox": ^4.1.6
-    "@inquirer/confirm": ^5.1.10
-    "@inquirer/editor": ^4.2.11
-    "@inquirer/expand": ^4.0.13
-    "@inquirer/input": ^4.1.10
-    "@inquirer/number": ^3.0.13
-    "@inquirer/password": ^4.0.13
-    "@inquirer/rawlist": ^4.1.1
-    "@inquirer/search": ^3.0.13
-    "@inquirer/select": ^4.2.1
+    "@inquirer/checkbox": ^4.1.8
+    "@inquirer/confirm": ^5.1.12
+    "@inquirer/editor": ^4.2.13
+    "@inquirer/expand": ^4.0.15
+    "@inquirer/input": ^4.1.12
+    "@inquirer/number": ^3.0.15
+    "@inquirer/password": ^4.0.15
+    "@inquirer/rawlist": ^4.1.3
+    "@inquirer/search": ^3.0.15
+    "@inquirer/select": ^4.2.3
   peerDependencies:
     "@types/node": ">=18"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: 81ec16dc0c0998f4bec792fe222b9717f9cbf643cfd42d92c34cc4a400d2eddd3dc4959ba10b5f0c3ab9f73b56658225975a43944d7e347f50c585ddbd37f64a
+  checksum: 2957b32b2ccf78b6cff9bf7300e6ab691ef33b81579b5d8634c725a2a45979bb1a83db4db567ed4fd4e6193d89a3573ea307aa295cfb777142ff480fc35b302b
   languageName: node
   linkType: hard
 
-"@inquirer/rawlist@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "@inquirer/rawlist@npm:4.1.1"
+"@inquirer/rawlist@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@inquirer/rawlist@npm:4.1.3"
   dependencies:
-    "@inquirer/core": ^10.1.11
-    "@inquirer/type": ^3.0.6
+    "@inquirer/core": ^10.1.13
+    "@inquirer/type": ^3.0.7
     yoctocolors-cjs: ^2.1.2
   peerDependencies:
     "@types/node": ">=18"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: e7c272f9f7a1576c9c1212a278c2d4bad7b394ddf512d3bbbf75902baa7a4fe4bde1b707f1d4c0cbe3963d0ba5a92e7fcbc4dffbb817ecec9b4fa70ac97b535d
+  checksum: b2fce9517c605dd6aa337a253bc9f12ccdbae2d27044fe0a782e61d416f89c842c670f5cb07ea90b1b22fde2eb1aec63cbdc8f36ed9ff8b5079ace0740afcbf7
   languageName: node
   linkType: hard
 
-"@inquirer/search@npm:^3.0.13":
-  version: 3.0.13
-  resolution: "@inquirer/search@npm:3.0.13"
+"@inquirer/search@npm:^3.0.15":
+  version: 3.0.15
+  resolution: "@inquirer/search@npm:3.0.15"
   dependencies:
-    "@inquirer/core": ^10.1.11
-    "@inquirer/figures": ^1.0.11
-    "@inquirer/type": ^3.0.6
+    "@inquirer/core": ^10.1.13
+    "@inquirer/figures": ^1.0.12
+    "@inquirer/type": ^3.0.7
     yoctocolors-cjs: ^2.1.2
   peerDependencies:
     "@types/node": ">=18"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: e814cff26c73bf52f91a4564d84c95fe6861f50df224a7e2ec8377d127217969d6982197d224f69e44351093af4ca0bfaa6d806c5d243938604447759aa9bc10
+  checksum: 12ab6aa5429954727819dee67265151cfe24017c04426f3da4428cdbe66cfe3d9bde944a3658cdd388784602e96efae2f30506943ee4eef1f2aa830ce6ae947f
   languageName: node
   linkType: hard
 
-"@inquirer/select@npm:^4.2.1":
-  version: 4.2.1
-  resolution: "@inquirer/select@npm:4.2.1"
+"@inquirer/select@npm:^4.2.3":
+  version: 4.2.3
+  resolution: "@inquirer/select@npm:4.2.3"
   dependencies:
-    "@inquirer/core": ^10.1.11
-    "@inquirer/figures": ^1.0.11
-    "@inquirer/type": ^3.0.6
+    "@inquirer/core": ^10.1.13
+    "@inquirer/figures": ^1.0.12
+    "@inquirer/type": ^3.0.7
     ansi-escapes: ^4.3.2
     yoctocolors-cjs: ^2.1.2
   peerDependencies:
@@ -2554,19 +2554,19 @@ __metadata:
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: c16b949b566b80f6f42335be23208887ae4f788212e486590bf9dc99933b136caf0a9f22dd0279c257441ac35c5c1160bd397c058442883055fb9419fa60d5a2
+  checksum: f3febae51de4421f98fa778d0181a9f086aaaf02a5e5e41f13e8d546e2fd8888819d594c1b70c1cefa470cb341f1c2accb160435b4e347920aa4fd8703e7948e
   languageName: node
   linkType: hard
 
-"@inquirer/type@npm:^3.0.6":
-  version: 3.0.6
-  resolution: "@inquirer/type@npm:3.0.6"
+"@inquirer/type@npm:^3.0.6, @inquirer/type@npm:^3.0.7":
+  version: 3.0.7
+  resolution: "@inquirer/type@npm:3.0.7"
   peerDependencies:
     "@types/node": ">=18"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: e3466c83934585cb180bc44ede36e9545e794c211f53ffa0390b1c70bb05fb79bacdc1173cdbe08c5ac72bd4186e34b4f10c1c4b94e0cba9abfb714742dd6201
+  checksum: c63671a0905f921116778254f4ee251a57e70a5fb9e27b92f581275c1604e0a7a5b30f8aa289a01508cd951870e84390d548d1cba9c1e53302eeffa5e0173dae
   languageName: node
   linkType: hard
 
@@ -3078,10 +3078,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/openapi-types@npm:^25.0.0":
-  version: 25.0.0
-  resolution: "@octokit/openapi-types@npm:25.0.0"
-  checksum: f751b75da153ac98623e2e4c033ffa4f4707eb9ff2aa60b2ed603b1100f4ba154f93c3bad8cfa248c341f9aedc51fe37f3aed1c11e0cd838a95f8d95769a54e3
+"@octokit/openapi-types@npm:^25.1.0":
+  version: 25.1.0
+  resolution: "@octokit/openapi-types@npm:25.1.0"
+  checksum: 441b17f801254629b3ddb4b878c589fee1fd23015253c8b72a3acb3eeedbe981691bb311649ab5f955005c5d7adb940f19e18eaf0c875752fe0cc12b3dc1d24b
   languageName: node
   linkType: hard
 
@@ -3160,11 +3160,11 @@ __metadata:
   linkType: hard
 
 "@octokit/types@npm:^14.0.0":
-  version: 14.0.0
-  resolution: "@octokit/types@npm:14.0.0"
+  version: 14.1.0
+  resolution: "@octokit/types@npm:14.1.0"
   dependencies:
-    "@octokit/openapi-types": ^25.0.0
-  checksum: 2c63dd529449b1dec8ff0dc4a6c9839032edc3c38cc8d76e368d124e67496e26dfe75fb106409aebd5120924266a12f8be2c05c8baa165a772523075a6dfdb93
+    "@octokit/openapi-types": ^25.1.0
+  checksum: 0513520e26dc5395c3b3b407568151d32be1f51bedb151f5b294cadc72dc3fe2d0dbbccad96f01dc80d26247b4aed3358de0ce31ad3c013eb22b96e6234feeb5
   languageName: node
   linkType: hard
 
@@ -3700,11 +3700,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 22.15.21
-  resolution: "@types/node@npm:22.15.21"
+  version: 22.15.23
+  resolution: "@types/node@npm:22.15.23"
   dependencies:
     undici-types: ~6.21.0
-  checksum: 989f1ce3a99916a7298ae885210385fbcb339b07f8ef420b015d69dd68863aca68aeae07833736b300720d9394b8e1875600ce74166c24957d9907d29de0b788
+  checksum: 24d204beedcf96d5c9068da2553e01b8e90edecab8498055d1abc24d454211a7757fa858fabebbe0aec86988012c33d0025e31bab63ab2c6307807c84931930e
   languageName: node
   linkType: hard
 
@@ -3732,12 +3732,12 @@ __metadata:
   linkType: hard
 
 "@types/react-native-htmlview@npm:^0.16.5":
-  version: 0.16.5
-  resolution: "@types/react-native-htmlview@npm:0.16.5"
+  version: 0.16.6
+  resolution: "@types/react-native-htmlview@npm:0.16.6"
   dependencies:
     "@types/react": "*"
     react-native: "*"
-  checksum: 02e89055b8984b292d4947450601acd49753bd9f8534af0fa611e16547ec6bff3101195b789ad521ef527a97ea4131be36082a9e8d76f3e1f1696b22eeae5462
+  checksum: ccd2d5cc6e1f328ead7c02aa27d2c4e304618f01ee370dea448b89aed0d58495bc6b5b80a1b956fe2dd0ed1291b3cb43b01f48ebf7558f94f034bbd4d84273b7
   languageName: node
   linkType: hard
 
@@ -3751,11 +3751,11 @@ __metadata:
   linkType: hard
 
 "@types/react@npm:*, @types/react@npm:^19.0.12":
-  version: 19.1.5
-  resolution: "@types/react@npm:19.1.5"
+  version: 19.1.6
+  resolution: "@types/react@npm:19.1.6"
   dependencies:
     csstype: ^3.0.2
-  checksum: 49c01b9d1874e11c02c26f08623474d86093ae02c76cf2b9c952093d855fab505ab8d8aaa162200270bd7b1fc03033859db24f6599affa1d05c5fe46374ecafc
+  checksum: 7f4d2e5fd0c1afa6aef956e551c982a59c3ccf37cf30b877300306dcae87e0c4bf7b28b54676b1783f4ca92e730af6fb7a4c1b7f6df27ba14579aa1617a58b09
   languageName: node
   linkType: hard
 
@@ -4379,12 +4379,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"asynckit@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "asynckit@npm:0.4.0"
+  checksum: 7b78c451df768adba04e2d02e63e2d0bf3b07adcd6e42b4cf665cb7ce899bedd344c69a1dcbce355b5f972d597b25aaa1c1742b52cffd9caccb22f348114f6be
+  languageName: node
+  linkType: hard
+
 "available-typed-arrays@npm:^1.0.7":
   version: 1.0.7
   resolution: "available-typed-arrays@npm:1.0.7"
   dependencies:
     possible-typed-array-names: ^1.0.0
   checksum: 1aa3ffbfe6578276996de660848b6e95669d9a95ad149e3dd0c0cda77db6ee1dbd9d1dd723b65b6d277b882dd0c4b91a654ae9d3cf9e1254b7e93e4908d78fd3
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.9.0":
+  version: 1.9.0
+  resolution: "axios@npm:1.9.0"
+  dependencies:
+    follow-redirects: ^1.15.6
+    form-data: ^4.0.0
+    proxy-from-env: ^1.1.0
+  checksum: 631f02c9c279f2ae90637a4989cc9d75c1c27aefd16b6e8eb90f98a4d0bddaccfd1cb1387be12101d1ab0f9bbf0c47e2451b4de0cf2870462a7d9ed3de8da3f2
   languageName: node
   linkType: hard
 
@@ -5165,6 +5183,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"combined-stream@npm:^1.0.8":
+  version: 1.0.8
+  resolution: "combined-stream@npm:1.0.8"
+  dependencies:
+    delayed-stream: ~1.0.0
+  checksum: 49fa4aeb4916567e33ea81d088f6584749fc90c7abec76fd516bf1c5aa5c79f3584b5ba3de6b86d26ddd64bae5329c4c7479343250cfe71c75bb366eae53bb7c
+  languageName: node
+  linkType: hard
+
 "commander@npm:^12.0.0":
   version: 12.1.0
   resolution: "commander@npm:12.1.0"
@@ -5936,6 +5963,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"delayed-stream@npm:~1.0.0":
+  version: 1.0.0
+  resolution: "delayed-stream@npm:1.0.0"
+  checksum: 46fe6e83e2cb1d85ba50bd52803c68be9bd953282fa7096f51fc29edd5d67ff84ff753c51966061e5ba7cb5e47ef6d36a91924eddb7f3f3483b1c560f77a0020
+  languageName: node
+  linkType: hard
+
 "denodeify@npm:^1.2.1":
   version: 1.2.1
   resolution: "denodeify@npm:1.2.1"
@@ -6132,9 +6166,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.149":
-  version: 1.5.155
-  resolution: "electron-to-chromium@npm:1.5.155"
-  checksum: 6e8f666d4ea0b70e1dd94e2ae588a4e38545beab1d9de7875e19a771f333549cf304fe6cbf19d773d7ac79dffae1c479b9d4291cf6f1523e5d24109ae79f610c
+  version: 1.5.159
+  resolution: "electron-to-chromium@npm:1.5.159"
+  checksum: 8d432d17b514e77f18f195aa52b88112fc943a5a86d1994afa504024e2895c59c9151d37952eb7e3477eda58f4bf63199a3a164680f700fe8f1e1723036f4cc4
   languageName: node
   linkType: hard
 
@@ -7119,14 +7153,14 @@ __metadata:
   linkType: hard
 
 "fdir@npm:^6.4.4":
-  version: 6.4.4
-  resolution: "fdir@npm:6.4.4"
+  version: 6.4.5
+  resolution: "fdir@npm:6.4.5"
   peerDependencies:
     picomatch: ^3 || ^4
   peerDependenciesMeta:
     picomatch:
       optional: true
-  checksum: 79043610236579ffbd0647c508b43bd030a2d034a17c43cf96813a00e8e92e51acdb115c6ddecef3b5812cc2692b976155b4f6413e51e3761f1e772fa019a321
+  checksum: 14efd2d6617a6f9fb314916ccff64e00bdb96216f26542ec9dfa532ed60a7ebb45463f7009aa215c14071566bf43caeb8ba268ccb52a11e6b51e4aaa8cb58d81
   languageName: node
   linkType: hard
 
@@ -7250,6 +7284,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"follow-redirects@npm:^1.15.6":
+  version: 1.15.9
+  resolution: "follow-redirects@npm:1.15.9"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 859e2bacc7a54506f2bf9aacb10d165df78c8c1b0ceb8023f966621b233717dab56e8d08baadc3ad3b9db58af290413d585c999694b7c146aaf2616340c3d2a6
+  languageName: node
+  linkType: hard
+
 "fontfaceobserver@npm:^2.1.0":
   version: 2.3.0
   resolution: "fontfaceobserver@npm:2.3.0"
@@ -7273,6 +7317,18 @@ __metadata:
     cross-spawn: ^7.0.6
     signal-exit: ^4.0.1
   checksum: b2c1a6fc0bf0233d645d9fefdfa999abf37db1b33e5dab172b3cbfb0662b88bfbd2c9e7ab853533d199050ec6b65c03fcf078fc212d26e4990220e98c6930eef
+  languageName: node
+  linkType: hard
+
+"form-data@npm:^4.0.0":
+  version: 4.0.2
+  resolution: "form-data@npm:4.0.2"
+  dependencies:
+    asynckit: ^0.4.0
+    combined-stream: ^1.0.8
+    es-set-tostringtag: ^2.1.0
+    mime-types: ^2.1.12
+  checksum: e887298b22c13c7c9c5a8ba3716f295a479a13ca78bfd855ef11cbce1bcf22bc0ae2062e94808e21d46e5c667664a1a1a8a7f57d7040193c1fefbfb11af58aab
   languageName: node
   linkType: hard
 
@@ -10383,7 +10439,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime-types@npm:^2.1.27, mime-types@npm:~2.1.34":
+"mime-types@npm:^2.1.12, mime-types@npm:^2.1.27, mime-types@npm:~2.1.34":
   version: 2.1.35
   resolution: "mime-types@npm:2.1.35"
   dependencies:
@@ -11930,6 +11986,7 @@ __metadata:
     "@react-navigation/native": ^7.1.9
     "@react-navigation/stack": ^7.3.2
     "@types/react-native-htmlview": ^0.16.5
+    axios: ^1.9.0
     expo: ~53.0.9
     expo-localization: ^16.1.5
     expo-status-bar: ~2.2.3
@@ -11948,6 +12005,7 @@ __metadata:
     react-native-screens: ^4.10.0
     react-native-svg: ^15.12.0
     react-native-web: ~0.20.0
+    rn-step-form: "https://github.com/afrikpay/afrikpay-com-rn-step-form.git"
   languageName: unknown
   linkType: soft
 
@@ -11971,6 +12029,7 @@ __metadata:
     "@types/react": ^19.0.12
     "@types/react-native": ^0.73.0
     "@types/react-native-htmlview": ^0.16.5
+    axios: ^1.9.0
     commitlint: ^19.6.1
     del-cli: ^5.1.0
     eslint: ^9.22.0
@@ -11993,6 +12052,7 @@ __metadata:
     react-native-screens: ^4.10.0
     react-native-svg: ^15.12.0
     release-it: ^19.0.2
+    rn-step-form: "https://github.com/afrikpay/afrikpay-com-rn-step-form.git"
     typescript: ^5.2.2
   peerDependencies:
     "@react-native-community/datetimepicker": "*"
@@ -12000,6 +12060,7 @@ __metadata:
     "@react-navigation/bottom-tabs": "*"
     "@react-navigation/native": "*"
     "@react-navigation/stack": "*"
+    axios: "*"
     expo-localization: "*"
     intl-messageformat: "*"
     moment: "*"
@@ -12012,10 +12073,11 @@ __metadata:
     react-native-render-html: "*"
     react-native-safe-area-context: "*"
     react-native-screens: "*"
+    rn-step-form: "*"
   languageName: unknown
   linkType: soft
 
-"react-native-is-edge-to-edge@npm:^1.1.6":
+"react-native-is-edge-to-edge@npm:^1.1.6, react-native-is-edge-to-edge@npm:^1.1.7":
   version: 1.1.7
   resolution: "react-native-is-edge-to-edge@npm:1.1.7"
   peerDependencies:
@@ -12061,25 +12123,26 @@ __metadata:
   linkType: hard
 
 "react-native-safe-area-context@npm:^5.4.0":
-  version: 5.4.0
-  resolution: "react-native-safe-area-context@npm:5.4.0"
+  version: 5.4.1
+  resolution: "react-native-safe-area-context@npm:5.4.1"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 7d7f9a8278048650fd207d436798bd062d6f78d771cb0665b92aef69dba870251339e6812e1d669fd1958345288bd0f9ac98fbfe353c13958d18b58dc946c341
+  checksum: 695e2a46a988725ac7a948e2a0f52fa91dbf6cfd29e7fd8c4b9e511022279cc7530fcec5dc6430415dcb5d137c593c53dd88249d41d1e049a254c32421a12d44
   languageName: node
   linkType: hard
 
 "react-native-screens@npm:^4.10.0":
-  version: 4.10.0
-  resolution: "react-native-screens@npm:4.10.0"
+  version: 4.11.1
+  resolution: "react-native-screens@npm:4.11.1"
   dependencies:
     react-freeze: ^1.0.0
+    react-native-is-edge-to-edge: ^1.1.7
     warn-once: ^0.1.0
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 291f3024eabbb02b3299d4afafba6812f7a1dcd95f762b9be80fa9a69b20650d66a72e64f339776eb4b72e759a1b2201bb80a8501d90f9b4f4d42f19d6c09d5a
+  checksum: 22d3c302ef90a1cb20eed8c130b32e53d49288a19eba844f506a5e38342ef2add0d4f7a2ff5501cc05052aef6bf7f180db26a067b01f70f3cc12d3e1497329d6
   languageName: node
   linkType: hard
 
@@ -12587,6 +12650,19 @@ __metadata:
   bin:
     rimraf: bin.js
   checksum: 87f4164e396f0171b0a3386cc1877a817f572148ee13a7e113b238e48e8a9f2f31d009a92ec38a591ff1567d9662c6b67fd8818a2dbbaed74bc26a87a2a4a9a0
+  languageName: node
+  linkType: hard
+
+"rn-step-form@https://github.com/afrikpay/afrikpay-com-rn-step-form.git":
+  version: 0.1.3
+  resolution: "rn-step-form@https://github.com/afrikpay/afrikpay-com-rn-step-form.git#commit=f6e4b7bf3f3a5f3a6a8e9c7621671858e75a64fc"
+  peerDependencies:
+    react: "*"
+    react-hook-form: "*"
+    react-native: "*"
+    react-native-paper: "*"
+    react-native-reanimated: "*"
+  checksum: b2f90e3b3d40c0f272a5ed05a6efb76b53f36c482b5dacf9c7f16bf67e45b2d981fc276e5759d37c5a5ffa6f2c1d18e61e03f9d69f305155118797b96c762c3a
   languageName: node
   linkType: hard
 
@@ -13506,8 +13582,8 @@ __metadata:
   linkType: hard
 
 "terser@npm:^5.15.0":
-  version: 5.39.2
-  resolution: "terser@npm:5.39.2"
+  version: 5.40.0
+  resolution: "terser@npm:5.40.0"
   dependencies:
     "@jridgewell/source-map": ^0.3.3
     acorn: ^8.14.0
@@ -13515,7 +13591,7 @@ __metadata:
     source-map-support: ~0.5.20
   bin:
     terser: bin/terser
-  checksum: 986a47896503c5bc6475c751d9445d4326de2e6f8b0be2c943b7726426ad0fe2385aacb9dce1dbc3aee13171595a0234411479bc855e6c730a51f23175132c84
+  checksum: 2c84b1a06a8417a3443f63b447b276f724221a2b0d5cdbdd642c4753e72c3711f232a87b25b1ecb8a7282a07effe4eba0c1c3d2461c5c92243f0384579a56d11
   languageName: node
   linkType: hard
 
@@ -13593,13 +13669,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinyglobby@npm:0.2.13, tinyglobby@npm:^0.2.12":
+"tinyglobby@npm:0.2.13":
   version: 0.2.13
   resolution: "tinyglobby@npm:0.2.13"
   dependencies:
     fdir: ^6.4.4
     picomatch: ^4.0.2
   checksum: 3a2e87a2518cb3616057b0aa58be4f17771ae78c6890556516ae1e631f8ce4cfee1ba1dcb62fcc54a64e2bdd6c3104f4f3d021e1a3e3f8fb0875bca380b913e5
+  languageName: node
+  linkType: hard
+
+"tinyglobby@npm:^0.2.12":
+  version: 0.2.14
+  resolution: "tinyglobby@npm:0.2.14"
+  dependencies:
+    fdir: ^6.4.4
+    picomatch: ^4.0.2
+  checksum: 261e986e3f2062dec3a582303bad2ce31b4634b9348648b46828c000d464b012cf474e38f503312367d4117c3f2f18611992738fca684040758bba44c24de522
   languageName: node
   linkType: hard
 

@@ -3,6 +3,7 @@ import { height, width } from '../constants/size'
 import { COLORS } from '../constants/Colors'
 import * as Icon from 'react-native-feather'
 import Navigation from '../services/Navigation'
+import { ROUTES } from '../constants/Routes'
 
 export default function Profile() {
   return (
@@ -39,7 +40,7 @@ export default function Profile() {
                         <Text style={{ fontSize: 14, color: COLORS.white }}>+237 677 33 20 62</Text>
                         <View style={{ flexDirection: 'row', marginTop: 10}}>
                             <Pressable
-                                onPress={() => {console.log("Souscrire à une assurance santé");}}
+                                onPress={() => {Navigation.navigate(ROUTES.SOUSCRIPTIONS)}}
                                 style= {{ paddingVertical: 10,  paddingHorizontal: 20, backgroundColor: COLORS.white, borderRadius: 100 }}>
                                 <Text style={{ color: COLORS.primary, fontWeight: "bold", fontSize: 12,}}>Mes souscriptions</Text>
                             </Pressable>

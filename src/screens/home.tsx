@@ -6,54 +6,58 @@ import { ImageSante } from '../constants/Images'
 import { height, width } from '../constants/size'
 import { ROUTES } from '../constants/Routes'
 import Navigation from '../services/Navigation'
+import { useEffect, useState } from 'react'
+import { apiClient } from './lib/axios'
+import { ActivityIndicator } from 'react-native-paper'
 
 export default function Home() {
-  return (
-    <View style={{flex: 1, 
-      height: height, width: width, 
-      padding: 20, 
-      backgroundColor: COLORS.white,
-      flexDirection: 'column',
-      gap: 20
-    }}>
-      <StatusBar hidden />
-      <View style={{}}>
-          <View style={{ flexDirection: 'row', justifyContent: "space-between", alignItems: 'center' }}>
-            <View style={{ flexDirection: 'column'}}>
-              <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary}}>Bon retour</Text>
-              <Text style={{ fontSize: 14, fontWeight: '500' }}>Manu Decca</Text>
-            </View>
-            <View>
-              <TouchableOpacity style={{ position: 'relative'}} onPress={() => { }}>
-                <Icon.Bell color={COLORS.light_blue} strokeWidth={2} width={30} height={30} />
-                <View style={{ backgroundColor: COLORS.danger, 
-                    position: 'absolute', top: 0, right: 0,
-                    height: 18, width: 18, borderRadius: 100, 
-                    justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{ fontSize: 9, color: COLORS.white, fontWeight: 'bold'}}>02</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-      </View>
     
-      {/** Subscription Card */}
-      <HomeCard />
+    return (
+        <View style={{flex: 1, 
+        height: height, width: width, 
+        padding: 20, 
+        backgroundColor: COLORS.white,
+        flexDirection: 'column',
+        gap: 20
+        }}>
+        <StatusBar hidden />
+        <View style={{}}>
+            <View style={{ flexDirection: 'row', justifyContent: "space-between", alignItems: 'center' }}>
+                <View style={{ flexDirection: 'column'}}>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary}}>Bon retour</Text>
+                <Text style={{ fontSize: 14, fontWeight: '500' }}>Manu Decca</Text>
+                </View>
+                <View>
+                <TouchableOpacity style={{ position: 'relative'}} onPress={() => { }}>
+                    <Icon.Bell color={COLORS.light_blue} strokeWidth={2} width={30} height={30} />
+                    <View style={{ backgroundColor: COLORS.danger, 
+                        position: 'absolute', top: 0, right: 0,
+                        height: 18, width: 18, borderRadius: 100, 
+                        justifyContent: 'center', alignItems: 'center'}}>
+                        <Text style={{ fontSize: 9, color: COLORS.white, fontWeight: 'bold'}}>02</Text>
+                    </View>
+                </TouchableOpacity>
+                </View>
+            </View>
+        </View>
+        
+        {/** Subscription Card */}
+        <HomeCard />
 
-      <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={{ flex: 1}}>
-          {/** Product Section */}
-          <ProductSection />
+        <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{ flex: 1}}>
+            {/** Product Section */}
+            <ProductSection />
 
-          <View style={{ marginTop: 20}} />
+            <View style={{ marginTop: 20}} />
 
-          { /** Subscriptions section */}
-          <RenderSubscriptionSection />
+            { /** Subscriptions section */}
+            <RenderSubscriptionSection />
 
-      </ScrollView>
-    </View>
-  )
+        </ScrollView>
+        </View>
+    )
 }
 
 
@@ -95,6 +99,27 @@ export function HomeCard() {
 }
 
 export function ProductSection() {
+    
+    const [loading, setLoading] = useState<boolean>(false);
+    const [products, setProducts] = useState<any[]>([])
+
+    useEffect(() => {
+        (async () => {
+            setLoading(true);
+            try {
+                const response: any = await apiClient.post('/secure/mobile/categories/v1', {});       
+                setProducts(response.result)
+            }
+            catch (error) {
+                console.error('Error fetching data:', error);
+            }
+            finally{
+                setLoading(false);
+            }
+        })()
+
+    }, []);
+    
     return (
         <View style={{ flexDirection: 'column', gap: 10}}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -113,58 +138,85 @@ export function ProductSection() {
                 flexDirection: 'row',
                 gap: 10
             }}>
-                <Box width={width / 2 - 26}>
-                    <Pressable onPress={() => {Navigation.navigate(ROUTES.ASSUREURS)}} style={{ flexDirection: "row", alignItems: 'center', gap: 8 }}>
-                        <Image
-                            alt="Image de l'assurance santé"
-                            source={ImageSante}
-                            style={{
-                                height: 35,
-                                width: 35
-                            }}
-                        />
-                        <Text>Assurance frais obsèques</Text>
-                    </Pressable>
-                </Box>
-                <Box width={width / 2 - 26}>
-                    <Pressable onPress={() => {Navigation.navigate(ROUTES.ASSUREURS)}} style={{ flexDirection: "row", alignItems: 'center', gap: 8 }}>
-                        <Image
-                            alt="Image de l'assurance santé"
-                            source={ImageSante}
-                            style={{
-                                height: 35,
-                                width: 35
-                            }}
-                        />
-                        <Text>Assurance santé classique</Text>
-                    </Pressable>
-                </Box>
-                <Box width={width / 2 - 26}>
-                    <Pressable onPress={() => {Navigation.navigate(ROUTES.ASSUREURS)}} style={{ flexDirection: "row", alignItems: 'center', gap: 8 }}>
-                        <Image
-                            alt="Image de l'assurance santé"
-                            source={ImageSante}
-                            style={{
-                                height: 35,
-                                width: 35
-                            }}
-                        />
-                        <Text>Assurance multirisque habitation</Text>
-                    </Pressable>
-                </Box>
-                <Box width={width / 2 - 26}>
-                    <Pressable onPress={() => {Navigation.navigate(ROUTES.ASSUREURS)}} style={{ flexDirection: "row", alignItems: 'center', gap: 8 }}>
-                        <Image
-                            alt="Image de l'assurance santé"
-                            source={ImageSante}
-                            style={{
-                                height: 35,
-                                width: 35
-                            }}
-                        />
-                        <Text>Assurance frais obsèques</Text>
-                    </Pressable>
-                </Box>
+                {   
+                    loading && (
+                        <View style={{ width: '100%', height: 100, justifyContent: 'center', alignItems: 'center' }}>
+                            <ActivityIndicator color={COLORS.gray} style={{ height: 50, width: 50 }} />
+                        </View>
+                    )
+                }
+                {
+                    products.map((product: any, index: number) => (
+                        <Box key={index} width={width / 2 - 26} padding={10}>
+                            <Pressable onPress={() => {Navigation.navigate(ROUTES.ASSUREURS, { product })}} style={{ flexDirection: "row", alignItems: 'center', gap: 8 }}>
+                                <Image
+                                    alt={product.name}
+                                    source={{uri: product.image}}
+                                    style={{
+                                        height: 35,
+                                        width: 35,
+                                        borderRadius: 100,
+                                    }}
+                                />
+                                <Text>{product.name}</Text>
+                            </Pressable>
+                        </Box>
+                    ))
+                }
+                {/** 
+                    <Box width={width / 2 - 26}>
+                        <Pressable onPress={() => {Navigation.navigate(ROUTES.ASSUREURS)}} style={{ flexDirection: "row", alignItems: 'center', gap: 8 }}>
+                            <Image
+                                alt="Image de l'assurance santé"
+                                source={ImageSante}
+                                style={{
+                                    height: 35,
+                                    width: 35
+                                }}
+                            />
+                            <Text>Assurance frais obsèques</Text>
+                        </Pressable>
+                    </Box>
+                    <Box width={width / 2 - 26}>
+                        <Pressable onPress={() => {Navigation.navigate(ROUTES.ASSUREURS)}} style={{ flexDirection: "row", alignItems: 'center', gap: 8 }}>
+                            <Image
+                                alt="Image de l'assurance santé"
+                                source={ImageSante}
+                                style={{
+                                    height: 35,
+                                    width: 35
+                                }}
+                            />
+                            <Text>Assurance santé classique</Text>
+                        </Pressable>
+                    </Box>
+                    <Box width={width / 2 - 26}>
+                        <Pressable onPress={() => {Navigation.navigate(ROUTES.ASSUREURS)}} style={{ flexDirection: "row", alignItems: 'center', gap: 8 }}>
+                            <Image
+                                alt="Image de l'assurance santé"
+                                source={ImageSante}
+                                style={{
+                                    height: 35,
+                                    width: 35
+                                }}
+                            />
+                            <Text>Assurance multirisque habitation</Text>
+                        </Pressable>
+                    </Box>
+                    <Box width={width / 2 - 26}>
+                        <Pressable onPress={() => {Navigation.navigate(ROUTES.ASSUREURS)}} style={{ flexDirection: "row", alignItems: 'center', gap: 8 }}>
+                            <Image
+                                alt="Image de l'assurance santé"
+                                source={ImageSante}
+                                style={{
+                                    height: 35,
+                                    width: 35
+                                }}
+                            />
+                            <Text>Assurance frais obsèques</Text>
+                        </Pressable>
+                    </Box>
+                */}
             </View>
         </View>
     )
@@ -172,6 +224,25 @@ export function ProductSection() {
 
 
 export function RenderSubscriptionSection() {
+    const [loading, setLoading] = useState<boolean>(false);
+    const [souscriptions, setSouscriptions] = useState<any[]>([])
+    useEffect(() => {
+        (async () => {
+            setLoading(true);
+            try {
+                const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {});       
+                setSouscriptions(response.result)
+                console.log(JSON.stringify(response.result, null, 2));
+            }
+            catch (error) {
+                console.error('Error fetching data:', error);
+            }
+            finally{
+                setLoading(false);
+            }
+        })()
+
+    }, []);
     return (
         <View style={{ flexDirection: 'column', gap: 10}}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>

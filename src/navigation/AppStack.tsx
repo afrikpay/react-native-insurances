@@ -9,6 +9,7 @@ import DetailAssurance from "../screens/detail-assurance"
 import DetailFormule from "../screens/detail-formule"
 import Souscriptions from "../screens/souscriptions"
 import DetailSouscription from "../screens/detail-souscription"
+import SouscriptionForm from "../screens/forms/souscription-form"
 
 
 const Stack = createStackNavigator()
@@ -34,6 +35,7 @@ const AppStack = () => {
             <Stack.Screen name={ROUTES.DETAIL_FORMULE} component={DetailFormule} />
             <Stack.Screen name={ROUTES.SOUSCRIPTIONS} component={Souscriptions} />
             <Stack.Screen name={ROUTES.DETAIL_SOUSCRIPTIONS} component={DetailSouscription} />
+            <Stack.Screen name={ROUTES.SOUSCRIPTION_FORM} component={SouscriptionForm} />
         </Stack.Navigator>  
     )
 }

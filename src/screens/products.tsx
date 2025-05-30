@@ -1,14 +1,35 @@
-import { useState } from 'react'
-import { Image, Pressable, ScrollView, Text, TextInput, TouchableOpacity, SafeAreaView, View } from 'react-native'
+import { useEffect, useState } from 'react'
+import { Image, Pressable, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import * as Icon from "react-native-feather"
 import { COLORS } from '../constants/Colors'
 import { ImageSante } from '../constants/Images'
-import { height, width } from '../constants/size'
-import Navigation from '../services/Navigation'
 import { ROUTES } from '../constants/Routes'
+import { width } from '../constants/size'
+import Navigation from '../services/Navigation'
+import { apiClient } from './lib/axios'
+import { ActivityIndicator } from 'react-native-paper'
 
 export default function Products() {
     const [search, setSearch] = useState('')
+    const [loading, setLoading] = useState<boolean>(false);
+    const [products, setProducts] = useState<any[]>([])
+    
+    useEffect(() => {
+        (async () => {
+            setLoading(true);
+            try {
+                const response: any = await apiClient.post('/secure/mobile/categories/v1', {});       
+                setProducts(response.result)
+            }
+            catch (error) {
+                console.error('Error fetching data:', error);
+            }
+            finally{
+                setLoading(false);
+            }
+        })()
+
+    }, []);
     return (
         <SafeAreaView style={{flex: 1, width: width,  
             backgroundColor: COLORS.white,
@@ -55,14 +76,21 @@ export default function Products() {
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6'}}>   
+                {   
+                    loading && (
+                        <View style={{ width: '100%', height: 200, justifyContent: 'center', alignItems: 'center' }}>
+                            <ActivityIndicator color={COLORS.gray} style={{ height: 60, width: 60 }} />
+                        </View>
+                    )
+                }
                 <View style={{display: 'flex',
                     flexWrap: 'wrap',
                     flexDirection: 'row',
                     gap: 10}}>
                     {
-                        [0,1,2,3,4,5,6,7,8,9,].map((item) => (
+                        products.map((product: any, index: number) => (
                             <View
-                                key={item} style={{ 
+                                key={index} style={{ 
                                 width: width / 2-25,
                                 borderWidth: 0.05,
                                 borderRadius: 8, 
@@ -80,19 +108,20 @@ export default function Products() {
                                 overflow: 'hidden' 
                             }}>
                                 <Image
-                                    alt="Image de l'assurance santé"
-                                    source={ImageSante}
+                                    alt={product.name}
+                                    source={{ uri: product.image || ImageSante }}
                                     style={{
                                         height: 35,
                                         width: 35,
+                                        borderRadius: 100,
                                     }}
                                 />
                                 <View style={{ width: '100%', borderBottomWidth: 0.2001, borderBottomColor: COLORS.primary, marginVertical: 10 }} />
                                 <View style={{ gap: 8, paddingHorizontal: 15 }}>
-                                    <Text numberOfLines={2} ellipsizeMode="tail" style={{ fontWeight: '500' }}>Assurance santé classique</Text>
+                                    <Text numberOfLines={2} ellipsizeMode="tail" style={{ fontWeight: '500' }}>{product.name}</Text>
                                     <Text numberOfLines={3} ellipsizeMode="tail" style={{ color: COLORS.gray }}>Essentielle pour couvrir les frais médicaux en cas de maladie ou d'accident.</Text>
                                     <Pressable
-                                        onPress={() => { Navigation.navigate(ROUTES.ASSUREURS, { id: item }) }}
+                                        onPress={() => { Navigation.navigate(ROUTES.ASSUREURS, { id: product }) }}
                                         style= {{ paddingVertical: 8, paddingHorizontal: 10, 
                                         borderColor: COLORS.primary, borderWidth: 0.3, 
                                         marginTop: 10,

@@ -74,6 +74,7 @@
     "@types/react": "^19.0.12",
     "@types/react-native": "^0.73.0",
     "@types/react-native-htmlview": "^0.16.5",
+    "axios": "^1.9.0",
     "commitlint": "^19.6.1",
     "del-cli": "^5.1.0",
     "eslint": "^9.22.0",
@@ -96,6 +97,7 @@
     "react-native-screens": "^4.10.0",
     "react-native-svg": "^15.12.0",
     "release-it": "^19.0.2",
+    "rn-step-form": "https://github.com/afrikpay/afrikpay-com-rn-step-form.git",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
@@ -104,6 +106,7 @@
     "@react-navigation/bottom-tabs": "*",
     "@react-navigation/native": "*",
     "@react-navigation/stack": "*",
+    "axios": "*",
     "expo-localization": "*",
     "intl-messageformat": "*",
     "moment": "*",
@@ -115,7 +118,8 @@
     "react-native-paper": "*",
     "react-native-render-html": "*",
     "react-native-safe-area-context": "*",
-    "react-native-screens": "*"
+    "react-native-screens": "*",
+    "rn-step-form": "*"
   },
   "workspaces": [
     "example"
@@ -156,7 +160,7 @@
   "prettier": {
     "quoteProps": "consistent",
     "singleQuote": true,
-    "tabWidth": 2,
+    "tabWidth": 3,
     "trailingComma": "es5",
     "useTabs": false
   },
