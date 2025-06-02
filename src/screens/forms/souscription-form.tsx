@@ -13,8 +13,7 @@ export default function SouscriptionForm() {
         height: height, width: width,  
         backgroundColor: COLORS.white,
         flexDirection: 'column',
-        gap: 20
-    }}>
+        gap: 20 }}>
         <StatusBar hidden />
         <View style={{ backgroundColor: COLORS.white, paddingHorizontal: 20, paddingTop: 35, gap: 30, paddingBottom: 20, borderBottomWidth: 0.305, borderBottomColor: COLORS.light_gray}}>
             {/** Navigation bar  */}

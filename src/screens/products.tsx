@@ -6,7 +6,7 @@ import { ImageSante } from '../constants/Images'
 import { ROUTES } from '../constants/Routes'
 import { width } from '../constants/size'
 import Navigation from '../services/Navigation'
-import { apiClient } from './lib/axios'
+import { apiClient } from '../lib/axios'
 import { ActivityIndicator } from 'react-native-paper'
 
 export default function Products() {

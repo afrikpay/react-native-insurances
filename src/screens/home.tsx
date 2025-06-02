@@ -7,8 +7,9 @@ import { height, width } from '../constants/size'
 import { ROUTES } from '../constants/Routes'
 import Navigation from '../services/Navigation'
 import { useEffect, useState } from 'react'
-import { apiClient } from './lib/axios'
+import { apiClient } from '../lib/axios'
 import { ActivityIndicator } from 'react-native-paper'
+import type { ProduitAssurance, Souscription } from '../types'
 
 export default function Home() {
     
@@ -60,7 +61,6 @@ export default function Home() {
     )
 }
 
-
 export function HomeCard() {
   return (
     <View style={{
@@ -99,16 +99,14 @@ export function HomeCard() {
 }
 
 export function ProductSection() {
-    
     const [loading, setLoading] = useState<boolean>(false);
-    const [products, setProducts] = useState<any[]>([])
-
+    const [products, setProducts] = useState<ProduitAssurance[]>([])
     useEffect(() => {
         (async () => {
             setLoading(true);
             try {
                 const response: any = await apiClient.post('/secure/mobile/categories/v1', {});       
-                setProducts(response.result)
+                setProducts(response.result as ProduitAssurance[])
             }
             catch (error) {
                 console.error('Error fetching data:', error);
@@ -117,9 +115,7 @@ export function ProductSection() {
                 setLoading(false);
             }
         })()
-
     }, []);
-    
     return (
         <View style={{ flexDirection: 'column', gap: 10}}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -222,17 +218,15 @@ export function ProductSection() {
     )
 }
 
-
 export function RenderSubscriptionSection() {
     const [loading, setLoading] = useState<boolean>(false);
-    const [souscriptions, setSouscriptions] = useState<any[]>([])
+    const [souscriptions, setSouscriptions] = useState<Souscription[]>([])
     useEffect(() => {
         (async () => {
             setLoading(true);
             try {
                 const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {});       
-                setSouscriptions(response.result)
-                console.log(JSON.stringify(response.result, null, 2));
+                setSouscriptions(response.result as Souscription[])                
             }
             catch (error) {
                 console.error('Error fetching data:', error);
@@ -261,102 +255,58 @@ export function RenderSubscriptionSection() {
                 flexDirection: 'row',
                 gap: 10
             }}>
-                <Box width={'100%'} padding={18}>
-                    <Pressable onPress={() => {Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS)}}>
-                        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', gap: 10 }}>
-                            <View style={{ flexDirection: 'column' }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 20 }}>
-                                    <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Premium Gold</Text>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                                        <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
-                                        <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
+                {   
+                    loading && (
+                        <View style={{ width: '100%', height: 100, justifyContent: 'center', alignItems: 'center' }}>
+                            <ActivityIndicator color={COLORS.gray} style={{ height: 50, width: 50 }} />
+                        </View>
+                    )
+                }
+                {
+                    souscriptions.map((souscription: any, index: number) => (
+                        <Box key={index} width={'100%'} padding={18}>
+                            <Pressable onPress={() => {Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS, { souscription})}}>
+                                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', gap: 10 }}>
+                                    <View style={{ flexDirection: 'column' }}>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 20 }}>
+                                            <Text style={{ fontSize: 22, fontWeight: 'bold' }}>{souscription.planName}</Text>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                                                <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
+                                                <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
+                                            </View>
+                                        </View>
+                                        <Text>{souscription.product}</Text>
+                                    </View>
+                                    <View style={{
+                                            height: 50,
+                                            width: 50,
+                                            borderRadius: 100,
+                                            overflow: 'hidden',
+                                            borderColor: COLORS.danger,
+                                        }}>
+
+                                        <Image
+                                            alt="Image de l'assurance santé"
+                                            source={{ uri: souscription.insurer.logo }}
+                                            style={{
+                                                height: '100%',
+                                                width: '100%',
+                                            }}
+                                        />
                                     </View>
                                 </View>
-                                <Text>Assurance santé classique</Text>
-                            </View>
-                            <Image
-                                alt="Image de l'assurance santé"
-                                source={require("../assets/logo.png")}
-                                style={{
-                                    height: 50,
-                                    width: 50
-                                }}
-                            />
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
-                            <Text style={{ fontSize: 12}}>Couverture jusqu’a 1 500 000 XAF</Text>
-                            <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
-                                <Text style={{ fontWeight: 'bold'}}>107 250 </Text>
-                                <Text style={{ fontSize: 10, opacity: 0.7}}>XAF/mois</Text>
-                            </View>
-                        </View>
-                        <Text style={{ fontSize: 10, opacity: 0.7, marginTop: 5}}>Validité: 15/05/2025</Text>
-                    </Pressable>
-                </Box>
-                <Box width={'100%'} padding={18}>
-                    <Pressable onPress={() => {Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS)}}>
-                        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', gap: 10 }}>
-                            <View style={{ flexDirection: 'column' }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 20 }}>
-                                    <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Premium Gold</Text>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                                        <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
-                                        <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
+                                <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+                                    <Text style={{ fontSize: 12}}>{souscription.insurer.short_description}</Text>
+                                    <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 2 }}>
+                                        <Text style={{ fontWeight: 'bold'}}>{souscription.plan.price}</Text>
+                                        <Text style={{ fontSize: 10, opacity: 0.7}}>XAF/mois</Text>
                                     </View>
                                 </View>
-                                <Text>Assurance santé classique</Text>
-                            </View>
-                            <Image
-                                alt="Image de l'assurance santé"
-                                source={require("../assets/logo.png")}
-                                style={{
-                                    height: 50,
-                                    width: 50
-                                }}
-                            />
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
-                            <Text style={{ fontSize: 12}}>Couverture jusqu’a 1 500 000 XAF</Text>
-                            <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
-                                <Text style={{ fontWeight: 'bold'}}>107 250 </Text>
-                                <Text style={{ fontSize: 10, opacity: 0.7}}>XAF/mois</Text>
-                            </View>
-                        </View>
-                        <Text style={{ fontSize: 10, opacity: 0.7, marginTop: 5}}>Validité: 15/05/2025</Text>
-                    </Pressable>
-                </Box>
-                <Box width={'100%'} padding={18}>
-                    <Pressable onPress={() => {Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS)}}>
-                        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', gap: 10 }}>
-                            <View style={{ flexDirection: 'column' }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 20 }}>
-                                    <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Premium Gold</Text>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                                        <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
-                                        <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
-                                    </View>
-                                </View>
-                                <Text>Assurance santé classique</Text>
-                            </View>
-                            <Image
-                                alt="Image de l'assurance santé"
-                                source={require("../assets/logo.png")}
-                                style={{
-                                    height: 50,
-                                    width: 50
-                                }}
-                            />
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
-                            <Text style={{ fontSize: 12}}>Couverture jusqu’a 1 500 000 XAF</Text>
-                            <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
-                                <Text style={{ fontWeight: 'bold'}}>107 250 </Text>
-                                <Text style={{ fontSize: 10, opacity: 0.7}}>XAF/mois</Text>
-                            </View>
-                        </View>
-                        <Text style={{ fontSize: 10, opacity: 0.7, marginTop: 5}}>Validité: 15/05/2025</Text>
-                    </Pressable>
-                </Box>
+                                <Text style={{ fontSize: 10, opacity: 0.7, marginTop: 5}}>Validité: 15/05/2025</Text>
+                            </Pressable>
+                        </Box>
+                    ))
+                }
             </View>
         </View>
     )

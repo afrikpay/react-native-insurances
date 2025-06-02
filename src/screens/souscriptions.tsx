@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Image, Platform, Pressable, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Image, Platform, Pressable, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import * as Icon from "react-native-feather"
 import { Box } from '../components/ui/Box'
 import { COLORS } from '../constants/Colors'
@@ -11,6 +11,8 @@ import { Button, Modal, Portal } from 'react-native-paper'
 import { RadioButton } from 'react-native-paper';
 import DropdownComponent from '../components/ui/DropdownComponent'
 import moment from 'moment'
+import { apiClient } from '../lib/axios';
+import type { Souscription } from '../types';
 
 const pattern = 'YYYY/MM/DD'//  HH:mm:ss'
 
@@ -30,6 +32,25 @@ export default function Souscriptions() {
     const [showEndDatePicker, setShowEndDatePicker] = useState(false)
     const [selectedStartDate, setSelectedStartDate] = useState(moment(startDate).format(pattern))
     const [selectedEndDate, setSelectedEndDate] = useState(moment(endDate).format(pattern))
+
+    const [loading, setLoading] = useState<boolean>(false);
+    const [souscriptions, setSouscriptions] = useState<Souscription[]>([])
+    useEffect(() => {
+        (async () => {
+            setLoading(true);
+            try {
+                const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {});       
+                setSouscriptions(response.result as Souscription[])                
+            }
+            catch (error) {
+                console.error('Error fetching data:', error);
+            }
+            finally{
+                setLoading(false);
+            }
+        })()
+
+    }, []);
 
     const onChangeStart = (event: any, seletedDate: any) => {
         const currentDate = seletedDate || startDate
@@ -98,35 +119,51 @@ export default function Souscriptions() {
                     flexWrap: 'wrap',
                     flexDirection: 'row',
                     gap: 10}}>
+                    {   
+                        loading && (
+                            <View style={{ width: '100%', height: 100, justifyContent: 'center', alignItems: 'center' }}>
+                                <ActivityIndicator color={COLORS.gray} style={{ height: 80, width: 80 }} />
+                            </View>
+                        )
+                    }
                     {
-                        [0,1,2,3,4,5,6,7,8,9,].map((item) => (
-                            <Box key={item} width={'100%'} padding={18}>
-                                <Pressable onPress={() => { Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS) }}>
+                        souscriptions.map((souscription, index) => (
+                            <Box key={index} width={'100%'} padding={18}>
+                                <Pressable onPress={() => { Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS, { souscription }) }}>
                                     <View>
                                         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', gap: 10 }}>
                                             <View style={{ flexDirection: 'column' }}>
                                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 20 }}>
-                                                    <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Premium Gold</Text>
+                                                    <Text style={{ fontSize: 22, fontWeight: 'bold' }}>{souscription.planName}</Text>
                                                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                                                         <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
                                                         <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
                                                     </View>
                                                 </View>
-                                                <Text>Assurance santé classique</Text>
+                                                <Text>{souscription.product}</Text>
                                             </View>
-                                            <Image
-                                                alt="Image de l'assurance santé"
-                                                source={require("../assets/logo.png")}
-                                                style={{
-                                                    height: 50,
-                                                    width: 50
-                                                }}
-                                            />
+                                            <View style={{
+                                                height: 50,
+                                                width: 50,
+                                                borderRadius: 100,
+                                                overflow: 'hidden',
+                                                borderColor: COLORS.danger,
+                                            }}>
+
+                                                <Image
+                                                    alt="Image de l'assurance santé"
+                                                    source={{ uri: souscription.insurer.logo }}
+                                                    style={{
+                                                        height: '100%',
+                                                        width: '100%',
+                                                    }}
+                                                />
+                                            </View>
                                         </View>
                                         <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
-                                            <Text style={{ fontSize: 12}}>Couverture jusqu’a 1 500 000 XAF</Text>
-                                            <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
-                                                <Text style={{ fontWeight: 'bold'}}>107 250 </Text>
+                                            <Text style={{ fontSize: 12}}>{souscription.insurer.short_description}</Text>
+                                            <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 2 }}>
+                                                <Text style={{ fontWeight: 'bold'}}>{souscription.plan.price}</Text>
                                                 <Text style={{ fontSize: 10, opacity: 0.7}}>XAF/mois</Text>
                                             </View>
                                         </View>
