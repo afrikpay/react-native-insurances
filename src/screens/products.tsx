@@ -121,7 +121,7 @@ export default function Products() {
                                     <Text numberOfLines={2} ellipsizeMode="tail" style={{ fontWeight: '500' }}>{product.name}</Text>
                                     <Text numberOfLines={3} ellipsizeMode="tail" style={{ color: COLORS.gray }}>Essentielle pour couvrir les frais médicaux en cas de maladie ou d'accident.</Text>
                                     <Pressable
-                                        onPress={() => { Navigation.navigate(ROUTES.ASSUREURS, { id: product }) }}
+                                        onPress={() => { Navigation.navigate(ROUTES.ASSUREURS, { product }) }}
                                         style= {{ paddingVertical: 8, paddingHorizontal: 10, 
                                         borderColor: COLORS.primary, borderWidth: 0.3, 
                                         marginTop: 10,
