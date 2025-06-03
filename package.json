@@ -97,7 +97,6 @@
     "react-native-screens": "~3.20.0",
     "react-native-svg": "13.4.0",
     "release-it": "^19.0.2",
-    "rn-step-form": "https://github.com/afrikpay/afrikpay-com-rn-step-form.git",
     "typescript": "^4.9.4"
   },
   "peerDependencies": {
@@ -118,8 +117,7 @@
     "react-native-paper": "*",
     "react-native-render-html": "*",
     "react-native-safe-area-context": "*",
-    "react-native-screens": "*",
-    "rn-step-form": "*"
+    "react-native-screens": "*"
   },
   "workspaces": [
     "example"

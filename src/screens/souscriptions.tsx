@@ -11,7 +11,7 @@ import { Button, Modal, Portal } from 'react-native-paper'
 import { RadioButton } from 'react-native-paper';
 import DropdownComponent from '../components/ui/DropdownComponent'
 import moment from 'moment'
-import { apiClient } from '../lib/axios';
+import { apiClient } from '../data/axios';
 import type { Souscription } from '../types';
 
 const pattern = 'YYYY/MM/DD'//  HH:mm:ss'

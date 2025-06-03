@@ -18,7 +18,8 @@
     "react-native-feather": "^1.1.2",
     "react-native-render-html": "^6.3.4",
     "react-native-svg": "^15.12.0",
-    "react-native-web": "~0.20.0"
+    "react-native-web": "~0.20.0",
+    "rn-step-form": "https://patrick1kenne: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@github.com/afrikpay/afrikpay-com-rn-step-form.git"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -38,8 +39,7 @@
     "react-native-gesture-handler": "^2.25.0",
     "react-native-paper": "^5.14.5",
     "react-native-safe-area-context": "^5.4.0",
-    "react-native-screens": "^4.10.0",
-    "rn-step-form": "https://github.com/afrikpay/afrikpay-com-rn-step-form.git"
+    "react-native-screens": "^4.10.0"
   },
   "private": true
 }

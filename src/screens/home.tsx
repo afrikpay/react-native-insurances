@@ -7,7 +7,7 @@ import { height, width } from '../constants/size'
 import { ROUTES } from '../constants/Routes'
 import Navigation from '../services/Navigation'
 import { useEffect, useState } from 'react'
-import { apiClient } from '../lib/axios'
+import { apiClient } from '../data/axios'
 import { ActivityIndicator } from 'react-native-paper'
 import type { ProduitAssurance, Souscription } from '../types'
 
@@ -99,14 +99,14 @@ export function HomeCard() {
 }
 
 export function ProductSection() {
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState(false);
     const [products, setProducts] = useState<ProduitAssurance[]>([])
     useEffect(() => {
         (async () => {
             setLoading(true);
             try {
-                const response: any = await apiClient.post('/secure/mobile/categories/v1', {});       
-                setProducts(response.result as ProduitAssurance[])
+                const response: any = await apiClient.post('/secure/mobile/categories/v1', {});
+                setProducts(response.result?? [] as ProduitAssurance[])
             }
             catch (error) {
                 console.error('Error fetching data:', error);
@@ -159,74 +159,20 @@ export function ProductSection() {
                         </Box>
                     ))
                 }
-                {/** 
-                    <Box width={width / 2 - 26}>
-                        <Pressable onPress={() => {Navigation.navigate(ROUTES.ASSUREURS)}} style={{ flexDirection: "row", alignItems: 'center', gap: 8 }}>
-                            <Image
-                                alt="Image de l'assurance santé"
-                                source={ImageSante}
-                                style={{
-                                    height: 35,
-                                    width: 35
-                                }}
-                            />
-                            <Text>Assurance frais obsèques</Text>
-                        </Pressable>
-                    </Box>
-                    <Box width={width / 2 - 26}>
-                        <Pressable onPress={() => {Navigation.navigate(ROUTES.ASSUREURS)}} style={{ flexDirection: "row", alignItems: 'center', gap: 8 }}>
-                            <Image
-                                alt="Image de l'assurance santé"
-                                source={ImageSante}
-                                style={{
-                                    height: 35,
-                                    width: 35
-                                }}
-                            />
-                            <Text>Assurance santé classique</Text>
-                        </Pressable>
-                    </Box>
-                    <Box width={width / 2 - 26}>
-                        <Pressable onPress={() => {Navigation.navigate(ROUTES.ASSUREURS)}} style={{ flexDirection: "row", alignItems: 'center', gap: 8 }}>
-                            <Image
-                                alt="Image de l'assurance santé"
-                                source={ImageSante}
-                                style={{
-                                    height: 35,
-                                    width: 35
-                                }}
-                            />
-                            <Text>Assurance multirisque habitation</Text>
-                        </Pressable>
-                    </Box>
-                    <Box width={width / 2 - 26}>
-                        <Pressable onPress={() => {Navigation.navigate(ROUTES.ASSUREURS)}} style={{ flexDirection: "row", alignItems: 'center', gap: 8 }}>
-                            <Image
-                                alt="Image de l'assurance santé"
-                                source={ImageSante}
-                                style={{
-                                    height: 35,
-                                    width: 35
-                                }}
-                            />
-                            <Text>Assurance frais obsèques</Text>
-                        </Pressable>
-                    </Box>
-                */}
             </View>
         </View>
     )
 }
 
 export function RenderSubscriptionSection() {
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState(false);
     const [souscriptions, setSouscriptions] = useState<Souscription[]>([])
     useEffect(() => {
         (async () => {
             setLoading(true);
             try {
                 const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {});       
-                setSouscriptions(response.result as Souscription[])                
+                setSouscriptions(response.result?? [] as Souscription[])                
             }
             catch (error) {
                 console.error('Error fetching data:', error);

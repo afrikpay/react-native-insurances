@@ -45,7 +45,7 @@ export interface Insurer {
     id: number;
     name: string;
     logo: string;
-    short_description: string;
+    shortDescription: string;
 }
 
 export interface ProduitAssurance {

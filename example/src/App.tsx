@@ -1,7 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { InsuranceApp } from 'react-native-insurances';
 
-
 export default function App() {
   return (
     <View style={styles.container}>

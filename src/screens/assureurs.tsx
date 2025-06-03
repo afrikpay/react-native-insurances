@@ -1,4 +1,4 @@
-import { Image, ScrollView, StatusBar, Pressable, Text, TouchableOpacity, View } from 'react-native'
+import { Image, ScrollView, StatusBar, Pressable, Text, TouchableOpacity, View, ActivityIndicator } from 'react-native'
 import * as Icon from "react-native-feather"
 import { Box } from '../components/ui/Box'
 import { COLORS } from '../constants/Colors'
@@ -7,11 +7,31 @@ import { height, width } from '../constants/size'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Navigation from '../services/Navigation'
 import { ROUTES } from '../constants/Routes'
+import { useEffect, useState } from 'react'
+import { apiClient } from '../data/axios'
+import type { Insurer } from '../types'
 
 export default function Assureurs(props: any) {
     // Get params from navigation
-    const data = props.route.params
-    console.log({data});
+    const product = props.route.params.product
+
+    const [loading, setLoading] = useState(false);
+    const [insurers, setInsurers] = useState<Insurer[]>([])
+    useEffect(() => {
+        (async () => {
+            setLoading(true);
+            try {
+                const response: any = await apiClient.post('/secure/mobile/insurers/v1', {categoryId: product.id});
+                setInsurers(response.result?? [] as Insurer[])
+            }
+            catch (error) {
+                console.error('Error fetching data:', error);
+            }
+            finally{
+                setLoading(false);
+            }
+        })()
+    }, []);
     
     return (
         <SafeAreaView style={{flex: 1, 
@@ -30,13 +50,14 @@ export default function Assureurs(props: any) {
                     <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Assureurs</Text>
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-                    <Text style={{ flex: 1, fontSize: 16, fontWeight: 'bold' }}>Assurance santé classique</Text>
+                    <Text style={{ flex: 1, fontSize: 16, fontWeight: 'bold' }}>{product.name}</Text>
                     <Image
-                        alt="Image de l'assurance santé"
-                        source={ImageSante}
+                        alt={product.name}
+                        source={{ uri: product.image }}
                         style={{
                             height: 45,
                             width: 45,
+                            borderRadius: 100,
                         }}
                     />
                 </View>
@@ -48,32 +69,40 @@ export default function Assureurs(props: any) {
                     flexWrap: 'wrap',
                     flexDirection: 'row',
                     gap: 10}}>
+                        {   
+                            loading && (
+                                <View style={{ width: '100%', height: 100, justifyContent: 'center', alignItems: 'center' }}>
+                                    <ActivityIndicator color={COLORS.gray} style={{ height: 50, width: 50 }} />
+                                </View>
+                            )
+                        }
                     {
-                        [0,1,2,3,4,5,6,7,8,9].map((item) => (
-                            <Box key={item} width={'100%'} padding={18}>
+                        insurers.map((insurer, index) => (
+                            <Box key={index} width={'100%'} padding={18}>
                                 <Pressable 
-                                    onPress={() => { Navigation.navigate(ROUTES.DETAIL_ASSURANCE) }}
+                                    onPress={() => { Navigation.navigate(ROUTES.DETAIL_ASSURANCE, { product, insurer }) }}
                                     style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={{ flex:1, flexDirection: 'column', gap: 10}}>
                                         <View style={{ flexDirection: 'row', width: '100%', gap: 20 }}>
                                             <Image
-                                                alt="Image de l'assurance santé"
-                                                source={require("../assets/logo.png")}
+                                                alt={insurer.name}
+                                                source={{ uri: insurer.logo  }}
                                                 style={{
                                                     height: 50,
-                                                    width: 50
+                                                    width: 50,
+                                                    borderRadius: 100,
                                                 }}
                                             />
                                             <View style={{ flex: 1, flexDirection: 'column' }}>
                                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 20 }}>
-                                                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Willis Tower Watson</Text>
+                                                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{insurer.name}</Text>
                                                 </View>
                                                 <Text>03 Formules</Text>
                                             </View>
                                         </View>
-                                        <Text style={{ fontSize: 12}}>A partir de 74 000 XAF/an TTC</Text>
+                                        <Text style={{ fontSize: 12}}>{insurer.shortDescription}</Text>
                                     </View>
-                                    <TouchableOpacity onPress={() => { Navigation.navigate(ROUTES.DETAIL_ASSURANCE) }}>
+                                    <TouchableOpacity onPress={() => { Navigation.navigate(ROUTES.DETAIL_ASSURANCE, { product, insurer }) }}>
                                         <Icon.ChevronRight color={COLORS.primary} strokeWidth={1.5} width={30} height={30} />
                                     </TouchableOpacity>
                                 </Pressable>
