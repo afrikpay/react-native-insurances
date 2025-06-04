@@ -10,12 +10,14 @@ import { Button, Modal, Portal, TextInput } from 'react-native-paper'
 import DropdownComponent from '../components/ui/DropdownComponent'
 
 
-export default function DetailSouscription() {
+export default function DetailSouscription(props:any) {
     const [visible, setVisible] = useState(false);
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
 
     const [text, setText] = useState("");
+
+    const {souscription } = props.route.params;
     
     return (
         <View style={{flex: 1, 
@@ -34,7 +36,7 @@ export default function DetailSouscription() {
                     <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Détails souscription</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={{ fontSize: 22, fontWeight: 'bold', color: COLORS.primary }}>Premium Gold</Text>
+                    <Text style={{ fontSize: 22, fontWeight: 'bold', color: COLORS.primary }}>{souscription.plan.name}</Text>
                     <TouchableOpacity onPress={() => { showModal() }} style={{
                         width: 40, height: 40,
                         borderRadius: 20, backgroundColor: COLORS.primary,
@@ -47,24 +49,24 @@ export default function DetailSouscription() {
                     <View style={{ flexDirection: 'row', gap: 3 }}>
                         <View style={{ flex: 1, gap: 16}}>
                             <Image
-                                alt="Image de l'assurance santé"
-                                source={require("../assets/logo.png")}
-                                style={{ height: 40, width: 40 }}
+                                alt={`${souscription.insurer.name} logo`}
+                                source={{ uri: souscription.insurer.logo }}
+                                style={{ height: 40, width: 40, borderRadius: 100  }}
                             />
                             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                                 <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
                                 <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
                             </View>
-                            <Text style={{ fontSize: 16, fontWeight: 'bold'}}>01 an</Text>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold'}}>{souscription.plan.duration} {souscription.plan.unit}</Text>
                         </View>
                         <View style={{ flex: 3, flexDirection: 'column', gap: 8 }}>
                             <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
                                 <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Type:</Text>
-                                <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 14, fontWeight: 'bold', color: COLORS.primary }}>Assurance santé classique</Text>
+                                <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 14, fontWeight: 'bold', color: COLORS.primary }}>{souscription.product}</Text>
                             </View>
                             <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
                                 <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Souscrit le :</Text>
-                                <Text numberOfLines={2} ellipsizeMode='tail'>25/04/2025</Text>
+                                <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.subscribeAt.slice(0, 10)}</Text>
                             </View>
                             <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
                                 <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Activé le :</Text>
@@ -76,7 +78,7 @@ export default function DetailSouscription() {
                             </View>
                             <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
                                 <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Prime: </Text>
-                                <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 14, fontWeight: 'bold' }}>74 000 XAF</Text>
+                                <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 14, fontWeight: 'bold' }}>{souscription.plan.price} XAF</Text>
                             </View>
                         </View>
                     </View>
@@ -90,22 +92,7 @@ export default function DetailSouscription() {
                 style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6'}}>  
                 <RenderHtml
                     contentWidth={width}
-                    source={{
-                        html: `
-                        <section>
-                            <h1>Description</h1>
-                            <p>L’assurance sante classique couvre tous les services médicaux dans des établissements hospitaliers agréés, sur toute l’etendue du territoire national.</p>
-                            <h1>Garanties</h1>
-                            <ul>
-                                <li>Hospitalisation médicale et chirurgicale</li>
-                                <li>Consultations</li>
-                                <li>Pharmacie</li>
-                                <li>Analyses médicales/Radiologie</li>
-                                <li>Pathologies particulières</li>
-                            </ul>
-                        </section>
-                        `
-                    }}
+                    source={{ html: `${souscription.plan.description}` }}
                 />
             </ScrollView>
 

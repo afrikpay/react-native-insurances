@@ -40,7 +40,7 @@ export default function Souscriptions() {
             setLoading(true);
             try {
                 const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {});       
-                setSouscriptions(response.result as Souscription[])                
+                setSouscriptions(response.result as Souscription[])               
             }
             catch (error) {
                 console.error('Error fetching data:', error);
@@ -151,7 +151,7 @@ export default function Souscriptions() {
                                             }}>
 
                                                 <Image
-                                                    alt="Image de l'assurance santé"
+                                                    alt={`${souscription.insurer.name} logo`}
                                                     source={{ uri: souscription.insurer.logo }}
                                                     style={{
                                                         height: '100%',
