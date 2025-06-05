@@ -43,9 +43,7 @@ export default function DetailSouscription(props:any) {
         setText(""); // Clear the text input after sharing
         hideModal();
         
-    } catch (error) {
-        
-    }
+    } catch (error) {}
   };
     
     return (
@@ -53,8 +51,7 @@ export default function DetailSouscription(props:any) {
             height: height, width: width,  
             backgroundColor: COLORS.white,
             flexDirection: 'column',
-            gap: 20
-        }}>
+            gap: 20 }}>
             <StatusBar hidden />
             <View style={{ backgroundColor: COLORS.white, paddingHorizontal: 20, paddingTop: 35, gap: 30}}>
                 {/** Navigation bar  */}

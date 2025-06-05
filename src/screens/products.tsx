@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react'
 import { Image, Pressable, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import * as Icon from "react-native-feather"
+import { ActivityIndicator } from 'react-native-paper'
 import { COLORS } from '../constants/Colors'
 import { ImageSante } from '../constants/Images'
 import { ROUTES } from '../constants/Routes'
 import { width } from '../constants/size'
-import Navigation from '../services/Navigation'
 import { apiClient } from '../data/axios'
-import { ActivityIndicator } from 'react-native-paper'
+import Navigation from '../services/Navigation'
 
 export default function Products() {
     const [search, setSearch] = useState('')
     const [loading, setLoading] = useState<boolean>(false);
     const [products, setProducts] = useState<any[]>([])
+    const [productsCopy, setProductsCopy] = useState<any[]>([])
     
     useEffect(() => {
         (async () => {
@@ -20,6 +21,7 @@ export default function Products() {
             try {
                 const response: any = await apiClient.post('/secure/mobile/categories/v1', {});       
                 setProducts(response.result)
+                setProductsCopy(response.result)
             }
             catch (error) {
                 console.error('Error fetching data:', error);
@@ -30,6 +32,21 @@ export default function Products() {
         })()
 
     }, []);
+
+    // Filter insurance product by name
+    const searchProducts = (searchTerm: string) => {
+        setSearch(searchTerm);
+        if (!searchTerm) {
+            setProducts(productsCopy);
+            return;
+        }
+        const filtered = productsCopy.filter(product =>
+            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.description.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setProducts(filtered);
+    }
+    
     return (
         <SafeAreaView style={{flex: 1, width: width,  
             backgroundColor: COLORS.white,
@@ -59,7 +76,7 @@ export default function Products() {
                         placeholder={'Rechercher un produit d’assurance'}
                         returnKeyType="next"
                         underlineColorAndroid="transparent"
-                        onChangeText={setSearch}
+                        onChangeText={searchProducts}
                         // onFocus={onFocus}
                         value={search}
                         placeholderTextColor={'#9D9D9D'}

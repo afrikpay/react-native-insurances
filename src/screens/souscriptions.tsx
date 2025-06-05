@@ -35,12 +35,15 @@ export default function Souscriptions() {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [souscriptions, setSouscriptions] = useState<Souscription[]>([])
+    const [souscriptionsCopy, setSouscriptionsCopy] = useState<Souscription[]>([])
+
     useEffect(() => {
         (async () => {
             setLoading(true);
             try {
                 const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {});       
-                setSouscriptions(response.result as Souscription[])               
+                setSouscriptions(response.result as Souscription[])  
+                setSouscriptionsCopy(response.result as Souscription[])             
             }
             catch (error) {
                 console.error('Error fetching data:', error);
@@ -63,6 +66,22 @@ export default function Souscriptions() {
         setShowEndDatePicker(Platform.OS === 'ios')
         setEndDate(currentDate)
         setSelectedEndDate(moment(currentDate).format(pattern))
+    }
+
+
+    // Filter souscriptions by name
+    const searchSouscriptions = (searchTerm: string) => {
+        setSearch(searchTerm);
+        if (!searchTerm) {
+            setSouscriptions(souscriptionsCopy);
+            return;
+        }
+        const filtered = souscriptionsCopy.filter(souscription =>
+            souscription.planName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            souscription.product.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            souscription.insurer.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setSouscriptions(filtered);
     }
     
     return (
@@ -98,7 +117,7 @@ export default function Souscriptions() {
                         placeholder={'Rechercher une souscription'}
                         returnKeyType="next"
                         underlineColorAndroid="transparent"
-                        onChangeText={setSearch}
+                        onChangeText={searchSouscriptions}
                         // onFocus={onFocus}
                         value={search}
                         placeholderTextColor={'#9D9D9D'}
