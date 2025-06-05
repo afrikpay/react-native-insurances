@@ -147,15 +147,13 @@ export default function Souscriptions() {
                                                 width: 50,
                                                 borderRadius: 100,
                                                 overflow: 'hidden',
-                                                borderColor: COLORS.danger,
-                                            }}>
-
+                                                borderColor: COLORS.danger }}>
                                                 <Image
                                                     alt={`${souscription.insurer.name} logo`}
                                                     source={{ uri: souscription.insurer.logo }}
                                                     style={{
                                                         height: '100%',
-                                                        width: '100%',
+                                                     width: '100%',
                                                     }}
                                                 />
                                             </View>

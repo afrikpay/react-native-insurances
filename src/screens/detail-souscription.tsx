@@ -1,13 +1,12 @@
 import { useState } from 'react'
-import { Image, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Linking, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import * as Icon from "react-native-feather"
+import { Button, Modal, Portal, TextInput } from 'react-native-paper'
 import RenderHtml from 'react-native-render-html'
 import { Box } from '../components/ui/Box'
 import { COLORS } from '../constants/Colors'
 import { height, width } from '../constants/size'
 import Navigation from '../services/Navigation'
-import { Button, Modal, Portal, TextInput } from 'react-native-paper'
-import DropdownComponent from '../components/ui/DropdownComponent'
 
 
 export default function DetailSouscription(props:any) {
@@ -17,7 +16,37 @@ export default function DetailSouscription(props:any) {
 
     const [text, setText] = useState("");
 
-    const {souscription } = props.route.params;
+    const {souscription } = props.route.params; 
+    
+     // Share data to whatsapp with phone number and message   
+  const shareWhatsapp = () => {
+    if (!text) {
+      console.error('Message is required to share on WhatsApp');
+      return;
+    }
+    const message = `
+        Bonjour, je suis intéressé par le plan ${souscription.plan.name} de l'assurance ${souscription.insurer.name} et souhaite de avoir de l'aide.
+        Message: ${text}
+        Voici les détails de ma souscription :
+        - Type d'assurance : ${souscription.product}
+        - Souscrit le : ${souscription.subscribeAt.slice(0, 10)}
+        - Activé le : ${souscription.startAt ? souscription.startAt.slice(0, 10) : '--'}
+        - Validité : ${souscription.endAt ? souscription.endAt.slice(0, 10) : '--'}
+        - Prime : ${souscription.plan.price} XAF
+        - Description : ${souscription.plan.description}
+        Merci de me contacter pour plus d'informations.
+    `
+    try {
+        const phoneNumber = '237658880708'; // Replace with your desired phone number
+        const url = `whatsapp://send?phone=${phoneNumber}&text=${message}`;
+        Linking.openURL(url);
+        setText(""); // Clear the text input after sharing
+        hideModal();
+        
+    } catch (error) {
+        
+    }
+  };
     
     return (
         <View style={{flex: 1, 
@@ -40,8 +69,7 @@ export default function DetailSouscription(props:any) {
                     <TouchableOpacity onPress={() => { showModal() }} style={{
                         width: 40, height: 40,
                         borderRadius: 20, backgroundColor: COLORS.primary,
-                        justifyContent: 'center', alignItems: 'center'
-                    }}>
+                        justifyContent: 'center', alignItems: 'center'}}>
                         <Icon.MessageSquare color={COLORS.white} strokeWidth={2} width={20} height={20} />
                     </TouchableOpacity>
                 </View>
@@ -70,11 +98,11 @@ export default function DetailSouscription(props:any) {
                             </View>
                             <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
                                 <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Activé le :</Text>
-                                <Text numberOfLines={2} ellipsizeMode='tail'>27/04/2025</Text>
+                                <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.startAt ? souscription.startAt.slice(0, 10) : '--'}</Text>
                             </View>
                             <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
                                 <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Validité :</Text>
-                                <Text numberOfLines={2} ellipsizeMode='tail'>26/04/2026</Text>
+                                <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.endAt ? souscription.endAt.slice(0, 10) : '--'}</Text>
                             </View>
                             <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
                                 <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Prime: </Text>
@@ -96,57 +124,60 @@ export default function DetailSouscription(props:any) {
                 />
             </ScrollView>
 
-            {/** Modal de filtre des souscriptions */}
+            {/** Modal du message d'aide à la souscription */}
             <Portal>
                 <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{backgroundColor: 'white', padding: 20, width: '90%', marginLeft: '5%', borderRadius: 10}}>
                     <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Aide souscription</Text>
                     <View style={{ borderBottomWidth: 0.6, borderBottomColor: 'gray', opacity: 0.3, marginVertical: 10}}></View>
                     <Text style={{ lineHeight: 20 }} >Veuillez nous decrire votre préoccupation. Un de nos assistants vous prendra en charge dans de brefs délais.</Text>
-                           
-                    <View style={{ flexDirection: 'column', marginVertical: 20 }}>
-                        <Text style={{ fontWeight: 'bold' }} >Type assurance</Text>
-                        <DropdownComponent
-                            label="Sélectionner un type "
-                            placeholder="Sélectionner un type"
-                            data={
-                                [
-                                    { label: 'Assurance santé', value: 'assurance_sante' },
-                                    { label: 'Assurance auto', value: 'assurance_auto' },
-                                    { label: 'Assurance habitation', value: 'assurance_habitation' },
-                                    { label: 'Assurance voyage', value: 'assurance_voyage' },
-                                    { label: 'Assurance vie', value: 'assurance_vie' },
-                                    { label: 'Assurance responsabilité civile', value: 'assurance_responsabilite_civile' },
-                                    { label: 'Assurance scolaire', value: 'assurance_scolaire' },
-                                    { label: 'Assurance animaux de compagnie', value: 'assurance_animaux_de_compagnie' },
-                                    { label: 'Assurance professionnelle', value: 'assurance_professionnelle' },
-                                ]
-                            }
-                            onChangeValue={(item) => console.log(item)}
-                        />
-                    </View>
-                    <View style={{ flexDirection: 'column', marginBottom: 20, marginTop: 10 }}>
-                        <Text style={{  fontWeight: 'bold', marginTop: 25 }}>Formule</Text>
-                        <DropdownComponent
-                            label="Sélectionner une formule"
-                            placeholder="Sélectionner une formule"
-                            data={
-                                [
-                                    { label: 'Formule de base', value: 'formule_de_base' },
-                                    { label: 'Formule standard', value: 'formule_standard' },
-                                    { label: 'Formule premium', value: 'formule_premium' },
-                                    { label: 'Formule gold', value: 'formule_gold' },
-                                    { label: 'Formule platinum', value: 'formule_platinum' },
-                                    { label: 'Formule silver', value: 'formule_silver' },
-                                    { label: 'Formule bronze', value: 'formule_bronze' },
-                                    { label: 'Formule familiale', value: 'formule_familiale' },
-                                    { label: 'Formule individuelle', value: 'formule_individuelle' },
-                                    { label: 'Formule entreprise', value: 'formule_entreprise' },
-                                ]
-                            }
-                            onChangeValue={(item) => console.log(item)}
-                        />
-                    </View>
-                    <View style={{ marginTop: 35, height: 140}}>
+                    {/**    
+                        <View style={{ flexDirection: 'column', marginVertical: 20 }}>
+                            <Text style={{ fontWeight: 'bold' }} >Type assurance</Text>
+                            <DropdownComponent
+                                label="Sélectionner un type "
+                                placeholder="Sélectionner un type"
+                                data={
+                                    [
+                                        { label: 'Assurance santé', value: 'assurance_sante' },
+                                        { label: 'Assurance auto', value: 'assurance_auto' },
+                                        { label: 'Assurance habitation', value: 'assurance_habitation' },
+                                        { label: 'Assurance voyage', value: 'assurance_voyage' },
+                                        { label: 'Assurance vie', value: 'assurance_vie' },
+                                        { label: 'Assurance responsabilité civile', value: 'assurance_responsabilite_civile' },
+                                        { label: 'Assurance scolaire', value: 'assurance_scolaire' },
+                                        { label: 'Assurance animaux de compagnie', value: 'assurance_animaux_de_compagnie' },
+                                        { label: 'Assurance professionnelle', value: 'assurance_professionnelle' },
+                                    ]
+                                }
+                                onChangeValue={(item) => console.log(item)}
+                            />
+                        </View>
+                    */}  
+                    {/** 
+                        <View style={{ flexDirection: 'column', marginBottom: 20, marginTop: 10 }}>
+                            <Text style={{  fontWeight: 'bold', marginTop: 25 }}>Formule</Text>
+                            <DropdownComponent
+                                label="Sélectionner une formule"
+                                placeholder="Sélectionner une formule"
+                                data={
+                                    [
+                                        { label: 'Formule de base', value: 'formule_de_base' },
+                                        { label: 'Formule standard', value: 'formule_standard' },
+                                        { label: 'Formule premium', value: 'formule_premium' },
+                                        { label: 'Formule gold', value: 'formule_gold' },
+                                        { label: 'Formule platinum', value: 'formule_platinum' },
+                                        { label: 'Formule silver', value: 'formule_silver' },
+                                        { label: 'Formule bronze', value: 'formule_bronze' },
+                                        { label: 'Formule familiale', value: 'formule_familiale' },
+                                        { label: 'Formule individuelle', value: 'formule_individuelle' },
+                                        { label: 'Formule entreprise', value: 'formule_entreprise' },
+                                    ]
+                                }
+                                onChangeValue={(item) => console.log(item)}
+                            />
+                        </View>
+                     */}   
+                    <View style={{ marginTop: 30, height: 140}}>
                         <Text style={{  fontWeight: 'bold', marginBottom: 10 }}>Votre message *</Text>
                         <TextInput
                             style={{ flex: 1, 
@@ -170,7 +201,7 @@ export default function DetailSouscription(props:any) {
                     </View>
                     
                     <View style={{ marginTop: 40 }}>
-                        <Button style={{  backgroundColor: COLORS.primary }} mode="contained" onPress={() => console.log('Pressed')}>
+                        <Button style={{  backgroundColor: COLORS.primary }} mode="contained" onPress={shareWhatsapp}>
                             Soumettre
                         </Button>
                     </View>

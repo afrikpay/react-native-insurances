@@ -17,13 +17,13 @@
     "react-native": "0.79.2",
     "react-native-feather": "^1.1.2",
     "react-native-render-html": "^6.3.4",
-    "react-native-svg": "^15.12.0",
+    "react-native-svg": "15.11.2",
     "react-native-web": "~0.20.0",
     "rn-step-form": "https://patrick1kenne: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@github.com/afrikpay/afrikpay-com-rn-step-form.git"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@react-native-community/datetimepicker": "^8.4.1",
+    "@react-native-community/datetimepicker": "8.3.0",
     "@react-native-masked-view/masked-view": "^0.3.2",
     "@react-native-picker/picker": "^2.11.0",
     "@react-navigation/bottom-tabs": "^7.3.13",
@@ -36,9 +36,9 @@
     "moment": "^2.30.1",
     "react-native-builder-bob": "^0.38.3",
     "react-native-element-dropdown": "^2.12.4",
-    "react-native-gesture-handler": "^2.25.0",
+    "react-native-gesture-handler": "~2.24.0",
     "react-native-paper": "^5.14.5",
-    "react-native-safe-area-context": "^5.4.0",
+    "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "^4.10.0"
   },
   "private": true
