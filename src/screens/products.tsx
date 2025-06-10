@@ -77,7 +77,6 @@ export default function Products() {
                         returnKeyType="next"
                         underlineColorAndroid="transparent"
                         onChangeText={searchProducts}
-                        // onFocus={onFocus}
                         value={search}
                         placeholderTextColor={'#9D9D9D'}
                         secureTextEntry={false}

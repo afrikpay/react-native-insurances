@@ -68,7 +68,6 @@ export default function Souscriptions() {
         setSelectedEndDate(moment(currentDate).format(pattern))
     }
 
-
     // Filter souscriptions by name
     const searchSouscriptions = (searchTerm: string) => {
         setSearch(searchTerm);
@@ -151,15 +150,15 @@ export default function Souscriptions() {
                                 <Pressable onPress={() => { Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS, { souscription }) }}>
                                     <View>
                                         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', gap: 10 }}>
-                                            <View style={{ flexDirection: 'column' }}>
-                                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 20 }}>
-                                                    <Text style={{ fontSize: 22, fontWeight: 'bold' }}>{souscription.planName}</Text>
-                                                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                                            <View style={{ flex:1, flexDirection: 'column', width: width*0.7, }}>
+                                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', gap: 20 }}>
+                                                    <Text style={{ width: width*0.3, fontSize: 22, fontWeight: 'bold' }} lineBreakMode='tail'>{souscription.planName}</Text>
+                                                    <View style={{ flex:1, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                                                         <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
                                                         <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
                                                     </View>
                                                 </View>
-                                                <Text>{souscription.product}</Text>
+                                                <Text numberOfLines={2} lineBreakMode='clip'>{souscription.product}</Text>
                                             </View>
                                             <View style={{
                                                 height: 50,
