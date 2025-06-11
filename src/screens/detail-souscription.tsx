@@ -85,7 +85,7 @@ export default function DetailSouscription(props:any) {
                             <Text style={{ fontSize: 16, fontWeight: 'bold'}}>{souscription.plan.duration} {souscription.plan.unit}</Text>
                         </View>
                         <View style={{ flex: 3, flexDirection: 'column', gap: 8 }}>
-                            <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
+                            <View style={{ flexDirection:"row", justifyContent: 'space-between', gap: 4}}>
                                 <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Type:</Text>
                                 <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 14, fontWeight: 'bold', color: COLORS.primary }}>{souscription.product}</Text>
                             </View>
