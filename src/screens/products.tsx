@@ -56,7 +56,7 @@ export default function Products() {
             <View style={{ backgroundColor: COLORS.white, paddingHorizontal: 20, paddingTop: 35, gap: 30}}>
                 {/** Navigation bar  */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10}}>
-                    <TouchableOpacity onPress={() => { Navigation.back()}}>
+                    <TouchableOpacity onPress={() => Navigation.back() }>
                         <Icon.ChevronLeft color={COLORS.dark} strokeWidth={1.5} width={30} height={30} />
                     </TouchableOpacity>
                     <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Produits d’assurance</Text>
@@ -99,10 +99,7 @@ export default function Products() {
                         </View>
                     )
                 }
-                <View style={{display: 'flex',
-                    flexWrap: 'wrap',
-                    flexDirection: 'row',
-                    gap: 10}}>
+                <View style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'row', gap: 10}}>
                     {
                         products.map((product: any, index: number) => (
                             <View

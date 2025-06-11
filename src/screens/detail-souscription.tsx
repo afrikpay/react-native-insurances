@@ -18,33 +18,33 @@ export default function DetailSouscription(props:any) {
 
     const {souscription } = props.route.params; 
     
-     // Share data to whatsapp with phone number and message   
-  const shareWhatsapp = () => {
-    if (!text) {
-      console.error('Message is required to share on WhatsApp');
-      return;
-    }
-    const message = `
-        Bonjour, je suis intéressé par le plan ${souscription.plan.name} de l'assurance ${souscription.insurer.name} et souhaite de avoir de l'aide.
-        Message: ${text}
-        Voici les détails de ma souscription :
-        - Type d'assurance : ${souscription.product}
-        - Souscrit le : ${souscription.subscribeAt.slice(0, 10)}
-        - Activé le : ${souscription.startAt ? souscription.startAt.slice(0, 10) : '--'}
-        - Validité : ${souscription.endAt ? souscription.endAt.slice(0, 10) : '--'}
-        - Prime : ${souscription.plan.price} XAF
-        - Description : ${souscription.plan.description}
-        Merci de me contacter pour plus d'informations.
-    `
-    try {
-        const phoneNumber = '237658880708'; // Replace with your desired phone number
-        const url = `whatsapp://send?phone=${phoneNumber}&text=${message}`;
-        Linking.openURL(url);
-        setText(""); // Clear the text input after sharing
-        hideModal();
-        
-    } catch (error) {}
-  };
+    // Share data to whatsapp with phone number and message   
+    const shareWhatsapp = () => {
+        if (!text) {
+        console.error('Message is required to share on WhatsApp');
+        return;
+        }
+        const message = `
+            Bonjour, je suis intéressé par le plan ${souscription.plan.name} de l'assurance ${souscription.insurer.name} et souhaite de avoir de l'aide.
+            Message: ${text}
+            Voici les détails de ma souscription :
+            - Type d'assurance : ${souscription.product}
+            - Souscrit le : ${souscription.subscribeAt.slice(0, 10)}
+            - Activé le : ${souscription.startAt ? souscription.startAt.slice(0, 10) : '--'}
+            - Validité : ${souscription.endAt ? souscription.endAt.slice(0, 10) : '--'}
+            - Prime : ${souscription.plan.price} XAF
+            - Description : ${souscription.plan.description}
+            Merci de me contacter pour plus d'informations.
+        `
+        try {
+            const phoneNumber = '237658880708'; // Replace with your desired phone number
+            const url = `whatsapp://send?phone=${phoneNumber}&text=${message}`;
+            Linking.openURL(url);
+            setText(""); // Clear the text input after sharing
+            hideModal();
+            
+        } catch (error) {}
+    };
     
     return (
         <View style={{flex: 1, 

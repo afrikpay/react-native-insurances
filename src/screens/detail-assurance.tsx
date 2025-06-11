@@ -17,7 +17,7 @@ export default function DetailAssurance(props: any) {
 
     // Get params from navigation
     const {product, insurer} = props.route.params
-    const [plans, setPlans] = useState<Plan[]>([])
+    const [plans, setPlans] = useState<Plan[]>([])    
 
     useEffect(() => {
         (async () => {
