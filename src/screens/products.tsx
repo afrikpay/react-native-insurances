@@ -146,7 +146,7 @@ export default function Products() {
                         ))
                     }
                 </View>
-                <View style={{ height: 40 }} />
+                <View style={{ height: 80, width: '100%' }} />
             </ScrollView>
         </SafeAreaView>
   )

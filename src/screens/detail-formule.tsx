@@ -51,7 +51,7 @@ export default function DetailFormule(props: any) {
                     <Text style={{ color: COLORS.white, fontWeight: "bold", fontSize: 18, textAlign: 'center'}}>Souscrire</Text>
                 </Pressable>
 
-                <View style={{ height: 40, width:  '100%' }}/>
+                <View style={{ height: 80, width:  '100%' }}/>
             </ScrollView>
         </SafeAreaView>
     )

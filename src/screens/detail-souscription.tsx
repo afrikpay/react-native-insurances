@@ -119,6 +119,8 @@ export default function DetailSouscription(props:any) {
                     contentWidth={width}
                     source={{ html: `${souscription.plan.description}` }}
                 />
+
+                <View style={{ width: '100%', height: 80 }} />
             </ScrollView>
 
             {/** Modal du message d'aide à la souscription */}

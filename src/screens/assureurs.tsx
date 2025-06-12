@@ -1,14 +1,13 @@
-import { Image, ScrollView, StatusBar, Pressable, Text, TouchableOpacity, View, ActivityIndicator } from 'react-native'
+import { useEffect, useState } from 'react'
+import { ActivityIndicator, Image, Pressable, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import * as Icon from "react-native-feather"
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { Box } from '../components/ui/Box'
 import { COLORS } from '../constants/Colors'
-import { ImageSante } from '../constants/Images'
-import { height, width } from '../constants/size'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import Navigation from '../services/Navigation'
 import { ROUTES } from '../constants/Routes'
-import { useEffect, useState } from 'react'
+import { height, width } from '../constants/size'
 import { apiClient } from '../data/axios'
+import Navigation from '../services/Navigation'
 import type { Insurer } from '../types'
 
 export default function Assureurs(props: any) {
@@ -27,9 +26,7 @@ export default function Assureurs(props: any) {
             catch (error) {
                 console.error('Error fetching data:', error);
             }
-            finally{
-                setLoading(false);
-            }
+            finally{ setLoading(false)}
         })()
     }, []);
     
