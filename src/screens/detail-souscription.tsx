@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Image, Linking, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Linking, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import * as Icon from "react-native-feather"
 import { Button, Modal, Portal, TextInput } from 'react-native-paper'
 import RenderHtml from 'react-native-render-html'
@@ -47,7 +47,7 @@ export default function DetailSouscription(props:any) {
     };
     
     return (
-        <View style={{flex: 1, 
+        <SafeAreaView style={{flex: 1, 
             height: height, width: width,  
             backgroundColor: COLORS.white,
             flexDirection: 'column',
@@ -204,6 +204,6 @@ export default function DetailSouscription(props:any) {
                     </View>
                 </Modal>
             </Portal> 
-        </View>
+        </SafeAreaView>
   )
 }

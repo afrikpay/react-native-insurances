@@ -1,19 +1,16 @@
-import { useEffect, useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { ActivityIndicator, Image, Platform, Pressable, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import * as Icon from "react-native-feather"
-import { Box } from '../components/ui/Box'
-import { COLORS } from '../constants/Colors'
-import { ROUTES } from '../constants/Routes'
-import { height, width } from '../constants/size'
-import Navigation from '../services/Navigation'
-import { Button, Modal, Portal } from 'react-native-paper'
-import { RadioButton } from 'react-native-paper';
-import DropdownComponent from '../components/ui/DropdownComponent'
-import moment from 'moment'
-import { apiClient } from '../data/axios';
-import type { Souscription } from '../types';
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Platform, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import * as Icon from "react-native-feather";
+import { Button, Modal, Portal, RadioButton } from 'react-native-paper';
+import DropdownComponent from '../components/ui/DropdownComponent';
 import SouscriptionComponent from '../components/ui/souscription-component';
+import { COLORS } from '../constants/Colors';
+import { height, width } from '../constants/size';
+import { apiClient } from '../data/axios';
+import Navigation from '../services/Navigation';
+import type { Souscription } from '../types';
 
 const pattern = 'YYYY/MM/DD'//  HH:mm:ss'
 
@@ -85,12 +82,12 @@ export default function Souscriptions() {
     }
     
     return (
-        <SafeAreaView style={{flex: 1, 
+        <SafeAreaView style={{
+            flex: 1, 
             height: height, width: width,  
             backgroundColor: COLORS.white,
             flexDirection: 'column',
-            gap: 20
-        }}>
+            gap: 20 }}>
             <View style={{ backgroundColor: COLORS.white, paddingHorizontal: 20, paddingTop: 35, gap: 30}}>
                 {/** Navigation bar  */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10}}>

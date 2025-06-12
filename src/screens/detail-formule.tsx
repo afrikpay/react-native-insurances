@@ -1,4 +1,4 @@
-import { Image, Pressable, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Pressable, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import * as Icon from "react-native-feather"
 import RenderHtml from 'react-native-render-html'
 import { COLORS } from '../constants/Colors'
@@ -10,7 +10,7 @@ export default function DetailFormule(props: any) {
     const { plan, insurer } = props.route.params;
     
     return (
-        <View style={{flex: 1, 
+        <SafeAreaView style={{flex: 1, 
             height: height, width: width,  
             backgroundColor: COLORS.white,
             flexDirection: 'column',
@@ -50,8 +50,9 @@ export default function DetailFormule(props: any) {
                     style= {{ paddingVertical: 12,  paddingHorizontal: 16, marginTop: 40, backgroundColor: COLORS.primary, borderRadius: 100 }}>
                     <Text style={{ color: COLORS.white, fontWeight: "bold", fontSize: 18, textAlign: 'center'}}>Souscrire</Text>
                 </Pressable>
-                
+
+                <View style={{ height: 40, width:  '100%' }}/>
             </ScrollView>
-        </View>
+        </SafeAreaView>
     )
 }

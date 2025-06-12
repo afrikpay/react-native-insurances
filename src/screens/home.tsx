@@ -1,4 +1,4 @@
-import { Image, Pressable, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Pressable, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import * as Icon from "react-native-feather"
 import { Box } from '../components/ui/Box'
 import { COLORS } from '../constants/Colors'
@@ -15,50 +15,50 @@ import SouscriptionComponent from '../components/ui/souscription-component'
 export default function Home() {
     
     return (
-        <View style={{flex: 1, 
-        height: height, width: width, 
-        padding: 20, 
-        backgroundColor: COLORS.white,
-        flexDirection: 'column',
-        gap: 20
+        <SafeAreaView style={{flex: 1, 
+            height: height, width: width, 
+            padding: 20, 
+            backgroundColor: COLORS.white,
+            flexDirection: 'column',
+            gap: 20
         }}>
-        <StatusBar hidden />
-        <View style={{}}>
-            <View style={{ flexDirection: 'row', justifyContent: "space-between", alignItems: 'center' }}>
-                <View style={{ flexDirection: 'column'}}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary}}>Bon retour</Text>
-                <Text style={{ fontSize: 14, fontWeight: '500' }}>Manu Decca</Text>
-                </View>
-                <View>
-                <TouchableOpacity style={{ position: 'relative'}} onPress={() => { }}>
-                    <Icon.Bell color={COLORS.light_blue} strokeWidth={2} width={30} height={30} />
-                    <View style={{ backgroundColor: COLORS.danger, 
-                        position: 'absolute', top: 0, right: 0,
-                        height: 18, width: 18, borderRadius: 100, 
-                        justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={{ fontSize: 9, color: COLORS.white, fontWeight: 'bold'}}>02</Text>
+            <StatusBar hidden />
+            <View style={{}}>
+                <View style={{ flexDirection: 'row', justifyContent: "space-between", alignItems: 'center' }}>
+                    <View style={{ flexDirection: 'column'}}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary}}>Bon retour</Text>
+                    <Text style={{ fontSize: 14, fontWeight: '500' }}>Manu Decca</Text>
                     </View>
-                </TouchableOpacity>
+                    <View>
+                    <TouchableOpacity style={{ position: 'relative'}} onPress={() => { }}>
+                        <Icon.Bell color={COLORS.light_blue} strokeWidth={2} width={30} height={30} />
+                        <View style={{ backgroundColor: COLORS.danger, 
+                            position: 'absolute', top: 0, right: 0,
+                            height: 18, width: 18, borderRadius: 100, 
+                            justifyContent: 'center', alignItems: 'center'}}>
+                            <Text style={{ fontSize: 9, color: COLORS.white, fontWeight: 'bold'}}>02</Text>
+                        </View>
+                    </TouchableOpacity>
+                    </View>
                 </View>
             </View>
-        </View>
-        
-        {/** Subscription Card */}
-        <HomeCard />
+            
+            {/** Subscription Card */}
+            <HomeCard />
 
-        <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={{ flex: 1}}>
-            {/** Product Section */}
-            <ProductSection />
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={{ flex: 1}}>
+                {/** Product Section */}
+                <ProductSection />
 
-            <View style={{ marginTop: 20}} />
+                <View style={{ marginTop: 20}} />
 
-            { /** Subscriptions section */}
-            <RenderSubscriptionSection />
+                { /** Subscriptions section */}
+                <RenderSubscriptionSection />
 
-        </ScrollView>
-        </View>
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 

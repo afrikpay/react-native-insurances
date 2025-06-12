@@ -1,4 +1,4 @@
-import { Pressable, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+import { Pressable, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import { height, width } from '../constants/size'
 import { COLORS } from '../constants/Colors'
 import * as Icon from 'react-native-feather'
@@ -7,7 +7,7 @@ import { ROUTES } from '../constants/Routes'
 
 export default function Profile() {
   return (
-    <View style={{flex: 1, 
+    <SafeAreaView style={{flex: 1, 
         height: height, width: width,  
         backgroundColor: COLORS.white,
         flexDirection: 'column',
@@ -30,7 +30,7 @@ export default function Profile() {
             <View style={{ width: '100%', borderRadius: 12, backgroundColor: COLORS.primary, padding: 15}}>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 22}}>
                     <View style={{ height: 80, width: 80, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', 
-                        backgroundColor: COLORS.white, borderRadius: '100%', overflow: 'hidden' }}>
+                        backgroundColor: COLORS.white, borderRadius: 100, overflow: 'hidden' }}>
                         <Text style={{ fontSize: 45, color: COLORS.primary, textAlign: 'center', fontWeight: 'bold' }}>D</Text>
                     </View>
                     <View style={{ flex: 1}}>
@@ -90,6 +90,6 @@ export default function Profile() {
             </View>
 
         </ScrollView>
-    </View>
+    </SafeAreaView>
   )
 }
