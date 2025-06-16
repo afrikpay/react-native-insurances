@@ -40,13 +40,13 @@ export default function DetailFormule(props: any) {
             </View>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                style={{ flex: 1, padding: 20,}}>   
+                style={{ flex: 1, padding: 20,}}>
                 <RenderHtml
                     contentWidth={width}
                     source={{ html: `${plan.description}` }}
                 />
                 <Pressable
-                    onPress={() => { Navigation.navigate(ROUTES.SOUSCRIPTION_FORM) }}
+                    onPress={() => { Navigation.navigate(ROUTES.SOUSCRIPTION_FORM, { planId: plan.id, insurerId: insurer.id }) }}
                     style= {{ paddingVertical: 12,  paddingHorizontal: 16, marginTop: 40, backgroundColor: COLORS.primary, borderRadius: 100 }}>
                     <Text style={{ color: COLORS.white, fontWeight: "bold", fontSize: 18, textAlign: 'center'}}>Souscrire</Text>
                 </Pressable>

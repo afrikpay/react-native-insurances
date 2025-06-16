@@ -1,27 +1,26 @@
+import { useEffect, useState } from 'react'
 import { Image, Pressable, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import * as Icon from "react-native-feather"
+import { ActivityIndicator } from 'react-native-paper'
 import { Box } from '../components/ui/Box'
+import SouscriptionComponent from '../components/ui/souscription-component'
 import { COLORS } from '../constants/Colors'
 import { ImageSante } from '../constants/Images'
-import { height, width } from '../constants/size'
 import { ROUTES } from '../constants/Routes'
-import Navigation from '../services/Navigation'
-import { useEffect, useState } from 'react'
+import { height, width } from '../constants/size'
 import { apiClient } from '../data/axios'
-import { ActivityIndicator } from 'react-native-paper'
+import Navigation from '../services/Navigation'
 import type { ProduitAssurance, Souscription } from '../types'
-import SouscriptionComponent from '../components/ui/souscription-component'
 
 export default function Home() {
-    
     return (
-        <SafeAreaView style={{flex: 1, 
+        <SafeAreaView style={{
+            flex: 1, 
             height: height, width: width, 
             padding: 20, 
             backgroundColor: COLORS.white,
             flexDirection: 'column',
-            gap: 20
-        }}>
+            gap: 20 }}>
             <StatusBar hidden />
             <View style={{}}>
                 <View style={{ flexDirection: 'row', justifyContent: "space-between", alignItems: 'center' }}>
@@ -218,6 +217,8 @@ export function RenderSubscriptionSection() {
         </View>
     )
 }
+
+
 {/**
     <Box key={index} width={'100%'} padding={18}>
         <Pressable onPress={() => {Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS, { souscription})}}>
