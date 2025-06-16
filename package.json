@@ -82,12 +82,13 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-reanimated": "*"
   },
   "workspaces": [
     "example"
   ],
-  "packageManager": "yarn@3.6.1",
+  "packageManager": "yarn@4.9.2",
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
@@ -149,5 +150,8 @@
     "languages": "js",
     "type": "library",
     "version": "0.49.2"
+  },
+  "dependencies": {
+    "rn-step-form": "https://github.com/afrikpay/afrikpay-com-rn-step-form.git"
   }
 }
