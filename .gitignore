@@ -65,9 +65,6 @@ android/keystores/debug.keystore
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
 
 # Expo
 .expo/
@@ -84,3 +81,5 @@ android/generated
 
 # React Native Nitro Modules
 nitrogen/
+
+.npmrc
