@@ -16,11 +16,10 @@
     "react-dom": "19.0.0",
     "react-native": "0.79.2",
     "react-native-feather": "^1.1.2",
+    "react-native-reanimated": "3.17.4",
     "react-native-render-html": "^6.3.4",
     "react-native-svg": "15.11.2",
-    "react-native-web": "~0.20.0",
-    "rn-step-form": "https://patrick1kenne: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@github.com/afrikpay/afrikpay-com-rn-step-form.git"
-    "react-native-reanimated": "^3.18.0"
+    "react-native-web": "~0.20.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

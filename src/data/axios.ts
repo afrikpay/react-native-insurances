@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with custom config
 let api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL || 'https://c2bb-154-72-171-251.ngrok-free.app/api',
+    baseURL: process.env.REACT_APP_API_URL || 'https://defd-129-0-76-226.ngrok-free.app/api',
     // timeout: 10000, // 10 seconds timeout
     headers: {
         'Content-Type': 'application/json',
