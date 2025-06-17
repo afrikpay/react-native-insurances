@@ -48,7 +48,8 @@ export default function Products() {
     }
     
     return (
-        <SafeAreaView style={{flex: 1, width: width,  
+        <SafeAreaView style={{
+            flex: 1, width: width,  
             backgroundColor: COLORS.white,
             flexDirection: 'column',
             gap: 20

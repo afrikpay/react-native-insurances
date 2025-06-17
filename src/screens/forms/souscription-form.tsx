@@ -5,8 +5,7 @@ import { height, width } from '../../constants/size'
 import Navigation from '../../services/Navigation'
 import { useEffect, useState } from 'react'
 import { apiClient } from '../../data/axios'
-
-// import {  } from 'rn-step-form';
+import StepFormBuilder from '../../components/form/StepFormBuilder'
 
 
 export default function SouscriptionForm(props: any) {
@@ -54,8 +53,8 @@ export default function SouscriptionForm(props: any) {
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={{ flex: 1, padding: 20,}}>
-                {/**
-                 <StepFormBuilder
+                
+                <StepFormBuilder
                     onSubmit={console.log}
                     steps={[
                         {
@@ -98,8 +97,7 @@ export default function SouscriptionForm(props: any) {
                     externalValues={{}}
                     onError={console.error}
                     onExternalValueChange={console.warn}
-                />
-                */}         
+                />        
             </ScrollView>
         </View>
     )
