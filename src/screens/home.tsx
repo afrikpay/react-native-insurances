@@ -78,8 +78,7 @@ export function HomeCard() {
                 <View style={{ flexDirection: 'row', marginTop: 10}}>
                     <Pressable
                         onPress={() => {Navigation.navigate(ROUTES.ASSUREURS)}}
-                        style= {{ paddingVertical: 10,  paddingHorizontal: 30, backgroundColor: COLORS.white, borderRadius: 100 }}
-                    >
+                        style= {{ paddingVertical: 10,  paddingHorizontal: 30, backgroundColor: COLORS.white, borderRadius: 100 }}>
                         <Text style={{ color: COLORS.primary, fontWeight: "bold", fontSize: 12,}}>Souscrire</Text>
                     </Pressable>
                 </View>
@@ -88,12 +87,15 @@ export function HomeCard() {
                 <Image
                     alt="Image de l'assurance santé"
                     source={ImageSante}
-                    style={{
-                        objectFit: 'fill'
-                    }}
+                    style={{ objectFit: 'fill' }}
                 />
             </View>
         </View>
+        <Pressable
+            onPress={() => {Navigation.navigate(ROUTES.SOUSCRIPTION_FORM, { planId: 1, insurerId: 1 })}}
+            style= {{ paddingVertical: 10,  paddingHorizontal: 30, backgroundColor: COLORS.white, borderRadius: 100 }}>
+            <Text style={{ color: COLORS.primary, fontWeight: "bold", fontSize: 12,}}>Souscrire</Text>
+        </Pressable>
     </View>
   )
 }

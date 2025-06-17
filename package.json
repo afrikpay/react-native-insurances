@@ -44,10 +44,7 @@
     "ios",
     "android"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/afrikpay/react-native-insurances.git"
-  },
+  "repository": "git+https://github.com/afrikpay/react-native-insurances.git",
   "author": "kev205 <k.tchonkap@afrikpay.com> (https://github.com/afrikpay)",
   "license": "MIT",
   "bugs": {

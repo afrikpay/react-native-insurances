@@ -83,7 +83,7 @@ export default function SouscriptionForm(props: any) {
                             title: 'Step 2',
                             fields: [
                                 {
-                                    name: 'field1',
+                                    name: 'field3',
                                     label: 'Field label',
                                     type: 'text',
                                     validation: {
