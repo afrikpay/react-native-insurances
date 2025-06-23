@@ -91,11 +91,6 @@ export function HomeCard() {
                 />
             </View>
         </View>
-        <Pressable
-            onPress={() => {Navigation.navigate(ROUTES.SOUSCRIPTION_FORM, { planId: 1, insurerId: 1 })}}
-            style= {{ paddingVertical: 10,  paddingHorizontal: 30, backgroundColor: COLORS.white, borderRadius: 100 }}>
-            <Text style={{ color: COLORS.primary, fontWeight: "bold", fontSize: 12,}}>Souscrire</Text>
-        </Pressable>
     </View>
   )
 }

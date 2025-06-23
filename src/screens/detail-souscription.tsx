@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Image, Linking, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, FlatList, Image, Linking, Pressable, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import * as Icon from "react-native-feather"
 import { Button, Modal, Portal, TextInput } from 'react-native-paper'
 import RenderHtml from 'react-native-render-html'
@@ -7,16 +7,46 @@ import { Box } from '../components/ui/Box'
 import { COLORS } from '../constants/Colors'
 import { height, width } from '../constants/size'
 import Navigation from '../services/Navigation'
+import WebviewScreen from './forms/components/WebviewScreen'
+import { apiClient } from '../data/axios'
+import { IMAGES } from '../constants/Images'
+import SimpleToast from 'react-native-simple-toast'
+
+
+
+
+const operateursMobile: Record<string, any>[]  = [
+    {
+        id: 1,
+        name: 'MTN Money Cameroun',
+        logo: IMAGES['mtnMoney'],
+        slug: 'mtn-mobile-money-ecommerce-insurance-payment-service-feature'
+    },
+    {
+        id: 2,
+        name: 'Orange Money Cameroun',
+        logo: IMAGES['orangeMoney'],
+        slug: 'orange-money-ecommerce-insurance-payment-service-feature'
+    }
+]
 
 
 export default function DetailSouscription(props:any) {
+
+    const { souscription } = props.route.params
+
+    const [loading, setLoading] = useState(false);
+
     const [visible, setVisible] = useState(false);
+    const [showPaymentModal, setShowPaymentModal] = useState(false);
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
 
     const [text, setText] = useState("");
-
-    const {souscription } = props.route.params; 
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [paymentUrl, setPaymentUrl] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [serviceSlug, setServiceSlug] = useState("");
     
     // Share data to whatsapp with phone number and message   
     const shareWhatsapp = () => {
@@ -45,6 +75,71 @@ export default function DetailSouscription(props:any) {
             
         } catch (error) {}
     };
+
+
+    const successPayment = () => {
+        setTimeout(() => {
+            // () => setWebViewModal(false)
+            SimpleToast.show("Payement effectué avec succès!", 5)
+            // setSuccessMessage(`${i18n('transaction_encours')}`)
+            Navigation.back();
+        }, 1000);
+    }
+
+    const failedPayment = () => {
+        setTimeout(() => {
+            SimpleToast.show("Le payement a échouée !", 5)
+            Navigation.back();
+        }, 1000);
+    }
+
+    const cancelPayment = () => {
+        setTimeout(() => {
+            SimpleToast.show("Le payement a été annuler !", 5)
+            Navigation.back()
+        }, 1000);
+    }
+
+    const handleFetchPaymentUrl = async ()  => {
+        if (loading && !verifyPhoneNumber()) return
+        setLoading(true)
+        try {
+            const data = {
+                referenceNumber: `${souscription.referenceNumber}`,
+                amount: +souscription.plan.price,
+                externalId: `${(new Date()).getTime()}`,
+                paymentWallet: `237${phoneNumber}`,
+                data: { insurerId: souscription.insurerId }
+            }
+            
+            const response: any = await apiClient.post(
+                '/secure/mobile/subscription/payment/v1',
+                {...data},{ "Service": `${serviceSlug}` }
+            )
+                
+            if (response.code === 200 && response.result.errorCode == null && response.result.status === 'SUCCESS'){
+                setPaymentUrl(response.result.paymentLink)
+                setShowPaymentModal(true)
+            }else{
+                console.log("Error: ", response?.result?.errorMessage)
+            }
+        }
+        catch (error) {
+            console.error('Error saving data:', error);
+        }
+        finally{
+            setLoading(false);
+        }  
+    }
+
+    const verifyPhoneNumber = ()  => {
+        setErrorMessage("")
+        if (!phoneNumber){
+            setErrorMessage("Numéro de téléphone requis")
+            return false
+        }
+        return true
+    }
     
     return (
         <SafeAreaView style={{flex: 1, 
@@ -119,7 +214,91 @@ export default function DetailSouscription(props:any) {
                     contentWidth={width}
                     source={{ html: `${souscription.plan.description}` }}
                 />
+                {
+                    souscription.providerStatus === "P" &&
+                    <View style={{ marginTop: 40, }}>
+                        <View style={{ flexDirection: 'column', gap: 12 }}>
+                            <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>Moyens de paiements</Text>
+                            <FlatList
+                                data={operateursMobile}
+                                showsHorizontalScrollIndicator={false}
+                                horizontal
+                                extraData={(item: any) => `${item.id}`}
+                                renderItem={({ item }) => (
+                                    <Pressable
+                                        onPress={() => setServiceSlug(item.slug)}
+                                        key={item.id} style={{
+                                        width: 80, height: 80, borderWidth: 0.05,
+                                        borderRadius: 12,
+                                        marginRight: 15,
+                                        padding: 5, gap: 15,
+                                        backgroundColor: serviceSlug === item.slug ? COLORS.success : COLORS.white, // Ajout d'une couleur de fond pour l'ombre
+                                        shadowColor: COLORS.dark, // Couleur de l'ombre
+                                        shadowOffset: { width: 0, height: 4 }, // Décalage de l'ombre
+                                        shadowOpacity: 0.2, // Opacité de l'ombre
+                                        shadowRadius: 6, // Rayon de flou de l'ombre
+                                        elevation: 2, // Ombre pour Android
+                                    }}>
+                                        <View style={{width: '100%', height: '100%', overflow: 'hidden', borderRadius: 10}}>
+                                            <Image
+                                                alt="Image de l'assurance santé"
+                                                source={item.logo}
+                                                style={{ width: '100%', height: '100%' }}
+                                            />
+                                        </View>
+                                    </Pressable>
+                                )}
+                            />
+                        </View>
 
+                        <View style={{ marginTop: 30,}}>
+                            <Text style={{  fontWeight: 'bold', marginBottom: 10 }}>Numéro de téléphone *</Text>
+                            <TextInput
+                                style={{ 
+                                    borderWidth: 1,
+                                    textDecorationColor: COLORS.white, 
+                                    backgroundColor: COLORS.white,
+                                    borderColor: COLORS.light_gray,
+                                    borderRadius: 50,
+                                    borderTopStartRadius: 50,
+                                    borderTopEndRadius: 50
+                                }}
+                                keyboardType='number-pad'
+                                underlineColor='transparent'
+                                activeUnderlineColor='transparent'
+                                placeholder={'Téléphone...'}
+                                returnKeyType="next"
+                                underlineColorAndroid="transparent"
+                                onChangeText={setPhoneNumber}
+                                value={phoneNumber}
+                                onBlur={verifyPhoneNumber}
+                                placeholderTextColor={'#9D9D9D'}
+                                multiline={false}
+                                numberOfLines={1}
+                            />
+                        </View>
+                        { errorMessage &&  <Text style={{ flex: 1, marginTop: 8, fontSize: 12,  color: COLORS.danger }}>{errorMessage}</Text>}
+                        <Pressable
+                            onPress={handleFetchPaymentUrl}
+                            style= {{ 
+                                paddingVertical: 12, 
+                                paddingHorizontal: 16, 
+                                marginTop: 40, 
+                                backgroundColor: COLORS.primary, 
+                                borderRadius: 100,
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                                gap: 10,
+                                alignItems: 'center'
+                            }}>
+                                {
+                                    loading &&
+                                    <ActivityIndicator color={COLORS.white} style={{ height: 30, width: 30 }} />
+                                }
+                            <Text style={{ color: COLORS.white, fontWeight: "bold", fontSize: 18, textAlign: 'center'}}>Payer ma souscription</Text>
+                        </Pressable>
+                    </View>
+                }
                 <View style={{ width: '100%', height: 80 }} />
             </ScrollView>
 
@@ -204,6 +383,19 @@ export default function DetailSouscription(props:any) {
                             Soumettre
                         </Button>
                     </View>
+                </Modal>
+            </Portal> 
+
+            {/** Modal de payement de la souscription */}
+            <Portal>
+                <Modal visible={showPaymentModal} onDismiss={() => setShowPaymentModal(false)} 
+                    contentContainerStyle={{backgroundColor: 'white', width: width, height: height}}>
+                    <WebviewScreen
+                        paymentUrl={paymentUrl ?? ''}
+                        onPaymentSuccess={successPayment}
+                        onPaymentFailed={failedPayment}
+                        onPaymentCancel={cancelPayment}
+                    />
                 </Modal>
             </Portal> 
         </SafeAreaView>

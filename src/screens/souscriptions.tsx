@@ -41,7 +41,7 @@ export default function Souscriptions() {
             try {
                 const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {});       
                 setSouscriptions(response.result as Souscription[])  
-                setSouscriptionsCopy(response.result as Souscription[])             
+                setSouscriptionsCopy(response.result as Souscription[])          
             }
             catch (error) {
                 console.error('Error fetching data:', error);
@@ -50,7 +50,6 @@ export default function Souscriptions() {
                 setLoading(false);
             }
         })()
-
     }, []);
 
     const onChangeStart = (event: any, seletedDate: any) => {
