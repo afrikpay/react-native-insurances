@@ -111,6 +111,8 @@ export default function DetailSouscription(props:any) {
                 paymentWallet: `237${phoneNumber}`,
                 data: { insurerId: souscription.insurerId }
             }
+            // console.log(JSON.stringify(data, null, 2));
+            // console.log("Service slug: ", serviceSlug);
             
             const response: any = await apiClient.post(
                 '/secure/mobile/subscription/payment/v1',

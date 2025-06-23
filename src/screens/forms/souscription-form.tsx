@@ -1,17 +1,15 @@
+import { useEffect, useState } from 'react'
 import { ActivityIndicator, FlatList, Image, Pressable, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import * as Icon from "react-native-feather"
-import { COLORS } from '../../constants/Colors'
-import { height, width } from '../../constants/size'
-import Navigation from '../../services/Navigation'
-import { useEffect, useState } from 'react'
-import { apiClient } from '../../data/axios'
-import StepFormBuilder from '../../components/form/StepFormBuilder'
-import type { Field } from '../../types'
-import type { FormStep } from '../../components/form/types/types'
-import WebviewScreen from './components/WebviewScreen'
 import { Modal, Portal } from 'react-native-paper'
-import { ROUTES } from '../../constants/Routes'
+import StepFormBuilder from '../../components/form/StepFormBuilder'
+import type { FormStep } from '../../components/form/types/types'
+import { COLORS } from '../../constants/Colors'
 import { IMAGES } from '../../constants/Images'
+import { height, width } from '../../constants/size'
+import { apiClient } from '../../data/axios'
+import Navigation from '../../services/Navigation'
+import WebviewScreen from './components/WebviewScreen'
 
 const operateursMobile: Record<string, any>[]  = [
     {
@@ -42,8 +40,10 @@ export default function SouscriptionForm(props: any) {
     const [loading, setLoading] = useState(false)
     const [formResult, setFormResult] = useState<Record<string, any>>()
     const [sectionFields, setSectionFields] = useState<Record<string, any>[]>([])
-    const [fields, setFields] = useState<Field[]>([])
+
     const [formStep, setFormStep] = useState<FormStep[]>([])
+    const [formStepCopy, setFormStepCopy] = useState<FormStep[]>([])
+    const [assures, setAssures] = useState<Record<string, any>[]>([])
 
     useEffect(() => {
         (async () => {
@@ -82,6 +82,7 @@ export default function SouscriptionForm(props: any) {
                         },
                     };
                     setFormStep(prev => ([...prev, item ]))
+                    setFormStepCopy(prev => ([...prev, item ]))
                 })
             }
             catch (error) {
@@ -105,7 +106,13 @@ export default function SouscriptionForm(props: any) {
         
     }
 
-    const handleFetchPaymentUrl = async ()  => {
+    const addInsurer = (formData: Record<string, any>) => {
+        // Ajouter l'utilisateur à la liste des assurés
+        setAssures(prev => ([...prev, formData]))
+        setFormStep([])
+    }
+
+    const handleFetchPaymentUrl = async () => {
         try {
             const data = {
                 referenceNumber: "willistowerwatson:0c972b67-d852-4b55-8d70-056b7fcfaf50",
@@ -130,63 +137,43 @@ export default function SouscriptionForm(props: any) {
         }  
     }
 
-    const handleSubmitForm =  async( formData: Record<string, any> ) => {
-        console.log("formData", formData);
-        // if (loading) return
-        // setLoading(true);
+    const handleSubmitForm =  async() => {
+        if (loading) return
+        setLoading(true);
+        
         try {
             const data = {
                 formId: formResult?.formId,
                 planId: planId,
                 insurerId: insurerId,
-                formData: formData
+                formData: getCorrectFormOfData()
             }
             const response: any = await apiClient.post('/secure/mobile/subscription/v1', {...data})
-            // setFormResult(response.result)
-            setShowPaiementMothod(true)       
-            // console.log(JSON.stringify(response, null, 2))
-            const res = {
-                "code": 200,
-                "message": "success",
-                "result": {
-                  "errorCode": null,
-                  "errorMessage": null,
-                  "errorType": null,
-                  "status": "SUCCESS",
-                  "callbackUrl": null,
-                  "voucher": null,
-                  "id": 1835363078805442,
-                  "referenceNumber": "willistowerwatson:0c972b67-d852-4b55-8d70-056b7fcfaf50",
-                  "product": "Willis Tower Watson-Assurance Maladie",
-                  "formId": 1,
-                  "planId": 6,
-                  "insurerName": "Willis Tower Watson",
-                  "planName": "Premium",
-                  "insurerId": "1",
-                  "amount": 20000,
-                  "plan": null,
-                  "providerStatus": "P",
-                  "insurer": null,
-                  "subscribeAt": "2025-06-19T13:10:31.005372Z",
-                  "endAt": null,
-                  "startAt": null,
-                  "customerId": "3865687338067599",
-                  "customerName": "Super KJ7",
-                  "formData": {
-                    "name": "patson",
-                    "nom": "Jordan",
-                    "email": "jordan@gmail.com",
-                    "phonenumber": "874543456"
-                  }
-                }
-            }
+            setFormResult(response.result)
+            setShowPaiementMothod(true)
         }
         catch (error) {
             console.error('Error saving data:', error);
         }
         finally{
-            // setLoading(false);
+            setLoading(false);
         }
+    }
+
+    const getCorrectFormOfData = ()  =>  {
+        let data = {}
+        for (let index = 0; index < assures.length; index++) {
+            const element = assures[index] as any
+            let ownerData = {}
+            Object.keys(element).forEach((key, i)  => {
+                ownerData = { ...ownerData, [i+1]: element[key]}
+            });
+            data = {
+                ...data,
+                [`owner${index+1}`]: ownerData
+            }
+        }
+        return data
     }
 
     return (
@@ -211,7 +198,7 @@ export default function SouscriptionForm(props: any) {
                 {   
                     loading && (
                         <View style={{ width: '100%', height: 100, justifyContent: 'center', alignItems: 'center' }}>
-                            <ActivityIndicator color={COLORS.gray} style={{ height: 50, width: 50 }} />
+                            <ActivityIndicator size={'large'} color={COLORS.gray} style={{ height: 50, width: 50 }} />
                         </View>
                     )
                 }
@@ -219,7 +206,7 @@ export default function SouscriptionForm(props: any) {
                     formStep.length > 0  &&
                     <View>
                         <StepFormBuilder
-                            onSubmit={handleSubmitForm}
+                            onSubmit={addInsurer}
                             steps={formStep}
                             defaultValues={{}}
                             externalValues={{}}
@@ -228,9 +215,50 @@ export default function SouscriptionForm(props: any) {
                         />   
                     </View>
                 } 
+                { 
+                    (formStep.length === 0 && !loading)  &&
+                    <View>
+                        <View style={{ marginBottom: 15 }}>
+                            {
+                               assures.map((insurer, index) => (
+                                <View key={index} style={{ 
+                                    paddingVertical: 10,
+                                    paddingHorizontal: 7,
+                                    borderWidth: 0.3,
+                                    borderColor: COLORS.primary,
+                                    borderRadius: 8,
+                                    width: '100%',
+                                    marginVertical: 6,
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center'
+                                }}>
+                                    <Text style={{ color: COLORS.primary}}>#{index+1} {insurer.nom}</Text>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 10 }}>
+                                        <Icon.Edit2 style={{ width: 7, height: 7, borderColor: COLORS.gray }} />
+                                        <Icon.Trash2 style={{ width: 7, height: 7, borderColor: COLORS.danger }} />
+                                    </View>
+                                </View>
+                               )) 
+                            }
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', gap: 8 }}>
+                            <Pressable
+                                onPress={() => setFormStep(formStepCopy)}
+                                style= {{ paddingVertical: 10, width: 150, backgroundColor: COLORS.gray, borderRadius: 100 }}>
+                                <Text style={{color: COLORS.white, fontWeight: "bold", textAlign: "center"}}>Ajouter un assuré</Text>
+                            </Pressable>
+                            <Pressable
+                                onPress={handleSubmitForm}
+                                style= {{ paddingVertical: 10, width: 150, backgroundColor: COLORS.primary, borderRadius: 100 }}>
+                                <Text style={{ color: COLORS.white, fontWeight: "bold", textAlign: "center"}}>Souscrire</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                }
                 {
                     showPaiementMothod &&
-                    <View style={{ flexDirection: 'column', gap: 12, marginTop: 20, paddingHorizontal: 20,  }}>
+                    <View style={{ flexDirection: 'column', gap: 12, marginTop: 20, paddingHorizontal: 20 }}>
                         <Text style={{ flex: 1, fontSize: 18, fontWeight: 'bold' }}>Payer ma souscription avec:</Text>
                         <FlatList
                             data={operateursMobile}

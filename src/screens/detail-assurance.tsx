@@ -81,7 +81,7 @@ export default function DetailAssurance(props: any) {
                     {   
                         loading && (
                             <View style={{ width: '100%', height: 100, justifyContent: 'center', alignItems: 'center' }}>
-                                <ActivityIndicator color={COLORS.gray} style={{ height: 50, width: 50 }} />
+                                <ActivityIndicator size={`large`} color={COLORS.gray} style={{ height: 50, width: 50 }} />
                             </View>
                         )
                     }
