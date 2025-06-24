@@ -87,13 +87,16 @@ export default function SouscriptionForm(props: any) {
 
     const handleSubmitForm =  async() => {
         if (savingData) return
-        setSavingData(true);
+        setSavingData(true)
         
         try {
             const data = {
                 formId: formResult?.formId,
                 planId: planId,
                 insurerId: insurerId,
+                customerName: "John Doe",
+                phone: "237982842557",
+                email: "johndoe@gmail.com",
                 formData: getCorrectFormOfData()
             }
             const response: any = await apiClient.post('/secure/mobile/subscription/v1', {...data})
@@ -230,7 +233,6 @@ export default function SouscriptionForm(props: any) {
                 <Modal visible={visible} onDismiss={hideModal} 
                     contentContainerStyle={{backgroundColor: 'white', padding: 20, width: '90%', marginLeft: '5%', borderRadius: 10}}>
                     <>
-
                     </>
                 </Modal>
             </Portal> 

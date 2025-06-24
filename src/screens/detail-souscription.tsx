@@ -13,8 +13,6 @@ import { IMAGES } from '../constants/Images'
 import SimpleToast from 'react-native-simple-toast'
 
 
-
-
 const operateursMobile: Record<string, any>[]  = [
     {
         id: 1,
@@ -106,7 +104,7 @@ export default function DetailSouscription(props:any) {
         try {
             const data = {
                 referenceNumber: `${souscription.referenceNumber}`,
-                amount: +souscription.plan.price,
+                amount: +souscription.amount,
                 externalId: `${(new Date()).getTime()}`,
                 paymentWallet: `237${phoneNumber}`,
                 data: { insurerId: souscription.insurerId }
@@ -200,7 +198,7 @@ export default function DetailSouscription(props:any) {
                             </View>
                             <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
                                 <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Prime: </Text>
-                                <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 14, fontWeight: 'bold' }}>{souscription.plan.price} XAF</Text>
+                                <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 14, fontWeight: 'bold' }}>{souscription.amount} XAF</Text>
                             </View>
                         </View>
                     </View>
