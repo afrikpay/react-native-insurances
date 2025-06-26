@@ -14,6 +14,7 @@ export interface Souscription {
   subscriptionId: string | null,
   providerStatus: string,
   product: string,
+  amount: number | null,
   insurer: Insurer,
   insurerId: string,
   insurerName: string,
@@ -39,6 +40,7 @@ export interface Plan {
   price: number;
   duration: number;
   unit: string;
+  duration_display: string;
 }
 
 export interface Insurer {

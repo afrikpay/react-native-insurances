@@ -9,6 +9,7 @@ import { height, width } from '../../constants/size'
 import { apiClient } from '../../data/axios'
 import Navigation from '../../services/Navigation'
 import SimpleToast from 'react-native-simple-toast'
+import { ROUTES } from '../../constants/Routes'
 
 export default function SouscriptionForm(props: any) {
 
@@ -30,6 +31,8 @@ export default function SouscriptionForm(props: any) {
     const [formStepCopy, setFormStepCopy] = useState<FormStep[]>([])
     const [assures, setAssures] = useState<Record<string, any>[]>([])
     const [defaultValues, setDefaultValues] = useState<any>(null)
+    const [subscriber, setSubscriber] = useState<any>(null)
+    
 
     useEffect(() => {
         (async () => {
@@ -94,14 +97,16 @@ export default function SouscriptionForm(props: any) {
                 formId: formResult?.formId,
                 planId: planId,
                 insurerId: insurerId,
-                customerName: "John Doe",
-                phone: "237982842557",
-                email: "johndoe@gmail.com",
+                ...subscriber,
                 formData: getCorrectFormOfData()
             }
             const response: any = await apiClient.post('/secure/mobile/subscription/v1', {...data})
             setFormResult(response.result)
             SimpleToast.show("Souscription effectuée avec succès!", 5)
+            console.log(JSON.stringify(response.result, null, 2));
+            setTimeout(() => {
+                Navigation.navigate(ROUTES.SOUSCRIPTIONS, {})
+            }, 3000);
         }
         catch (error: any) {
             console.error('Error saving data:', error);
@@ -164,8 +169,55 @@ export default function SouscriptionForm(props: any) {
                         </View>
                     )
                 }
+                {
+                    (!subscriber && !loading) && 
+                    <View>
+                        <Text style={{ paddingHorizontal: 20, fontWeight: 'bold' }}>Infos du souscripteur</Text>
+                        <StepFormBuilder
+                            onSubmit={setSubscriber}
+                            steps={[
+                                {
+                                    title: "Informations du souscripteur",
+                                    description: "",
+                                    fields: [
+                                        {
+                                            name: "customerName",
+                                            label: "Nom du souscripteur",
+                                            type: "text",
+                                            validation: {
+                                                required: { message: 'This field is required', value: true },
+                                            },
+                                        },
+                                        {
+                                            name: "phone",
+                                            label: "Téléphone",
+                                            type: "text",
+                                            validation: {
+                                                required: { message: 'This field is required', value: true },
+                                            },
+                                        },
+                                        {
+                                            name: "email",
+                                            label: "Email",
+                                            type: "email",
+                                            validation: {
+                                                required: { message: 'This field is required', value: true },
+                                            },
+                                        }
+                                    ]
+                                }
+                            ]}
+                            defaultValues={{
+                                phone: "273"
+                            }}
+                            externalValues={{}}
+                            onError={console.error}
+                            onExternalValueChange={console.warn}
+                        />   
+                    </View>
+                }
                 { 
-                    (formStep.length > 0 || defaultValues)  &&
+                    ((formStep.length > 0 || defaultValues) && subscriber)  &&
                     <View>
                         <StepFormBuilder
                             onSubmit={addInsurer}
@@ -180,7 +232,15 @@ export default function SouscriptionForm(props: any) {
                 { 
                     (formStep.length === 0 && !loading)  &&
                     <View>
-                        <View style={{ marginBottom: 15 }}>
+                        <View style={{ borderRadius: 8, borderWidth: 0.3, padding: 20, flexDirection: "column", gap: 8 }}>
+                            <Text style={{ fontWeight: 'bold' }}>Souscripteur</Text>
+                            <View style={{ flexDirection: 'column', gap: 4 }}>
+                                <Text>Nom: { subscriber?.customerName } </Text>
+                                <Text>Téléphone: { subscriber?.phone } </Text>
+                                <Text>Email: { subscriber?.email } </Text>
+                            </View>
+                        </View>
+                        <View style={{ marginVertical: 15 }}>
                             {
                                assures.map((insurer, index) => (
                                 <View key={index} style={{ 

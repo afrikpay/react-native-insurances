@@ -116,12 +116,11 @@ export default function DetailSouscription(props:any) {
                 '/secure/mobile/subscription/payment/v1',
                 {...data},{ "Service": `${serviceSlug}` }
             )
-                
             if (response.code === 200 && response.result.errorCode == null && response.result.status === 'SUCCESS'){
                 setPaymentUrl(response.result.paymentLink)
                 setShowPaymentModal(true)
             }else{
-                console.log("Error: ", response?.result?.errorMessage)
+                SimpleToast.show(`${response?.message ?? response?.result?.errorMessage}`, 10)
             }
         }
         catch (error) {
@@ -177,7 +176,7 @@ export default function DetailSouscription(props:any) {
                                 <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
                                 <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
                             </View>
-                            <Text style={{ fontSize: 16, fontWeight: 'bold'}}>{souscription.plan.duration} {souscription.plan.unit}</Text>
+                            <Text style={{ fontSize: 12, fontWeight: 'bold'}}>{souscription.plan.duration_display}</Text>
                         </View>
                         <View style={{ flex: 3, flexDirection: 'column', gap: 8 }}>
                             <View style={{ flexDirection:"row", justifyContent: 'space-between', gap: 4}}>

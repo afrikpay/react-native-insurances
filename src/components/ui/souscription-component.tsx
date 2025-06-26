@@ -41,7 +41,7 @@ export default function SouscriptionComponent({souscription}: {souscription: Sou
                   <View style={{ flexDirection: "row", alignItems: 'center', gap: 20, marginTop: 10}}>
                       <Text style={{ fontSize: 12, marginVertical: 10 }}>{souscription.insurer.shortDescription}</Text>
                       <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 2 }}>
-                          <Text style={{ fontWeight: 'bold'}}>{souscription.plan.price}</Text>
+                          <Text style={{ fontWeight: 'bold'}}>{souscription.amount}</Text>
                           <Text style={{ fontSize: 10, opacity: 0.7}}>XAF/mois</Text>
                       </View>
                   </View>

@@ -125,7 +125,7 @@ export default function DetailAssurance(props: any) {
                                     <Text>Couverture jusqu’a 500 000 XAF</Text>
                                     <View style={{ flexDirection: 'row', gap: 10}}>
                                         <Text style={{ fontWeight: 'bold'}}>Durée</Text>
-                                        <Text style={{ fontWeight: 'bold'}}>{item.duration} {item.unit}</Text>
+                                        <Text style={{ fontWeight: 'bold'}}>{item.duration_display}</Text>
                                     </View>
                                 </Pressable>
                             )
