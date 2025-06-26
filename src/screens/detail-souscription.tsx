@@ -155,149 +155,153 @@ export default function DetailSouscription(props:any) {
                     </TouchableOpacity>
                     <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Détails souscription</Text>
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={{ fontSize: 22, fontWeight: 'bold', color: COLORS.primary }}>{souscription.plan.name}</Text>
-                    <TouchableOpacity onPress={() => { showModal() }} style={{
-                        width: 40, height: 40,
-                        borderRadius: 20, backgroundColor: COLORS.primary,
-                        justifyContent: 'center', alignItems: 'center'}}>
-                        <Icon.MessageSquare color={COLORS.white} strokeWidth={2} width={20} height={20} />
-                    </TouchableOpacity>
-                </View>
-                <Box width={'100%'} padding={18}>
-                    <View style={{ flexDirection: 'row', gap: 3 }}>
-                        <View style={{ flex: 1, gap: 16}}>
-                            <Image
-                                alt={`${souscription.insurer.name} logo`}
-                                source={{ uri: souscription.insurer.logo }}
-                                style={{ height: 40, width: 40, borderRadius: 100  }}
-                            />
-                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                                <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
-                                <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
-                            </View>
-                            <Text style={{ fontSize: 12, fontWeight: 'bold'}}>{souscription.plan.duration_display}</Text>
-                        </View>
-                        <View style={{ flex: 3, flexDirection: 'column', gap: 8 }}>
-                            <View style={{ flexDirection:"row", justifyContent: 'space-between', gap: 4}}>
-                                <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Type:</Text>
-                                <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 14, fontWeight: 'bold', color: COLORS.primary }}>{souscription.product}</Text>
-                            </View>
-                            <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
-                                <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Souscrit le :</Text>
-                                <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.subscribeAt.slice(0, 10)}</Text>
-                            </View>
-                            <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
-                                <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Activé le :</Text>
-                                <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.startAt ? souscription.startAt.slice(0, 10) : '--'}</Text>
-                            </View>
-                            <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
-                                <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Validité :</Text>
-                                <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.endAt ? souscription.endAt.slice(0, 10) : '--'}</Text>
-                            </View>
-                            <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
-                                <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Prime: </Text>
-                                <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 14, fontWeight: 'bold' }}>{souscription.amount} XAF</Text>
-                            </View>
-                        </View>
-                    </View>
-                </Box>
-                <TouchableOpacity onPress={() => { }} style={{ }}>
-                    <Text style={{ color: COLORS.primary, fontSize: 12, fontWeight: 'bold' }}>Télécharger le contrat</Text>
-                </TouchableOpacity>
             </View>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6'}}>  
-                <RenderHtml
-                    contentWidth={width}
-                    source={{ html: `${souscription.plan.description}` }}
-                />
-                {
-                    souscription.providerStatus === "P" &&
-                    <View style={{ marginTop: 40, }}>
-                        <View style={{ flexDirection: 'column', gap: 12 }}>
-                            <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>Moyens de paiements</Text>
-                            <FlatList
-                                data={operateursMobile}
-                                showsHorizontalScrollIndicator={false}
-                                horizontal
-                                extraData={(item: any) => `${item.id}`}
-                                renderItem={({ item }) => (
-                                    <Pressable
-                                        onPress={() => setServiceSlug(item.slug)}
-                                        key={item.id} style={{
-                                        width: 80, height: 80, borderWidth: 0.05,
-                                        borderRadius: 12,
-                                        marginRight: 15,
-                                        padding: 5, gap: 15,
-                                        backgroundColor: serviceSlug === item.slug ? COLORS.success : COLORS.white, // Ajout d'une couleur de fond pour l'ombre
-                                        shadowColor: COLORS.dark, // Couleur de l'ombre
-                                        shadowOffset: { width: 0, height: 4 }, // Décalage de l'ombre
-                                        shadowOpacity: 0.2, // Opacité de l'ombre
-                                        shadowRadius: 6, // Rayon de flou de l'ombre
-                                        elevation: 2, // Ombre pour Android
-                                    }}>
-                                        <View style={{width: '100%', height: '100%', overflow: 'hidden', borderRadius: 10}}>
-                                            <Image
-                                                alt="Image de l'assurance santé"
-                                                source={item.logo}
-                                                style={{ width: '100%', height: '100%' }}
-                                            />
-                                        </View>
-                                    </Pressable>
-                                )}
-                            />
-                        </View>
+                style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6'}}> 
 
-                        <View style={{ marginTop: 30,}}>
-                            <Text style={{  fontWeight: 'bold', marginBottom: 10 }}>Numéro de téléphone *</Text>
-                            <TextInput
-                                style={{ 
-                                    borderWidth: 1,
-                                    textDecorationColor: COLORS.white, 
-                                    backgroundColor: COLORS.white,
-                                    borderColor: COLORS.light_gray,
-                                    borderRadius: 50,
-                                    borderTopStartRadius: 50,
-                                    borderTopEndRadius: 50
-                                }}
-                                keyboardType='number-pad'
-                                underlineColor='transparent'
-                                activeUnderlineColor='transparent'
-                                placeholder={'Téléphone...'}
-                                returnKeyType="next"
-                                underlineColorAndroid="transparent"
-                                onChangeText={setPhoneNumber}
-                                value={phoneNumber}
-                                onBlur={verifyPhoneNumber}
-                                placeholderTextColor={'#9D9D9D'}
-                                multiline={false}
-                                numberOfLines={1}
-                            />
-                        </View>
-                        { errorMessage &&  <Text style={{ flex: 1, marginTop: 8, fontSize: 12,  color: COLORS.danger }}>{errorMessage}</Text>}
-                        <Pressable
-                            onPress={handleFetchPaymentUrl}
-                            style= {{ 
-                                paddingVertical: 12, 
-                                paddingHorizontal: 16, 
-                                marginTop: 40, 
-                                backgroundColor: COLORS.primary, 
-                                borderRadius: 100,
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                gap: 10,
-                                alignItems: 'center'
-                            }}>
-                                {
-                                    loading &&
-                                    <ActivityIndicator color={COLORS.white} style={{ height: 30, width: 30 }} />
-                                }
-                            <Text style={{ color: COLORS.white, fontWeight: "bold", fontSize: 18, textAlign: 'center'}}>Payer ma souscription</Text>
-                        </Pressable>
+                <View style={{ gap: 20 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
+                        <Text style={{ fontSize: 22, fontWeight: 'bold', color: COLORS.primary }}>{souscription.plan.name}</Text>
+                        <TouchableOpacity onPress={() => { showModal() }} style={{
+                            width: 40, height: 40,
+                            borderRadius: 20, backgroundColor: COLORS.primary,
+                            justifyContent: 'center', alignItems: 'center'}}>
+                            <Icon.MessageSquare color={COLORS.white} strokeWidth={2} width={20} height={20} />
+                        </TouchableOpacity>
                     </View>
-                }
+                    <Box width={'100%'} padding={18}>
+                        <View style={{ flexDirection: 'row', gap: 3 }}>
+                            <View style={{ flex: 1, gap: 16}}>
+                                <Image
+                                    alt={`${souscription.insurer.name} logo`}
+                                    source={{ uri: souscription.insurer.logo }}
+                                    style={{ height: 40, width: 40, borderRadius: 100  }}
+                                />
+                                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                                    <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
+                                    <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
+                                </View>
+                                <Text style={{ fontSize: 12, fontWeight: 'bold'}}>{souscription.plan.duration_display}</Text>
+                            </View>
+                            <View style={{ flex: 3, flexDirection: 'column', gap: 8 }}>
+                                <View style={{ flexDirection:"row", justifyContent: 'space-between', gap: 4}}>
+                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Type:</Text>
+                                    <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 14, fontWeight: 'bold', color: COLORS.primary }}>{souscription.product}</Text>
+                                </View>
+                                <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
+                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Souscrit le :</Text>
+                                    <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.subscribeAt.slice(0, 10)}</Text>
+                                </View>
+                                <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
+                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Activé le :</Text>
+                                    <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.startAt ? souscription.startAt.slice(0, 10) : '--'}</Text>
+                                </View>
+                                <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
+                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Validité :</Text>
+                                    <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.endAt ? souscription.endAt.slice(0, 10) : '--'}</Text>
+                                </View>
+                                <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
+                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Prime: </Text>
+                                    <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 14, fontWeight: 'bold' }}>{souscription.amount} XAF</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </Box>
+                    <TouchableOpacity onPress={() => { }} style={{ }}>
+                        <Text style={{ color: COLORS.primary, fontSize: 12, fontWeight: 'bold' }}>Télécharger le contrat</Text>
+                    </TouchableOpacity>
+
+                    <RenderHtml
+                        contentWidth={width}
+                        source={{ html: `${souscription.plan.description}` }}
+                    />
+                    {
+                        souscription.providerStatus === "P" &&
+                        <View style={{ marginTop: 40, }}>
+                            <View style={{ flexDirection: 'column', gap: 12 }}>
+                                <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>Moyens de paiements</Text>
+                                <FlatList
+                                    data={operateursMobile}
+                                    showsHorizontalScrollIndicator={false}
+                                    horizontal
+                                    extraData={(item: any) => `${item.id}`}
+                                    renderItem={({ item }) => (
+                                        <Pressable
+                                            onPress={() => setServiceSlug(item.slug)}
+                                            key={item.id} style={{
+                                            width: 80, height: 80, borderWidth: 0.05,
+                                            borderRadius: 12,
+                                            marginRight: 15,
+                                            padding: 5, gap: 15,
+                                            backgroundColor: serviceSlug === item.slug ? COLORS.success : COLORS.white, // Ajout d'une couleur de fond pour l'ombre
+                                            shadowColor: COLORS.dark, // Couleur de l'ombre
+                                            shadowOffset: { width: 0, height: 4 }, // Décalage de l'ombre
+                                            shadowOpacity: 0.2, // Opacité de l'ombre
+                                            shadowRadius: 6, // Rayon de flou de l'ombre
+                                            elevation: 2, // Ombre pour Android
+                                        }}>
+                                            <View style={{width: '100%', height: '100%', overflow: 'hidden', borderRadius: 10}}>
+                                                <Image
+                                                    alt="Image de l'assurance santé"
+                                                    source={item.logo}
+                                                    style={{ width: '100%', height: '100%' }}
+                                                />
+                                            </View>
+                                        </Pressable>
+                                    )}
+                                />
+                            </View>
+
+                            <View style={{ marginTop: 30,}}>
+                                <Text style={{  fontWeight: 'bold', marginBottom: 10 }}>Numéro de téléphone *</Text>
+                                <TextInput
+                                    style={{ 
+                                        borderWidth: 1,
+                                        textDecorationColor: COLORS.white, 
+                                        backgroundColor: COLORS.white,
+                                        borderColor: COLORS.light_gray,
+                                        borderRadius: 50,
+                                        borderTopStartRadius: 50,
+                                        borderTopEndRadius: 50
+                                    }}
+                                    keyboardType='number-pad'
+                                    underlineColor='transparent'
+                                    activeUnderlineColor='transparent'
+                                    placeholder={'Téléphone...'}
+                                    returnKeyType="next"
+                                    underlineColorAndroid="transparent"
+                                    onChangeText={setPhoneNumber}
+                                    value={phoneNumber}
+                                    onBlur={verifyPhoneNumber}
+                                    placeholderTextColor={'#9D9D9D'}
+                                    multiline={false}
+                                    numberOfLines={1}
+                                />
+                            </View>
+                            { errorMessage &&  <Text style={{ flex: 1, marginTop: 8, fontSize: 12,  color: COLORS.danger }}>{errorMessage}</Text>}
+                            <Pressable
+                                onPress={handleFetchPaymentUrl}
+                                style= {{ 
+                                    paddingVertical: 12, 
+                                    paddingHorizontal: 16, 
+                                    marginTop: 40, 
+                                    backgroundColor: COLORS.primary, 
+                                    borderRadius: 100,
+                                    flexDirection: 'row',
+                                    justifyContent: 'center',
+                                    gap: 10,
+                                    alignItems: 'center'
+                                }}>
+                                    {
+                                        loading &&
+                                        <ActivityIndicator color={COLORS.white} style={{ height: 30, width: 30 }} />
+                                    }
+                                <Text style={{ color: COLORS.white, fontWeight: "bold", fontSize: 18, textAlign: 'center'}}>Payer ma souscription</Text>
+                            </Pressable>
+                        </View>
+                    }
+                </View> 
                 <View style={{ width: '100%', height: 80 }} />
             </ScrollView>
 
