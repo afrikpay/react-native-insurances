@@ -9,8 +9,9 @@ import { height, width } from '../constants/size'
 import Navigation from '../services/Navigation'
 import WebviewScreen from './forms/components/WebviewScreen'
 import { apiClient } from '../data/axios'
-import { IMAGES } from '../constants/Images'
+import { IMAGES, ImageSante } from '../constants/Images'
 import SimpleToast from 'react-native-simple-toast'
+import SuccessModal from '../components/modals/success-modal'
 
 
 const operateursMobile: Record<string, any>[]  = [
@@ -37,6 +38,7 @@ export default function DetailSouscription(props:any) {
 
     const [visible, setVisible] = useState(false);
     const [showPaymentModal, setShowPaymentModal] = useState(false);
+    const [successPaymentModal, setSuccessPaymentModal] = useState(false);
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
 
@@ -60,8 +62,8 @@ export default function DetailSouscription(props:any) {
             - Souscrit le : ${souscription.subscribeAt.slice(0, 10)}
             - Activé le : ${souscription.startAt ? souscription.startAt.slice(0, 10) : '--'}
             - Validité : ${souscription.endAt ? souscription.endAt.slice(0, 10) : '--'}
-            - Prime : ${souscription.plan.price} XAF
-            - Description : ${souscription.plan.description}
+            - Prime : ${souscription.plan?.price} XAF
+            - Description : ${souscription.plan?.description}
             Merci de me contacter pour plus d'informations.
         `
         try {
@@ -77,25 +79,24 @@ export default function DetailSouscription(props:any) {
 
     const successPayment = () => {
         setTimeout(() => {
-            // () => setWebViewModal(false)
             SimpleToast.show("Payement effectué avec succès!", 5)
-            // setSuccessMessage(`${i18n('transaction_encours')}`)
+            setSuccessPaymentModal(true)
             Navigation.back();
         }, 1000);
     }
 
     const failedPayment = () => {
+        SimpleToast.show("Le payement a échouée !", 5)
         setTimeout(() => {
-            SimpleToast.show("Le payement a échouée !", 5)
-            Navigation.back();
-        }, 1000);
+            setShowPaymentModal(false)
+        }, 1500);
     }
 
     const cancelPayment = () => {
+        SimpleToast.show("Le payement a été annuler !", 5)
         setTimeout(() => {
-            SimpleToast.show("Le payement a été annuler !", 5)
-            Navigation.back()
-        }, 1000);
+            setShowPaymentModal(false)
+        }, 1500);
     }
 
     const handleFetchPaymentUrl = async ()  => {
@@ -120,7 +121,7 @@ export default function DetailSouscription(props:any) {
                 setPaymentUrl(response.result.paymentLink)
                 setShowPaymentModal(true)
             }else{
-                SimpleToast.show(`${response?.message ?? response?.result?.errorMessage}`, 10)
+                SimpleToast.show(`${response?.result?.errorMessage ?? response?.message }`, 10)
             }
         }
         catch (error) {
@@ -162,7 +163,7 @@ export default function DetailSouscription(props:any) {
 
                 <View style={{ gap: 20 }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
-                        <Text style={{ fontSize: 22, fontWeight: 'bold', color: COLORS.primary }}>{souscription.plan.name}</Text>
+                        <Text style={{ fontSize: 22, fontWeight: 'bold', color: COLORS.primary }}>{souscription.plan?.name}</Text>
                         <TouchableOpacity onPress={() => { showModal() }} style={{
                             width: 40, height: 40,
                             borderRadius: 20, backgroundColor: COLORS.primary,
@@ -174,7 +175,7 @@ export default function DetailSouscription(props:any) {
                         <View style={{ flexDirection: 'row', gap: 3 }}>
                             <View style={{ flex: 1, gap: 16}}>
                                 <Image
-                                    alt={`${souscription.insurer.name} logo`}
+                                    alt={`${souscription.insurer?.name} logo`}
                                     source={{ uri: souscription.insurer.logo }}
                                     style={{ height: 40, width: 40, borderRadius: 100  }}
                                 />
@@ -182,7 +183,7 @@ export default function DetailSouscription(props:any) {
                                     <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
                                     <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
                                 </View>
-                                <Text style={{ fontSize: 12, fontWeight: 'bold'}}>{souscription.plan.duration_display}</Text>
+                                <Text style={{ fontSize: 12, fontWeight: 'bold'}}>{souscription.plan?.duration_display}</Text>
                             </View>
                             <View style={{ flex: 3, flexDirection: 'column', gap: 8 }}>
                                 <View style={{ flexDirection:"row", justifyContent: 'space-between', gap: 4}}>
@@ -214,7 +215,7 @@ export default function DetailSouscription(props:any) {
 
                     <RenderHtml
                         contentWidth={width}
-                        source={{ html: `${souscription.plan.description}` }}
+                        source={{ html: `${souscription.plan?.description}` }}
                     />
                     {
                         souscription.providerStatus === "P" &&
@@ -253,35 +254,40 @@ export default function DetailSouscription(props:any) {
                                 />
                             </View>
 
-                            <View style={{ marginTop: 30,}}>
-                                <Text style={{  fontWeight: 'bold', marginBottom: 10 }}>Numéro de téléphone *</Text>
-                                <TextInput
-                                    style={{ 
-                                        borderWidth: 1,
-                                        textDecorationColor: COLORS.white, 
-                                        backgroundColor: COLORS.white,
-                                        borderColor: COLORS.light_gray,
-                                        borderRadius: 50,
-                                        borderTopStartRadius: 50,
-                                        borderTopEndRadius: 50
-                                    }}
-                                    keyboardType='number-pad'
-                                    underlineColor='transparent'
-                                    activeUnderlineColor='transparent'
-                                    placeholder={'Téléphone...'}
-                                    returnKeyType="next"
-                                    underlineColorAndroid="transparent"
-                                    onChangeText={setPhoneNumber}
-                                    value={phoneNumber}
-                                    onBlur={verifyPhoneNumber}
-                                    placeholderTextColor={'#9D9D9D'}
-                                    multiline={false}
-                                    numberOfLines={1}
-                                />
-                            </View>
+                            {
+                                serviceSlug &&
+                                <View style={{ marginTop: 30,}}>
+                                    <Text style={{  fontWeight: 'bold', marginBottom: 10 }}>Numéro de téléphone *</Text>
+                                    <TextInput
+                                        style={{ 
+                                            borderWidth: 1,
+                                            textDecorationColor: COLORS.white, 
+                                            backgroundColor: COLORS.white,
+                                            borderColor: COLORS.light_gray,
+                                            borderRadius: 50,
+                                            borderTopStartRadius: 50,
+                                            borderTopEndRadius: 50
+                                        }}
+                                        keyboardType='number-pad'
+                                        underlineColor='transparent'
+                                        activeUnderlineColor='transparent'
+                                        placeholder={'Téléphone...'}
+                                        returnKeyType="next"
+                                        underlineColorAndroid="transparent"
+                                        onChangeText={setPhoneNumber}
+                                        value={phoneNumber}
+                                        onBlur={verifyPhoneNumber}
+                                        placeholderTextColor={'#9D9D9D'}
+                                        multiline={false}
+                                        numberOfLines={1}
+                                    />
+                                </View>
+                            }
+
                             { errorMessage &&  <Text style={{ flex: 1, marginTop: 8, fontSize: 12,  color: COLORS.danger }}>{errorMessage}</Text>}
                             <Pressable
                                 onPress={handleFetchPaymentUrl}
+                                disabled={!phoneNumber}
                                 style= {{ 
                                     paddingVertical: 12, 
                                     paddingHorizontal: 16, 
@@ -307,7 +313,7 @@ export default function DetailSouscription(props:any) {
 
             {/** Modal du message d'aide à la souscription */}
             <Portal>
-                <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{backgroundColor: 'white', padding: 20, width: '90%', marginLeft: '5%', borderRadius: 10}}>
+                <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{backgroundColor: 'white', padding: 20, width: '90%', margin: 'auto', borderRadius: 10}}>
                     <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Aide souscription</Text>
                     <View style={{ borderBottomWidth: 0.6, borderBottomColor: 'gray', opacity: 0.3, marginVertical: 10}}></View>
                     <Text style={{ lineHeight: 20 }} >Veuillez nous decrire votre préoccupation. Un de nos assistants vous prendra en charge dans de brefs délais.</Text>
@@ -358,6 +364,7 @@ export default function DetailSouscription(props:any) {
                             />
                         </View>
                      */}   
+
                     <View style={{ marginTop: 30, height: 140}}>
                         <Text style={{  fontWeight: 'bold', marginBottom: 10 }}>Votre message *</Text>
                         <TextInput
@@ -392,7 +399,7 @@ export default function DetailSouscription(props:any) {
             {/** Modal de payement de la souscription */}
             <Portal>
                 <Modal visible={showPaymentModal} onDismiss={() => setShowPaymentModal(false)} 
-                    contentContainerStyle={{backgroundColor: 'white', width: width, height: height}}>
+                    contentContainerStyle={{ backgroundColor: 'white', width: width, height: height }}>
                     <WebviewScreen
                         paymentUrl={paymentUrl ?? ''}
                         onPaymentSuccess={successPayment}
@@ -401,6 +408,18 @@ export default function DetailSouscription(props:any) {
                     />
                 </Modal>
             </Portal> 
+
+
+            {/** Modal de succès */}
+            <SuccessModal
+                visible={successPaymentModal}
+                title='Souscription reussie !'
+                message='Votre souscription est en cours de traitement aupres de Willis Towers Watson'
+                btnText='Voir mes souscription'
+                onPress={() => {
+                    console.log("Pressed");
+                }}
+            /> 
         </SafeAreaView>
   )
 }

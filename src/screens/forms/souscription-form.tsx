@@ -25,7 +25,6 @@ export default function SouscriptionForm(props: any) {
 
 
     const [formResult, setFormResult] = useState<Record<string, any>>()
-    const [sectionFields, setSectionFields] = useState<Record<string, any>[]>([])
 
     const [formStep, setFormStep] = useState<FormStep[]>([])
     const [formStepCopy, setFormStepCopy] = useState<FormStep[]>([])
@@ -45,7 +44,6 @@ export default function SouscriptionForm(props: any) {
                 }
                 const response: any = await apiClient.post('/secure/mobile/form/v1', {...data});
                 setFormResult(response.result)
-                setSectionFields(response.result.fields)
 
                 response.result.fields.map((f: any) => {
                     const item: FormStep = {
@@ -82,6 +80,7 @@ export default function SouscriptionForm(props: any) {
     }, []);
 
     const addInsurer = (formData: Record<string, any>) => {
+        if (savingData) return
         // Ajouter l'utilisateur à la liste des assurés
         setAssures(prev => ([formData, ...prev,]))
         setFormStep([])
@@ -103,9 +102,8 @@ export default function SouscriptionForm(props: any) {
             const response: any = await apiClient.post('/secure/mobile/subscription/v1', {...data})
             setFormResult(response.result)
             SimpleToast.show("Souscription effectuée avec succès!", 5)
-            console.log(JSON.stringify(response.result, null, 2));
             setTimeout(() => {
-                Navigation.navigate(ROUTES.SOUSCRIPTIONS, {})
+                Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS, { souscription: response.result })
             }, 3000);
         }
         catch (error: any) {
@@ -134,10 +132,12 @@ export default function SouscriptionForm(props: any) {
     }
 
     const deleteInsurer = (insurer: Record<string, any>) => {
+        if (savingData) return
         setAssures(prev => (prev.filter(p => p.nom !== insurer.nom)))
     }
 
     const editInsurer = (insurer: Record<string, any>) => {
+        if (savingData) return
         setFormStep(formStepCopy)
         setDefaultValues(insurer)
         deleteInsurer(insurer)
@@ -266,7 +266,7 @@ export default function SouscriptionForm(props: any) {
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', gap: 8 }}>
                             <Pressable
-                                onPress={() => setFormStep(formStepCopy)}
+                                onPress={() => { if (!savingData) {setFormStep(formStepCopy)}}}
                                 style= {{ paddingVertical: 10, width: 150, backgroundColor: COLORS.gray, borderRadius: 100 }}>
                                 <Text style={{color: COLORS.white, fontWeight: "bold", textAlign: "center"}}>Ajouter un assuré</Text>
                             </Pressable>
