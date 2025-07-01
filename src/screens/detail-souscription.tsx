@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ActivityIndicator, FlatList, Image, Linking, Pressable, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import * as Icon from "react-native-feather"
 import { Button, Modal, Portal, TextInput } from 'react-native-paper'
@@ -12,6 +12,9 @@ import { height, width } from '../constants/size'
 import { apiClient } from '../data/axios'
 import Navigation from '../services/Navigation'
 import WebviewScreen from './forms/components/WebviewScreen'
+
+import * as DocumentPicker from 'expo-document-picker'
+import * as FileSystem from 'expo-file-system'
 
 
 const operateursMobile: Record<string, any>[]  = [
@@ -34,9 +37,9 @@ export default function DetailSouscription(props:any) {
 
     const { souscription } = props.route.params
 
-    console.log(JSON.stringify(souscription, null, 2));
-    
+    const [submitting, setSubmitting] = useState(false)
 
+    const [fileName, setFileName] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
     const [visible, setVisible] = useState(false);
@@ -50,8 +53,10 @@ export default function DetailSouscription(props:any) {
     const [paymentUrl, setPaymentUrl] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [serviceSlug, setServiceSlug] = useState("");
-
     const [selectedInsurer, setSelectedInsurer] = useState<Record<string, any> | any>(null)
+
+    const [documents, setDocuments] = useState<Record<string, any>[]>([])
+    const [selectedDoc, setSelectedDoc] = useState<Record<string, any>>()
     
     // Share data to whatsapp with phone number and message   
     const shareWhatsapp = () => {
@@ -80,7 +85,6 @@ export default function DetailSouscription(props:any) {
             
         } catch (error) {}
     };
-
 
     const successPayment = () => {
         setTimeout(() => {
@@ -145,9 +149,72 @@ export default function DetailSouscription(props:any) {
         }
         return true
     }
+
     
+    const handleFileUpload = async () => {
+        try {
+            const result: any = await DocumentPicker.getDocumentAsync({});
+            const response = result.assets[0];
+            if (!result.canceled) {
+                setFileName(response.name);
+                console.log('File uploaded:', result);
+                return
+                // Upload the file to your server or handle it as needed
+                const fileUri = response.uri;
+                const fileType = response.mimeType || 'application/octet-stream';
+                const fileName = response.name;
+                const fileContent = await FileSystem.readAsStringAsync(fileUri, { encoding: FileSystem.EncodingType.Base64 });
+                const formData = new FormData();
+                formData.append('file', {
+                    uri: fileUri,
+                    name: fileName,
+                    type: fileType,
+                });
+                // Example API endpoint for file upload
+                const uploadUrl = 'https://your-api-endpoint.com/upload'; // Replace with your
+                const uploadResponse = await fetch(uploadUrl, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        // Add any other headers your API requires
+                    },
+                });
+                if (uploadResponse.ok) {
+                    const uploadData = await uploadResponse.json();
+                    console.log('File uploaded successfully:', uploadData);
+                    SimpleToast.show("Fichier téléchargé avec succès!", 5);
+                }
+                else {
+                    console.error('File upload failed:', uploadResponse.statusText);
+                    SimpleToast.show("Échec du téléchargement du fichier!", 5);
+                }
+            }
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        }
+    }
+
+
+    const getForm = async () => {
+        const data = {
+            planId: souscription.plan.id,
+            insurerId: souscription.insurer.id,
+            page: 1
+        }
+        const response: any = await apiClient.post('/secure/mobile/form/v1', {...data});
+        setDocuments(response.result.documents || []);
+    }
+
+    useEffect(() => {
+        // Fetch the form data when the component mounts
+        getForm();
+
+    }, [souscription])
+
     return (
-        <SafeAreaView style={{flex: 1, 
+        <SafeAreaView style={{
+            flex: 1, 
             height: height, width: width,  
             backgroundColor: COLORS.white,
             flexDirection: 'column',
@@ -439,20 +506,53 @@ export default function DetailSouscription(props:any) {
             /> 
 
 
-            {/** Modal du message d'aide à la souscription */}
+            {/** Modal de détail d'un assuré */}
             <Portal>
-                <Modal visible={selectedInsurer} onDismiss={() => setSelectedInsurer(null)} contentContainerStyle={{backgroundColor: 'white', padding: 20, width: '90%', margin: 'auto', borderRadius: 10}}>
+                <Modal visible={selectedInsurer} onDismiss={() => setSelectedInsurer(null)}
+                    contentContainerStyle={{ backgroundColor: 'white', padding: 20, width: '90%', margin: 'auto', borderRadius: 10}}>
                     <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Détails de l'assuré</Text>
-                    <View style={{ borderBottomWidth: 0.6, borderBottomColor: 'gray', opacity: 0.3, marginVertical: 10}}>
-                    </View>
-                    {
-                        selectedInsurer && 
-                        Object.keys(selectedInsurer).map((key, index) => (
-                            <View key={index} style={{ flexDirection: 'row', marginTop: 10, paddingVertical: 8, paddingHorizontal: 10, borderWidth: 0.5, borderColor: COLORS.light_gray, borderRadius: 8 }}>
-                                <Text style={{ fontSize: 14, color: COLORS.dark }}>{selectedInsurer[key]}</Text>
-                            </View>
-                        ))
-                    }
+                    <View style={{ borderBottomWidth: 0.6, borderBottomColor: 'gray', opacity: 0.3, marginVertical: 10}}></View>
+
+                    <ScrollView style={{ marginTop: 20, maxHeight: height * 0.7 }}>
+                        {
+                            selectedInsurer && 
+                            Object.keys(selectedInsurer).map((key, index) => (
+                                <View key={index} style={{ flexDirection: 'row', marginTop: 10, paddingVertical: 8, paddingHorizontal: 10, borderWidth: 0.5, borderColor: COLORS.light_gray, borderRadius: 8 }}>
+                                    <Text style={{ fontSize: 14, color: COLORS.dark }}>{selectedInsurer[key]}</Text>
+                                </View>
+                            ))
+                        }
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 15,  }}>Pièces jointes</Text>
+                        <View style={{ height: 50}}>
+                            <ScrollView showsHorizontalScrollIndicator={false} horizontal style={{ marginTop: 10, }}>
+                                { documents.map((doc, index) => (
+                                    <TouchableOpacity key={index} style={{ marginRight: 10, paddingVertical: 10, paddingHorizontal: 20, backgroundColor: selectedDoc?.key === doc.key ? COLORS.primary : COLORS.light_gray, borderRadius: 100 }} onPress={() => { setSelectedDoc(doc) }}>
+                                        <Text style={{ fontSize: 14, color: selectedDoc?.key === doc.key ? COLORS.white : COLORS.dark }}>{doc.key}</Text>
+                                    </TouchableOpacity>
+                                ))}
+                            </ScrollView>
+                        </View>
+                        <View style={{  height: 200, marginTop: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f4f4f4',}}>
+                            <Text style={{ fontSize: 20, marginBottom: 20, }}>Choisir un fichier</Text>
+                            <TouchableOpacity style={{ backgroundColor: COLORS.primary, padding: 10, borderRadius: 5 }} onPress={handleFileUpload}>
+                                <Text style={{ color: COLORS.white, fontSize: 16 }}>Selectionner le fichier</Text>
+                            </TouchableOpacity>
+                            {fileName && <Text style={{ marginTop: 20, fontSize: 16, color: '#333' }}>Uploaded: {fileName}</Text>}
+                        </View>
+
+                        <Pressable
+                            onPress={() => {}}
+                            style= {{ paddingVertical: 10, width: '100%', backgroundColor: COLORS.primary, borderRadius: 100,
+                                flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 8, marginTop: 20
+                            }}>
+                            {
+                                submitting && 
+                                <ActivityIndicator size={'small'} color={COLORS.white} style={{ height: 20, width: 20 }} />
+                            }
+                            <Text style={{ color: COLORS.white, fontWeight: "bold", textAlign: "center"}}>Envoyer</Text>
+                        </Pressable>
+                        <View style={{ height: 20, width: '100%'}}></View>
+                    </ScrollView>
                 </Modal>
             </Portal> 
         </SafeAreaView>

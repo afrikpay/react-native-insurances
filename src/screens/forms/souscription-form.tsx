@@ -23,7 +23,6 @@ export default function SouscriptionForm(props: any) {
     const [loading, setLoading] = useState(false)
     const [savingData, setSavingData] = useState(false)
 
-
     const [formResult, setFormResult] = useState<Record<string, any>>()
 
     const [formStep, setFormStep] = useState<FormStep[]>([])
@@ -44,7 +43,6 @@ export default function SouscriptionForm(props: any) {
                 }
                 const response: any = await apiClient.post('/secure/mobile/form/v1', {...data});
                 setFormResult(response.result)
-
                 response.result.fields.map((f: any) => {
                     const item: FormStep = {
                         description: f.section,
