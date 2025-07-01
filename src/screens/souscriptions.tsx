@@ -40,8 +40,8 @@ export default function Souscriptions() {
             setLoading(true);
             try {
                 const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {});       
-                setSouscriptions(response.result.souscriptions ?? [] as Souscription[])  
-                setSouscriptionsCopy(response.result.souscriptions ?? [] as Souscription[])                 
+                setSouscriptions(response.result.subscriptions ?? [] as Souscription[])  
+                setSouscriptionsCopy(response.result.subscriptions ?? [] as Souscription[])
             }
             catch (error) {
                 console.error('Error fetching data:', error);

@@ -15,6 +15,7 @@ import WebviewScreen from './forms/components/WebviewScreen'
 
 import * as DocumentPicker from 'expo-document-picker'
 import * as FileSystem from 'expo-file-system'
+import { uploadFile } from '../utils/uploadFiles'
 
 
 const operateursMobile: Record<string, any>[]  = [
@@ -36,6 +37,8 @@ const operateursMobile: Record<string, any>[]  = [
 export default function DetailSouscription(props:any) {
 
     const { souscription } = props.route.params
+    console.log(JSON.stringify(souscription, null, 2));
+    
 
     const [submitting, setSubmitting] = useState(false)
 
@@ -57,6 +60,7 @@ export default function DetailSouscription(props:any) {
 
     const [documents, setDocuments] = useState<Record<string, any>[]>([])
     const [selectedDoc, setSelectedDoc] = useState<Record<string, any>>()
+    const [file, setFile] = useState<Record<string, any>>()
     
     // Share data to whatsapp with phone number and message   
     const shareWhatsapp = () => {
@@ -157,38 +161,9 @@ export default function DetailSouscription(props:any) {
             const response = result.assets[0];
             if (!result.canceled) {
                 setFileName(response.name);
-                console.log('File uploaded:', result);
-                return
-                // Upload the file to your server or handle it as needed
-                const fileUri = response.uri;
-                const fileType = response.mimeType || 'application/octet-stream';
-                const fileName = response.name;
-                const fileContent = await FileSystem.readAsStringAsync(fileUri, { encoding: FileSystem.EncodingType.Base64 });
-                const formData = new FormData();
-                formData.append('file', {
-                    uri: fileUri,
-                    name: fileName,
-                    type: fileType,
-                });
-                // Example API endpoint for file upload
-                const uploadUrl = 'https://your-api-endpoint.com/upload'; // Replace with your
-                const uploadResponse = await fetch(uploadUrl, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                        // Add any other headers your API requires
-                    },
-                });
-                if (uploadResponse.ok) {
-                    const uploadData = await uploadResponse.json();
-                    console.log('File uploaded successfully:', uploadData);
-                    SimpleToast.show("Fichier téléchargé avec succès!", 5);
-                }
-                else {
-                    console.error('File upload failed:', uploadResponse.statusText);
-                    SimpleToast.show("Échec du téléchargement du fichier!", 5);
-                }
+                // console.log('File uploaded:', response);
+                setFile(response);
+                
             }
         } catch (error) {
             console.error('Error uploading file:', error);
@@ -212,6 +187,33 @@ export default function DetailSouscription(props:any) {
 
     }, [souscription])
 
+    const sendFile = async () => {
+        if (submitting) return;
+        setSubmitting(true);
+        try {
+            // Upload the file to your server or handle it as needed
+            const task = await uploadFile(
+                `https://insurances.afrikpay.com/api/uploads/document/${souscription.id}/${souscription.reference}/`,
+                file?.uri as string,
+                { key: selectedDoc?.key || ''},
+                { "Content-Type": "multipart/form-data"},
+                "file",
+                file?.mimeType,
+                () => {
+                    SimpleToast.show("Fichier envoyé avec succès !", 5);
+                    setFileName(null);
+                    setFile(undefined);
+                    setSelectedDoc(undefined);
+                }                
+            );
+            task.uploadAsync();
+        } catch (error) {
+            console.error('Error sending file:', error);
+        }
+        finally {
+            setSubmitting(false);
+        }
+    }
     return (
         <SafeAreaView style={{
             flex: 1, 
@@ -533,15 +535,15 @@ export default function DetailSouscription(props:any) {
                             </ScrollView>
                         </View>
                         <View style={{  height: 200, marginTop: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f4f4f4',}}>
-                            <Text style={{ fontSize: 20, marginBottom: 20, }}>Choisir un fichier</Text>
-                            <TouchableOpacity style={{ backgroundColor: COLORS.primary, padding: 10, borderRadius: 5 }} onPress={handleFileUpload}>
-                                <Text style={{ color: COLORS.white, fontSize: 16 }}>Selectionner le fichier</Text>
+                            <Text style={{ marginBottom: 20, }}>Choisir un fichier</Text>
+                            <TouchableOpacity style={{ borderColor: COLORS.primary, padding: 10, borderRadius: 100, borderWidth: 0.93 }} onPress={handleFileUpload}>
+                                <Text style={{ color: COLORS.primary }}>Selectionner le fichier</Text>
                             </TouchableOpacity>
                             {fileName && <Text style={{ marginTop: 20, fontSize: 16, color: '#333' }}>Uploaded: {fileName}</Text>}
                         </View>
 
                         <Pressable
-                            onPress={() => {}}
+                            onPress={sendFile}
                             style= {{ paddingVertical: 10, width: '100%', backgroundColor: COLORS.primary, borderRadius: 100,
                                 flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 8, marginTop: 20
                             }}>
