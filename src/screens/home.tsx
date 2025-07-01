@@ -169,7 +169,7 @@ export function RenderSubscriptionSection() {
             setLoading(true);
             try {
                 const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {});       
-                setSouscriptions(response.result?? [] as Souscription[])                
+                setSouscriptions(response.result.subscriptions ?? [] as Souscription[])
             }
             catch (error) {
                 console.error('Error fetching data:', error);

@@ -122,7 +122,7 @@ export default function DetailAssurance(props: any) {
                                             <Text style={{ fontWeight: 'bold'}}>{item.price} XAF</Text>
                                         </View>
                                     </View>
-                                    <Text>Couverture jusqu’a 500 000 XAF</Text>
+                                    {/** <Text>Couverture jusqu’a 500 000 XAF</Text> */}
                                     <View style={{ flexDirection: 'row', gap: 10}}>
                                         <Text style={{ fontWeight: 'bold'}}>Durée</Text>
                                         <Text style={{ fontWeight: 'bold'}}>{item.duration_display}</Text>

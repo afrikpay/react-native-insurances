@@ -217,8 +217,9 @@ export default function SouscriptionForm(props: any) {
                     </View>
                 }
                 { 
-                    ((formStep.length > 0 || defaultValues) && subscriber)  &&
+                    ((formStep.length > 0 || defaultValues) && subscriber) &&
                     <View>
+                        <Text style={{ fontWeight: 'bold', paddingHorizontal: 20 }}>Ajouter un assuré</Text>
                         <StepFormBuilder
                             onSubmit={addInsurer}
                             steps={formStep}
@@ -230,7 +231,7 @@ export default function SouscriptionForm(props: any) {
                     </View>
                 } 
                 { 
-                    (formStep.length === 0 && !loading)  &&
+                    (formStep.length === 0 && !loading) &&
                     <View>
                         <View style={{ borderRadius: 8, borderWidth: 0.3, padding: 20, flexDirection: "column", gap: 8 }}>
                             <Text style={{ fontWeight: 'bold' }}>Souscripteur</Text>

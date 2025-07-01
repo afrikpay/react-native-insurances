@@ -12,29 +12,26 @@ export default function SouscriptionComponent({souscription}: {souscription: Sou
               <View>
                   <View style={{ flexDirection: 'column', justifyContent: 'space-between', gap: 2 }}>
                       <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 20 }}>
-                          <View style={{
-                                  height: 40,
-                                  width: 40,
-                                  borderRadius: 100,
-                                  overflow: 'hidden'
-                              }}>
-                              <Image
-                                  alt={`${souscription.insurer.name} logo`}
-                                  source={{ uri: souscription.insurer.logo }}
-                                  style={{
-                                      height: '100%',
-                                  width: '100%',
-                                  }}
-                              />
+                            <View style={{
+                                height: 40,
+                                width: 40,
+                                borderRadius: 100,
+                                overflow: 'hidden'
+                            }}>
+                                <Image
+                                    alt={`${souscription.insurer.name} logo`}
+                                    source={{ uri: souscription.insurer.logo }}
+                                    style={{ height: '100%', width: '100%'}}
+                                />
                           </View>
                           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                              <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
-                              <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
+                              <View style={{ height: 10, width: 10, backgroundColor: souscription.status === "P" ? COLORS.success : COLORS.dark, borderRadius: 10 }}></View>
+                              <Text style={{ color: souscription.status === "P" ? COLORS.success : COLORS.dark, fontSize: 16 }}>{souscription.display_status}</Text>
                           </View>
                       </View>
                       
                       <View style={{ flexDirection: 'column' }}>
-                          <Text style={{ fontSize: 22, fontWeight: 'bold' }} lineBreakMode='tail'>{souscription.planName}</Text>
+                          <Text style={{ fontSize: 22, fontWeight: 'bold' }} lineBreakMode='tail'>{souscription.plan.name}</Text>
                           <Text numberOfLines={2} lineBreakMode='clip'>{souscription.product}</Text>
                       </View>
                   </View>

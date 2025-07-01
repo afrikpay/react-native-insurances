@@ -3,15 +3,15 @@ import { ActivityIndicator, FlatList, Image, Linking, Pressable, SafeAreaView, S
 import * as Icon from "react-native-feather"
 import { Button, Modal, Portal, TextInput } from 'react-native-paper'
 import RenderHtml from 'react-native-render-html'
-import { Box } from '../components/ui/Box'
-import { COLORS } from '../constants/Colors'
-import { height, width } from '../constants/size'
-import Navigation from '../services/Navigation'
-import WebviewScreen from './forms/components/WebviewScreen'
-import { apiClient } from '../data/axios'
-import { IMAGES, ImageSante } from '../constants/Images'
 import SimpleToast from 'react-native-simple-toast'
 import SuccessModal from '../components/modals/success-modal'
+import { Box } from '../components/ui/Box'
+import { COLORS } from '../constants/Colors'
+import { IMAGES } from '../constants/Images'
+import { height, width } from '../constants/size'
+import { apiClient } from '../data/axios'
+import Navigation from '../services/Navigation'
+import WebviewScreen from './forms/components/WebviewScreen'
 
 
 const operateursMobile: Record<string, any>[]  = [
@@ -34,6 +34,9 @@ export default function DetailSouscription(props:any) {
 
     const { souscription } = props.route.params
 
+    console.log(JSON.stringify(souscription, null, 2));
+    
+
     const [loading, setLoading] = useState(false);
 
     const [visible, setVisible] = useState(false);
@@ -47,6 +50,8 @@ export default function DetailSouscription(props:any) {
     const [paymentUrl, setPaymentUrl] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [serviceSlug, setServiceSlug] = useState("");
+
+    const [selectedInsurer, setSelectedInsurer] = useState<Record<string, any> | any>(null)
     
     // Share data to whatsapp with phone number and message   
     const shareWhatsapp = () => {
@@ -59,9 +64,9 @@ export default function DetailSouscription(props:any) {
             Message: ${text}
             Voici les détails de ma souscription :
             - Type d'assurance : ${souscription.product}
-            - Souscrit le : ${souscription.subscribeAt.slice(0, 10)}
-            - Activé le : ${souscription.startAt ? souscription.startAt.slice(0, 10) : '--'}
-            - Validité : ${souscription.endAt ? souscription.endAt.slice(0, 10) : '--'}
+            - Souscrit le : ${souscription.subscribed_at.slice(0, 10)}
+            - Activé le : ${souscription.start_at ? souscription.start_at.slice(0, 10) : '--'}
+            - Validité : ${souscription.end_at ? souscription.end_at.slice(0, 10) : '--'}
             - Prime : ${souscription.plan?.price} XAF
             - Description : ${souscription.plan?.description}
             Merci de me contacter pour plus d'informations.
@@ -104,11 +109,11 @@ export default function DetailSouscription(props:any) {
         setLoading(true)
         try {
             const data = {
-                referenceNumber: `${souscription.referenceNumber}`,
+                referenceNumber: `${souscription.reference}`,
                 amount: +souscription.amount,
                 externalId: `${(new Date()).getTime()}`,
                 paymentWallet: `237${phoneNumber}`,
-                data: { insurerId: souscription.insurerId }
+                data: { insurerId: souscription.insurer.id }
             }
             // console.log(JSON.stringify(data, null, 2));
             // console.log("Service slug: ", serviceSlug);
@@ -192,15 +197,15 @@ export default function DetailSouscription(props:any) {
                                 </View>
                                 <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
                                     <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Souscrit le :</Text>
-                                    <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.subscribeAt.slice(0, 10)}</Text>
+                                    <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.subscribed_at.slice(0, 10)}</Text>
                                 </View>
                                 <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
                                     <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Activé le :</Text>
-                                    <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.startAt ? souscription.startAt.slice(0, 10) : '--'}</Text>
+                                    <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.startAt ? souscription.start_at.slice(0, 10) : '--'}</Text>
                                 </View>
                                 <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
                                     <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Validité :</Text>
-                                    <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.endAt ? souscription.endAt.slice(0, 10) : '--'}</Text>
+                                    <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.end_at ? souscription.end_at.slice(0, 10) : '--'}</Text>
                                 </View>
                                 <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
                                     <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Prime: </Text>
@@ -217,9 +222,21 @@ export default function DetailSouscription(props:any) {
                         contentWidth={width}
                         source={{ html: `${souscription.plan?.description}` }}
                     />
+                    <View style={{flexDirection: "column", marginVertical: 20 }}>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Assurés</Text>
+                        {
+                            Object.keys(souscription.data).map((key, index) => (
+                                <Pressable
+                                    onPress={() => setSelectedInsurer(souscription.data[key])}
+                                    key={index} style={{ flexDirection: 'row', marginTop: 10, paddingVertical: 8, paddingHorizontal: 10, borderWidth: 0.5, borderColor: COLORS.light_gray, borderRadius: 8 }}>
+                                    <Text style={{ fontSize: 14, color: COLORS.dark }}>Assuré N°{index + 1}</Text>
+                                </Pressable>
+                            ))
+                        }
+                    </View>
                     {
-                        souscription.providerStatus === "P" &&
-                        <View style={{ marginTop: 40, }}>
+                        souscription.status === "P" &&
+                        <View style={{ marginTop: 20, }}>
                             <View style={{ flexDirection: 'column', gap: 12 }}>
                                 <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>Moyens de paiements</Text>
                                 <FlatList
@@ -420,6 +437,24 @@ export default function DetailSouscription(props:any) {
                     console.log("Pressed");
                 }}
             /> 
+
+
+            {/** Modal du message d'aide à la souscription */}
+            <Portal>
+                <Modal visible={selectedInsurer} onDismiss={() => setSelectedInsurer(null)} contentContainerStyle={{backgroundColor: 'white', padding: 20, width: '90%', margin: 'auto', borderRadius: 10}}>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Détails de l'assuré</Text>
+                    <View style={{ borderBottomWidth: 0.6, borderBottomColor: 'gray', opacity: 0.3, marginVertical: 10}}>
+                    </View>
+                    {
+                        selectedInsurer && 
+                        Object.keys(selectedInsurer).map((key, index) => (
+                            <View key={index} style={{ flexDirection: 'row', marginTop: 10, paddingVertical: 8, paddingHorizontal: 10, borderWidth: 0.5, borderColor: COLORS.light_gray, borderRadius: 8 }}>
+                                <Text style={{ fontSize: 14, color: COLORS.dark }}>{selectedInsurer[key]}</Text>
+                            </View>
+                        ))
+                    }
+                </Modal>
+            </Portal> 
         </SafeAreaView>
   )
 }

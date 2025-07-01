@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with custom config
 let api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL || 'https://7c41-2c0f-2a80-983-910-2a29-4c9b-59a3-8bae.ngrok-free.app/api',
+    baseURL: process.env.REACT_APP_API_URL || 'https://1c67-2c0f-2a80-983-910-ec00-9a2f-e9ff-9302.ngrok-free.app/api',
     // timeout: 10000, // 10 seconds timeout
     headers: {
         'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ api.interceptors.request.use(async (config) => {
     try {
         // Add token to all request except login route
         if (!config.url?.includes("login")){
-            config.headers['Authorization'] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTEwMTUzMjksImV4cCI6MTc1MTEwMTcyOSwicm9sZXMiOlsiUk9MRV9PV05FUiJdLCJ1c2VybmFtZSI6InN1cGVyS0o3IiwicGFzc3dvcmQiOiI3dTcwbzYiLCJwaW4iOiIiLCJ0ZXJtaW5hbElkZW50aWZpZXIiOiJtb2JpbGUiLCJ0ZXJtaW5hbFR5cGUiOiJtb2JpbGUiLCJ0ZXJtaW5hbFVzZXJBZ2VudCI6Ik1vemlsbGEvNS4wIChYMTE7IExpbnV4IHg4Nl82NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzEzNi4wLjAuMCBTYWZhcmkvNTM3LjM2IiwiaXBBZGRyZXNzIjoiMTI3LjAuMC4xIn0.X9cKNEwIRgK-Lw5Jogi98QtSzeIOWHG2L1JCfn-uw0GDGpJvirXhJ1-7pDoPeitnJmWfkTm8T9IZwILHqhPtgZza0rbqqckCWPUK-eMS9UMQ8TYjPEJ6xhg_ActIdIHIg5nBoBtZTDjeAvrkbq6X1vSC_4T-Vlfnur1kgksVeyxH1aZ1H01ndmfZLBcZO3wAyyi3qVJYOEHibklExYuEyE8PxyFN4WP2neti5zCcYvfgPWoiRBJlEzsfxJAZsTw7pHwbyOfZVtWgeQBimBR7ZnHXnsXij8jti-zrxaHuwKiPowajabBAgP62l7c8t9BCnjBjPMpJIbUNa_tH8Pl8WA`;
+            config.headers['Authorization'] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTEzNjA2NjMsImV4cCI6MTc1MTQ0NzA2Mywicm9sZXMiOlsiUk9MRV9PV05FUiJdLCJ1c2VybmFtZSI6InN1cGVyS0o3IiwicGFzc3dvcmQiOiI3dTcwbzYiLCJwaW4iOiIiLCJ0ZXJtaW5hbElkZW50aWZpZXIiOiJtb2JpbGUiLCJ0ZXJtaW5hbFR5cGUiOiJtb2JpbGUiLCJ0ZXJtaW5hbFVzZXJBZ2VudCI6Ik1vemlsbGEvNS4wIChYMTE7IExpbnV4IHg4Nl82NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzEzOC4wLjAuMCBTYWZhcmkvNTM3LjM2IiwiaXBBZGRyZXNzIjoiMTI3LjAuMC4xIn0.NVpVk9KPFj7Y8CY4SdFz9vKgqhMuXnQQiU7nLobyMx6aJnacUDTtkCigvXnocdOP9tASieW7Zs3yhaXKzCaVITCqEFpE2g8JhJMdQGV8ZmMmgH9rw-8HUPLE4PCslhPdmhirKISV7Xxfyt6E2grOWxvmVk8AsCmIPywId3_P8PO9fr5HNxLOX1gpeo7Ai9ppfloqHtNvcfRizf0mc2qpbZOhyfym_r9oAt3d82W8F4H7iGwBVubJZ5a1PkefVRKVDzeGmDkridwzHs7bG1k0XDLr5yBNazGU8VP4oXip67qoyGARRszb6JJsjIIfImxiMlurHiUbgVF1QWsoHLcNbA`;
         }
         // console.log(JSON.stringify(config, null, 2));
         return config;

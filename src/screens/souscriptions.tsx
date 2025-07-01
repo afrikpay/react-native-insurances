@@ -36,12 +36,12 @@ export default function Souscriptions() {
     const [souscriptionsCopy, setSouscriptionsCopy] = useState<Souscription[]>([])
 
     useEffect(() => {
-        (async () => {
+        ( async () => {
             setLoading(true);
             try {
                 const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {});       
-                setSouscriptions(response.result as Souscription[])  
-                setSouscriptionsCopy(response.result as Souscription[])          
+                setSouscriptions(response.result.souscriptions ?? [] as Souscription[])  
+                setSouscriptionsCopy(response.result.souscriptions ?? [] as Souscription[])                 
             }
             catch (error) {
                 console.error('Error fetching data:', error);
