@@ -151,7 +151,7 @@ export function ProductSection() {
                                         borderRadius: 100,
                                     }}
                                 />
-                                <Text>{product.name}</Text>
+                                <Text numberOfLines={4} lineBreakMode='clip' style={{ paddingRight: 35, width: '100%' }}>{product.name}</Text>
                             </Pressable>
                         </Box>
                     ))
@@ -214,48 +214,3 @@ export function RenderSubscriptionSection() {
         </View>
     )
 }
-
-
-{/**
-    <Box key={index} width={'100%'} padding={18}>
-        <Pressable onPress={() => {Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS, { souscription})}}>
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', gap: 10 }}>
-                <View style={{ flexDirection: 'column' }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 20 }}>
-                        <Text style={{ fontSize: 22, fontWeight: 'bold' }}>{souscription.planName}</Text>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                            <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
-                            <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
-                        </View>
-                    </View>
-                    <Text>{souscription.product}</Text>
-                </View>
-                <View style={{
-                        height: 50,
-                        width: 50,
-                        borderRadius: 100,
-                        overflow: 'hidden',
-                        borderColor: COLORS.danger,
-                    }}>
-
-                    <Image
-                        alt="Image de l'assurance santé"
-                        source={{ uri: souscription.insurer.logo }}
-                        style={{
-                            height: '100%',
-                            width: '100%',
-                        }}
-                    />
-                </View>
-            </View>
-            <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
-                <Text style={{ fontSize: 12}}>{souscription.insurer.short_description}</Text>
-                <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 2 }}>
-                    <Text style={{ fontWeight: 'bold'}}>{souscription.plan.price}</Text>
-                    <Text style={{ fontSize: 10, opacity: 0.7}}>XAF/mois</Text>
-                </View>
-            </View>
-            <Text style={{ fontSize: 10, opacity: 0.7, marginTop: 5}}>Validité: 15/05/2025</Text>
-        </Pressable>
-    </Box>
-*/}
