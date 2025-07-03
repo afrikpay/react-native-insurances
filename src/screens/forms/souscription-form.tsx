@@ -1,25 +1,23 @@
 import { useEffect, useState } from 'react'
 import { ActivityIndicator, Pressable, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import * as Icon from "react-native-feather"
-import { Modal, Portal } from 'react-native-paper'
+import SimpleToast from 'react-native-simple-toast'
 import StepFormBuilder from '../../components/form/StepFormBuilder'
 import type { FormStep } from '../../components/form/types/types'
 import { COLORS } from '../../constants/Colors'
+import { ROUTES } from '../../constants/Routes'
 import { height, width } from '../../constants/size'
 import { apiClient } from '../../data/axios'
 import Navigation from '../../services/Navigation'
-import SimpleToast from 'react-native-simple-toast'
-import { ROUTES } from '../../constants/Routes'
-import type { Souscription } from '../../types'
 
 export default function SouscriptionForm(props: any) {
 
     const { planId, insurerId } = props.route.params;
 
-    const [visible, setVisible] = useState(false);
+    // const [visible, setVisible] = useState(false);
 
-    const showModal = () => setVisible(true);
-    const hideModal = () => setVisible(false);
+    // const showModal = () => setVisible(true);
+    // const hideModal = () => setVisible(false);
 
     const [loading, setLoading] = useState(false)
     const [savingData, setSavingData] = useState(false)
@@ -302,15 +300,6 @@ export default function SouscriptionForm(props: any) {
 
                 <View style={{ height: 80, width: '100%'}} />
             </ScrollView>
-
-             {/** Modal de payement de la souscription */}
-             <Portal>
-                <Modal visible={visible} onDismiss={hideModal} 
-                    contentContainerStyle={{backgroundColor: 'white', padding: 20, width: '90%', marginLeft: '5%', borderRadius: 10}}>
-                    <>
-                    </>
-                </Modal>
-            </Portal> 
         </View>
     )
 }
