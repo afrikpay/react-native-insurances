@@ -14,7 +14,6 @@ import Navigation from '../services/Navigation'
 import WebviewScreen from './forms/components/WebviewScreen'
 
 import * as DocumentPicker from 'expo-document-picker'
-import * as FileSystem from 'expo-file-system'
 import { uploadFile } from '../utils/uploadFiles'
 
 
@@ -33,16 +32,13 @@ const operateursMobile: Record<string, any>[]  = [
     }
 ]
 
-
 export default function DetailSouscription(props:any) {
 
     const { souscription } = props.route.params
     console.log(JSON.stringify(souscription, null, 2));
     
-
     const [submitting, setSubmitting] = useState(false)
 
-    const [fileName, setFileName] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
     const [visible, setVisible] = useState(false);
@@ -57,9 +53,9 @@ export default function DetailSouscription(props:any) {
     const [errorMessage, setErrorMessage] = useState("");
     const [serviceSlug, setServiceSlug] = useState("");
     const [selectedInsurer, setSelectedInsurer] = useState<Record<string, any> | any>(null)
+    const [selectedDoc, setSelectedDoc] = useState<Record<string, any>>()
 
     const [documents, setDocuments] = useState<Record<string, any>[]>([])
-    const [selectedDoc, setSelectedDoc] = useState<Record<string, any>>()
     const [file, setFile] = useState<Record<string, any>>()
     
     // Share data to whatsapp with phone number and message   
@@ -128,7 +124,7 @@ export default function DetailSouscription(props:any) {
             
             const response: any = await apiClient.post(
                 '/secure/mobile/subscription/payment/v1',
-                {...data},{ "Service": `${serviceSlug}` }
+                { ...data},{ "Service": `${serviceSlug}` }
             )
             if (response.code === 200 && response.result.errorCode == null && response.result.status === 'SUCCESS'){
                 setPaymentUrl(response.result.paymentLink)
@@ -137,8 +133,8 @@ export default function DetailSouscription(props:any) {
                 SimpleToast.show(`${response?.result?.errorMessage ?? response?.message }`, 10)
             }
         }
-        catch (error) {
-            console.error('Error saving data:', error);
+        catch (error: any) {
+            SimpleToast.show(`${error.message}`, 10)
         }
         finally{
             setLoading(false);
@@ -154,22 +150,18 @@ export default function DetailSouscription(props:any) {
         return true
     }
 
-    
-    const handleFileUpload = async () => {
+    const handleFileUpload = async ( doc:  Record<string, any>) => {
         try {
             const result: any = await DocumentPicker.getDocumentAsync({});
             const response = result.assets[0];
             if (!result.canceled) {
-                setFileName(response.name);
-                // console.log('File uploaded:', response);
-                setFile(response);
-                
+                setSelectedDoc(doc);
+                setFile({ ...file, [doc?.key]: response});
             }
         } catch (error) {
             console.error('Error uploading file:', error);
         }
     }
-
 
     const getForm = async () => {
         const data = {
@@ -187,21 +179,21 @@ export default function DetailSouscription(props:any) {
 
     }, [souscription])
 
-    const sendFile = async () => {
+    const sendFile = async (doc:  Record<string, any>) => {
         if (submitting) return;
         setSubmitting(true);
         try {
             // Upload the file to your server or handle it as needed
             const task = await uploadFile(
                 `https://insurances.afrikpay.com/api/uploads/document/${souscription.id}/${souscription.reference}/`,
-                file?.uri as string,
-                { key: selectedDoc?.key || ''},
+                file![doc.key].uri as string,
+                { key: doc.key || ''},
                 { "Content-Type": "multipart/form-data"},
                 "file",
-                file?.mimeType,
+                file![doc.key].mimeType,
                 () => {
+                    setSelectedInsurer(null)
                     SimpleToast.show("Fichier envoyé avec succès !", 5);
-                    setFileName(null);
                     setFile(undefined);
                     setSelectedDoc(undefined);
                 }                
@@ -214,6 +206,7 @@ export default function DetailSouscription(props:any) {
             setSubmitting(false);
         }
     }
+
     return (
         <SafeAreaView style={{
             flex: 1, 
@@ -253,9 +246,9 @@ export default function DetailSouscription(props:any) {
                                     source={{ uri: souscription.insurer.logo }}
                                     style={{ height: 40, width: 40, borderRadius: 100  }}
                                 />
-                                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                                <View style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 8 }}>
                                     <View style={{ height: 10, width: 10, backgroundColor: COLORS.success, borderRadius: 10 }}></View>
-                                    <Text style={{ color: COLORS.success, fontSize: 16 }}>Actif</Text>
+                                    <Text style={{ color: souscription.status === "P" ? COLORS.success : COLORS.dark, fontSize: 11 }}>{souscription.display_status}</Text>
                                 </View>
                                 <Text style={{ fontSize: 12, fontWeight: 'bold'}}>{souscription.plan?.duration_display}</Text>
                             </View>
@@ -524,39 +517,70 @@ export default function DetailSouscription(props:any) {
                                 </View>
                             ))
                         }
-                        <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 15,  }}>Pièces jointes</Text>
-                        <View style={{ height: 50}}>
-                            <ScrollView showsHorizontalScrollIndicator={false} horizontal style={{ marginTop: 10, }}>
-                                { documents.map((doc, index) => (
-                                    <TouchableOpacity key={index} style={{ marginRight: 10, paddingVertical: 10, paddingHorizontal: 20, backgroundColor: selectedDoc?.key === doc.key ? COLORS.primary : COLORS.light_gray, borderRadius: 100 }} onPress={() => { setSelectedDoc(doc) }}>
-                                        <Text style={{ fontSize: 14, color: selectedDoc?.key === doc.key ? COLORS.white : COLORS.dark }}>{doc.key}</Text>
-                                    </TouchableOpacity>
-                                ))}
-                            </ScrollView>
-                        </View>
-                        <View style={{  height: 200, marginTop: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f4f4f4',}}>
-                            <Text style={{ marginBottom: 20, }}>Choisir un fichier</Text>
-                            <TouchableOpacity style={{ borderColor: COLORS.primary, padding: 10, borderRadius: 100, borderWidth: 0.93 }} onPress={handleFileUpload}>
-                                <Text style={{ color: COLORS.primary }}>Selectionner le fichier</Text>
-                            </TouchableOpacity>
-                            {fileName && <Text style={{ marginTop: 20, fontSize: 16, color: '#333' }}>Uploaded: {fileName}</Text>}
-                        </View>
+                        <Text style={{ fontWeight: 'bold', marginTop: 15,  }}>Pièces jointes</Text>
+                        {/* 
+                            <View style={{ height: 50}}>
+                                <ScrollView showsHorizontalScrollIndicator={false} horizontal style={{ marginTop: 10, }}>
+                                    { documents.map((doc, index) => (
+                                        <TouchableOpacity key={index} style={{ marginRight: 10, paddingVertical: 10, paddingHorizontal: 20, backgroundColor: selectedDoc?.key === doc.key ? COLORS.primary : COLORS.light_gray, borderRadius: 100 }} onPress={() => { setSelectedDoc(doc) }}>
+                                            <Text style={{ fontSize: 14, color: selectedDoc?.key === doc.key ? COLORS.white : COLORS.dark }}>{doc.key}</Text>
+                                        </TouchableOpacity>
+                                    ))}
+                                </ScrollView>
+                            </View>
+                            <View style={{  height: 200, marginTop: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f4f4f4',}}>
+                                <Text style={{ marginBottom: 20, }}>Choisir un fichier</Text>
+                                <TouchableOpacity style={{ borderColor: COLORS.primary, padding: 10, borderRadius: 100, borderWidth: 0.93 }} onPress={handleFileUpload}>
+                                    <Text style={{ color: COLORS.primary }}>Selectionner le fichier</Text>
+                                </TouchableOpacity>
+                                {fileName! && <Text style={{ marginTop: 20, fontSize: 16, color: '#333' }}>Uploaded: {fileName}</Text>}
+                            </View>
+                            <Pressable
+                                onPress={sendFile}
+                                style= {{ paddingVertical: 10, width: '100%', backgroundColor: COLORS.primary, borderRadius: 100,
+                                    flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 8, marginTop: 20
+                                }}>
+                                {
+                                    submitting && 
+                                    <ActivityIndicator size={'small'} color={COLORS.white} style={{ height: 20, width: 20 }} />
+                                }
+                                <Text style={{ color: COLORS.white, fontWeight: "bold", textAlign: "center"}}>Envoyer</Text>
+                            </Pressable>
+                        */}
 
-                        <Pressable
-                            onPress={sendFile}
-                            style= {{ paddingVertical: 10, width: '100%', backgroundColor: COLORS.primary, borderRadius: 100,
-                                flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 8, marginTop: 20
-                            }}>
-                            {
-                                submitting && 
-                                <ActivityIndicator size={'small'} color={COLORS.white} style={{ height: 20, width: 20 }} />
-                            }
-                            <Text style={{ color: COLORS.white, fontWeight: "bold", textAlign: "center"}}>Envoyer</Text>
-                        </Pressable>
+                        
+                        { 
+                            documents.map((doc, index) => (
+                               <View key={index}>
+                                    <TouchableOpacity style={{ marginRight: 10, paddingVertical: 10, }} onPress={() => { handleFileUpload(doc) }}>
+                                        <Text style={{ fontSize: 14, color: COLORS.dark }}>{doc.key}</Text>
+                                        <View style={{ marginTop: 8, flexDirection: 'row', gap: 5,  }}>
+                                            <Icon.Link style={{ height: 18, width: 18, borderColor: COLORS.primary }} />
+                                            <Text style={{ fontSize: 12, color: COLORS.primary }}>{ file?.[doc.key]?.name ?? "Aucun fichier choisi"}</Text>
+                                        </View>
+                                        
+                                    </TouchableOpacity>
+                                    {
+                                        file?.[doc.key] &&     
+                                        <Pressable
+                                            onPress={() => {sendFile(doc)}}
+                                            style= {{ paddingVertical: 6, paddingHorizontal: 20, width: 110, backgroundColor: COLORS.primary, borderRadius: 100,
+                                                flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 8, marginBottom: 20, marginTop: 8 
+                                            }}>
+                                            {
+                                                (submitting && selectedDoc?.key === doc.key) && 
+                                                <ActivityIndicator size={'small'} color={COLORS.white} style={{ height: 16, width: 16 }} />
+                                            }
+                                            <Text style={{ color: COLORS.white, fontWeight: "bold", textAlign: "center"}}>Envoyer</Text>
+                                        </Pressable>
+                                    }
+                                </View> 
+                            ))
+                        }
                         <View style={{ height: 20, width: '100%'}}></View>
                     </ScrollView>
                 </Modal>
             </Portal> 
         </SafeAreaView>
-  )
+    )
 }

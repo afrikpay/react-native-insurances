@@ -10,6 +10,7 @@ import { apiClient } from '../../data/axios'
 import Navigation from '../../services/Navigation'
 import SimpleToast from 'react-native-simple-toast'
 import { ROUTES } from '../../constants/Routes'
+import type { Souscription } from '../../types'
 
 export default function SouscriptionForm(props: any) {
 
@@ -47,7 +48,7 @@ export default function SouscriptionForm(props: any) {
                     const item: FormStep = {
                         description: f.section,
                         header: () => {
-                            return ( <Text style={{ fontWeight: 'bold', marginBottom: 20 }}>#123 {f.section} </Text>)
+                            return ( <Text style={{ fontWeight: 'bold', marginBottom: 20 }}> {f.section} </Text>)
                         },
                         title: f.section,
                         fields: [
@@ -101,8 +102,22 @@ export default function SouscriptionForm(props: any) {
             setFormResult(response.result)
             SimpleToast.show("Souscription effectuée avec succès!", 5)
             setTimeout(() => {
-                Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS, { souscription: response.result })
-            }, 3000);
+                let souscription = {
+                    reference: response.result.referenceNumber,
+                    owners: [],
+                    customer: response.result.customerName,
+                    amount: response.result.amount,
+                    data: response.result.formData,
+                    plan: response.result.plan,
+                    product: response.result.product,
+                    insurer: response.result.insurer,
+                    subscribed_at: response.result.subscribeAt,
+                    status: response.result.providerStatus,
+                    duration_display: response.result.plan.duration_display,
+                    display_status: response.result.providerStatus === 'P' ? 'En cours' : 'Terminé',
+                }
+                Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS, { souscription })
+            }, 3000)
         }
         catch (error: any) {
             console.error('Error saving data:', error);
@@ -172,7 +187,10 @@ export default function SouscriptionForm(props: any) {
                     <View>
                         <Text style={{ paddingHorizontal: 20, fontWeight: 'bold' }}>Infos du souscripteur</Text>
                         <StepFormBuilder
-                            onSubmit={setSubscriber}
+                            onSubmit={ (data) => { 
+                                setDefaultValues(data)
+                                setSubscriber(data)
+                            }}
                             steps={[
                                 {
                                     title: "Informations du souscripteur",
@@ -205,9 +223,7 @@ export default function SouscriptionForm(props: any) {
                                     ]
                                 }
                             ]}
-                            defaultValues={{
-                                phone: "237"
-                            }}
+                            defaultValues={{}}
                             externalValues={{}}
                             onError={console.error}
                             onExternalValueChange={console.warn}
