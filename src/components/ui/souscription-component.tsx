@@ -42,7 +42,7 @@ export default function SouscriptionComponent({souscription}: {souscription: Sou
                           <Text style={{ fontSize: 10, opacity: 0.7}}>XAF/mois</Text>
                       </View>
                   </View>
-                  <Text style={{ opacity: 0.7, marginTop: 5}}>Validité: 15/05/2025</Text>
+                  <Text style={{ opacity: 0.7, marginTop: 5}}>Validité: {souscription.subscribed_at?.slice(0, 10)}</Text>
               </View>
           </Pressable>
       </Box>

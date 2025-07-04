@@ -96,7 +96,7 @@ export default function Products() {
                 {   
                     loading && (
                         <View style={{ width: '100%', height: 200, justifyContent: 'center', alignItems: 'center' }}>
-                            <ActivityIndicator size={`large`} color={COLORS.gray} style={{ height: 60, width: 60 }} />
+                            <ActivityIndicator size={`small`} color={COLORS.gray} style={{ height: 60, width: 60 }} />
                         </View>
                     )
                 }
