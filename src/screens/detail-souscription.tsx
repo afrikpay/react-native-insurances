@@ -29,13 +29,19 @@ const operateursMobile: Record<string, any>[]  = [
         name: 'Orange Money Cameroun',
         logo: IMAGES['orangeMoney'],
         slug: 'orange-money-ecommerce-insurance-payment-service-feature'
+    },
+    {
+        id: 3,
+        name: 'PayPal',
+        logo: IMAGES['logoPaypal'],
+        slug: 'paypal-ecommerce-insurance-payment-service-feature'
     }
 ]
 
 export default function DetailSouscription(props:any) {
 
     const { souscription } = props.route.params
-    console.log(JSON.stringify(souscription, null, 2));
+    // console.log(JSON.stringify(souscription, null, 2));
     
     const [submitting, setSubmitting] = useState(false)
 
@@ -142,8 +148,9 @@ export default function DetailSouscription(props:any) {
     }
 
     const verifyPhoneNumber = ()  => {
+     
         setErrorMessage("")
-        if (!phoneNumber){
+        if (!phoneNumber && !serviceSlug.includes("paypal")) {
             setErrorMessage("Numéro de téléphone requis")
             return false
         }
@@ -321,7 +328,7 @@ export default function DetailSouscription(props:any) {
                                             shadowRadius: 6, // Rayon de flou de l'ombre
                                             elevation: 2, // Ombre pour Android
                                         }}>
-                                            <View style={{width: '100%', height: '100%', overflow: 'hidden', borderRadius: 10}}>
+                                            <View style={{width: '100%', height: '100%', backgroundColor: COLORS.white, overflow: 'hidden', borderRadius: 10}}>
                                                 <Image
                                                     alt="Image de l'assurance santé"
                                                     source={item.logo}
@@ -334,7 +341,7 @@ export default function DetailSouscription(props:any) {
                             </View>
 
                             {
-                                serviceSlug &&
+                                (serviceSlug && serviceSlug.includes("money")) &&
                                 <View style={{ marginTop: 30,}}>
                                     <Text style={{  fontWeight: 'bold', marginBottom: 10 }}>Numéro de téléphone *</Text>
                                     <TextInput
@@ -366,7 +373,7 @@ export default function DetailSouscription(props:any) {
                             { errorMessage &&  <Text style={{ flex: 1, marginTop: 8, fontSize: 12,  color: COLORS.danger }}>{errorMessage}</Text>}
                             <Pressable
                                 onPress={handleFetchPaymentUrl}
-                                disabled={!phoneNumber}
+                                disabled={!phoneNumber && !serviceSlug.includes("paypal")}
                                 style= {{ 
                                     paddingVertical: 12, 
                                     paddingHorizontal: 16, 
