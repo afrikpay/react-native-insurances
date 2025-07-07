@@ -51,8 +51,8 @@ export default function SouscriptionForm(props: any) {
                         title: f.section,
                         fields: [
                             ...f.fields.map((d: any) =>({
-                                name: d.readable_label,
-                                label: d.label,
+                                name: `${d.id}`,
+                                label: `${d.readable_label}`,
                                 type: d.field_type,
                                 validation: {
                                     required: { message: 'This field is required', value: d.is_required },
@@ -62,7 +62,7 @@ export default function SouscriptionForm(props: any) {
                         onStepComplete(data: any) {
                             return Promise.resolve(data);
                         },
-                    };
+                    }
                     setFormStep(prev => ([...prev, item ]))
                     setFormStepCopy(prev => ([...prev, item ]))
                 })
@@ -115,7 +115,7 @@ export default function SouscriptionForm(props: any) {
                     display_status: response.result.providerStatus === 'P' ? 'En cours' : 'Terminé',
                 }
                 Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS, { souscription })
-            }, 3000)
+            }, 2000)
         }
         catch (error: any) {
             console.error('Error saving data:', error);
@@ -129,14 +129,9 @@ export default function SouscriptionForm(props: any) {
     const getCorrectFormOfData = ()  =>  {
         let data = {}
         for (let index = 0; index < assures.length; index++) {
-            const element = assures[index] as any
-            let ownerData = {}
-            Object.keys(element).forEach((key, i)  => {
-                ownerData = { ...ownerData, [i+1]: element[key]}
-            });
             data = {
                 ...data,
-                [`owner${index+1}`]: ownerData
+                [`owner${index+1}`]: assures[index], // ownerData
             }
         }
         return data
@@ -144,7 +139,8 @@ export default function SouscriptionForm(props: any) {
 
     const deleteInsurer = (insurer: Record<string, any>) => {
         if (savingData) return
-        setAssures(prev => (prev.filter(p => p.nom !== insurer.nom)))
+        const firstKey = Object.keys(insurer)[0] as any        
+        setAssures(prev => (prev.filter(p => p[firstKey] !== insurer[firstKey])))
     }
 
     const editInsurer = (insurer: Record<string, any>) => {
@@ -185,10 +181,7 @@ export default function SouscriptionForm(props: any) {
                     <View>
                         <Text style={{ paddingHorizontal: 20, fontWeight: 'bold' }}>Infos du souscripteur</Text>
                         <StepFormBuilder
-                            onSubmit={ (data) => { 
-                                setDefaultValues(data)
-                                setSubscriber(data)
-                            }}
+                            onSubmit={setSubscriber}
                             steps={[
                                 {
                                     title: "Informations du souscripteur",
@@ -228,7 +221,7 @@ export default function SouscriptionForm(props: any) {
                         />   
                     </View>
                 }
-                { 
+                {
                     ((formStep.length > 0 || defaultValues) && subscriber) &&
                     <View>
                         <Text style={{ fontWeight: 'bold', paddingHorizontal: 20 }}>Ajouter un assuré</Text>
@@ -268,7 +261,7 @@ export default function SouscriptionForm(props: any) {
                                     justifyContent: 'space-between',
                                     alignItems: 'center'
                                 }}>
-                                    <Text style={{ color: COLORS.primary}}>#{index+1} {insurer.nom}</Text>
+                                    <Text style={{ color: COLORS.primary}}>Asuré N°{index+1}</Text>
                                     <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 10 }}>
                                         <Icon.Edit2 onPress={() => editInsurer(insurer)} style={{ width: 7, height: 7, borderColor: COLORS.gray }} />
                                         <Icon.Trash2 onPress={() => deleteInsurer(insurer)} style={{ width: 7, height: 7, borderColor: COLORS.danger }} />

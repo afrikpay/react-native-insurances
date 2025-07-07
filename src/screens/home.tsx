@@ -160,7 +160,6 @@ export function ProductSection() {
         </View>
     )
 }
-
 export function RenderSubscriptionSection() {
     const [loading, setLoading] = useState(false);
     const [souscriptions, setSouscriptions] = useState<Souscription[]>([])
@@ -168,7 +167,7 @@ export function RenderSubscriptionSection() {
         (async () => {
             setLoading(true);
             try {
-                const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {});       
+                const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {});
                 setSouscriptions(response.result.subscriptions ?? [] as Souscription[])
             }
             catch (error) {

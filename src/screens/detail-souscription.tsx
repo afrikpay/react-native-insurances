@@ -44,7 +44,6 @@ export default function DetailSouscription(props:any) {
     // console.log(JSON.stringify(souscription, null, 2));
     
     const [submitting, setSubmitting] = useState(false)
-
     const [loading, setLoading] = useState(false);
 
     const [visible, setVisible] = useState(false);
@@ -122,7 +121,7 @@ export default function DetailSouscription(props:any) {
                 referenceNumber: `${souscription.reference}`,
                 amount: +souscription.amount,
                 externalId: `${(new Date()).getTime()}`,
-                paymentWallet: `237${phoneNumber}`,
+                paymentWallet: `237${phoneNumber}`, // 'patrick1kenne@gmail.com',
                 data: { insurerId: souscription.insurer.id }
             }
             // console.log(JSON.stringify(data, null, 2));
@@ -142,9 +141,7 @@ export default function DetailSouscription(props:any) {
         catch (error: any) {
             SimpleToast.show(`${error.message}`, 10)
         }
-        finally{
-            setLoading(false);
-        }  
+        finally{ setLoading(false) }  
     }
 
     const verifyPhoneNumber = ()  => {
@@ -319,7 +316,7 @@ export default function DetailSouscription(props:any) {
                                             key={item.id} style={{
                                             width: 80, height: 80, borderWidth: 0.05,
                                             borderRadius: 12,
-                                            marginRight: 15,
+                                            marginRight: 10,
                                             padding: 5, gap: 15,
                                             backgroundColor: serviceSlug === item.slug ? COLORS.success : COLORS.white, // Ajout d'une couleur de fond pour l'ombre
                                             shadowColor: COLORS.dark, // Couleur de l'ombre
