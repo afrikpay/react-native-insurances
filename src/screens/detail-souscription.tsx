@@ -216,7 +216,7 @@ export default function DetailSouscription(props:any) {
         setSending(true)
         try {
             // const response =  await apiClient.post('/secure/mobile/subscription/v1/send-contract', {})
-            await new Promise((resolve) => setTimeout(resolve, 4000))
+            await new Promise((resolve) => setTimeout(resolve, 3000))
             SimpleToast.show("Contrat envoyé avec succès!", 5)
         } catch (error: any) {
             console.error('Error sending contract:', error);
