@@ -45,6 +45,7 @@ export default function DetailSouscription(props:any) {
     
     const [submitting, setSubmitting] = useState(false)
     const [loading, setLoading] = useState(false);
+    const [sending, setSending] = useState(false);
 
     const [visible, setVisible] = useState(false);
     const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -145,7 +146,6 @@ export default function DetailSouscription(props:any) {
     }
 
     const verifyPhoneNumber = ()  => {
-     
         setErrorMessage("")
         if (!phoneNumber && !serviceSlug.includes("paypal")) {
             setErrorMessage("Numéro de téléphone requis")
@@ -208,6 +208,22 @@ export default function DetailSouscription(props:any) {
         }
         finally {
             setSubmitting(false);
+        }
+    }
+
+    const sendContract = async () => {
+        if (sending) return
+        setSending(true)
+        try {
+            // const response =  await apiClient.post('/secure/mobile/subscription/v1/send-contract', {})
+            await new Promise((resolve) => setTimeout(resolve, 4000))
+            SimpleToast.show("Contrat envoyé avec succès!", 5)
+        } catch (error: any) {
+            console.error('Error sending contract:', error);
+            SimpleToast.show(`Error sending contract: ${error.message}`, 15)
+        }
+        finally {
+            setSending(false);
         }
     }
 
@@ -280,7 +296,10 @@ export default function DetailSouscription(props:any) {
                             </View>
                         </View>
                     </Box>
-                    <TouchableOpacity onPress={() => { }} style={{ }}>
+                    <TouchableOpacity onPress={sendContract} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                        {   sending &&
+                            <ActivityIndicator size={'small'} color={COLORS.gray} style={{ height: 20, width: 20 }} />
+                        }
                         <Text style={{ color: COLORS.primary, fontSize: 12, fontWeight: 'bold' }}>Télécharger le contrat</Text>
                     </TouchableOpacity>
 
