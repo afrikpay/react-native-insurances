@@ -217,14 +217,12 @@ export default function DetailSouscription(props:any) {
         try {
             // const response =  await apiClient.post('/secure/mobile/subscription/v1/send-contract', {})
             await new Promise((resolve) => setTimeout(resolve, 3000))
-            SimpleToast.show("Contrat envoyé avec succès!", 5)
+            SimpleToast.show("Contrat envoyé dans votre boîte mail avec succès!", 5)
         } catch (error: any) {
             console.error('Error sending contract:', error);
             SimpleToast.show(`Error sending contract: ${error.message}`, 15)
         }
-        finally {
-            setSending(false);
-        }
+        finally { setSending(false)}
     }
 
     return (
