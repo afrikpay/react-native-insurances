@@ -30,7 +30,6 @@ export default function SouscriptionForm(props: any) {
     const [defaultValues, setDefaultValues] = useState<any>(null)
     const [subscriber, setSubscriber] = useState<any>(null)
     
-
     useEffect(() => {
         (async () => {
             setLoading(true);
@@ -98,7 +97,7 @@ export default function SouscriptionForm(props: any) {
             }
             const response: any = await apiClient.post('/secure/mobile/subscription/v1', {...data})
             setFormResult(response.result)
-            SimpleToast.show("Souscription effectuée avec succès!", 5)
+            SimpleToast.show(response.result.message, 15)
             setTimeout(() => {
                 let souscription = {
                     reference: response.result.referenceNumber,
@@ -278,6 +277,7 @@ export default function SouscriptionForm(props: any) {
                             </Pressable>
                             <Pressable
                                 onPress={handleSubmitForm}
+                                disabled={savingData || assures.length === 0} 
                                 style= {{ paddingVertical: 10, width: 150, backgroundColor: COLORS.primary, borderRadius: 100,
                                     flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 8
                                 }}>
@@ -290,7 +290,6 @@ export default function SouscriptionForm(props: any) {
                         </View>
                     </View>
                 }
-
                 <View style={{ height: 80, width: '100%'}} />
             </ScrollView>
         </View>

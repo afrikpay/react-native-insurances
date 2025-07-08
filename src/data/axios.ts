@@ -9,7 +9,7 @@ let api = axios.create({
         'Accept': 'application/json',
         'Terminal-Identifier': 'mobile', // Default terminal identifier
     },
-});
+})
 
 // Request interceptor
 api.interceptors.request.use(async (config) => {
@@ -19,7 +19,7 @@ api.interceptors.request.use(async (config) => {
     try {
         // Add token to all request except login route
         if (!config.url?.includes("login")){
-            config.headers['Authorization'] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTE4NzYyNjksImV4cCI6MTc1MTk2MjY2OSwicm9sZXMiOlsiUk9MRV9PV05FUiJdLCJ1c2VybmFtZSI6InN1cGVyS0o3IiwicGFzc3dvcmQiOiI3dTcwbzYiLCJwaW4iOiIiLCJ0ZXJtaW5hbElkZW50aWZpZXIiOiJtb2JpbGUiLCJ0ZXJtaW5hbFR5cGUiOiJtb2JpbGUiLCJ0ZXJtaW5hbFVzZXJBZ2VudCI6Ik1vemlsbGEvNS4wIChYMTE7IExpbnV4IHg4Nl82NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzEzOC4wLjAuMCBTYWZhcmkvNTM3LjM2IiwiaXBBZGRyZXNzIjoiMTI3LjAuMC4xIn0.dtfh4-npfOwwWnyP7HDXGqQ8frhk5KEsRrHgtci1502yCEPOsq067UN5NXzbgzrAYM8E8a_-kX8Hm0T_3vTgUMLdWXUogAPPiiRlklnZDQt28lRP-IOx8_wpnY-ft8Z70JqXS3JdsFgaFe0BVH9yr61k8bm_9hD3XzGCKJo0OkI5XTrJ1SQqpkvMwavoM1jp_qbZg7FyrK1_MvAg9c_FCghNqcHkifbSpK62ubL6OGN-od9QVsG8iZUuAb0VhKCU57rwAIpOTdWy73KFzhBNHGFQyQgUC9wia-bUV3yn8MCGyIuHSDmURIQmcDlovYnkCbXcASRp5gGVjk0CV_QoKg`;
+            config.headers['Authorization'] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTE5ODI3NTEsImV4cCI6MTc1MjA2OTE1MSwicm9sZXMiOlsiUk9MRV9PV05FUiJdLCJ1c2VybmFtZSI6InN1cGVyS0o3IiwicGFzc3dvcmQiOiI3dTcwbzYiLCJwaW4iOiIiLCJ0ZXJtaW5hbElkZW50aWZpZXIiOiJtb2JpbGUiLCJ0ZXJtaW5hbFR5cGUiOiJtb2JpbGUiLCJ0ZXJtaW5hbFVzZXJBZ2VudCI6Ik1vemlsbGEvNS4wIChYMTE7IExpbnV4IHg4Nl82NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzEzOC4wLjAuMCBTYWZhcmkvNTM3LjM2IiwiaXBBZGRyZXNzIjoiMTI3LjAuMC4xIn0.Czps5Z-BvrpsjN5fHx4c4m9qb_MUgypLESya6Shm2Uo8b3ZWhXcMjkfEUTBzVrsJGky98QQZsnPq1A1kdKBvCRU_2VGQegROc8Goi00I0HAYtwQGKSW3yskU7W2JO0A06hglSrLPmzxt_cUZ9tF7siJ57v4buY_lDIIDbyh0vZ20UD846lDpy6yn6zttqeUj5l3t_v3MTcsSAzQPAS4MqqF_IBSWLG-RhoPg1XdSyrb4cZap4XJLE-jGsmIoFWRIKnMcwFUW7qT0z11NzeecNG6RR3coen-pLdM8CRZleDuzxOMwvEULZQ5YB8x46GX0psgmdAZhY60jzntiJzUfrQ`;
         }
         // console.log(JSON.stringify(config, null, 2));
         return config;
@@ -27,7 +27,7 @@ api.interceptors.request.use(async (config) => {
     catch (error) {
         return Promise.reject(error);
     }
-});
+})
 
 // Response interceptor
 api.interceptors.response.use(
@@ -39,7 +39,7 @@ api.interceptors.response.use(
         }
         return Promise.reject(error);
     }
-);
+)
 
 // API methods
 export const apiClient = {
@@ -54,6 +54,6 @@ export const apiClient = {
 
     delete: <T>(url: string, headers?: Record<string, string>) =>
         api.delete<T>(url, { headers }).then((res) => res.data),
-};
+}
 
 export default api;
