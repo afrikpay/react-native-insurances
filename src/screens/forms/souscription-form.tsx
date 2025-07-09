@@ -149,6 +149,11 @@ export default function SouscriptionForm(props: any) {
         deleteInsurer(insurer)
     }
 
+    const goBack = () => {
+        setFormStep([])
+        setDefaultValues(null)
+    }
+
     return (
         <View style={{flex: 1, 
             height: height, width: width,  
@@ -223,7 +228,14 @@ export default function SouscriptionForm(props: any) {
                 {
                     ((formStep.length > 0 || defaultValues) && subscriber) &&
                     <View>
-                        <Text style={{ fontWeight: 'bold', paddingHorizontal: 20 }}>Ajouter un assuré</Text>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: 'center', paddingHorizontal: 20 }}>
+                            <Text style={{ fontWeight: 'bold' }}>Ajouter un assuré</Text>
+                            <Pressable
+                                onPress={goBack}
+                                style= {{ paddingVertical: 10, width: 80, backgroundColor: COLORS.white, borderRadius: 100 }}>
+                                <Text style={{color: COLORS.dark, textAlign: "center"}}>Retour</Text>
+                            </Pressable>
+                        </View>
                         <StepFormBuilder
                             onSubmit={addInsurer}
                             steps={formStep}
