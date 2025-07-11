@@ -125,10 +125,7 @@ export default function DetailSouscription(props:any) {
                 externalId: `${(new Date()).getTime()}`,
                 paymentWallet: `237${phoneNumber}`, // 'patrick1kenne@gmail.com',
                 data: { insurerId: souscription.insurer.id }
-            }
-            // console.log(JSON.stringify(data, null, 2));
-            // console.log("Service slug: ", serviceSlug);
-            
+            }            
             const response: any = await apiClient.post(
                 '/secure/mobile/subscription/payment/v1',
                 { ...data},{ "Service": `${serviceSlug}` }
@@ -268,7 +265,6 @@ export default function DetailSouscription(props:any) {
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6'}}> 
-
                 <View style={{ gap: 20 }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
                         <Text style={{ fontSize: 22, fontWeight: 'bold', color: COLORS.primary }}>{souscription.plan?.name}</Text>
@@ -326,7 +322,6 @@ export default function DetailSouscription(props:any) {
                             <Text style={{ color: COLORS.primary, fontSize: 12, fontWeight: 'bold' }}>Télécharger le contrat</Text>
                         </TouchableOpacity>
                     }
-
                     <RenderHtml
                         contentWidth={width}
                         source={{ html: `${souscription.plan?.description}` }}
@@ -576,7 +571,6 @@ export default function DetailSouscription(props:any) {
                     contentContainerStyle={{ backgroundColor: 'white', padding: 20, width: '90%', margin: 'auto', borderRadius: 10}}>
                     <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Détails de l'assuré</Text>
                     <View style={{ borderBottomWidth: 0.6, borderBottomColor: 'gray', opacity: 0.3, marginVertical: 10}}></View>
-
                     <ScrollView style={{ marginTop: 20, maxHeight: height * 0.7 }}>
                         {
                             selectedInsurer && 
