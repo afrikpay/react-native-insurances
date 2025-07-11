@@ -41,7 +41,7 @@ export default function Souscriptions() {
         try {
             const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {
                 page: page,
-                pageSize: 4
+                pageSize: 10
             });     
             setSouscriptions( prev => prev.concat(response.result.subscriptions ?? [] as Souscription[]) )  
             setSouscriptionsCopy( prev => prev.concat(response.result.subscriptions ?? [] as Souscription[]) )

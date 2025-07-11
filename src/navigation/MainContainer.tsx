@@ -3,8 +3,8 @@ import * as Icon from "react-native-feather"
 import { COLORS } from '../constants/Colors'
 import { ROUTES } from '../constants/Routes'
 import Home from '../screens/home'
+import Infos from '../screens/infos'
 import Products from '../screens/products'
-import Profile from '../screens/profile'
 import Souscriptions from '../screens/souscriptions'
 
 const Tab = createBottomTabNavigator()
@@ -36,8 +36,8 @@ const MainContainer = () => {
           else if (rn.includes(ROUTES.SOUSCRIPTIONS)) {
             icon = <Icon.FileText color={focused ? COLORS.primary : COLORS.gray} strokeWidth={3} width={20} height={20} />
           }
-          else if (rn.includes(ROUTES.PROFIL)) {
-            icon = <Icon.User color={focused ? COLORS.primary : COLORS.gray} strokeWidth={3} width={20} height={20} />
+          else if (rn.includes(ROUTES.INFOS)) {
+            icon = <Icon.Info color={focused ? COLORS.primary : COLORS.gray} strokeWidth={3} width={20} height={20} />
           }
           return icon;
         }
@@ -56,8 +56,8 @@ const MainContainer = () => {
       component={Souscriptions} />
 
     <Tab.Screen
-      name={ROUTES.PROFIL}
-      component={Profile} />
+      name={ROUTES.INFOS}
+      component={Infos} />
 
     </Tab.Navigator>
   )

@@ -8,7 +8,7 @@ export const ROUTES = {
     SOUSCRIPTIONS: 'Souscriptions',
     DETAIL_SOUSCRIPTIONS: 'Detail_Souscriptions',
     SOUSCRIPTION_FORM: 'Souscription_Form',
-    PROFIL: 'Profil',
+    INFOS: 'Infos',
     ASSUREURS: "Assureurs",
     DETAIL_ASSURANCE: "Detail_Assurance",
     DETAIL_FORMULE: "Detail_Formule",

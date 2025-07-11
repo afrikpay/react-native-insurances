@@ -46,6 +46,7 @@ export default function DetailSouscription(props:any) {
     const [submitting, setSubmitting] = useState(false)
     const [loading, setLoading] = useState(false);
     const [sending, setSending] = useState(false);
+    const [isDocSending, setIsDocSending] = useState(false);
 
     const [visible, setVisible] = useState(false);
     const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -215,7 +216,7 @@ export default function DetailSouscription(props:any) {
         if (sending) return
         setSending(true)
         try {
-            const response =  await apiClient.post('/secure/mobile/document/contract/v1',
+            await apiClient.post('/secure/mobile/document/contract/v1',
                 {
                     referenceNumber: souscription.reference,
                     insurerId: souscription.insurer.id
@@ -227,6 +228,26 @@ export default function DetailSouscription(props:any) {
             SimpleToast.show(`Error sending contract: ${error.message}`, 15)
         }
         finally { setSending(false)}
+    }
+
+    const handleDocumentsConfirmation = async () => {
+        if (isDocSending) return
+        setIsDocSending(true)
+        try {
+            const response: any = await apiClient.post('/secure/mobile/document/confirmation/v1',
+                { referenceNumber: souscription.reference, }
+            )
+            if (response.result.status === "SUCCESS"){
+                SimpleToast.show(response.result.message, 25)
+            }
+            else {
+                SimpleToast.show("Le document n'a pas été envoyé", 10)
+            }
+        } catch (error: any) {
+            console.error('Error while sending documents confirmation:', error);
+            SimpleToast.show(`Erreur survenue lors de l'envoi des documents: ${error.message}`, 15)
+        }
+        finally { setIsDocSending(false) }
     }
 
     return (
@@ -414,6 +435,29 @@ export default function DetailSouscription(props:any) {
                             </Pressable>
                         </View>
                     }
+                    {
+                        // souscription.status === "M" &&
+                        <Pressable
+                            onPress={handleDocumentsConfirmation}
+                            disabled={isDocSending}
+                            style= {{ 
+                                paddingVertical: 12, 
+                                paddingHorizontal: 16, 
+                                marginTop: 40, 
+                                backgroundColor: COLORS.primary, 
+                                borderRadius: 100,
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                                gap: 10,
+                                alignItems: 'center'
+                            }}>
+                                {
+                                    isDocSending &&
+                                    <ActivityIndicator color={COLORS.white} style={{ height: 30, width: 30 }} />
+                                }
+                            <Text style={{ color: COLORS.white, fontWeight: "bold", textAlign: 'center'}}>Confirmer l'envoi des documents</Text>
+                        </Pressable>
+                    }
                 </View> 
                 <View style={{ width: '100%', height: 80 }} />
             </ScrollView>
@@ -527,7 +571,6 @@ export default function DetailSouscription(props:any) {
                     console.log("Pressed");
                 }}
             /> 
-
 
             {/** Modal de détail d'un assuré */}
             <Portal>
