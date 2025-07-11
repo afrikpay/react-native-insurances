@@ -240,9 +240,7 @@ export default function DetailSouscription(props:any) {
             if (response.result.status === "SUCCESS"){
                 SimpleToast.show(response.result.message, 25)
             }
-            else {
-                SimpleToast.show("Le document n'a pas été envoyé", 10)
-            }
+            else { SimpleToast.show("Le document n'a pas été envoyé", 10) }
         } catch (error: any) {
             console.error('Error while sending documents confirmation:', error);
             SimpleToast.show(`Erreur survenue lors de l'envoi des documents: ${error.message}`, 15)
@@ -436,7 +434,7 @@ export default function DetailSouscription(props:any) {
                         </View>
                     }
                     {
-                        // souscription.status === "M" &&
+                        souscription.status === "M" &&
                         <Pressable
                             onPress={handleDocumentsConfirmation}
                             disabled={isDocSending}

@@ -120,7 +120,6 @@ export default function Infos() {
             <Text style={{ lineHeight: 18,  marginTop: 8 }}>
                 4) - Gérez vos polices : Accédez à vos documents, suivez vos remboursements et gérez vos sinistres directement depuis l'application.
             </Text>
-            
             <View style={{ marginTop: 30}} />
         </ScrollView>
     </SafeAreaView>
