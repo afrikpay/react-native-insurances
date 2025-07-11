@@ -11,6 +11,7 @@ import { height, width } from '../constants/size'
 import { apiClient } from '../data/axios'
 import Navigation from '../services/Navigation'
 import type { ProduitAssurance, Souscription } from '../types'
+import Auth from '../utils/Auth'
 
 export default function Home() {
     return (
@@ -62,37 +63,43 @@ export default function Home() {
 }
 
 export function HomeCard() {
-  return (
-    <View style={{
-        width: '100%',
-        borderRadius: 10,
-        paddingHorizontal: 20, 
-        paddingTop: 20,
-        backgroundColor: COLORS.primary,
-        height: 200
-    }}>
-        <View style={{ flex: 1, flexDirection: 'row', gap: 10}}>
-            <View style={{ flex: 1, flexDirection: 'column', gap: 10}}>
-                <Text style={{fontWeight: '400', fontSize: 15, color: COLORS.white }}>Facilitez-vous la vie</Text>
-                <Text style={{ fontSize: 24, fontWeight: 'bold', color: COLORS.white }}>Obtenez votre assurance santé</Text>
-                <View style={{ flexDirection: 'row', marginTop: 10}}>
-                    <Pressable
-                        onPress={() => {Navigation.navigate(ROUTES.ASSUREURS)}}
-                        style= {{ paddingVertical: 10,  paddingHorizontal: 30, backgroundColor: COLORS.white, borderRadius: 100 }}>
-                        <Text style={{ color: COLORS.primary, fontWeight: "bold", fontSize: 12,}}>Souscrire</Text>
-                    </Pressable>
+    const product: ProduitAssurance = {
+        "id": 1,
+        "slug": "assurance-maladie-1",
+        "name": "Assurance Maladie",
+        "description": "<p>L&#39;assurance maladie est un dispositif de la S&eacute;curit&eacute; Sociale qui vise &agrave; prot&eacute;ger financi&egrave;rement les individus et leurs familles contre les risques li&eacute;s &agrave; la maladie, la maternit&eacute;, les accidents, l&#39;invalidit&eacute;, les maladies professionnelles et le d&eacute;c&egrave;s.&nbsp;Elle permet de garantir l&#39;acc&egrave;s aux soins et prend en charge tout ou partie des d&eacute;penses de sant&eacute;</p>",
+        "image": "https://storage.googleapis.com/afrikpay_insurances/media/categories/Assurance_Maladie.jpg"
+    }
+    return (
+        <View style={{
+            width: '100%',
+            borderRadius: 10,
+            paddingHorizontal: 20, 
+            paddingTop: 20,
+            backgroundColor: COLORS.primary,
+            height: 200
+        }}>
+            <View style={{ flex: 1, flexDirection: 'row', gap: 10}}>
+                <View style={{ flex: 1, flexDirection: 'column', gap: 10}}>
+                    <Text style={{fontWeight: '400', fontSize: 15, color: COLORS.white }}>Facilitez-vous la vie</Text>
+                    <Text style={{ fontSize: 24, fontWeight: 'bold', color: COLORS.white }}>Obtenez votre assurance santé</Text>
+                    <View style={{ flexDirection: 'row', marginTop: 10}}>
+                        <Pressable
+                            onPress={() => {Navigation.navigate(ROUTES.ASSUREURS, { product })}}
+                            style= {{ paddingVertical: 10,  paddingHorizontal: 30, backgroundColor: COLORS.white, borderRadius: 100 }}>
+                            <Text style={{ color: COLORS.primary, fontWeight: "bold", fontSize: 12,}}>Souscrire</Text>
+                        </Pressable>
+                    </View>
+                </View>
+                <View style={{width: 110}}>
+                    <Image
+                        alt="Image de l'assurance santé"
+                        source={ImageSante}
+                    />
                 </View>
             </View>
-            <View style={{width: 110}}>
-                <Image
-                    alt="Image de l'assurance santé"
-                    source={ImageSante}
-                    style={{ objectFit: 'fill' }}
-                />
-            </View>
         </View>
-    </View>
-  )
+    )
 }
 
 export function ProductSection() {
@@ -100,7 +107,7 @@ export function ProductSection() {
     const [products, setProducts] = useState<ProduitAssurance[]>([])
     useEffect(() => {
         (async () => {
-            setLoading(true);
+            setLoading(true)
             try {
                 const response: any = await apiClient.post('/secure/mobile/categories/v1', {});
                 setProducts(response.result?? [] as ProduitAssurance[])
@@ -139,7 +146,7 @@ export function ProductSection() {
                     )
                 }
                 {
-                    products.map((product: any, index: number) => (
+                    products.slice(0, 4).map((product: any, index: number) => (
                         <Box key={index} width={width / 2 - 26} padding={10}>
                             <Pressable onPress={() => {Navigation.navigate(ROUTES.ASSUREURS, { product })}} style={{ flexDirection: "row", alignItems: 'center', gap: 8 }}>
                                 <Image
@@ -167,7 +174,7 @@ export function RenderSubscriptionSection() {
         (async () => {
             setLoading(true);
             try {
-                const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {});
+                const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', { page: 1, pageSize: 4 });
                 setSouscriptions(response.result.subscriptions ?? [] as Souscription[])
             }
             catch (error) {
@@ -192,10 +199,10 @@ export function RenderSubscriptionSection() {
                 </View>
             </View>
             <View style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                flexDirection: 'row',
-                gap: 10
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    flexDirection: 'row',
+                    gap: 10
                 }}>
                 {   
                     loading && (

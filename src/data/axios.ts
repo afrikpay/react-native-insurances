@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Auth from '../utils/Auth';
 
 // Create axios instance with custom config
 let api = axios.create({
@@ -13,16 +14,15 @@ let api = axios.create({
 
 // Request interceptor
 api.interceptors.request.use(async (config) => {
-    // const currentUser = Cookies.get('user');
+    // const currentUser = Cookies.get('user')
     // const userJson: User | null = currentUser ? JSON.parse(currentUser!) : null
     
     try {
         // Add token to all request except login route
         if (!config.url?.includes("login")){
-            config.headers['Authorization'] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTE5ODI3NTEsImV4cCI6MTc1MjA2OTE1MSwicm9sZXMiOlsiUk9MRV9PV05FUiJdLCJ1c2VybmFtZSI6InN1cGVyS0o3IiwicGFzc3dvcmQiOiI3dTcwbzYiLCJwaW4iOiIiLCJ0ZXJtaW5hbElkZW50aWZpZXIiOiJtb2JpbGUiLCJ0ZXJtaW5hbFR5cGUiOiJtb2JpbGUiLCJ0ZXJtaW5hbFVzZXJBZ2VudCI6Ik1vemlsbGEvNS4wIChYMTE7IExpbnV4IHg4Nl82NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzEzOC4wLjAuMCBTYWZhcmkvNTM3LjM2IiwiaXBBZGRyZXNzIjoiMTI3LjAuMC4xIn0.Czps5Z-BvrpsjN5fHx4c4m9qb_MUgypLESya6Shm2Uo8b3ZWhXcMjkfEUTBzVrsJGky98QQZsnPq1A1kdKBvCRU_2VGQegROc8Goi00I0HAYtwQGKSW3yskU7W2JO0A06hglSrLPmzxt_cUZ9tF7siJ57v4buY_lDIIDbyh0vZ20UD846lDpy6yn6zttqeUj5l3t_v3MTcsSAzQPAS4MqqF_IBSWLG-RhoPg1XdSyrb4cZap4XJLE-jGsmIoFWRIKnMcwFUW7qT0z11NzeecNG6RR3coen-pLdM8CRZleDuzxOMwvEULZQ5YB8x46GX0psgmdAZhY60jzntiJzUfrQ`;
+            config.headers['Authorization'] = `Bearer ${await Auth.getToken()}`;
         }
-        // console.log(JSON.stringify(config, null, 2));
-        return config;
+        return config
     }
     catch (error) {
         return Promise.reject(error);

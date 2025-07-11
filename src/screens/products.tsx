@@ -41,8 +41,8 @@ export default function Products() {
             return;
         }
         const filtered = productsCopy.filter(product =>
-            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            product.description.toLowerCase().includes(searchTerm.toLowerCase())
+            product.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.description?.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setProducts(filtered);
     }

@@ -23,8 +23,8 @@ export default function Assureurs(props: any) {
                 const response: any = await apiClient.post('/secure/mobile/insurers/v1', {categoryId: product.id});
                 setInsurers(response.result?? [] as Insurer[])
             }
-            catch (error) {
-                console.error('Error fetching data:', error);
+            catch (error: any) {
+                console.error('Error fetching data:', error.message);
             }
             finally{ setLoading(false)}
         })()
@@ -73,39 +73,39 @@ export default function Assureurs(props: any) {
                                 </View>
                             )
                         }
-                    {
-                        insurers.map((insurer, index) => (
-                            <Box key={index} width={'100%'} padding={18}>
-                                <Pressable 
-                                    onPress={() => { Navigation.navigate(ROUTES.DETAIL_ASSURANCE, { product, insurer }) }}
-                                    style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    <View style={{ flex:1, flexDirection: 'column', gap: 10}}>
-                                        <View style={{ flexDirection: 'row', width: '100%', gap: 20 }}>
-                                            <Image
-                                                alt={insurer.name}
-                                                source={{ uri: insurer.logo  }}
-                                                style={{
-                                                    height: 50,
-                                                    width: 50,
-                                                    borderRadius: 100,
-                                                }}
-                                            />
-                                            <View style={{ flex: 1, flexDirection: 'column' }}>
-                                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 20 }}>
-                                                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{insurer.name}</Text>
+                        {
+                            insurers.map((insurer, index) => (
+                                <Box key={index} width={'100%'} padding={18}>
+                                    <Pressable 
+                                        onPress={() => { Navigation.navigate(ROUTES.DETAIL_ASSURANCE, { product, insurer }) }}
+                                        style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        <View style={{ flex:1, flexDirection: 'column', gap: 10}}>
+                                            <View style={{ flexDirection: 'row', width: '100%', gap: 20 }}>
+                                                <Image
+                                                    alt={insurer.name}
+                                                    source={{ uri: insurer.logo  }}
+                                                    style={{
+                                                        height: 50,
+                                                        width: 50,
+                                                        borderRadius: 100,
+                                                    }}
+                                                />
+                                                <View style={{ flex: 1, flexDirection: 'column' }}>
+                                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 20 }}>
+                                                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{insurer.name}</Text>
+                                                    </View>
+                                                    <Text>03 Formules</Text>
                                                 </View>
-                                                <Text>03 Formules</Text>
                                             </View>
+                                            <Text style={{ fontSize: 12}}>{insurer.shortDescription}</Text>
                                         </View>
-                                        <Text style={{ fontSize: 12}}>{insurer.shortDescription}</Text>
-                                    </View>
-                                    <TouchableOpacity onPress={() => { Navigation.navigate(ROUTES.DETAIL_ASSURANCE, { product, insurer }) }}>
-                                        <Icon.ChevronRight color={COLORS.primary} strokeWidth={1.5} width={30} height={30} />
-                                    </TouchableOpacity>
-                                </Pressable>
-                            </Box>
-                        ))
-                    }
+                                        <TouchableOpacity onPress={() => { Navigation.navigate(ROUTES.DETAIL_ASSURANCE, { product, insurer }) }}>
+                                            <Icon.ChevronRight color={COLORS.primary} strokeWidth={1.5} width={30} height={30} />
+                                        </TouchableOpacity>
+                                    </Pressable>
+                                </Box>
+                            ))
+                        }
                 </View>
                 <View style={{ height: 40}} />
             </ScrollView>

@@ -215,8 +215,12 @@ export default function DetailSouscription(props:any) {
         if (sending) return
         setSending(true)
         try {
-            // const response =  await apiClient.post('/secure/mobile/subscription/v1/send-contract', {})
-            await new Promise((resolve) => setTimeout(resolve, 3000))
+            const response =  await apiClient.post('/secure/mobile/document/contract/v1',
+                {
+                    referenceNumber: souscription.reference,
+                    insurerId: souscription.insurer.id
+                }
+            )
             SimpleToast.show("Contrat envoyé dans votre boîte mail avec succès!", 5)
         } catch (error: any) {
             console.error('Error sending contract:', error);
@@ -294,12 +298,15 @@ export default function DetailSouscription(props:any) {
                             </View>
                         </View>
                     </Box>
-                    <TouchableOpacity onPress={sendContract} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-                        {   sending &&
-                            <ActivityIndicator size={'small'} color={COLORS.gray} style={{ height: 20, width: 20 }} />
-                        }
-                        <Text style={{ color: COLORS.primary, fontSize: 12, fontWeight: 'bold' }}>Télécharger le contrat</Text>
-                    </TouchableOpacity>
+                    {
+                        souscription.status === "M" &&
+                        <TouchableOpacity onPress={sendContract} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                            {   sending &&
+                                <ActivityIndicator size={'small'} color={COLORS.gray} style={{ height: 20, width: 20 }} />
+                            }
+                            <Text style={{ color: COLORS.primary, fontSize: 12, fontWeight: 'bold' }}>Télécharger le contrat</Text>
+                        </TouchableOpacity>
+                    }
 
                     <RenderHtml
                         contentWidth={width}
