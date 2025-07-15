@@ -11,7 +11,6 @@ import { height, width } from '../constants/size'
 import { apiClient } from '../data/axios'
 import Navigation from '../services/Navigation'
 import type { ProduitAssurance, Souscription } from '../types'
-import Auth from '../utils/Auth'
 
 export default function Home() {
     return (
