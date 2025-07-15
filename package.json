@@ -132,7 +132,7 @@
   "workspaces": [
     "example"
   ],
-  "private": true,
+  "private": false,
   "packageManager": "yarn@3.6.1",
   "jest": {
     "preset": "react-native",
