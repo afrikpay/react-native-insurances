@@ -129,10 +129,12 @@
     "react-native-simple-toast": "*",
     "react-native-webview": "*"
   },
-  "workspaces": [
-    "example"
-  ],
   "private": true,
+  "workspaces": [
+    "example",
+    "packages/*",
+    "apps/*"
+  ],
   "packageManager": "yarn@3.6.1",
   "jest": {
     "preset": "react-native",
