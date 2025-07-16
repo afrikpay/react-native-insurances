@@ -1,6 +1,6 @@
 {
   "name": "react-native-insurances",
-  "version": "0.1.11",
+  "version": "0.1.9",
   "description": "Insurances gateway",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
@@ -129,6 +129,7 @@
     "react-native-simple-toast": "*",
     "react-native-webview": "*"
   },
+  "private": true,
   "packageManager": "yarn@3.6.1",
   "jest": {
     "preset": "react-native",
