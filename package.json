@@ -129,7 +129,6 @@
     "react-native-simple-toast": "*",
     "react-native-webview": "*"
   },
-  "private": true,
   "packageManager": "yarn@3.6.1",
   "jest": {
     "preset": "react-native",
