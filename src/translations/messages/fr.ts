@@ -83,6 +83,16 @@ const fr = {
     // Détail de la formule
     "detail_formule":"Détails Formule",
 
+    // Formulaire de souscription
+    "souscription": "Souscription",
+    "infos_souscripteur": "Infos du souscripteur",
+    "nom_souscripteur": "Nom du souscripteur",
+    "tel_souscripteur": "Téléphone",
+    "ajouter_assure": "Ajouter un assuré",
+    "retour": "Retour",
+    "souscripteur": "Souscripteur",
+    "nom": "Nom",
+
 }
 
 export default fr

@@ -9,6 +9,7 @@ import { ROUTES } from '../../constants/Routes'
 import { height, width } from '../../constants/size'
 import { apiClient } from '../../data/axios'
 import Navigation from '../../services/Navigation'
+import i18n from '../../translations/i18n'
 
 export default function SouscriptionForm(props: any) {
 
@@ -167,7 +168,7 @@ export default function SouscriptionForm(props: any) {
                     <TouchableOpacity onPress={() => { Navigation.back() }}>
                         <Icon.ChevronLeft color={COLORS.dark} strokeWidth={1.5} width={30} height={30} />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Souscription</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{i18n("souscription")}</Text>
                 </View>            
             </View>
             <ScrollView
@@ -183,7 +184,7 @@ export default function SouscriptionForm(props: any) {
                 {
                     (!subscriber && !loading) && 
                     <View>
-                        <Text style={{ paddingHorizontal: 20, fontWeight: 'bold' }}>Infos du souscripteur</Text>
+                        <Text style={{ paddingHorizontal: 20, fontWeight: 'bold' }}>{i18n("infos_souscripteur")}</Text>
                         <StepFormBuilder
                             onSubmit={setSubscriber}
                             steps={[
@@ -193,7 +194,7 @@ export default function SouscriptionForm(props: any) {
                                     fields: [
                                         {
                                             name: "customerName",
-                                            label: "Nom du souscripteur",
+                                            label: i18n("nom_souscripteur"),
                                             type: "text",
                                             validation: {
                                                 required: { message: 'This field is required', value: true },
@@ -201,7 +202,7 @@ export default function SouscriptionForm(props: any) {
                                         },
                                         {
                                             name: "phone",
-                                            label: "Téléphone",
+                                            label: i18n("tel_souscripteur"),
                                             type: "text",
                                             validation: {
                                                 required: { message: 'This field is required', value: true },
@@ -229,11 +230,11 @@ export default function SouscriptionForm(props: any) {
                     ((formStep.length > 0 || defaultValues) && subscriber) &&
                     <View>
                         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: 'center', paddingHorizontal: 20 }}>
-                            <Text style={{ fontWeight: 'bold' }}>Ajouter un assuré</Text>
+                            <Text style={{ fontWeight: 'bold' }}>{i18n("ajouter_assure")}</Text>
                             <Pressable
                                 onPress={goBack}
                                 style= {{ paddingVertical: 10, width: 80, backgroundColor: COLORS.white, borderRadius: 100 }}>
-                                <Text style={{color: COLORS.dark, textAlign: "center"}}>Retour</Text>
+                                <Text style={{color: COLORS.dark, textAlign: "center"}}>{i18n("retour")}</Text>
                             </Pressable>
                         </View>
                         <StepFormBuilder
@@ -250,10 +251,10 @@ export default function SouscriptionForm(props: any) {
                     (formStep.length === 0 && !loading) &&
                     <View>
                         <View style={{ borderRadius: 8, borderWidth: 0.3, padding: 20, flexDirection: "column", gap: 8 }}>
-                            <Text style={{ fontWeight: 'bold' }}>Souscripteur</Text>
+                            <Text style={{ fontWeight: 'bold' }}>{i18n("souscripteur")}</Text>
                             <View style={{ flexDirection: 'column', gap: 4 }}>
-                                <Text>Nom: { subscriber?.customerName } </Text>
-                                <Text>Téléphone: { subscriber?.phone } </Text>
+                                <Text>{i18n("nom")}: { subscriber?.customerName } </Text>
+                                <Text>{i18n("tel_souscripteur")}: { subscriber?.phone } </Text>
                                 <Text>Email: { subscriber?.email } </Text>
                             </View>
                         </View>
@@ -272,7 +273,7 @@ export default function SouscriptionForm(props: any) {
                                     justifyContent: 'space-between',
                                     alignItems: 'center'
                                 }}>
-                                    <Text style={{ color: COLORS.primary}}>Asuré N°{index+1}</Text>
+                                    <Text style={{ color: COLORS.primary}}>{i18n("assure")} N°{index+1}</Text>
                                     <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 10 }}>
                                         <Icon.Edit2 onPress={() => editInsurer(insurer)} style={{ width: 7, height: 7, borderColor: COLORS.gray }} />
                                         <Icon.Trash2 onPress={() => deleteInsurer(insurer)} style={{ width: 7, height: 7, borderColor: COLORS.danger }} />
@@ -285,7 +286,7 @@ export default function SouscriptionForm(props: any) {
                             <Pressable
                                 onPress={() => { if (!savingData) {setFormStep(formStepCopy)}}}
                                 style= {{ paddingVertical: 10, width: 150, backgroundColor: COLORS.gray, borderRadius: 100 }}>
-                                <Text style={{color: COLORS.white, fontWeight: "bold", textAlign: "center"}}>Ajouter un assuré</Text>
+                                <Text style={{color: COLORS.white, fontWeight: "bold", textAlign: "center"}}>{i18n("ajouter_assure")}</Text>
                             </Pressable>
                             <Pressable
                                 onPress={handleSubmitForm}
@@ -297,7 +298,7 @@ export default function SouscriptionForm(props: any) {
                                     savingData && 
                                     <ActivityIndicator size={'small'} color={COLORS.white} style={{ height: 20, width: 20 }} />
                                 }
-                                <Text style={{ color: COLORS.white, fontWeight: "bold", textAlign: "center"}}>Souscrire</Text>
+                                <Text style={{ color: COLORS.white, fontWeight: "bold", textAlign: "center"}}>{i18n("souscrire")}</Text>
                             </Pressable>
                         </View>
                     </View>

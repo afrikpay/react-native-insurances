@@ -83,6 +83,16 @@ const en = {
 
     // Détail de la formule
     "detail_formule":"Formula details",
+
+    // Formulaire de souscription
+    "souscription": "Subscription",
+    "infos_souscripteur": "Subscriber information",
+    "nom_souscripteur": "Name of subscriber",
+    "tel_souscripteur": "Telephone",
+    "ajouter_assure": "Add an insured",
+    "retour": "Back",
+    "souscripteur": "Subscriber",
+    "nom": "Name",
     
 }
 
