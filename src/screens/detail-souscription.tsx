@@ -15,6 +15,7 @@ import WebviewScreen from './forms/components/WebviewScreen'
 
 import * as DocumentPicker from 'expo-document-picker'
 import { uploadFile } from '../utils/uploadFiles'
+import i18n from '../translations/i18n'
 
 
 const operateursMobile: Record<string, any>[]  = [
@@ -259,7 +260,7 @@ export default function DetailSouscription(props:any) {
                     <TouchableOpacity onPress={() => { Navigation.back() }}>
                         <Icon.ChevronLeft color={COLORS.dark} strokeWidth={1.5} width={30} height={30} />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Détails souscription</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{i18n("detail_souscription_titre")}</Text>
                 </View>
             </View>
             <ScrollView
@@ -295,19 +296,19 @@ export default function DetailSouscription(props:any) {
                                     <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 14, fontWeight: 'bold', color: COLORS.primary }}>{souscription.product}</Text>
                                 </View>
                                 <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
-                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Souscrit le :</Text>
+                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>{i18n("souscrit_le")} :</Text>
                                     <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.subscribed_at.slice(0, 10)}</Text>
                                 </View>
                                 <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
-                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Activé le :</Text>
+                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>{i18n("active_le")} :</Text>
                                     <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.startAt ? souscription.start_at.slice(0, 10) : '--'}</Text>
                                 </View>
                                 <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
-                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Validité :</Text>
+                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>{i18n("validite")} :</Text>
                                     <Text numberOfLines={2} ellipsizeMode='tail'>{souscription.end_at ? souscription.end_at.slice(0, 10) : '--'}</Text>
                                 </View>
                                 <View style={{ flexDirection:"row", justifyContent: 'space-between'}}>
-                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>Prime: </Text>
+                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.dark }}>{i18n("prime")}: </Text>
                                     <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 14, fontWeight: 'bold' }}>{souscription.amount} XAF</Text>
                                 </View>
                             </View>
@@ -319,7 +320,7 @@ export default function DetailSouscription(props:any) {
                             {   sending &&
                                 <ActivityIndicator size={'small'} color={COLORS.gray} style={{ height: 20, width: 20 }} />
                             }
-                            <Text style={{ color: COLORS.primary, fontSize: 12, fontWeight: 'bold' }}>Télécharger le contrat</Text>
+                            <Text style={{ color: COLORS.primary, fontSize: 12, fontWeight: 'bold' }}>{i18n("telecharger_contrat")}</Text>
                         </TouchableOpacity>
                     }
                     <RenderHtml
@@ -327,13 +328,13 @@ export default function DetailSouscription(props:any) {
                         source={{ html: `${souscription.plan?.description}` }}
                     />
                     <View style={{flexDirection: "column", marginVertical: 20 }}>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Assurés</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>{i18n("assures")}</Text>
                         {
                             Object.keys(souscription.data).map((key, index) => (
                                 <Pressable
                                     onPress={() => setSelectedInsurer(souscription.data[key])}
                                     key={index} style={{ flexDirection: 'row', marginTop: 10, paddingVertical: 8, paddingHorizontal: 10, borderWidth: 0.5, borderColor: COLORS.light_gray, borderRadius: 8 }}>
-                                    <Text style={{ fontSize: 14, color: COLORS.dark }}>Assuré N°{index + 1}</Text>
+                                    <Text style={{ fontSize: 14, color: COLORS.dark }}>{i18n("assure")} N°{index + 1}</Text>
                                 </Pressable>
                             ))
                         }
@@ -342,7 +343,7 @@ export default function DetailSouscription(props:any) {
                         souscription.status === "P" &&
                         <View style={{ marginTop: 20, }}>
                             <View style={{ flexDirection: 'column', gap: 12 }}>
-                                <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>Moyens de paiements</Text>
+                                <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>{i18n("moyens_paiements")}</Text>
                                 <FlatList
                                     data={operateursMobile}
                                     showsHorizontalScrollIndicator={false}
@@ -378,7 +379,7 @@ export default function DetailSouscription(props:any) {
                             {
                                 (serviceSlug && serviceSlug.includes("money")) &&
                                 <View style={{ marginTop: 30,}}>
-                                    <Text style={{  fontWeight: 'bold', marginBottom: 10 }}>Numéro de téléphone *</Text>
+                                    <Text style={{  fontWeight: 'bold', marginBottom: 10 }}>{i18n("numero_telephone")} *</Text>
                                     <TextInput
                                         style={{ 
                                             borderWidth: 1,
@@ -424,7 +425,7 @@ export default function DetailSouscription(props:any) {
                                         loading &&
                                         <ActivityIndicator color={COLORS.white} style={{ height: 30, width: 30 }} />
                                     }
-                                <Text style={{ color: COLORS.white, fontWeight: "bold", fontSize: 18, textAlign: 'center'}}>Payer ma souscription</Text>
+                                <Text style={{ color: COLORS.white, fontWeight: "bold", fontSize: 18, textAlign: 'center'}}>{i18n("payer_ma_souscription")}</Text>
                             </Pressable>
                         </View>
                     }
@@ -448,7 +449,7 @@ export default function DetailSouscription(props:any) {
                                     isDocSending &&
                                     <ActivityIndicator color={COLORS.white} style={{ height: 30, width: 30 }} />
                                 }
-                            <Text style={{ color: COLORS.white, fontWeight: "bold", textAlign: 'center'}}>Confirmer l'envoi des documents</Text>
+                            <Text style={{ color: COLORS.white, fontWeight: "bold", textAlign: 'center'}}>{i18n("confirmer_envoi_docs")}</Text>
                         </Pressable>
                     }
                 </View> 
@@ -458,9 +459,9 @@ export default function DetailSouscription(props:any) {
             {/** Modal du message d'aide à la souscription */}
             <Portal>
                 <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{backgroundColor: 'white', padding: 20, width: '90%', margin: 'auto', borderRadius: 10}}>
-                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Aide souscription</Text>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{i18n("message_aide_titre")}</Text>
                     <View style={{ borderBottomWidth: 0.6, borderBottomColor: 'gray', opacity: 0.3, marginVertical: 10}}></View>
-                    <Text style={{ lineHeight: 20 }} >Veuillez nous decrire votre préoccupation. Un de nos assistants vous prendra en charge dans de brefs délais.</Text>
+                    <Text style={{ lineHeight: 20 }} >{i18n("message_aide_desc")}</Text>
                     {/**    
                         <View style={{ flexDirection: 'column', marginVertical: 20 }}>
                             <Text style={{ fontWeight: 'bold' }} >Type assurance</Text>
@@ -510,7 +511,7 @@ export default function DetailSouscription(props:any) {
                      */}   
 
                     <View style={{ marginTop: 30, height: 140}}>
-                        <Text style={{  fontWeight: 'bold', marginBottom: 10 }}>Votre message *</Text>
+                        <Text style={{  fontWeight: 'bold', marginBottom: 10 }}>{i18n("message_aide")} *</Text>
                         <TextInput
                             style={{ flex: 1, 
                                 borderWidth: 1,
@@ -534,7 +535,7 @@ export default function DetailSouscription(props:any) {
                     
                     <View style={{ marginTop: 40 }}>
                         <Button style={{  backgroundColor: COLORS.primary }} mode="contained" onPress={shareWhatsapp}>
-                            Soumettre
+                            {i18n("message_aide_sousmettre")}
                         </Button>
                     </View>
                 </Modal>
@@ -557,19 +558,17 @@ export default function DetailSouscription(props:any) {
             {/** Modal de succès */}
             <SuccessModal
                 visible={successPaymentModal}
-                title='Souscription reussie !'
-                message='Votre souscription est en cours de traitement aupres de Willis Towers Watson'
-                btnText='Voir mes souscription'
-                onPress={() => {
-                    console.log("Pressed");
-                }}
+                title={i18n("modal_succes_titre")}
+                message={i18n("modal_succes_desc")}
+                btnText={i18n("modal_succes_btn")}
+                onPress={() => { console.log("Pressed") }}
             /> 
 
             {/** Modal de détail d'un assuré */}
             <Portal>
                 <Modal visible={selectedInsurer} onDismiss={() => setSelectedInsurer(null)}
                     contentContainerStyle={{ backgroundColor: 'white', padding: 20, width: '90%', margin: 'auto', borderRadius: 10}}>
-                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Détails de l'assuré</Text>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{i18n("detail_assurer")}</Text>
                     <View style={{ borderBottomWidth: 0.6, borderBottomColor: 'gray', opacity: 0.3, marginVertical: 10}}></View>
                     <ScrollView style={{ marginTop: 20, maxHeight: height * 0.7 }}>
                         {
@@ -580,7 +579,7 @@ export default function DetailSouscription(props:any) {
                                 </View>
                             ))
                         }
-                        <Text style={{ fontWeight: 'bold', marginTop: 15,  }}>Pièces jointes</Text>
+                        <Text style={{ fontWeight: 'bold', marginTop: 15 }}>{i18n("pieces_jointes")}</Text>
                         {/* 
                             <View style={{ height: 50}}>
                                 <ScrollView showsHorizontalScrollIndicator={false} horizontal style={{ marginTop: 10, }}>
@@ -634,7 +633,7 @@ export default function DetailSouscription(props:any) {
                                                 (submitting && selectedDoc?.key === doc.key) && 
                                                 <ActivityIndicator size={'small'} color={COLORS.white} style={{ height: 16, width: 16 }} />
                                             }
-                                            <Text style={{ color: COLORS.white, fontWeight: "bold", textAlign: "center"}}>Envoyer</Text>
+                                            <Text style={{ color: COLORS.white, fontWeight: "bold", textAlign: "center"}}>{i18n("envoyer")}</Text>
                                         </Pressable>
                                     }
                                 </View> 

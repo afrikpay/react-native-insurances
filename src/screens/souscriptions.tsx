@@ -11,6 +11,7 @@ import { height, width } from '../constants/size';
 import { apiClient } from '../data/axios';
 import Navigation from '../services/Navigation';
 import type { Souscription } from '../types';
+import i18n from '../translations/i18n';
 
 const pattern = 'YYYY/MM/DD'//  HH:mm:ss'
 
@@ -99,7 +100,7 @@ export default function Souscriptions() {
                     <TouchableOpacity onPress={() => { Navigation.back() }}>
                         <Icon.ChevronLeft color={COLORS.dark} strokeWidth={1.5} width={30} height={30} />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: 18,textAlign: 'center', flex: 1, fontWeight: 'bold' }}>Mes souscriptions</Text>
+                    <Text style={{ fontSize: 18,textAlign: 'center', flex: 1, fontWeight: 'bold' }}>{i18n("mes_souscriptions")}</Text>
                     <TouchableOpacity onPress={showModal}>
                         <Icon.Filter color={COLORS.primary} strokeWidth={1.5} width={25} height={25} />
                     </TouchableOpacity>
@@ -116,7 +117,7 @@ export default function Souscriptions() {
                             borderRadius: 100,
                             height: 50
                         }}
-                        placeholder={'Rechercher une souscription'}
+                        placeholder={i18n("rechercher_souscription")}
                         returnKeyType="next"
                         underlineColorAndroid="transparent"
                         onChangeText={searchSouscriptions}
@@ -167,7 +168,7 @@ export default function Souscriptions() {
                 (!loading && souscriptions.length === 0) &&
                 (
                     <View style={{ height: 320, flex:1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: COLORS.gray}}>Aucune donnée trouvée</Text>
+                        <Text style={{ color: COLORS.gray}}>{i18n("aucune_souscription")}</Text>
                     </View>
                 )
             }
@@ -200,9 +201,9 @@ export default function Souscriptions() {
             {/** Modal de filtre des souscriptions */}
             <Portal>
                 <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{backgroundColor: 'white', padding: 20, width: '90%', marginLeft: '5%', borderRadius: 10}}>
-                    <Text style={{ fontSize: 16, fontWeight: 'bold' }} >Définissez vos options de filtre</Text>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold' }} >{i18n("filtre_titre")}</Text>
                     <View style={{ borderBottomWidth: 0.6, borderBottomColor: 'gray', opacity: 0.3, marginVertical: 10}}></View>
-                    <Text style={{ fontSize: 12, fontWeight: 'bold' }} >Statut</Text>
+                    <Text style={{ fontSize: 12, fontWeight: 'bold' }} >{i18n("filtre_statut")}</Text>
                     <RadioButton.Group onValueChange={newValue => setValue(newValue)} value={value}>
                         <View style={{ flexDirection: 'row', gap: 10, marginTop: 5}}>
                             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
@@ -220,7 +221,7 @@ export default function Souscriptions() {
                         </View>
                     </RadioButton.Group>        
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10, marginTop: 20 }}>
-                        <Text style={{ fontWeight: 'bold', marginTop: 25 }} >Produit</Text>
+                        <Text style={{ fontWeight: 'bold', marginTop: 25 }} >{i18n("filtre_produit")}</Text>
                         <View style={{ flex: 1 }}>
                             <DropdownComponent
                                 label="Sélectionner un produit"
@@ -243,7 +244,7 @@ export default function Souscriptions() {
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10, marginTop: 20, }}>
-                        <Text style={{  fontWeight: 'bold', marginTop: 25 }}>Formule</Text>
+                        <Text style={{  fontWeight: 'bold', marginTop: 25 }}>{i18n("filtre_formule")}</Text>
                         <View style={{ flex: 1 }}>
                             <DropdownComponent
                                 label="Sélectionner une formule"
@@ -267,7 +268,7 @@ export default function Souscriptions() {
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10}}>
-                        <Text style={{ fontWeight: 'bold', marginTop: 25 }}>Période</Text>
+                        <Text style={{ fontWeight: 'bold', marginTop: 25 }}>{i18n("filtre_periode")}</Text>
                     </View>
                     <View style={{
                         flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -328,7 +329,7 @@ export default function Souscriptions() {
                     </View>
                     <View style={{ marginTop: 40 }}>
                         <Button style={{  backgroundColor: COLORS.primary }} mode="contained" onPress={() => console.log('Pressed')}>
-                            Appliquer
+                            {i18n("btn_appliquer")}
                         </Button>
                     </View>
                 </Modal>

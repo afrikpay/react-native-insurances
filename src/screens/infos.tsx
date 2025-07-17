@@ -3,6 +3,7 @@ import * as Icon from 'react-native-feather'
 import { COLORS } from '../constants/Colors'
 import { height, width } from '../constants/size'
 import Navigation from '../services/Navigation'
+import i18n from '../translations/i18n'
 
 export default function Infos() {
   return (
@@ -18,7 +19,7 @@ export default function Infos() {
                 <TouchableOpacity onPress={() => { Navigation.back() }}>
                     <Icon.ChevronLeft color={COLORS.dark} strokeWidth={1.5} width={30} height={30} />
                 </TouchableOpacity>
-                <Text style={{ fontSize: 18, flex: 1, fontWeight: 'bold' }}>Infos sur l'application</Text>
+                <Text style={{ fontSize: 18, flex: 1, fontWeight: 'bold' }}>{i18n("info_title")}</Text>
             </View>
         </View>
 
@@ -26,37 +27,29 @@ export default function Infos() {
             showsVerticalScrollIndicator={false}
             style={{ flex: 1, paddingHorizontal: 20, marginTop: 15 }}>
             
-            <Text style={{ fontWeight: "bold", fontSize: 20, marginBottom: 20 }}>À propos de l'application</Text>
+            <Text style={{ fontWeight: "bold", fontSize: 20, marginBottom: 20 }}>{i18n("apropos_titre")}</Text>
             <Text style={{ lineHeight: 18 }}>
-                Bienvenue sur votre espace assurance, 
-                l'application d'assurance mobile conçue spécifiquement 
-                pour répondre à votre besoin. Nous simplifions le processus 
-                de souscription et de gestion de vos assurances, 
-                vous offrant tranquillité d'esprit et protection 
-                en quelques clics.
+                {i18n("apropos_desc")}
             </Text>
-            <Text style={{ fontWeight: "bold", fontSize: 20, marginTop: 20, marginBottom: 12 }}>Notre Mission</Text>
+            <Text style={{ fontWeight: "bold", fontSize: 20, marginTop: 20, marginBottom: 12 }}>{i18n("mission_titre")}</Text>
             <Text style={{ lineHeight: 18, paddingBottom: 30, borderBottomWidth: 0.33, borderBottomColor: COLORS.gray }}>
-                Notre mission est de rendre l'assurance accessible, 
-                transparente et rapide pour tous. 
-                Nous croyons que la protection de votre avenir et 
-                de vos biens ne devrait pas être compliquée.
+                {i18n("mission_desc")}
             </Text>
-            <Text style={{ fontWeight: "bold", fontSize: 20, marginTop: 20, marginBottom: 12 }}>Comment ça marche ?</Text>
+            <Text style={{ fontWeight: "bold", fontSize: 20, marginTop: 20, marginBottom: 12 }}>{i18n("question")}</Text>
             <Text style={{ lineHeight: 18, }}>
-                Avec votre espace assurance, souscrire à une assurance est simple et rapide.
+                {i18n("question_titre")}
             </Text>
             <Text style={{ lineHeight: 18, marginTop: 8 }}>
-                1) - Choisissez votre produit d'assurance : Explorez notre gamme de produits (auto, santé, habitation, etc.) adaptés au marché camerounais.
+                {i18n("question_1")}
             </Text>
             <Text style={{ lineHeight: 18,  marginTop: 8 }}>
-                2) - Obtenez un devis instantané : Entrez vos informations pour recevoir un devis personnalisé immédiatement.
+                {i18n("question_2")}
             </Text>
             <Text style={{ lineHeight: 18,  marginTop: 8 }}>
-                3) - Souscrivez en ligne : Payez en toute sécurité via des méthodes de paiement locales (Mobile Money, cartes bancaires) et recevez votre police d'assurance numériquement.
+                {i18n("question_3")}
             </Text>
             <Text style={{ lineHeight: 18,  marginTop: 8 }}>
-                4) - Gérez vos polices : Accédez à vos documents, suivez vos remboursements et gérez vos sinistres directement depuis l'application.
+                {i18n("question_4")}
             </Text>
             <View style={{ marginTop: 30}} />
 

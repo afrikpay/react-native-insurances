@@ -138,6 +138,9 @@
       "<rootDir>/lib/"
     ]
   },
+  "workspaces": [
+    "example"
+  ],
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"

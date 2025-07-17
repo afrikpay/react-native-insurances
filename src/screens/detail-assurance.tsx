@@ -9,6 +9,7 @@ import Navigation from '../services/Navigation'
 import type { Plan } from '../types'
 import { useEffect, useState } from 'react'
 import { apiClient } from '../data/axios'
+import i18n from '../translations/i18n'
 
 
 export default function DetailAssurance(props: any) {
@@ -86,49 +87,49 @@ export default function DetailAssurance(props: any) {
                         )
                     }
                     <FlatList
-                            data={plans}
-                            showsHorizontalScrollIndicator={false}
-                            horizontal
-                            extraData={(item: Plan) => `${item.id}`}
-                            renderItem={({ item }) =>
-                            (
-                                <Pressable
-                                    onPress={() => { Navigation.navigate(ROUTES.DETAIL_FORMULE, {plan: item, insurer}) }}
-                                    key={item.id} style={{
-                                    width: 250, height: 'auto', borderWidth: 0.05,
-                                    borderRadius: 12,
-                                    marginRight: 15,
-                                    padding: 15, gap: 15,
-                                    backgroundColor: COLORS.white, // Ajout d'une couleur de fond pour l'ombre
-                                    shadowColor: COLORS.dark, // Couleur de l'ombre
-                                    shadowOffset: { width: 0, height: 4 }, // Décalage de l'ombre
-                                    shadowOpacity: 0.2, // Opacité de l'ombre
-                                    shadowRadius: 6, // Rayon de flou de l'ombre
-                                    elevation: 2, // Ombre pour Android
-                                }}>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: COLORS.primary }}>{item.name}</Text>
-                                        <TouchableOpacity onPress={() => { Navigation.navigate(ROUTES.DETAIL_FORMULE, {plan: item, insurer}) }}>
-                                            <Icon.ChevronRight color={COLORS.primary} strokeWidth={2} width={25} height={25} />
-                                        </TouchableOpacity>
+                        data={plans}
+                        showsHorizontalScrollIndicator={false}
+                        horizontal
+                        extraData={(item: Plan) => `${item.id}`}
+                        renderItem={({ item }) =>
+                        (
+                            <Pressable
+                                onPress={() => { Navigation.navigate(ROUTES.DETAIL_FORMULE, {plan: item, insurer}) }}
+                                key={item.id} style={{
+                                width: 250, height: 'auto', borderWidth: 0.05,
+                                borderRadius: 12,
+                                marginRight: 15,
+                                padding: 15, gap: 15,
+                                backgroundColor: COLORS.white, // Ajout d'une couleur de fond pour l'ombre
+                                shadowColor: COLORS.dark, // Couleur de l'ombre
+                                shadowOffset: { width: 0, height: 4 }, // Décalage de l'ombre
+                                shadowOpacity: 0.2, // Opacité de l'ombre
+                                shadowRadius: 6, // Rayon de flou de l'ombre
+                                elevation: 2, // Ombre pour Android
+                            }}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: COLORS.primary }}>{item.name}</Text>
+                                    <TouchableOpacity onPress={() => { Navigation.navigate(ROUTES.DETAIL_FORMULE, {plan: item, insurer}) }}>
+                                        <Icon.ChevronRight color={COLORS.primary} strokeWidth={2} width={25} height={25} />
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ flexDirection: 'row', gap: 10 }}>
+                                    <Text>{i18n("prime_ttc")}</Text>
+                                    <View>
+                                        {/**
+                                            <Text style={{ fontWeight: 'bold'}}>{item.price} XAF - Enfant</Text>
+                                            <Text style={{ fontWeight: 'bold'}}>74 000 XAF - Adulte</Text>
+                                        */}
+                                        <Text style={{ fontWeight: 'bold'}}>{item.price} XAF</Text>
                                     </View>
-                                    <View style={{ flexDirection: 'row', gap: 10 }}>
-                                        <Text>Prime TTC</Text>
-                                        <View>
-                                            {/**
-                                                <Text style={{ fontWeight: 'bold'}}>{item.price} XAF - Enfant</Text>
-                                                <Text style={{ fontWeight: 'bold'}}>74 000 XAF - Adulte</Text>
-                                            */}
-                                            <Text style={{ fontWeight: 'bold'}}>{item.price} XAF</Text>
-                                        </View>
-                                    </View>
-                                    {/** <Text>Couverture jusqu’a 500 000 XAF</Text> */}
-                                    <View style={{ flexDirection: 'row', gap: 10}}>
-                                        <Text style={{ fontWeight: 'bold'}}>Durée</Text>
-                                        <Text style={{ fontWeight: 'bold'}}>{item.duration_display}</Text>
-                                    </View>
-                                </Pressable>
-                            )
+                                </View>
+                                {/** <Text>Couverture jusqu’a 500 000 XAF</Text> */}
+                                <View style={{ flexDirection: 'row', gap: 10}}>
+                                    <Text style={{ fontWeight: 'bold'}}>{i18n("duree")}</Text>
+                                    <Text style={{ fontWeight: 'bold'}}>{item.duration_display}</Text>
+                                </View>
+                            </Pressable>
+                        )
                     } />
                 </View>
                 <View style={{ height: 80, width: '100%' }}/>

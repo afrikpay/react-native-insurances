@@ -11,6 +11,7 @@ import { height, width } from '../constants/size'
 import { apiClient } from '../data/axios'
 import Navigation from '../services/Navigation'
 import type { ProduitAssurance, Souscription } from '../types'
+import i18n from '../translations/i18n'
 
 export default function Home() {
     return (
@@ -80,13 +81,13 @@ export function HomeCard() {
         }}>
             <View style={{ flex: 1, flexDirection: 'row', gap: 10}}>
                 <View style={{ flex: 1, flexDirection: 'column', gap: 10}}>
-                    <Text style={{fontWeight: '400', fontSize: 15, color: COLORS.white }}>Facilitez-vous la vie</Text>
-                    <Text style={{ fontSize: 24, fontWeight: 'bold', color: COLORS.white }}>Obtenez votre assurance santé</Text>
+                    <Text style={{fontWeight: '400', fontSize: 15, color: COLORS.white }}>{i18n("favorite_sous_titre")}</Text>
+                    <Text style={{ fontSize: 24, fontWeight: 'bold', color: COLORS.white }}>{i18n("favorite_titre")}</Text>
                     <View style={{ flexDirection: 'row', marginTop: 10}}>
                         <Pressable
                             onPress={() => {Navigation.navigate(ROUTES.ASSUREURS, { product })}}
                             style= {{ paddingVertical: 10,  paddingHorizontal: 30, backgroundColor: COLORS.white, borderRadius: 100 }}>
-                            <Text style={{ color: COLORS.primary, fontWeight: "bold", fontSize: 12,}}>Souscrire</Text>
+                            <Text style={{ color: COLORS.primary, fontWeight: "bold", fontSize: 12,}}>{i18n("souscrire")}</Text>
                         </Pressable>
                     </View>
                 </View>
@@ -122,12 +123,12 @@ export function ProductSection() {
     return (
         <View style={{ flexDirection: 'column', gap: 10}}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Text style={{ fontSize: 14, fontWeight: 'bold' }}>Les produits d’assurance</Text>
+                <Text style={{ fontSize: 14, fontWeight: 'bold' }}>{i18n("produits_assurance")}</Text>
                 <View style={{ flexDirection: 'row'}}>
                     <Pressable
                         onPress={() => { Navigation.navigate(ROUTES.PRODUITS) }}
                         style= {{ paddingVertical: 8,  paddingHorizontal: 16, backgroundColor: COLORS.primary, borderRadius: 100 }}>
-                        <Text style={{ color: COLORS.white, fontWeight: "400", fontSize: 10,}}>Voir plus</Text>
+                        <Text style={{ color: COLORS.white, fontWeight: "400", fontSize: 10,}}>{i18n("voir_plus")}</Text>
                     </Pressable>
                 </View>
             </View>
@@ -188,12 +189,12 @@ export function RenderSubscriptionSection() {
     return (
         <View style={{ flexDirection: 'column', gap: 10}}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Text style={{ fontSize: 14, fontWeight: 'bold' }}>Mes dernières souscriptions</Text>
+                <Text style={{ fontSize: 14, fontWeight: 'bold' }}>{i18n("dernieres_souscriptions")}</Text>
                 <View style={{ flexDirection: 'row'}}>
                     <Pressable
                         onPress={() => {Navigation.navigate(ROUTES.SOUSCRIPTIONS)}}
                         style= {{ paddingVertical: 8,  paddingHorizontal: 16, backgroundColor: COLORS.primary, borderRadius: 100 }}>
-                        <Text style={{ color: COLORS.white, fontWeight: "400", fontSize: 10,}}>Voir plus</Text>
+                        <Text style={{ color: COLORS.white, fontWeight: "400", fontSize: 10,}}>{i18n("voir_plus")}</Text>
                     </Pressable>
                 </View>
             </View>

@@ -9,6 +9,7 @@ import { height, width } from '../constants/size'
 import { apiClient } from '../data/axios'
 import Navigation from '../services/Navigation'
 import type { Insurer } from '../types'
+import i18n from '../translations/i18n'
 
 export default function Assureurs(props: any) {
     // Get params from navigation
@@ -44,7 +45,7 @@ export default function Assureurs(props: any) {
                     <TouchableOpacity onPress={() => { Navigation.back() }}>
                         <Icon.ChevronLeft color={COLORS.dark} strokeWidth={1.5} width={30} height={30} />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Assureurs</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{i18n("assureurs")}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center'}}>
                     <Text style={{ flex: 1, fontSize: 16, fontWeight: 'bold' }}>{product.name}</Text>

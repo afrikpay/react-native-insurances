@@ -4,6 +4,7 @@ import { Box } from "./Box"
 import Navigation from '../../services/Navigation'
 import { ROUTES } from "../../constants/Routes"
 import { COLORS } from "../../constants/Colors"
+import i18n from "../../translations/i18n"
 
 export default function SouscriptionComponent({souscription}: {souscription: Souscription}) {
     return (
@@ -39,10 +40,10 @@ export default function SouscriptionComponent({souscription}: {souscription: Sou
                       <Text style={{ fontSize: 12, marginVertical: 10 }}>{souscription.insurer.shortDescription}</Text>
                       <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 2 }}>
                           <Text style={{ fontWeight: 'bold'}}>{souscription.amount}</Text>
-                          <Text style={{ fontSize: 10, opacity: 0.7}}>XAF/mois</Text>
+                          <Text style={{ fontSize: 10, opacity: 0.7}}>{i18n("par_mois")}</Text>
                       </View>
                   </View>
-                  <Text style={{ opacity: 0.7, marginTop: 5}}>Validité: {souscription.subscribed_at?.slice(0, 10)}</Text>
+                  <Text style={{ opacity: 0.7, marginTop: 5}}>{i18n("validite")}: {souscription.subscribed_at?.slice(0, 10)}</Text>
               </View>
           </Pressable>
       </Box>
