@@ -3,7 +3,7 @@ export const ROUTES = {
     BOTTOMPTAPS: "BottomTabs",
     APPSTACK: 'AppStack',
     
-    HOME: 'home',
+    HOME: 'Home',
     PRODUITS: 'Produits',
     SOUSCRIPTIONS: 'Souscriptions',
     DETAIL_SOUSCRIPTIONS: 'Detail_Souscriptions',

@@ -1,13 +1,14 @@
 const fr = {
+
     // Login
-    "connexion": "Connexion",
     'home': 'Accueil',
     'produits': 'Produits',
     'souscriptions': 'Souscriptions',
-    'profil': 'Profil',
+    'infos': 'Infos',
 
 
     // Home
+    "bon_retour": "Bon retour",
     "favorite_sous_titre": "Facilitez-vous la vie",
     "favorite_titre": "Obtenez votre assurance santé",
     "souscrire": "Souscrire",
@@ -27,7 +28,6 @@ const fr = {
     "question_2": "2) - Obtenez un devis instantané : Entrez vos informations pour recevoir un devis personnalisé immédiatement.",
     "question_3": "3) - Souscrivez en ligne : Payez en toute sécurité via des méthodes de paiement locales (Mobile Money, cartes bancaires) et recevez votre police d'assurance numériquement.",
     "question_4": "4) - Gérez vos polices : Accédez à vos documents, suivez vos remboursements et gérez vos sinistres directement depuis l'application.",
-
 
     // produits
     "produit_assurance": "Produits d’assurance",
@@ -51,6 +51,8 @@ const fr = {
     "assureurs": "Assureurs",
 
     // Détail assurance
+    "desc_assurance": "Description assurance",
+    "formule_offertes": "Formules offertes",
     "prime_ttc": "Prime TTC",
     "duree": "Durée",
 
@@ -92,7 +94,6 @@ const fr = {
     "retour": "Retour",
     "souscripteur": "Souscripteur",
     "nom": "Nom",
-
 }
 
 export default fr

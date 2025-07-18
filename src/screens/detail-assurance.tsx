@@ -55,7 +55,7 @@ export default function DetailAssurance(props: any) {
                     <TouchableOpacity onPress={() => { Navigation.back() }}>
                         <Icon.ChevronLeft color={COLORS.dark} strokeWidth={1.5} width={30} height={30} />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Description assurance</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{i18n("desc_assurance")}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center'}}>
                     <Text style={{ flex: 1, fontSize: 16, fontWeight: 'bold' }}>{product.name}</Text>
@@ -78,7 +78,7 @@ export default function DetailAssurance(props: any) {
                     source={{ html: product.description }}
                 />
                 <View style={{ flexDirection: 'column', gap: 12, marginTop: 20 }}>
-                    <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>Formules offertes</Text>
+                    <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>{i18n("formule_offertes")}</Text>
                     {   
                         loading && (
                             <View style={{ width: '100%', height: 100, justifyContent: 'center', alignItems: 'center' }}>

@@ -1,13 +1,13 @@
 
 const en = {
     // Login 
-    "connexion": "Login",
     'home': 'Home',
     'produits': 'Produits',
     'souscriptions': 'Souscriptions',
-    'profil': 'Profil',
+    'infos': 'Infos',
 
     // Home
+    "bon_retour": "Welcome back",
     "favorite_sous_titre": "Make your life easier",
     "favorite_titre": "Get your health insurance",
     "souscrire": "Subscribe",
@@ -56,6 +56,8 @@ const en = {
     "duree": "Duration",
 
     // Détail souscription
+    "desc_assurance": "Insurance description",
+    "formule_offertes": "Formulas on offer",
     "detail_souscription_titre": "Subscription details",
     "souscrit_le": "Subscribed on",
     "active_le": "Activated on",

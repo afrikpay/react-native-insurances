@@ -26,19 +26,19 @@ export default function Home() {
             <View style={{}}>
                 <View style={{ flexDirection: 'row', justifyContent: "space-between", alignItems: 'center' }}>
                     <View style={{ flexDirection: 'column'}}>
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary}}>Bon retour</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary}}>{i18n('bon_retour')}</Text>
                     <Text style={{ fontSize: 14, fontWeight: '500' }}>Manu Decca</Text>
                     </View>
                     <View>
-                    <TouchableOpacity style={{ position: 'relative'}} onPress={() => { }}>
-                        <Icon.Bell color={COLORS.light_blue} strokeWidth={2} width={30} height={30} />
-                        <View style={{ backgroundColor: COLORS.danger, 
-                            position: 'absolute', top: 0, right: 0,
-                            height: 18, width: 18, borderRadius: 100, 
-                            justifyContent: 'center', alignItems: 'center'}}>
-                            <Text style={{ fontSize: 9, color: COLORS.white, fontWeight: 'bold'}}>02</Text>
-                        </View>
-                    </TouchableOpacity>
+                        <TouchableOpacity style={{ position: 'relative'}} onPress={() => { }}>
+                            <Icon.Bell color={COLORS.light_blue} strokeWidth={2} width={30} height={30} />
+                            <View style={{ backgroundColor: COLORS.danger, 
+                                position: 'absolute', top: 0, right: 0,
+                                height: 18, width: 18, borderRadius: 100, 
+                                justifyContent: 'center', alignItems: 'center'}}>
+                                <Text style={{ fontSize: 9, color: COLORS.white, fontWeight: 'bold'}}>02</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
@@ -105,6 +105,7 @@ export function HomeCard() {
 export function ProductSection() {
     const [loading, setLoading] = useState(false);
     const [products, setProducts] = useState<ProduitAssurance[]>([])
+
     useEffect(() => {
         (async () => {
             setLoading(true)
@@ -119,7 +120,8 @@ export function ProductSection() {
                 setLoading(false);
             }
         })()
-    }, []);
+    }, [])
+
     return (
         <View style={{ flexDirection: 'column', gap: 10}}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -170,6 +172,7 @@ export function ProductSection() {
 export function RenderSubscriptionSection() {
     const [loading, setLoading] = useState(false);
     const [souscriptions, setSouscriptions] = useState<Souscription[]>([])
+
     useEffect(() => {
         (async () => {
             setLoading(true);
@@ -185,7 +188,8 @@ export function RenderSubscriptionSection() {
             }
         })()
 
-    }, []);
+    }, [])
+    
     return (
         <View style={{ flexDirection: 'column', gap: 10}}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
