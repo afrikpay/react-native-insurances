@@ -5,6 +5,7 @@ import { COLORS } from '../constants/Colors'
 import { height, width } from '../constants/size'
 import Navigation from '../services/Navigation'
 import { ROUTES } from '../constants/Routes'
+import i18n from '../translations/i18n'
 
 export default function DetailFormule(props: any) {
     const { plan, insurer } = props.route.params;
@@ -23,7 +24,7 @@ export default function DetailFormule(props: any) {
                     <TouchableOpacity onPress={() => { Navigation.back() }}>
                         <Icon.ChevronLeft color={COLORS.dark} strokeWidth={1.5} width={30} height={30} />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Details Formule</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{i18n("detail_formule")}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                     <Image
@@ -48,7 +49,7 @@ export default function DetailFormule(props: any) {
                 <Pressable
                     onPress={() => { Navigation.navigate(ROUTES.SOUSCRIPTION_FORM, { planId: plan.id, insurerId: insurer.id }) }}
                     style= {{ paddingVertical: 12,  paddingHorizontal: 16, marginTop: 40, backgroundColor: COLORS.primary, borderRadius: 100 }}>
-                    <Text style={{ color: COLORS.white, fontWeight: "bold", fontSize: 18, textAlign: 'center'}}>Souscrire</Text>
+                    <Text style={{ color: COLORS.white, fontWeight: "bold", fontSize: 18, textAlign: 'center'}}>{i18n("souscrire")}</Text>
                 </Pressable>
 
                 <View style={{ height: 80, width:  '100%' }}/>

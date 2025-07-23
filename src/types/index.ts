@@ -10,26 +10,22 @@ export type Model = {
 
 
 export interface Souscription {
-  referenceNumber: string,
-  subscriptionId: string | null,
-  providerStatus: string,
+  id: string,
+  reference: string,
+  owners: string[],
+  customer: string | null,
+  amount: number | null,
+  data: Record<string, any> | null,
+  plan: Plan,
   product: string,
   insurer: Insurer,
-  insurerId: string,
-  insurerName: string,
-  planName: string,
-  planId: string,
-  plan: Plan,
-  formId: string | null,
-  subscribeAt: string | null,
-  startAt: string | null,
-  endAt: string | null,
-  owners: Owner[],
-  error: string | null
-}
-
-export interface Owner {
-  "id": string;
+  accepted_at: string | null,
+  subscribed_at: string | null,
+  start_at: string | null,
+  end_at: string | null,
+  status: string,
+  display_status: string,
+  duration_display: string,
 }
 
 export interface Plan {
@@ -39,6 +35,7 @@ export interface Plan {
   price: number;
   duration: number;
   unit: string;
+  duration_display: string;
 }
 
 export interface Insurer {

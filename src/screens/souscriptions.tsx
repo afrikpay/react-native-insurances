@@ -1,7 +1,7 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Platform, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, Platform, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import * as Icon from "react-native-feather";
 import { Button, Modal, Portal, RadioButton } from 'react-native-paper';
 import DropdownComponent from '../components/ui/DropdownComponent';
@@ -11,6 +11,7 @@ import { height, width } from '../constants/size';
 import { apiClient } from '../data/axios';
 import Navigation from '../services/Navigation';
 import type { Souscription } from '../types';
+import i18n from '../translations/i18n';
 
 const pattern = 'YYYY/MM/DD'//  HH:mm:ss'
 
@@ -18,6 +19,7 @@ export default function Souscriptions() {
     const [search, setSearch] = useState('')
     const [visible, setVisible] = useState(false);
     const [value, setValue] = useState('actif');
+    const [page, setPage] = useState(1);
 
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
@@ -35,23 +37,27 @@ export default function Souscriptions() {
     const [souscriptions, setSouscriptions] = useState<Souscription[]>([])
     const [souscriptionsCopy, setSouscriptionsCopy] = useState<Souscription[]>([])
 
-    useEffect(() => {
-        (async () => {
-            setLoading(true);
-            try {
-                const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {});       
-                setSouscriptions(response.result as Souscription[])  
-                setSouscriptionsCopy(response.result as Souscription[])             
-            }
-            catch (error) {
-                console.error('Error fetching data:', error);
-            }
-            finally{
-                setLoading(false);
-            }
-        })()
+    const fetchSubscription = async () => {
+        setLoading(true);
+        try {
+            const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {
+                page: page,
+                pageSize: 10
+            });     
+            setSouscriptions( prev => prev.concat(response.result.subscriptions ?? [] as Souscription[]) )  
+            setSouscriptionsCopy( prev => prev.concat(response.result.subscriptions ?? [] as Souscription[]) )
+        }
+        catch (error) {
+            console.error('Error fetching data:', error);
+        }
+        finally{
+            setLoading(false);
+        }
+    }
 
-    }, []);
+    useEffect(() => {
+        fetchSubscription()
+    }, [page]);
 
     const onChangeStart = (event: any, seletedDate: any) => {
         const currentDate = seletedDate || startDate
@@ -94,7 +100,7 @@ export default function Souscriptions() {
                     <TouchableOpacity onPress={() => { Navigation.back() }}>
                         <Icon.ChevronLeft color={COLORS.dark} strokeWidth={1.5} width={30} height={30} />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: 18,textAlign: 'center', flex: 1, fontWeight: 'bold' }}>Mes souscriptions</Text>
+                    <Text style={{ fontSize: 18,textAlign: 'center', flex: 1, fontWeight: 'bold' }}>{i18n("mes_souscriptions")}</Text>
                     <TouchableOpacity onPress={showModal}>
                         <Icon.Filter color={COLORS.primary} strokeWidth={1.5} width={25} height={25} />
                     </TouchableOpacity>
@@ -111,7 +117,7 @@ export default function Souscriptions() {
                             borderRadius: 100,
                             height: 50
                         }}
-                        placeholder={'Rechercher une souscription'}
+                        placeholder={i18n("rechercher_souscription")}
                         returnKeyType="next"
                         underlineColorAndroid="transparent"
                         onChangeText={searchSouscriptions}
@@ -128,36 +134,76 @@ export default function Souscriptions() {
                     </TouchableOpacity>
                 </View>
             </View>
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6'}}>   
-                <View style={{display: 'flex',
-                    flexWrap: 'wrap',
-                    flexDirection: 'row',
-                    gap: 10}}>
-                    {   
-                        loading && (
-                            <View style={{ width: '100%', height: 100, justifyContent: 'center', alignItems: 'center' }}>
-                                <ActivityIndicator color={COLORS.gray} style={{ height: 80, width: 80 }} />
+            {
+                (loading && souscriptions.length === 0) &&
+                <View style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
+                    <ActivityIndicator size="large" color={COLORS.gray} />
+                </View>
+            }
+            {
+                (souscriptions.length > 0) &&
+                <View  style={{ flex: 1, paddingHorizontal: 20 }}>
+                    <FlatList
+                        data={souscriptions}
+                        extraData={(item: any) => `${item.id}`}
+                        showsVerticalScrollIndicator={false}
+                        renderItem={({ item }) =>
+                            <View style={{ marginBottom: 15 }}>
+                                <SouscriptionComponent key={item.id} souscription={item} />
                             </View>
-                        )
-                    }
+                        }
+                        onEndReached={() => setPage(page + 1)}
+                        onEndReachedThreshold={0.5}
+                    />
+                    
                     {
-                        souscriptions.map((souscription, index) => (
-                           <SouscriptionComponent key={index} souscription={souscription} />
-                        ))
+                        ( loading && page > 1 ) &&
+                        <View style={{ paddingVertical: 15, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} >
+                            <ActivityIndicator size="small" color={COLORS.gray} />
+                        </View>
                     }
                 </View>
-                <View style={{ height: 80, width: '100%'}}/>
-                
-            </ScrollView>
+            }
+            {
+                (!loading && souscriptions.length === 0) &&
+                (
+                    <View style={{ height: 320, flex:1, justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ color: COLORS.gray}}>{i18n("aucune_souscription")}</Text>
+                    </View>
+                )
+            }
+            {/*
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6'}}>   
+                    <View style={{display: 'flex',
+                        flexWrap: 'wrap',
+                        flexDirection: 'row',
+                        gap: 10}}>
+                        {   
+                            loading && (
+                                <View style={{ width: '100%', height: 100, justifyContent: 'center', alignItems: 'center' }}>
+                                    <ActivityIndicator color={COLORS.gray} style={{ height: 80, width: 80 }} />
+                                </View>
+                            )
+                        }
+                        {
+                            souscriptions.map((souscription, index) => (
+                            <SouscriptionComponent key={index} souscription={souscription} />
+                            ))
+                        }
+                    </View>
+                    <View style={{ height: 80, width: '100%'}}/>
+                    
+                </ScrollView>
+            */}
 
             {/** Modal de filtre des souscriptions */}
             <Portal>
                 <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{backgroundColor: 'white', padding: 20, width: '90%', marginLeft: '5%', borderRadius: 10}}>
-                    <Text style={{ fontSize: 16, fontWeight: 'bold' }} >Définissez vos options de filtre</Text>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold' }} >{i18n("filtre_titre")}</Text>
                     <View style={{ borderBottomWidth: 0.6, borderBottomColor: 'gray', opacity: 0.3, marginVertical: 10}}></View>
-                    <Text style={{ fontSize: 12, fontWeight: 'bold' }} >Statut</Text>
+                    <Text style={{ fontSize: 12, fontWeight: 'bold' }} >{i18n("filtre_statut")}</Text>
                     <RadioButton.Group onValueChange={newValue => setValue(newValue)} value={value}>
                         <View style={{ flexDirection: 'row', gap: 10, marginTop: 5}}>
                             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
@@ -175,7 +221,7 @@ export default function Souscriptions() {
                         </View>
                     </RadioButton.Group>        
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10, marginTop: 20 }}>
-                        <Text style={{ fontWeight: 'bold', marginTop: 25 }} >Produit</Text>
+                        <Text style={{ fontWeight: 'bold', marginTop: 25 }} >{i18n("filtre_produit")}</Text>
                         <View style={{ flex: 1 }}>
                             <DropdownComponent
                                 label="Sélectionner un produit"
@@ -198,7 +244,7 @@ export default function Souscriptions() {
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10, marginTop: 20, }}>
-                        <Text style={{  fontWeight: 'bold', marginTop: 25 }}>Formule</Text>
+                        <Text style={{  fontWeight: 'bold', marginTop: 25 }}>{i18n("filtre_formule")}</Text>
                         <View style={{ flex: 1 }}>
                             <DropdownComponent
                                 label="Sélectionner une formule"
@@ -222,7 +268,7 @@ export default function Souscriptions() {
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10}}>
-                        <Text style={{ fontWeight: 'bold', marginTop: 25 }}>Période</Text>
+                        <Text style={{ fontWeight: 'bold', marginTop: 25 }}>{i18n("filtre_periode")}</Text>
                     </View>
                     <View style={{
                         flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -283,7 +329,7 @@ export default function Souscriptions() {
                     </View>
                     <View style={{ marginTop: 40 }}>
                         <Button style={{  backgroundColor: COLORS.primary }} mode="contained" onPress={() => console.log('Pressed')}>
-                            Appliquer
+                            {i18n("btn_appliquer")}
                         </Button>
                     </View>
                 </Modal>

@@ -8,6 +8,7 @@ import { ROUTES } from '../constants/Routes'
 import { width } from '../constants/size'
 import { apiClient } from '../data/axios'
 import Navigation from '../services/Navigation'
+import i18n from '../translations/i18n'
 
 export default function Products() {
     const [search, setSearch] = useState('')
@@ -19,32 +20,31 @@ export default function Products() {
         (async () => {
             setLoading(true);
             try {
-                const response: any = await apiClient.post('/secure/mobile/categories/v1', {});       
+                const response: any = await apiClient.post('/secure/mobile/categories/v1', {})    
                 setProducts(response.result)
                 setProductsCopy(response.result)
             }
             catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Error fetching data:', error)
             }
             finally{
-                setLoading(false);
+                setLoading(false)
             }
         })()
-
     }, []);
 
     // Filter insurance product by name
     const searchProducts = (searchTerm: string) => {
-        setSearch(searchTerm);
+        setSearch(searchTerm)
         if (!searchTerm) {
             setProducts(productsCopy);
-            return;
+            return
         }
         const filtered = productsCopy.filter(product =>
-            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            product.description.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setProducts(filtered);
+            product.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.description?.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        setProducts(filtered)
     }
     
     return (
@@ -60,7 +60,7 @@ export default function Products() {
                     <TouchableOpacity onPress={() => Navigation.back() }>
                         <Icon.ChevronLeft color={COLORS.dark} strokeWidth={1.5} width={30} height={30} />
                     </TouchableOpacity>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Produits d’assurance</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{i18n("produit_assurance")}</Text>
                 </View>
                 <View style={{ height: 45 }}>
                     {/** Search input */}
@@ -74,7 +74,7 @@ export default function Products() {
                             borderRadius: 100,
                             height: 50
                         }}
-                        placeholder={'Rechercher un produit d’assurance'}
+                        placeholder={i18n("rechercher_assurance")}
                         returnKeyType="next"
                         underlineColorAndroid="transparent"
                         onChangeText={searchProducts}
@@ -96,7 +96,7 @@ export default function Products() {
                 {   
                     loading && (
                         <View style={{ width: '100%', height: 200, justifyContent: 'center', alignItems: 'center' }}>
-                            <ActivityIndicator color={COLORS.gray} style={{ height: 60, width: 60 }} />
+                            <ActivityIndicator size={`small`} color={COLORS.gray} style={{ height: 60, width: 60 }} />
                         </View>
                     )
                 }
@@ -140,7 +140,7 @@ export default function Products() {
                                         borderColor: COLORS.primary, borderWidth: 0.3, 
                                         marginTop: 10,
                                         backgroundColor: COLORS.white, borderRadius: 100 }}>
-                                        <Text style={{ color: COLORS.primary, fontWeight: "bold", textAlign: "center", fontSize: 12,}}>Voir les formules</Text>
+                                        <Text style={{ color: COLORS.primary, fontWeight: "bold", textAlign: "center", fontSize: 12,}}>{i18n("voir_formules")}</Text>
                                     </Pressable>
                                 </View>
                             </View>
