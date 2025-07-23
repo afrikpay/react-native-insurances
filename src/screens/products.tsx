@@ -20,32 +20,31 @@ export default function Products() {
         (async () => {
             setLoading(true);
             try {
-                const response: any = await apiClient.post('/secure/mobile/categories/v1', {});       
+                const response: any = await apiClient.post('/secure/mobile/categories/v1', {})    
                 setProducts(response.result)
                 setProductsCopy(response.result)
             }
             catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Error fetching data:', error)
             }
             finally{
-                setLoading(false);
+                setLoading(false)
             }
         })()
-
     }, []);
 
     // Filter insurance product by name
     const searchProducts = (searchTerm: string) => {
-        setSearch(searchTerm);
+        setSearch(searchTerm)
         if (!searchTerm) {
             setProducts(productsCopy);
-            return;
+            return
         }
         const filtered = productsCopy.filter(product =>
             product.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             product.description?.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setProducts(filtered);
+        )
+        setProducts(filtered)
     }
     
     return (

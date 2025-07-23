@@ -8,7 +8,6 @@ const locales: { [key: string]: { [key: string]: string } } = {
     "fr": fr,
     "en": en
 }
-
 var lang: string;
 
 const i18n = (messageId: string, values?: { [key: string]: { [key: string]: string } }) => {
