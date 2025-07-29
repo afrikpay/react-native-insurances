@@ -9,8 +9,8 @@ import Animated, {
   SlideInRight,
   SlideOutLeft,
 } from 'react-native-reanimated';
-import { StepFormHeader } from './StepFormHeader';
 import type { FormData, StepFormBuilderProps } from './types/types';
+import { StepFormHeader } from './StepFormHeader';
 
 export default function StepFormBuilder({
   steps,
