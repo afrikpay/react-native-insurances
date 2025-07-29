@@ -7,9 +7,9 @@ import { COLORS } from '../constants/Colors'
 import { ROUTES } from '../constants/Routes'
 import { height, width } from '../constants/size'
 import { apiClient } from '../data/axios'
-import Navigation from '../services/Navigation'
 import type { Insurer } from '../types'
 import i18n from '../translations/i18n'
+import Navigation from '../services/Navigation'
 
 export default function Assureurs(props: any) {
     // Get params from navigation
@@ -32,7 +32,7 @@ export default function Assureurs(props: any) {
     }, []);
     
     return (
-        <SafeAreaView style={{flex: 1, 
+        <SafeAreaView style={{ flex: 1, 
             height: height, width: width,  
             backgroundColor: COLORS.white,
             flexDirection: 'column',

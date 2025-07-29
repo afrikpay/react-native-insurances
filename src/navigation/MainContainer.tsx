@@ -23,7 +23,7 @@ const MainContainer = () => {
           fontWeight: '500',
           marginBottom: 2,
         },
-        tabBarIcon: ({ focused, color, size }: any) => {
+        tabBarIcon: ({ focused }: any) => {
           let icon;
           let rn = route.name
           

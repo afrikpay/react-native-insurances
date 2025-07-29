@@ -9,9 +9,9 @@ import { ImageSante } from '../constants/Images'
 import { ROUTES } from '../constants/Routes'
 import { height, width } from '../constants/size'
 import { apiClient } from '../data/axios'
-import Navigation from '../services/Navigation'
 import type { ProduitAssurance, Souscription } from '../types'
 import i18n from '../translations/i18n'
+import Navigation from '../services/Navigation'
 
 export default function Home() {
     return (

@@ -2,8 +2,8 @@ import { SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } fro
 import * as Icon from 'react-native-feather'
 import { COLORS } from '../constants/Colors'
 import { height, width } from '../constants/size'
-import Navigation from '../services/Navigation'
 import i18n from '../translations/i18n'
+import Navigation from '../services/Navigation'
 
 export default function Infos() {
   return (

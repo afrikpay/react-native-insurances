@@ -10,12 +10,12 @@ import { COLORS } from '../constants/Colors'
 import { IMAGES } from '../constants/Images'
 import { height, width } from '../constants/size'
 import { apiClient } from '../data/axios'
-import Navigation from '../services/Navigation'
 import WebviewScreen from './forms/components/WebviewScreen'
 
 import * as DocumentPicker from 'expo-document-picker'
 import { uploadFile } from '../utils/uploadFiles'
 import i18n from '../translations/i18n'
+import Navigation from '../services/Navigation'
 
 
 const operateursMobile: Record<string, any>[]  = [
@@ -349,7 +349,7 @@ export default function DetailSouscription(props:any) {
                                     showsHorizontalScrollIndicator={false}
                                     horizontal
                                     extraData={(item: any) => `${item.id}`}
-                                    renderItem={({ item }) => (
+                                    renderItem={({ item }: { item: any }) => (
                                         <Pressable
                                             onPress={() => setServiceSlug(item.slug)}
                                             key={item.id} style={{

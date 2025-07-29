@@ -3,9 +3,9 @@ import * as Icon from "react-native-feather"
 import RenderHtml from 'react-native-render-html'
 import { COLORS } from '../constants/Colors'
 import { height, width } from '../constants/size'
-import Navigation from '../services/Navigation'
 import { ROUTES } from '../constants/Routes'
 import i18n from '../translations/i18n'
+import Navigation from '../services/Navigation'
 
 export default function DetailFormule(props: any) {
     const { plan, insurer } = props.route.params;

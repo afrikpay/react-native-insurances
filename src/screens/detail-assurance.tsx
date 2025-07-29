@@ -5,11 +5,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLORS } from '../constants/Colors'
 import { ROUTES } from '../constants/Routes'
 import { height, width } from '../constants/size'
-import Navigation from '../services/Navigation'
 import type { Plan } from '../types'
 import { useEffect, useState } from 'react'
 import { apiClient } from '../data/axios'
 import i18n from '../translations/i18n'
+import Navigation from '../services/Navigation'
 
 
 export default function DetailAssurance(props: any) {
@@ -91,7 +91,7 @@ export default function DetailAssurance(props: any) {
                         showsHorizontalScrollIndicator={false}
                         horizontal
                         extraData={(item: Plan) => `${item.id}`}
-                        renderItem={({ item }) =>
+                        renderItem={({ item }: {item: Plan}) =>
                         (
                             <Pressable
                                 onPress={() => { Navigation.navigate(ROUTES.DETAIL_FORMULE, {plan: item, insurer}) }}

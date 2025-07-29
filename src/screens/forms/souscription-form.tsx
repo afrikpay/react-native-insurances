@@ -8,8 +8,8 @@ import { COLORS } from '../../constants/Colors'
 import { ROUTES } from '../../constants/Routes'
 import { height, width } from '../../constants/size'
 import { apiClient } from '../../data/axios'
-import Navigation from '../../services/Navigation'
 import i18n from '../../translations/i18n'
+import Navigation from '../../services/Navigation'
 
 export default function SouscriptionForm(props: any) {
 
@@ -275,8 +275,8 @@ export default function SouscriptionForm(props: any) {
                                 }}>
                                     <Text style={{ color: COLORS.primary}}>{i18n("assure")} N°{index+1}</Text>
                                     <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 10 }}>
-                                        <Icon.Edit2 onPress={() => editInsurer(insurer)} style={{ width: 7, height: 7, borderColor: COLORS.gray }} />
-                                        <Icon.Trash2 onPress={() => deleteInsurer(insurer)} style={{ width: 7, height: 7, borderColor: COLORS.danger }} />
+                                        <Icon.Edit2 onPress={() => editInsurer(insurer)} />
+                                        <Icon.Trash2 onPress={() => deleteInsurer(insurer)} />
                                     </View>
                                 </View>
                                )) 

@@ -1,7 +1,7 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Platform, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, Platform, SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import * as Icon from "react-native-feather";
 import { Button, Modal, Portal, RadioButton } from 'react-native-paper';
 import DropdownComponent from '../components/ui/DropdownComponent';
@@ -9,9 +9,9 @@ import SouscriptionComponent from '../components/ui/souscription-component';
 import { COLORS } from '../constants/Colors';
 import { height, width } from '../constants/size';
 import { apiClient } from '../data/axios';
-import Navigation from '../services/Navigation';
-import type { Souscription } from '../types';
 import i18n from '../translations/i18n';
+import type { Souscription } from '../types';
+import Navigation from '../services/Navigation';
 
 const pattern = 'YYYY/MM/DD'//  HH:mm:ss'
 
@@ -43,7 +43,7 @@ export default function Souscriptions() {
             const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', {
                 page: page,
                 pageSize: 10
-            });     
+            });
             setSouscriptions( prev => prev.concat(response.result.subscriptions ?? [] as Souscription[]) )  
             setSouscriptionsCopy( prev => prev.concat(response.result.subscriptions ?? [] as Souscription[]) )
         }
@@ -60,12 +60,21 @@ export default function Souscriptions() {
     }, [page]);
 
     const onChangeStart = (event: any, seletedDate: any) => {
+        // console.log('onChangeStart', event, seletedDate)
+        if (event.type === 'dismissed') {
+            setShowStartDatePicker(false)
+            return;
+        }
         const currentDate = seletedDate || startDate
         setShowStartDatePicker(Platform.OS === 'ios')
         setStartDate(currentDate)
         setSelectedStartDate(moment(currentDate).format(pattern))
     }
     const onChangeEnd = (event: any, seletedDate: any) => {
+        if (event.type === 'dismissed') {
+            setShowStartDatePicker(false)
+            return;
+        }
         const currentDate = seletedDate || endDate
         setShowEndDatePicker(Platform.OS === 'ios')
         setEndDate(currentDate)
@@ -80,7 +89,7 @@ export default function Souscriptions() {
             return;
         }
         const filtered = souscriptionsCopy.filter(souscription =>
-            souscription.planName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            souscription.plan.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             souscription.product.toLowerCase().includes(searchTerm.toLowerCase()) ||
             souscription.insurer.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
@@ -146,10 +155,11 @@ export default function Souscriptions() {
                     <FlatList
                         data={souscriptions}
                         extraData={(item: any) => `${item.id}`}
+                        keyExtractor={(item: Souscription) => item.id.toString()}
                         showsVerticalScrollIndicator={false}
-                        renderItem={({ item }) =>
-                            <View style={{ marginBottom: 15 }}>
-                                <SouscriptionComponent key={item.id} souscription={item} />
+                        renderItem={({ item }: { item: Souscription}) =>
+                            <View style={{ marginBottom: 15 }} key={item.id}>
+                                <SouscriptionComponent souscription={item} />
                             </View>
                         }
                         onEndReached={() => setPage(page + 1)}
@@ -282,7 +292,7 @@ export default function Souscriptions() {
                             alignItems: 'center',
                             gap: 10
                         }}>
-                            <Icon.Calendar style={{ width: 20, height: 20, color: COLORS.gray }} />
+                            <Icon.Calendar />
                             <Text style={{ color: COLORS.dark }}>{selectedStartDate}</Text>
                         </TouchableOpacity>
                     </View>
@@ -298,7 +308,7 @@ export default function Souscriptions() {
                             alignItems: 'center',
                             gap: 10
                         }}>
-                            <Icon.Calendar style={{ width: 20, height: 20, color: COLORS.gray }} />
+                            <Icon.Calendar  />
                             <Text style={{ color: COLORS.dark }}>{selectedEndDate} </Text>
                         </TouchableOpacity>
                     </View>

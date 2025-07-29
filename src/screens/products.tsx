@@ -7,8 +7,8 @@ import { ImageSante } from '../constants/Images'
 import { ROUTES } from '../constants/Routes'
 import { width } from '../constants/size'
 import { apiClient } from '../data/axios'
-import Navigation from '../services/Navigation'
 import i18n from '../translations/i18n'
+import Navigation from '../services/Navigation'
 
 export default function Products() {
     const [search, setSearch] = useState('')
