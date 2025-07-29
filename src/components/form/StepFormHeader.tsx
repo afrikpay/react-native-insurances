@@ -11,5 +11,5 @@ export function StepFormHeader({
   currentStep,
   data,
 }: StepFormHeaderProps) {
-  return steps[currentStep]?.header?.(data);
+  return <>{steps[currentStep]?.header?.(data)}</>;
 }
