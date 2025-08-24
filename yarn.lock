@@ -3019,15 +3019,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-community/datetimepicker@npm:6.7.3":
-  version: 6.7.3
-  resolution: "@react-native-community/datetimepicker@npm:6.7.3"
-  dependencies:
-    invariant: ^2.2.4
-  checksum: ad08d786aafe8c33135c5f2bdc227d54970bf41ee9f9876a7d4ed365733f02c6e4fb2b8df8f0c45702e5aee43843fe78b7c04c1ff7a1862cde48789e68b9d355
-  languageName: node
-  linkType: hard
-
 "@react-native-community/datetimepicker@npm:^8.4.4":
   version: 8.4.4
   resolution: "@react-native-community/datetimepicker@npm:8.4.4"
@@ -3044,16 +3035,6 @@ __metadata:
     react-native-windows:
       optional: true
   checksum: 659a19ec6ea6ec7538519411c60ff8eeae330b40248e28a38b540e5d8f758859f6a0fa8e9e39efbafbc6d44b57e3f68cb972b5fd4abb9a173651ca09a1ff28e5
-  languageName: node
-  linkType: hard
-
-"@react-native-masked-view/masked-view@npm:0.2.8":
-  version: 0.2.8
-  resolution: "@react-native-masked-view/masked-view@npm:0.2.8"
-  peerDependencies:
-    react: ">=16"
-    react-native: ">=0.57"
-  checksum: b8985511eabfb5d7c89cf3c6beaa45c0f02b1688cd0172787595f7c7374f3d6965d93847f830e7cdca94bd79167e4a5cf3e4914ba8a80d08c2730349cc2d58c2
   languageName: node
   linkType: hard
 
@@ -4547,7 +4528,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.11.0, axios@npm:^1.9.0":
+"axios@npm:^1.11.0":
   version: 1.11.0
   resolution: "axios@npm:1.11.0"
   dependencies:
@@ -6639,13 +6620,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"escape-string-regexp@npm:2.0.0, escape-string-regexp@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "escape-string-regexp@npm:2.0.0"
-  checksum: 9f8a2d5743677c16e85c810e3024d54f0c8dea6424fad3c79ef6666e81dd0846f7437f5e729dfcdac8981bc9e5294c39b4580814d114076b8d36318f46ae4395
-  languageName: node
-  linkType: hard
-
 "escape-string-regexp@npm:5.0.0":
   version: 5.0.0
   resolution: "escape-string-regexp@npm:5.0.0"
@@ -6657,6 +6631,13 @@ __metadata:
   version: 1.0.5
   resolution: "escape-string-regexp@npm:1.0.5"
   checksum: 6092fda75c63b110c706b6a9bfde8a612ad595b628f0bd2147eea1d3406723020810e591effc7db1da91d80a71a737a313567c5abb3813e8d9c71f4aa595b410
+  languageName: node
+  linkType: hard
+
+"escape-string-regexp@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "escape-string-regexp@npm:2.0.0"
+  checksum: 9f8a2d5743677c16e85c810e3024d54f0c8dea6424fad3c79ef6666e81dd0846f7437f5e729dfcdac8981bc9e5294c39b4580814d114076b8d36318f46ae4395
   languageName: node
   linkType: hard
 
@@ -7104,15 +7085,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-document-picker@npm:~11.2.2":
-  version: 11.2.2
-  resolution: "expo-document-picker@npm:11.2.2"
-  peerDependencies:
-    expo: "*"
-  checksum: aa70d7121fe544f4f0ce1ee86fd66e5499097f64dd2cf3652ee8e9a6576018cf64807b19a1a5b5734bd10f42ad638c72234096df2332b0f63809fb3093d3645b
-  languageName: node
-  linkType: hard
-
 "expo-file-system@npm:^18.1.11, expo-file-system@npm:~18.1.11":
   version: 18.1.11
   resolution: "expo-file-system@npm:18.1.11"
@@ -7120,17 +7092,6 @@ __metadata:
     expo: "*"
     react-native: "*"
   checksum: 8cc9d7cf0835d328174e414be8c2c69ca145716ce7ac83033f7197ee4309b53b435a86b76a3d3072d374b340ae61eb1f8ababdc9aebc5d9e8958944d7904a6c2
-  languageName: node
-  linkType: hard
-
-"expo-file-system@npm:~15.2.2":
-  version: 15.2.2
-  resolution: "expo-file-system@npm:15.2.2"
-  dependencies:
-    uuid: ^3.4.0
-  peerDependencies:
-    expo: "*"
-  checksum: edae9a7c65dcf159934e37ad83ce229b4083cae12dd4d34ecfa56422219bfc9d1e54bdb5955f22f047706d8adb20f106be9d4603f27cb38f01d886a65dde2ce1
   languageName: node
   linkType: hard
 
@@ -7168,17 +7129,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-localization@npm:~14.1.1":
-  version: 14.1.1
-  resolution: "expo-localization@npm:14.1.1"
-  dependencies:
-    rtl-detect: ^1.0.2
-  peerDependencies:
-    expo: "*"
-  checksum: c449a590ff20ec49b21bcbdef3c4dc1566945cd82341662ff48d098f37cf943a1bc8af614a74dd306abe5b076e99488a1e296e64ba246fdf3257fc47e71fa7ae
-  languageName: node
-  linkType: hard
-
 "expo-modules-autolinking@npm:2.1.14":
   version: 2.1.14
   resolution: "expo-modules-autolinking@npm:2.1.14"
@@ -7211,15 +7161,6 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 3a70ff324facf596572aa3caf28e012dc0421090735e7f3bc4014fb6e784e5e13f90d5e0d8904f3cc7bb23e6f5228182a2efca28ce5e2d1c4a107f3ed4e9815d
-  languageName: node
-  linkType: hard
-
-"expo-secure-store@npm:~12.1.1":
-  version: 12.1.1
-  resolution: "expo-secure-store@npm:12.1.1"
-  peerDependencies:
-    expo: "*"
-  checksum: 02ee829686dcbfe69cdd2c14f2dd0d60b36509c20c928e1ae7c837b62401c2c070ceb5ca03bbb14b35644dd7cb7f18564f583346229a1fb92d33880f191cff9f
   languageName: node
   linkType: hard
 
@@ -12380,7 +12321,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:^7.56.4, react-hook-form@npm:^7.62.0":
+"react-hook-form@npm:^7.62.0":
   version: 7.62.0
   resolution: "react-hook-form@npm:7.62.0"
   peerDependencies:
@@ -12560,8 +12501,8 @@ __metadata:
     "@eslint/js": ^9.22.0
     "@evilmartians/lefthook": ^1.5.0
     "@expo/vector-icons": ^14.1.0
-    "@react-native-community/datetimepicker": 6.7.3
-    "@react-native-masked-view/masked-view": 0.2.8
+    "@react-native-community/datetimepicker": ^8.4.4
+    "@react-native-masked-view/masked-view": ^0.3.2
     "@react-native/eslint-config": ^0.78.0
     "@react-navigation/bottom-tabs": ^7.3.13
     "@react-navigation/drawer": ^7.5.5
@@ -12571,22 +12512,21 @@ __metadata:
     "@types/jest": ^29.5.5
     "@types/react": ~18.0.27
     "@types/react-native": ^0.73.0
-    axios: ^1.9.0
+    axios: ^1.11.0
     commitlint: ^19.6.1
     del-cli: ^5.1.0
     eslint: ^9.22.0
     eslint-config-prettier: ^10.1.1
     eslint-plugin-prettier: ^5.2.3
-    expo-document-picker: ~11.2.2
-    expo-file-system: ~15.2.2
-    expo-localization: ~14.1.1
-    expo-secure-store: ~12.1.1
+    expo-document-picker: ^13.1.6
+    expo-file-system: ^18.1.11
+    expo-localization: ^16.1.6
+    expo-secure-store: ^14.2.3
     intl-messageformat: ^10.7.16
     jest: ^29.7.0
     moment: ^2.30.1
     prettier: ^3.0.3
     react: 19.0.0
-    react-hook-form: ^7.56.4
     react-native: 0.79.2
     react-native-builder-bob: ^0.38.3
     react-native-element-dropdown: ^2.12.4
@@ -12598,33 +12538,18 @@ __metadata:
     react-native-screens: ~3.20.0
     react-native-simple-toast: ^3.3.2
     react-native-svg: 13.4.0
-    react-native-webview: 11.26.0
     release-it: ^17.10.0
     typescript: ^5.2.2
   peerDependencies:
     "@expo/vector-icons": "*"
-    "@react-native-community/datetimepicker": "*"
-    "@react-native-masked-view/masked-view": "*"
     "@react-navigation/bottom-tabs": "*"
     "@react-navigation/drawer": "*"
     "@react-navigation/native": "*"
     "@react-navigation/stack": "*"
-    axios: "*"
-    expo-document-picker: "*"
-    expo-file-system: "*"
-    expo-localization: "*"
-    expo-secure-store: "*"
-    intl-messageformat: "*"
-    moment: "*"
     react: "*"
-    react-hook-form: "*"
     react-native: "*"
-    react-native-element-dropdown: "*"
     react-native-paper: "*"
     react-native-reanimated: "*"
-    react-native-render-html: "*"
-    react-native-simple-toast: "*"
-    react-native-webview: "*"
   languageName: unknown
   linkType: soft
 
@@ -12822,19 +12747,6 @@ __metadata:
     react: ^18.0.0 || ^19.0.0
     react-dom: ^18.0.0 || ^19.0.0
   checksum: 8a75802b8f281466ff07547de34df434c918c7102b7de4cbca19bd532e38c692e70fc318bc0f8f5507b6d00c64c46540c65e926f757dd74ae7f6d279d98a6ed8
-  languageName: node
-  linkType: hard
-
-"react-native-webview@npm:11.26.0":
-  version: 11.26.0
-  resolution: "react-native-webview@npm:11.26.0"
-  dependencies:
-    escape-string-regexp: 2.0.0
-    invariant: 2.2.4
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 9335fd21cdb9a883e241650cf66421a72d0456c905d8da2948bdc168124b8eec944c86e5f1730d4985fb4b3fe8554363c08765f0c5e6c0014035620cb7450378
   languageName: node
   linkType: hard
 
@@ -14945,15 +14857,6 @@ __metadata:
   version: 1.0.1
   resolution: "utils-merge@npm:1.0.1"
   checksum: c81095493225ecfc28add49c106ca4f09cdf56bc66731aa8dabc2edbbccb1e1bfe2de6a115e5c6a380d3ea166d1636410b62ef216bb07b3feb1cfde1d95d5080
-  languageName: node
-  linkType: hard
-
-"uuid@npm:^3.4.0":
-  version: 3.4.0
-  resolution: "uuid@npm:3.4.0"
-  bin:
-    uuid: ./bin/uuid
-  checksum: 58de2feed61c59060b40f8203c0e4ed7fd6f99d42534a499f1741218a1dd0c129f4aa1de797bcf822c8ea5da7e4137aa3673431a96dae729047f7aca7b27866f
   languageName: node
   linkType: hard
 
