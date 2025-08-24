@@ -12527,6 +12527,7 @@ __metadata:
     moment: ^2.30.1
     prettier: ^3.0.3
     react: 19.0.0
+    react-hook-form: ^7.62.0
     react-native: 0.79.2
     react-native-builder-bob: ^0.38.3
     react-native-element-dropdown: ^2.12.4
@@ -12538,6 +12539,7 @@ __metadata:
     react-native-screens: ~3.20.0
     react-native-simple-toast: ^3.3.2
     react-native-svg: 13.4.0
+    react-native-webview: ^13.15.0
     release-it: ^17.10.0
     typescript: ^5.2.2
   peerDependencies:

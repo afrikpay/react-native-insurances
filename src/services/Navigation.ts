@@ -2,7 +2,7 @@ import { StackActions, CommonActions } from '@react-navigation/routers';
 
 let _navigator: any = null;
 
-function setTopLevelNavigator(navigatorRef: any) {
+export function setTopLevelNavigator(navigatorRef: any) {
   _navigator = navigatorRef;
 }
 
@@ -21,21 +21,6 @@ function replace(routeName: string, params?: Record<string, any>) {
   if (_navigator) {
     _navigator.dispatch(StackActions.replace(routeName, params));
   }
-}
-{
-  /*
-  function openDrawer() {
-    if (_navigator) {
-      _navigator.dispatch(DrawerActions.openDrawer());
-    }
-  }
-
-  function closeDrawer() {
-    if (_navigator) {
-      _navigator.dispatch(DrawerActions.closeDrawer());
-    }
-  }
-*/
 }
 
 function back() {
