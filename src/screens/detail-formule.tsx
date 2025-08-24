@@ -1,59 +1,131 @@
-import { Image, Pressable, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
-import * as Icon from "react-native-feather"
-import RenderHtml from 'react-native-render-html'
-import { COLORS } from '../constants/Colors'
-import { height, width } from '../constants/size'
-import { ROUTES } from '../constants/Routes'
-import i18n from '../translations/i18n'
-import Navigation from '../services/Navigation'
+import {
+  Image,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import RenderHtml from 'react-native-render-html';
+import { COLORS } from '../constants/Colors';
+import { height, width } from '../constants/size';
+import { ROUTES } from '../constants/Routes';
+import i18n from '../translations/i18n';
+import Navigation from '../services/Navigation';
 
 export default function DetailFormule(props: any) {
-    const { plan, insurer } = props.route.params;
-    
-    return (
-        <SafeAreaView style={{flex: 1, 
-            height: height, width: width,  
-            backgroundColor: COLORS.white,
-            flexDirection: 'column',
-            gap: 20
-        }}>
-            <StatusBar hidden />
-            <View style={{ backgroundColor: COLORS.white, paddingHorizontal: 20, paddingTop: 35, gap: 30, paddingBottom: 20, borderBottomWidth: 0.305, borderBottomColor: COLORS.light_gray}}>
-                {/** Navigation bar  */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10}}>
-                    <TouchableOpacity onPress={() => { Navigation.back() }}>
-                        <Icon.ChevronLeft color={COLORS.dark} strokeWidth={1.5} width={30} height={30} />
-                    </TouchableOpacity>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{i18n("detail_formule")}</Text>
-                </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                    <Image
-                        alt={`Logo de l'assureur ${insurer.name}`}
-                        source={{ uri: insurer.logo }}
-                        style={{
-                            height: 80,
-                            width: 80,
-                            borderRadius: 200,
-                        }}
-                    />
-                </View>
-                <Text style={{ fontSize: 24, fontWeight: 'bold', color: COLORS.primary, textAlign: 'center' }}>{plan.name}</Text>
-            </View>
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                style={{ flex: 1, padding: 20,}}>
-                <RenderHtml
-                    contentWidth={width}
-                    source={{ html: `${plan.description}` }}
-                />
-                <Pressable
-                    onPress={() => { Navigation.navigate(ROUTES.SOUSCRIPTION_FORM, { planId: plan.id, insurerId: insurer.id }) }}
-                    style= {{ paddingVertical: 12,  paddingHorizontal: 16, marginTop: 40, backgroundColor: COLORS.primary, borderRadius: 100 }}>
-                    <Text style={{ color: COLORS.white, fontWeight: "bold", fontSize: 18, textAlign: 'center'}}>{i18n("souscrire")}</Text>
-                </Pressable>
+  const { plan, insurer } = props.route.params;
 
-                <View style={{ height: 80, width:  '100%' }}/>
-            </ScrollView>
-        </SafeAreaView>
-    )
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        height: height,
+        width: width,
+        backgroundColor: COLORS.white,
+        flexDirection: 'column',
+        gap: 20,
+      }}
+    >
+      <StatusBar hidden />
+      <View
+        style={{
+          backgroundColor: COLORS.white,
+          paddingHorizontal: 20,
+          paddingTop: 35,
+          gap: 30,
+          paddingBottom: 20,
+          borderBottomWidth: 0.305,
+          borderBottomColor: COLORS.light_gray,
+        }}
+      >
+        {/** Navigation bar  */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+          <TouchableOpacity
+            onPress={() => {
+              Navigation.back();
+            }}
+          >
+            <Feather
+              name="chevron-left"
+              color={COLORS.dark}
+              strokeWidth={1.5}
+              width={30}
+              height={30}
+            />
+          </TouchableOpacity>
+          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+            {i18n('detail_formule')}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Image
+            alt={`Logo de l'assureur ${insurer.name}`}
+            source={{ uri: insurer.logo }}
+            style={{
+              height: 80,
+              width: 80,
+              borderRadius: 200,
+            }}
+          />
+        </View>
+        <Text
+          style={{
+            fontSize: 24,
+            fontWeight: 'bold',
+            color: COLORS.primary,
+            textAlign: 'center',
+          }}
+        >
+          {plan.name}
+        </Text>
+      </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ flex: 1, padding: 20 }}
+      >
+        <RenderHtml
+          contentWidth={width}
+          source={{ html: `${plan.description}` }}
+        />
+        <Pressable
+          onPress={() => {
+            Navigation.navigate(ROUTES.SOUSCRIPTION_FORM, {
+              planId: plan.id,
+              insurerId: insurer.id,
+            });
+          }}
+          style={{
+            paddingVertical: 12,
+            paddingHorizontal: 16,
+            marginTop: 40,
+            backgroundColor: COLORS.primary,
+            borderRadius: 100,
+          }}
+        >
+          <Text
+            style={{
+              color: COLORS.white,
+              fontWeight: 'bold',
+              fontSize: 18,
+              textAlign: 'center',
+            }}
+          >
+            {i18n('souscrire')}
+          </Text>
+        </Pressable>
+
+        <View style={{ height: 80, width: '100%' }} />
+      </ScrollView>
+    </SafeAreaView>
+  );
 }

@@ -1,6 +1,6 @@
-import React from "react";
-import { WebView } from "react-native-webview";
-import { View, ActivityIndicator } from "react-native";
+import React from 'react';
+import { WebView } from 'react-native-webview';
+import { View, ActivityIndicator } from 'react-native';
 
 interface WebviewScreenProps {
   paymentUrl: string;
@@ -16,16 +16,16 @@ const WebviewScreen: React.FC<WebviewScreenProps> = ({
   onPaymentCancel,
 }) => {
   const handleUrlCheck = (url: string) => {
-    if (url.includes("accept") && onPaymentSuccess) {
-      console.log("Accept", url)
+    if (url.includes('accept') && onPaymentSuccess) {
+      console.log('Accept', url);
       onPaymentSuccess();
     }
-    if (url.includes("decline") && onPaymentFailed) {
-      console.log("Decline", url)
+    if (url.includes('decline') && onPaymentFailed) {
+      console.log('Decline', url);
       onPaymentFailed();
     }
-    if (url.includes("cancel") && onPaymentCancel) {
-      console.log("Cancel", url)
+    if (url.includes('cancel') && onPaymentCancel) {
+      console.log('Cancel', url);
       onPaymentCancel();
     }
   };
@@ -42,7 +42,7 @@ const WebviewScreen: React.FC<WebviewScreenProps> = ({
       }}
       renderLoading={() => (
         <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
           <ActivityIndicator size="large" />
         </View>

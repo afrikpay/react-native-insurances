@@ -1,5 +1,5 @@
-import * as FileSystem from "expo-file-system";
-import { Platform } from "react-native";
+import * as FileSystem from 'expo-file-system';
+import { Platform } from 'react-native';
 
 export const uploadFile = async (
   url: string,
@@ -16,7 +16,7 @@ export const uploadFile = async (
     {
       headers,
       sessionType:
-        Platform.OS === "ios"
+        Platform.OS === 'ios'
           ? FileSystem.FileSystemSessionType.BACKGROUND
           : undefined,
       fieldName,
@@ -26,4 +26,4 @@ export const uploadFile = async (
     },
     callback
   );
-}; 
+};

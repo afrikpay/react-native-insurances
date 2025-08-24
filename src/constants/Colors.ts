@@ -9,4 +9,4 @@ export const COLORS = {
   danger: '#e74a3b',
   success: '#1cc88a',
   light_blue: '#3a9fbf',
-}
+};
