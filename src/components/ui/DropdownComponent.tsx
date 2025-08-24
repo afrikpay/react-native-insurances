@@ -1,31 +1,42 @@
+import { useState, type FC } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
+import { Dropdown } from 'react-native-element-dropdown';
 
-import { useState, type FC } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-
-import { Dropdown } from 'react-native-element-dropdown'
-
-import { COLORS } from '../../constants/Colors'
-import type { DropdownItemType, Model } from '../../types'
-
-
+import { COLORS } from '../../constants/Colors';
+import type { DropdownItemType, Model } from '../../types';
 
 type PropsType = {
   data: DropdownItemType[];
   label: string;
   onChangeValue: (value: any) => void;
-  placeholder: string
-}
+  placeholder: string;
+};
 
-const DropdownComponent: FC<PropsType> = ({ data, label, onChangeValue, placeholder }) => {
-
+const DropdownComponent: FC<PropsType> = ({
+  data,
+  label,
+  onChangeValue,
+  placeholder,
+}) => {
   const [value, setValue] = useState<string | null>(null);
   const [isFocus, setIsFocus] = useState(false);
 
   const renderLabel = () => {
     if (value || isFocus) {
       return (
-        <Text style={{color: isFocus ? COLORS.primary : COLORS.dark, fontSize: 12, position: 'absolute', left: 8, top: 4, zIndex: 999, paddingHorizontal: 7, backgroundColor: 'white' }}>
+        <Text
+          style={{
+            color: isFocus ? COLORS.primary : COLORS.dark,
+            fontSize: 12,
+            position: 'absolute',
+            left: 8,
+            top: 4,
+            zIndex: 999,
+            paddingHorizontal: 7,
+            backgroundColor: 'white',
+          }}
+        >
           {label}
         </Text>
       );
@@ -34,7 +45,9 @@ const DropdownComponent: FC<PropsType> = ({ data, label, onChangeValue, placehol
   };
 
   return (
-    <View style={{ backgroundColor: COLORS.white, paddingVertical: 8, flex: 1 }}>
+    <View
+      style={{ backgroundColor: COLORS.white, paddingVertical: 8, flex: 1 }}
+    >
       {renderLabel()}
       <Dropdown
         style={[styles.dropdown, isFocus && { borderColor: COLORS.primary }]}
@@ -52,30 +65,28 @@ const DropdownComponent: FC<PropsType> = ({ data, label, onChangeValue, placehol
         value={`${value}`}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
-        onChange={item => {
+        onChange={(item) => {
           setValue(item.value);
           setIsFocus(false);
-          onChangeValue({id: item.value, libelle: item.label} as Model);
+          onChangeValue({ id: item.value, libelle: item.label } as Model);
         }}
-      // renderLeftIcon={() => (
-      //   <View className="h-5 mr-2">
-      //     {
-      //       value ?
-      //         <Icon.Check color={COLORS.primary} strokeWidth={3} width={20} height={20} /> :
-      //         <Icon.XCircle color='gray' strokeWidth={3} width={20} height={20} />
-      //     }
-      //   </View>
-      // )}
+        // renderLeftIcon={() => (
+        //   <View className="h-5 mr-2">
+        //     {
+        //       value ?
+        //         <Icon.Check color={COLORS.primary} strokeWidth={3} width={20} height={20} /> :
+        //         <Icon.XCircle color='gray' strokeWidth={3} width={20} height={20} />
+        //     }
+        //   </View>
+        // )}
       />
     </View>
   );
-}
+};
 
-export default DropdownComponent
-
+export default DropdownComponent;
 
 const styles = StyleSheet.create({
-
   dropdown: {
     height: 50,
     borderColor: 'gray',
@@ -90,7 +101,7 @@ const styles = StyleSheet.create({
   placeholderStyle: {
     fontSize: 14,
     color: COLORS.dark,
-    opacity: 0.5
+    opacity: 0.5,
   },
 
   selectedTextStyle: {

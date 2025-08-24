@@ -1,62 +1,116 @@
-import { SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
-import * as Icon from 'react-native-feather'
-import { COLORS } from '../constants/Colors'
-import { height, width } from '../constants/size'
-import i18n from '../translations/i18n'
-import Navigation from '../services/Navigation'
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { COLORS } from '../constants/Colors';
+import { height, width } from '../constants/size';
+import i18n from '../translations/i18n';
+import Navigation from '../services/Navigation';
 
 export default function Infos() {
   return (
-    <SafeAreaView style={{flex: 1, 
-        height: height, width: width,  
+    <SafeAreaView
+      style={{
+        flex: 1,
+        height: height,
+        width: width,
         backgroundColor: COLORS.white,
         flexDirection: 'column',
-        gap: 20 }}>
-        <StatusBar hidden />
-        <View style={{ backgroundColor: COLORS.white, paddingHorizontal: 20, paddingTop: 35, gap: 30}}>
-            {/** Navigation bar  */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10}}>
-                <TouchableOpacity onPress={() => { Navigation.back() }}>
-                    <Icon.ChevronLeft color={COLORS.dark} strokeWidth={1.5} width={30} height={30} />
-                </TouchableOpacity>
-                <Text style={{ fontSize: 18, flex: 1, fontWeight: 'bold' }}>{i18n("info_title")}</Text>
-            </View>
+        gap: 20,
+      }}
+    >
+      <StatusBar hidden />
+      <View
+        style={{
+          backgroundColor: COLORS.white,
+          paddingHorizontal: 20,
+          paddingTop: 35,
+          gap: 30,
+        }}
+      >
+        {/** Navigation bar  */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+          <TouchableOpacity
+            onPress={() => {
+              Navigation.back();
+            }}
+          >
+            <Feather
+              name="chevron-left"
+              color={COLORS.dark}
+              strokeWidth={1.5}
+              width={30}
+              height={30}
+            />
+          </TouchableOpacity>
+          <Text style={{ fontSize: 18, flex: 1, fontWeight: 'bold' }}>
+            {i18n('info_title')}
+          </Text>
         </View>
+      </View>
 
-        <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={{ flex: 1, paddingHorizontal: 20, marginTop: 15 }}>
-            
-            <Text style={{ fontWeight: "bold", fontSize: 20, marginBottom: 20 }}>{i18n("apropos_titre")}</Text>
-            <Text style={{ lineHeight: 18 }}>
-                {i18n("apropos_desc")}
-            </Text>
-            <Text style={{ fontWeight: "bold", fontSize: 20, marginTop: 20, marginBottom: 12 }}>{i18n("mission_titre")}</Text>
-            <Text style={{ lineHeight: 18, paddingBottom: 30, borderBottomWidth: 0.33, borderBottomColor: COLORS.gray }}>
-                {i18n("mission_desc")}
-            </Text>
-            <Text style={{ fontWeight: "bold", fontSize: 20, marginTop: 20, marginBottom: 12 }}>{i18n("question")}</Text>
-            <Text style={{ lineHeight: 18, }}>
-                {i18n("question_titre")}
-            </Text>
-            <Text style={{ lineHeight: 18, marginTop: 8 }}>
-                {i18n("question_1")}
-            </Text>
-            <Text style={{ lineHeight: 18,  marginTop: 8 }}>
-                {i18n("question_2")}
-            </Text>
-            <Text style={{ lineHeight: 18,  marginTop: 8 }}>
-                {i18n("question_3")}
-            </Text>
-            <Text style={{ lineHeight: 18,  marginTop: 8 }}>
-                {i18n("question_4")}
-            </Text>
-            <View style={{ marginTop: 30}} />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ flex: 1, paddingHorizontal: 20, marginTop: 15 }}
+      >
+        <Text style={{ fontWeight: 'bold', fontSize: 20, marginBottom: 20 }}>
+          {i18n('apropos_titre')}
+        </Text>
+        <Text style={{ lineHeight: 18 }}>{i18n('apropos_desc')}</Text>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            fontSize: 20,
+            marginTop: 20,
+            marginBottom: 12,
+          }}
+        >
+          {i18n('mission_titre')}
+        </Text>
+        <Text
+          style={{
+            lineHeight: 18,
+            paddingBottom: 30,
+            borderBottomWidth: 0.33,
+            borderBottomColor: COLORS.gray,
+          }}
+        >
+          {i18n('mission_desc')}
+        </Text>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            fontSize: 20,
+            marginTop: 20,
+            marginBottom: 12,
+          }}
+        >
+          {i18n('question')}
+        </Text>
+        <Text style={{ lineHeight: 18 }}>{i18n('question_titre')}</Text>
+        <Text style={{ lineHeight: 18, marginTop: 8 }}>
+          {i18n('question_1')}
+        </Text>
+        <Text style={{ lineHeight: 18, marginTop: 8 }}>
+          {i18n('question_2')}
+        </Text>
+        <Text style={{ lineHeight: 18, marginTop: 8 }}>
+          {i18n('question_3')}
+        </Text>
+        <Text style={{ lineHeight: 18, marginTop: 8 }}>
+          {i18n('question_4')}
+        </Text>
+        <View style={{ marginTop: 30 }} />
 
-            {/* 
+        {/*
                 <View style={{ width: '100%', borderRadius: 12, backgroundColor: COLORS.primary, padding: 15}}>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 22}}>
-                        <View style={{ height: 80, width: 80, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', 
+                        <View style={{ height: 80, width: 80, flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
                             backgroundColor: COLORS.white, borderRadius: 100, overflow: 'hidden' }}>
                             <Text style={{ fontSize: 45, color: COLORS.primary, textAlign: 'center', fontWeight: 'bold' }}>D</Text>
                         </View>
@@ -116,7 +170,7 @@ export default function Infos() {
                     </TouchableOpacity>
                 </View>
             */}
-        </ScrollView>
+      </ScrollView>
     </SafeAreaView>
-  )
+  );
 }
