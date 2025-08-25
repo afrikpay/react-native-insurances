@@ -7076,7 +7076,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-document-picker@npm:^13.1.6":
+"expo-document-picker@npm:^13.1.6, expo-document-picker@npm:~13.1.6":
   version: 13.1.6
   resolution: "expo-document-picker@npm:13.1.6"
   peerDependencies:
@@ -7117,7 +7117,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-localization@npm:^16.1.6":
+"expo-localization@npm:^16.1.6, expo-localization@npm:~16.1.6":
   version: 16.1.6
   resolution: "expo-localization@npm:16.1.6"
   dependencies:
@@ -7155,7 +7155,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-secure-store@npm:^14.2.3":
+"expo-secure-store@npm:^14.2.3, expo-secure-store@npm:~14.2.3":
   version: 14.2.4
   resolution: "expo-secure-store@npm:14.2.4"
   peerDependencies:
@@ -12518,10 +12518,10 @@ __metadata:
     eslint: ^9.22.0
     eslint-config-prettier: ^10.1.1
     eslint-plugin-prettier: ^5.2.3
-    expo-document-picker: ^13.1.6
-    expo-file-system: ^18.1.11
-    expo-localization: ^16.1.6
-    expo-secure-store: ^14.2.3
+    expo-document-picker: ~13.1.6
+    expo-file-system: ~18.1.11
+    expo-localization: ~16.1.6
+    expo-secure-store: ~14.2.3
     intl-messageformat: ^10.7.16
     jest: ^29.7.0
     moment: ^2.30.1
