@@ -4,7 +4,8 @@ import Auth from '../utils/Auth';
 // Create axios instance with custom config
 let api = axios.create({
   baseURL:
-    process.env.REACT_APP_API_URL || 'https://bc5682893e04.ngrok-free.app/api',
+    process.env.EXPO_PUBLIC_APP_API_URL ||
+    'https://bc5682893e04.ngrok-free.app/api',
   // timeout: 10000, // 10 seconds timeout
   headers: {
     'Content-Type': 'application/json',
