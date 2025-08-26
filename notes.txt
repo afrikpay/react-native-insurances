@@ -6,3 +6,4 @@ Remarques:
 2) Manque d'information pour déterminer la date de validité d'une souscription
 
 3) La liste des plans n'est pas envoyée au bons format. Il est attendu une liste de plans pas un objet des objets
+

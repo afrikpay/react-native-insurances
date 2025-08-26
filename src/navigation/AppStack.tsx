@@ -29,24 +29,14 @@ const AppStack = () => {
         },
         ...TransitionPresets.SlideFromRightIOS,
       }}
-      initialRouteName={ROUTES.BOTTOMPTAPS}
-    >
+      initialRouteName={ROUTES.BOTTOMPTAPS}>
       <Stack.Screen name={ROUTES.BOTTOMPTAPS} component={MainContainer} />
       <Stack.Screen name={ROUTES.ASSUREURS} component={Assureurs} />
-      <Stack.Screen
-        name={ROUTES.DETAIL_ASSURANCE}
-        component={DetailAssurance}
-      />
+      <Stack.Screen name={ROUTES.DETAIL_ASSURANCE} component={DetailAssurance} />
       <Stack.Screen name={ROUTES.DETAIL_FORMULE} component={DetailFormule} />
       <Stack.Screen name={ROUTES.SOUSCRIPTIONS} component={Souscriptions} />
-      <Stack.Screen
-        name={ROUTES.DETAIL_SOUSCRIPTIONS}
-        component={DetailSouscription}
-      />
-      <Stack.Screen
-        name={ROUTES.SOUSCRIPTION_FORM}
-        component={SouscriptionForm}
-      />
+      <Stack.Screen name={ROUTES.DETAIL_SOUSCRIPTIONS} component={DetailSouscription} />
+      <Stack.Screen name={ROUTES.SOUSCRIPTION_FORM} component={SouscriptionForm} />
     </Stack.Navigator>
   );
 };

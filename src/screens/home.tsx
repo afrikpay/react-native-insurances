@@ -223,8 +223,7 @@ export function ProductSection() {
             }}
           >
             <Text
-              style={{ color: COLORS.white, fontWeight: '400', fontSize: 10 }}
-            >
+              style={{ color: COLORS.white, fontWeight: '400', fontSize: 10 }}>
               {i18n('voir_plus')}
             </Text>
           </Pressable>
@@ -295,7 +294,7 @@ export function RenderSubscriptionSection() {
         const response: any = await apiClient.post(
           '/secure/mobile/insurance/subscription-list/v1',
           { page: 1, pageSize: 4 }
-        );
+        )
         setSouscriptions(
           response.result.subscriptions ?? ([] as Souscription[])
         );
@@ -305,7 +304,7 @@ export function RenderSubscriptionSection() {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [])
 
   return (
     <View style={{ flexDirection: 'column', gap: 10 }}>
@@ -321,9 +320,7 @@ export function RenderSubscriptionSection() {
         </Text>
         <View style={{ flexDirection: 'row' }}>
           <Pressable
-            onPress={() => {
-              Navigation.navigate(ROUTES.SOUSCRIPTIONS);
-            }}
+            onPress={() => { Navigation.navigate(ROUTES.SOUSCRIPTIONS) }}
             style={{
               paddingVertical: 8,
               paddingHorizontal: 16,

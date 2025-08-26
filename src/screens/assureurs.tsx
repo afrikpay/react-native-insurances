@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Image,
   Pressable,
+  SafeAreaView,
   ScrollView,
   StatusBar,
   Text,
@@ -10,7 +11,6 @@ import {
   View,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Box } from '../components/ui/Box';
 import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';

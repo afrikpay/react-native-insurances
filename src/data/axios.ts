@@ -5,12 +5,12 @@ import Auth from '../utils/Auth';
 let api = axios.create({
   baseURL:
     process.env.EXPO_PUBLIC_APP_API_URL ||
-    'https://bc5682893e04.ngrok-free.app/api',
+    'https://sandbox.api.pay.afrikpay.com/api',
   // timeout: 10000, // 10 seconds timeout
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Terminal-Identifier': 'mobile', // Default terminal identifier
+    'Terminal-Identifier': 'sdkgphonex86QSR121111201113135432', // Default terminal identifier
   },
 });
 
