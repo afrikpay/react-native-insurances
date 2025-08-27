@@ -10,7 +10,7 @@ let api = axios.create({
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Terminal-Identifier': 'sdkgphonex86QSR121111201113135432', // Default terminal identifier
+    'Terminal-Identifier': '9BE036E4DABF14C3', // Default terminal identifier
   },
 });
 
