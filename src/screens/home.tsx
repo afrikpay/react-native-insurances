@@ -363,6 +363,20 @@ export function RenderSubscriptionSection() {
         {souscriptions.map((souscription: any, index: number) => (
           <SouscriptionComponent key={index} souscription={souscription} />
         ))}
+        {!loading && souscriptions.length === 0 && (
+        <View
+          style={{
+            height: 320,
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ color: COLORS.gray }}>
+            {i18n('aucune_souscription')}
+          </Text>
+        </View>
+      )}
       </View>
     </View>
   );
