@@ -1,3 +1,4 @@
+import { Feather } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   Image,
@@ -9,7 +10,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Feather } from '@expo/vector-icons';
 import { ActivityIndicator } from 'react-native-paper';
 import { Box } from '../components/ui/Box';
 import SouscriptionComponent from '../components/ui/souscription-component';
@@ -18,11 +18,22 @@ import { ImageSante } from '../constants/Images';
 import { ROUTES } from '../constants/Routes';
 import { height, width } from '../constants/size';
 import { apiClient } from '../data/axios';
-import type { ProduitAssurance, Souscription } from '../types';
-import i18n from '../translations/i18n';
 import Navigation from '../services/Navigation';
+import i18n from '../translations/i18n';
+import type { ProduitAssurance, Souscription } from '../types';
+import Auth from '../utils/Auth';
 
 export default function Home() {
+
+  const [username, setUsername] = useState("")
+
+  useEffect(() => {
+    (async () => {
+      const name = await Auth.getUsername();
+      setUsername(name!)
+    })();
+  }, [])
+  
   return (
     <SafeAreaView
       style={{
@@ -54,7 +65,7 @@ export default function Home() {
             >
               {i18n('bon_retour')}
             </Text>
-            <Text style={{ fontSize: 14, fontWeight: '500' }}>Manu Decca</Text>
+            <Text style={{ fontSize: 14, fontWeight: '500' }}>{username}</Text>
           </View>
           <View>
             <TouchableOpacity

@@ -7,7 +7,12 @@ export default function Home() {
     
     return (
         <View style={styles.container}>
-            <InsuranceApp appToken={token} lang="en" terminalId={terminalId} />
+            <InsuranceApp 
+                appToken={token} 
+                lang="en" 
+                terminalId={terminalId}
+                username="Manu Decca"
+             />
         </View>
     )
 }

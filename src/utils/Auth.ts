@@ -32,6 +32,17 @@ async function getTerminalId() {
     | undefined;
 }
 
+
+async function setUsername(username: string) {
+  return await SecureStore.setItemAsync('username-afrikpay-insurance', username);
+}
+
+async function getUsername() {
+  return (await SecureStore.getItemAsync('username-afrikpay-insurance')) as
+    | string
+    | undefined;
+}
+
 export default {
   logout,
   setToken,
@@ -40,4 +51,7 @@ export default {
   setLang,
   setTerminalId,
   getTerminalId,
+
+  setUsername,
+  getUsername,
 };
