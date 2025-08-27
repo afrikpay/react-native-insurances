@@ -10,7 +10,6 @@ let api = axios.create({
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Terminal-Identifier': '9BE036E4DABF14C3', // Default terminal identifier
   },
 });
 
@@ -18,6 +17,7 @@ let api = axios.create({
 api.interceptors.request.use(async (config) => {
   // const currentUser = Cookies.get('user')
   // const userJson: User | null = currentUser ? JSON.parse(currentUser!) : null
+  config.headers['Terminal-Identifier'] = `${await Auth.getTerminalId()}`; // Default terminal identifier
 
   try {
     // Add token to all request except login route

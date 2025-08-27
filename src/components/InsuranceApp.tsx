@@ -6,14 +6,17 @@ import Auth from '../utils/Auth';
 const InsuranceApp = ({
   appToken,
   lang,
+  terminalId
 }: {
   appToken: string;
   lang: string;
+  terminalId: string;
 }) => {
   useEffect(() => {
     (async () => {
       await Auth.setToken(appToken);
       await Auth.setLang(lang);
+      await Auth.setTerminalId(terminalId);
     })();
   }, [appToken, lang]);
 

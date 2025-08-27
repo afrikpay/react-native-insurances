@@ -295,6 +295,7 @@ export function RenderSubscriptionSection() {
           '/secure/mobile/insurance/subscription-list/v1',
           { page: 1, pageSize: 4 }
         )
+        
         setSouscriptions(
           response.result.subscriptions ?? ([] as Souscription[])
         );

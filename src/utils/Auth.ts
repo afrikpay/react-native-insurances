@@ -22,10 +22,22 @@ async function getToken() {
     | undefined;
 }
 
+async function setTerminalId(terminalId: string) {
+  return await SecureStore.setItemAsync('terminal-identifier-afrikpay-insurance', terminalId);
+}
+
+async function getTerminalId() {
+  return (await SecureStore.getItemAsync('terminal-identifier-afrikpay-insurance')) as
+    | string
+    | undefined;
+}
+
 export default {
   logout,
   setToken,
   getToken,
   getLang,
   setLang,
+  setTerminalId,
+  getTerminalId,
 };
