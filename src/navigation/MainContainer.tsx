@@ -1,4 +1,4 @@
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';

@@ -314,357 +314,378 @@ export default function DetailSouscription(props: any) {
           </Text>
         </View>
       </View>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6' }}
-      >
-        <View style={{ gap: 20 }}>
-          <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between' }}
-          >
-            <Text
-              style={{
-                fontSize: 22,
-                fontWeight: 'bold',
-                color: COLORS.primary,
-              }}
-            >
-              {souscription.plan?.name}
-            </Text>
-            <TouchableOpacity
-              onPress={() => {
-                showModal();
-              }}
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 20,
-                backgroundColor: COLORS.primary,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              {/* 
-                <Feather
-                  name="message-square"
-                  color={COLORS.white}
-                  strokeWidth={2}
-                  width={20}
-                  height={20}
-                />
-                <AntDesign name="message1" size={24} color="black" />
-              */}
-              <MaterialCommunityIcons name="message-text-outline" size={24} color="white" />
-            </TouchableOpacity>
-          </View>
-          <Box width={'100%'} padding={18}>
-            <View style={{ flexDirection: 'row', gap: 3 }}>
-              <View style={{ flex: 1, gap: 16 }}>
-                <Image
-                  alt={`${souscription.insurer?.name} logo`}
-                  source={{ uri: souscription.insurer.logo }}
-                  style={{ height: 40, width: 40, borderRadius: 100 }}
-                />
-                <View
-                  style={{
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    gap: 8,
-                  }}
-                >
-                  <View
-                    style={{
-                      height: 10,
-                      width: 10,
-                      backgroundColor: COLORS.success,
-                      borderRadius: 10,
-                    }}
-                  />
-                  <Text
-                    style={{
-                      color:
-                        souscription.status === 'P'
-                          ? COLORS.success
-                          : COLORS.dark,
-                      fontSize: 11,
-                    }}
-                  >
-                    {souscription.display_status}
-                  </Text>
-                </View>
-                <Text style={{ fontSize: 12, fontWeight: 'bold' }}>
-                  {souscription.plan?.duration_display}
-                </Text>
-              </View>
-              <View style={{ flex: 3, flexDirection: 'column', gap: 8 }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    gap: 4,
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 'bold',
-                      color: COLORS.dark,
-                    }}
-                  >
-                    Type:
-                  </Text>
-                  <Text
-                    numberOfLines={2}
-                    ellipsizeMode="tail"
-                    style={{
-                      fontSize: 14,
-                      fontWeight: 'bold',
-                      color: COLORS.primary,
-                    }}
-                  >
-                    {souscription.product}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 'bold',
-                      color: COLORS.dark,
-                    }}
-                  >
-                    {i18n('souscrit_le')} :
-                  </Text>
-                  <Text numberOfLines={2} ellipsizeMode="tail">
-                    {souscription.subscribed_at.slice(0, 10)}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 'bold',
-                      color: COLORS.dark,
-                    }}
-                  >
-                    {i18n('active_le')} :
-                  </Text>
-                  <Text numberOfLines={2} ellipsizeMode="tail">
-                    {souscription.startAt
-                      ? souscription.start_at.slice(0, 10)
-                      : '--'}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 'bold',
-                      color: COLORS.dark,
-                    }}
-                  >
-                    {i18n('validite')} :
-                  </Text>
-                  <Text numberOfLines={2} ellipsizeMode="tail">
-                    {souscription.end_at
-                      ? souscription.end_at.slice(0, 10)
-                      : '--'}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 'bold',
-                      color: COLORS.dark,
-                    }}
-                  >
-                    {i18n('prime')}:{' '}
-                  </Text>
-                  <Text
-                    numberOfLines={2}
-                    ellipsizeMode="tail"
-                    style={{ fontSize: 14, fontWeight: 'bold' }}
-                  >
-                    {souscription.amount} XAF
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </Box>
-          {souscription.status === 'M' && (
-            <TouchableOpacity
-              onPress={sendContract}
-              style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}
-            >
-              {sending && (
-                <ActivityIndicator
-                  size={'small'}
-                  color={COLORS.gray}
-                  style={{ height: 20, width: 20 }}
-                />
-              )}
+      <View style={{ flex: 1 }}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6' }}>
+          <View style={{ gap: 20 }}>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text
                 style={{
-                  color: COLORS.primary,
-                  fontSize: 12,
+                  fontSize: 22,
                   fontWeight: 'bold',
-                }}
-              >
-                {i18n('telecharger_contrat')}
+                  color: COLORS.primary,
+                }}>
+                {souscription.plan?.name}
               </Text>
-            </TouchableOpacity>
-          )}
-          <RenderHtml
-            contentWidth={width}
-            source={{ html: `${souscription.plan?.description}` }}
-          />
-          <View style={{ flexDirection: 'column', marginVertical: 20 }}>
-            <Text
-              style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}
-            >
-              {i18n('assures')}
-            </Text>
-            {Object.keys(souscription.data).map((key, index) => (
-              <Pressable
-                onPress={() => setSelectedInsurer(souscription.data[key])}
-                key={index}
-                style={{
-                  flexDirection: 'row',
-                  marginTop: 10,
-                  paddingVertical: 8,
-                  paddingHorizontal: 10,
-                  borderWidth: 0.5,
-                  borderColor: COLORS.light_gray,
-                  borderRadius: 8,
+              <TouchableOpacity
+                onPress={() => {
+                  showModal();
                 }}
-              >
-                <Text style={{ fontSize: 14, color: COLORS.dark }}>
-                  {i18n('assure')} N°{index + 1}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-          {souscription.status === 'P' && (
-            <View style={{ marginTop: 20 }}>
-              <View style={{ flexDirection: 'column', gap: 12 }}>
-                <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>
-                  {i18n('moyens_paiements')}
-                </Text>
-                <FlatList
-                  data={operateursMobile}
-                  showsHorizontalScrollIndicator={false}
-                  horizontal
-                  extraData={(item: any) => `${item.id}`}
-                  renderItem={({ item }: { item: any }) => (
-                    <Pressable
-                      onPress={() => setServiceSlug(item.slug)}
-                      key={item.id}
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 20,
+                  backgroundColor: COLORS.primary,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                {/* 
+                  <Feather
+                    name="message-square"
+                    color={COLORS.white}
+                    strokeWidth={2}
+                    width={20}
+                    height={20}
+                  />
+                  <AntDesign name="message1" size={24} color="black" />
+                */}
+                <MaterialCommunityIcons name="message-text-outline" size={24} color="white" />
+              </TouchableOpacity>
+            </View>
+            <Box width={'100%'} padding={18}>
+              <View style={{ flexDirection: 'row', gap: 3 }}>
+                <View style={{ flex: 1, gap: 16 }}>
+                  <Image
+                    alt={`${souscription.insurer?.name} logo`}
+                    source={{ uri: souscription.insurer.logo }}
+                    style={{ height: 40, width: 40, borderRadius: 100 }}
+                  />
+                  <View
+                    style={{
+                      flexDirection: 'column',
+                      alignItems: 'flex-start',
+                      gap: 8,
+                    }}
+                  >
+                    <View
                       style={{
-                        width: 80,
-                        height: 80,
-                        borderWidth: 0.05,
-                        borderRadius: 12,
-                        marginRight: 10,
-                        padding: 5,
-                        gap: 15,
-                        backgroundColor:
-                          serviceSlug === item.slug
+                        height: 10,
+                        width: 10,
+                        backgroundColor: COLORS.success,
+                        borderRadius: 10,
+                      }}
+                    />
+                    <Text
+                      style={{
+                        color:
+                          souscription.status === 'P'
                             ? COLORS.success
-                            : COLORS.white, // Ajout d'une couleur de fond pour l'ombre
-                        shadowColor: COLORS.dark, // Couleur de l'ombre
-                        shadowOffset: { width: 0, height: 4 }, // Décalage de l'ombre
-                        shadowOpacity: 0.2, // Opacité de l'ombre
-                        shadowRadius: 6, // Rayon de flou de l'ombre
-                        elevation: 2, // Ombre pour Android
+                            : COLORS.dark,
+                        fontSize: 11,
                       }}
                     >
-                      <View
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          backgroundColor: COLORS.white,
-                          overflow: 'hidden',
-                          borderRadius: 10,
-                        }}
-                      >
-                        <Image
-                          alt="Image de l'assurance santé"
-                          source={item.logo}
-                          style={{ width: '100%', height: '100%' }}
-                        />
-                      </View>
-                    </Pressable>
-                  )}
-                />
-              </View>
-
-              {serviceSlug && serviceSlug.includes('money') && (
-                <View style={{ marginTop: 30 }}>
-                  <Text style={{ fontWeight: 'bold', marginBottom: 10 }}>
-                    {i18n('numero_telephone')} *
+                      {souscription.display_status}
+                    </Text>
+                  </View>
+                  <Text style={{ fontSize: 12, fontWeight: 'bold' }}>
+                    {souscription.plan?.duration_display}
                   </Text>
-                  <TextInput
-                    style={{
-                      borderWidth: 1,
-                      textDecorationColor: COLORS.white,
-                      backgroundColor: COLORS.white,
-                      borderColor: COLORS.light_gray,
-                      borderRadius: 50,
-                      borderTopStartRadius: 50,
-                      borderTopEndRadius: 50,
-                    }}
-                    keyboardType="number-pad"
-                    underlineColor="transparent"
-                    activeUnderlineColor="transparent"
-                    placeholder={'Téléphone...'}
-                    returnKeyType="next"
-                    underlineColorAndroid="transparent"
-                    onChangeText={setPhoneNumber}
-                    value={phoneNumber}
-                    onBlur={verifyPhoneNumber}
-                    placeholderTextColor={'#9D9D9D'}
-                    multiline={false}
-                    numberOfLines={1}
-                  />
                 </View>
-              )}
-
-              {errorMessage && (
+                <View style={{ flex: 3, flexDirection: 'column', gap: 8 }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      gap: 4,
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 'bold',
+                        color: COLORS.dark,
+                      }}
+                    >
+                      Type:
+                    </Text>
+                    <Text
+                      numberOfLines={2}
+                      ellipsizeMode="tail"
+                      style={{
+                        fontSize: 14,
+                        fontWeight: 'bold',
+                        color: COLORS.primary,
+                      }}
+                    >
+                      {souscription.product}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 'bold',
+                        color: COLORS.dark,
+                      }}>
+                      {i18n('souscrit_le')} :
+                    </Text>
+                    <Text numberOfLines={2} ellipsizeMode="tail">
+                      {souscription.subscribed_at.slice(0, 10)}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 'bold',
+                        color: COLORS.dark,
+                      }}>
+                      {i18n('active_le')} :
+                    </Text>
+                    <Text numberOfLines={2} ellipsizeMode="tail">
+                      {souscription.startAt
+                        ? souscription.start_at.slice(0, 10)
+                        : '--'}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 'bold',
+                        color: COLORS.dark,
+                      }}>
+                      {i18n('validite')} :
+                    </Text>
+                    <Text numberOfLines={2} ellipsizeMode="tail">
+                      {souscription.end_at
+                        ? souscription.end_at.slice(0, 10)
+                        : '--'}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 'bold',
+                        color: COLORS.dark,
+                      }}
+                    >
+                      {i18n('prime')}:{' '}
+                    </Text>
+                    <Text
+                      numberOfLines={2}
+                      ellipsizeMode="tail"
+                      style={{ fontSize: 14, fontWeight: 'bold' }}
+                    >
+                      {souscription.amount} XAF
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </Box>
+            {souscription.status === 'M' && (
+              <TouchableOpacity
+                onPress={sendContract}
+                style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}
+              >
+                {sending && (
+                  <ActivityIndicator
+                    size={'small'}
+                    color={COLORS.gray}
+                    style={{ height: 20, width: 20 }}
+                  />
+                )}
                 <Text
                   style={{
-                    flex: 1,
-                    marginTop: 8,
+                    color: COLORS.primary,
                     fontSize: 12,
-                    color: COLORS.danger,
+                    fontWeight: 'bold',
                   }}
                 >
-                  {errorMessage}
+                  {i18n('telecharger_contrat')}
                 </Text>
-              )}
+              </TouchableOpacity>
+            )}
+            <RenderHtml
+              contentWidth={width}
+              source={{ html: `${souscription.plan?.description}` }}
+            />
+            <View style={{ flexDirection: 'column', marginVertical: 20 }}>
+              <Text
+                style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}
+              >
+                {i18n('assures')}
+              </Text>
+              {Object.keys(souscription.data).map((key, index) => (
+                <Pressable
+                  onPress={() => setSelectedInsurer(souscription.data[key])}
+                  key={index}
+                  style={{
+                    flexDirection: 'row',
+                    marginTop: 10,
+                    paddingVertical: 8,
+                    paddingHorizontal: 10,
+                    borderWidth: 0.5,
+                    borderColor: COLORS.light_gray,
+                    borderRadius: 8,
+                  }}>
+                  <Text style={{ fontSize: 14, color: COLORS.dark }}>
+                    {i18n('assure')} N°{index + 1}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+            {souscription.status === 'P' && (
+              <View style={{ marginTop: 20 }}>
+                <View style={{ flexDirection: 'column', gap: 12 }}>
+                  <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>
+                    {i18n('moyens_paiements')}
+                  </Text>
+                  <FlatList
+                    data={operateursMobile}
+                    showsHorizontalScrollIndicator={false}
+                    horizontal
+                    extraData={(item: any) => `${item.id}`}
+                    renderItem={({ item }: { item: any }) => (
+                      <Pressable
+                        onPress={() => setServiceSlug(item.slug)}
+                        key={item.id}
+                        style={{
+                          width: 80,
+                          height: 80,
+                          borderWidth: 0.05,
+                          borderRadius: 12,
+                          marginRight: 10,
+                          padding: 5,
+                          gap: 15,
+                          backgroundColor:
+                            serviceSlug === item.slug
+                              ? COLORS.success
+                              : COLORS.white, // Ajout d'une couleur de fond pour l'ombre
+                          shadowColor: COLORS.dark, // Couleur de l'ombre
+                          shadowOffset: { width: 0, height: 4 }, // Décalage de l'ombre
+                          shadowOpacity: 0.2, // Opacité de l'ombre
+                          shadowRadius: 6, // Rayon de flou de l'ombre
+                          elevation: 2, // Ombre pour Android
+                        }}>
+                        <View
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: COLORS.white,
+                            overflow: 'hidden',
+                            borderRadius: 10,
+                          }}>
+                          <Image
+                            alt="Image de l'assurance santé"
+                            source={item.logo}
+                            style={{ width: '100%', height: '100%' }}
+                          />
+                        </View>
+                      </Pressable>
+                    )}
+                  />
+                </View>
+
+                {serviceSlug && serviceSlug.includes('money') && (
+                  <View style={{ marginTop: 30 }}>
+                    <Text style={{ fontWeight: 'bold', marginBottom: 10 }}>
+                      {i18n('numero_telephone')} *
+                    </Text>
+                    <TextInput
+                      style={{
+                        borderWidth: 1,
+                        textDecorationColor: COLORS.white,
+                        backgroundColor: COLORS.white,
+                        borderColor: COLORS.light_gray,
+                        borderRadius: 50,
+                        borderTopStartRadius: 50,
+                        borderTopEndRadius: 50,
+                      }}
+                      keyboardType="number-pad"
+                      underlineColor="transparent"
+                      activeUnderlineColor="transparent"
+                      placeholder={'Téléphone...'}
+                      returnKeyType="next"
+                      underlineColorAndroid="transparent"
+                      onChangeText={setPhoneNumber}
+                      value={phoneNumber}
+                      onBlur={verifyPhoneNumber}
+                      placeholderTextColor={'#9D9D9D'}
+                      multiline={false}
+                      numberOfLines={1}
+                    />
+                  </View>
+                )}
+
+                {errorMessage && (
+                  <Text
+                    style={{
+                      flex: 1,
+                      marginTop: 8,
+                      fontSize: 12,
+                      color: COLORS.danger,
+                    }}
+                  >
+                    {errorMessage}
+                  </Text>
+                )}
+                <Pressable
+                  onPress={handleFetchPaymentUrl}
+                  disabled={!phoneNumber && !serviceSlug.includes('paypal')}
+                  style={{
+                    paddingVertical: 12,
+                    paddingHorizontal: 16,
+                    marginTop: 40,
+                    backgroundColor: COLORS.primary,
+                    borderRadius: 100,
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    gap: 10,
+                    alignItems: 'center',
+                  }}
+                >
+                  {loading && (
+                    <ActivityIndicator
+                      color={COLORS.white}
+                      style={{ height: 30, width: 30 }}
+                    />
+                  )}
+                  <Text
+                    style={{
+                      color: COLORS.white,
+                      fontWeight: 'bold',
+                      fontSize: 18,
+                      textAlign: 'center',
+                    }}
+                  >
+                    {i18n('payer_ma_souscription')}
+                  </Text>
+                </Pressable>
+              </View>
+            )}
+            {souscription.status === 'M' && (
               <Pressable
-                onPress={handleFetchPaymentUrl}
-                disabled={!phoneNumber && !serviceSlug.includes('paypal')}
+                onPress={handleDocumentsConfirmation}
+                disabled={isDocSending}
                 style={{
                   paddingVertical: 12,
                   paddingHorizontal: 16,
@@ -677,7 +698,7 @@ export default function DetailSouscription(props: any) {
                   alignItems: 'center',
                 }}
               >
-                {loading && (
+                {isDocSending && (
                   <ActivityIndicator
                     color={COLORS.white}
                     style={{ height: 30, width: 30 }}
@@ -687,51 +708,17 @@ export default function DetailSouscription(props: any) {
                   style={{
                     color: COLORS.white,
                     fontWeight: 'bold',
-                    fontSize: 18,
                     textAlign: 'center',
                   }}
                 >
-                  {i18n('payer_ma_souscription')}
+                  {i18n('confirmer_envoi_docs')}
                 </Text>
               </Pressable>
-            </View>
-          )}
-          {souscription.status === 'M' && (
-            <Pressable
-              onPress={handleDocumentsConfirmation}
-              disabled={isDocSending}
-              style={{
-                paddingVertical: 12,
-                paddingHorizontal: 16,
-                marginTop: 40,
-                backgroundColor: COLORS.primary,
-                borderRadius: 100,
-                flexDirection: 'row',
-                justifyContent: 'center',
-                gap: 10,
-                alignItems: 'center',
-              }}
-            >
-              {isDocSending && (
-                <ActivityIndicator
-                  color={COLORS.white}
-                  style={{ height: 30, width: 30 }}
-                />
-              )}
-              <Text
-                style={{
-                  color: COLORS.white,
-                  fontWeight: 'bold',
-                  textAlign: 'center',
-                }}
-              >
-                {i18n('confirmer_envoi_docs')}
-              </Text>
-            </Pressable>
-          )}
-        </View>
-        <View style={{ width: '100%', height: 80 }} />
-      </ScrollView>
+            )}
+          </View>
+          <View style={{ width: '100%', height: 80 }} />
+        </ScrollView>
+      </View>
 
       {/** Modal du message d'aide à la souscription */}
       <Portal>
