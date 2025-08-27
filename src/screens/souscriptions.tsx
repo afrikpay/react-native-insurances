@@ -1,3 +1,4 @@
+import { AntDesign, Feather } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
@@ -11,16 +12,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Feather } from '@expo/vector-icons';
 import { Button, Modal, Portal, RadioButton } from 'react-native-paper';
 import DropdownComponent from '../components/ui/DropdownComponent';
 import SouscriptionComponent from '../components/ui/souscription-component';
 import { COLORS } from '../constants/Colors';
 import { height, width } from '../constants/size';
 import { apiClient } from '../data/axios';
+import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import type { Souscription } from '../types';
-import Navigation from '../services/Navigation';
 
 const pattern = 'YYYY/MM/DD'; //  HH:mm:ss'
 
@@ -149,13 +149,16 @@ export default function Souscriptions() {
               Navigation.back();
             }}
           >
-            <Feather
-              name="chevron-left"
-              color={COLORS.dark}
-              strokeWidth={1.5}
-              width={30}
-              height={30}
-            />
+            {/*
+              <Feather
+                name="chevron-left"
+                color={COLORS.dark}
+                strokeWidth={1.5}
+                width={30}
+                height={30}
+              />
+            */}
+            <AntDesign name="arrowleft" size={24} color="black" />
           </TouchableOpacity>
           <Text
             style={{
@@ -168,13 +171,16 @@ export default function Souscriptions() {
             {i18n('mes_souscriptions')}
           </Text>
           <TouchableOpacity onPress={showModal}>
-            <Feather
-              name="filter"
-              color={COLORS.primary}
-              strokeWidth={1.5}
-              width={25}
-              height={25}
-            />
+            {/* 
+              <Feather
+                name="filter"
+                color={COLORS.primary}
+                strokeWidth={1.5}
+                width={25}
+                height={25}
+              />
+            */}
+            <AntDesign name="filter" size={24} color="black" />
           </TouchableOpacity>
         </View>
         <View style={{ height: 45 }}>
@@ -207,13 +213,16 @@ export default function Souscriptions() {
               console.log(search);
             }}
           >
-            <Feather
-              name="search"
-              color={COLORS.light_blue}
-              strokeWidth={2}
-              width={25}
-              height={25}
-            />
+            {/*
+              <Feather
+                name="search"
+                color={COLORS.light_blue}
+                strokeWidth={2}
+                width={25}
+                height={25}
+              />
+            */}
+            <AntDesign name="search1" size={24} color="black" />
           </TouchableOpacity>
         </View>
       </View>

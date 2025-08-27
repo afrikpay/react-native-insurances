@@ -738,54 +738,7 @@ export default function DetailSouscription(props: any) {
             }}
           />
           <Text style={{ lineHeight: 20 }}>{i18n('message_aide_desc')}</Text>
-          {/**
-                        <View style={{ flexDirection: 'column', marginVertical: 20 }}>
-                            <Text style={{ fontWeight: 'bold' }} >Type assurance</Text>
-                            <DropdownComponent
-                                label="Sélectionner un type "
-                                placeholder="Sélectionner un type"
-                                data={
-                                    [
-                                        { label: 'Assurance santé', value: 'assurance_sante' },
-                                        { label: 'Assurance auto', value: 'assurance_auto' },
-                                        { label: 'Assurance habitation', value: 'assurance_habitation' },
-                                        { label: 'Assurance voyage', value: 'assurance_voyage' },
-                                        { label: 'Assurance vie', value: 'assurance_vie' },
-                                        { label: 'Assurance responsabilité civile', value: 'assurance_responsabilite_civile' },
-                                        { label: 'Assurance scolaire', value: 'assurance_scolaire' },
-                                        { label: 'Assurance animaux de compagnie', value: 'assurance_animaux_de_compagnie' },
-                                        { label: 'Assurance professionnelle', value: 'assurance_professionnelle' },
-                                    ]
-                                }
-                                onChangeValue={(item) => console.log(item)}
-                            />
-                        </View>
-                    */}
-          {/**
-                        <View style={{ flexDirection: 'column', marginBottom: 20, marginTop: 10 }}>
-                            <Text style={{  fontWeight: 'bold', marginTop: 25 }}>Formule</Text>
-                            <DropdownComponent
-                                label="Sélectionner une formule"
-                                placeholder="Sélectionner une formule"
-                                data={
-                                    [
-                                        { label: 'Formule de base', value: 'formule_de_base' },
-                                        { label: 'Formule standard', value: 'formule_standard' },
-                                        { label: 'Formule premium', value: 'formule_premium' },
-                                        { label: 'Formule gold', value: 'formule_gold' },
-                                        { label: 'Formule platinum', value: 'formule_platinum' },
-                                        { label: 'Formule silver', value: 'formule_silver' },
-                                        { label: 'Formule bronze', value: 'formule_bronze' },
-                                        { label: 'Formule familiale', value: 'formule_familiale' },
-                                        { label: 'Formule individuelle', value: 'formule_individuelle' },
-                                        { label: 'Formule entreprise', value: 'formule_entreprise' },
-                                    ]
-                                }
-                                onChangeValue={(item) => console.log(item)}
-                            />
-                        </View>
-                     */}
-
+          
           <View style={{ marginTop: 30, height: 140 }}>
             <Text style={{ fontWeight: 'bold', marginBottom: 10 }}>
               {i18n('message_aide')} *
@@ -814,11 +767,11 @@ export default function DetailSouscription(props: any) {
 
           <View style={{ marginTop: 40 }}>
             <Button
-              style={{ backgroundColor: COLORS.primary }}
+              style={{ backgroundColor: COLORS.primary, }}
               mode="contained"
               onPress={shareWhatsapp}
             >
-              {i18n('message_aide_sousmettre')}
+              <Text style={{ color: COLORS.white }}>{i18n('message_aide_sousmettre')}</Text>
             </Button>
           </View>
         </Modal>

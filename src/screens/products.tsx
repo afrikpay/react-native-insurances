@@ -1,3 +1,4 @@
+import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   Image,
@@ -9,15 +10,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Feather } from '@expo/vector-icons';
 import { ActivityIndicator } from 'react-native-paper';
 import { COLORS } from '../constants/Colors';
 import { ImageSante } from '../constants/Images';
 import { ROUTES } from '../constants/Routes';
 import { width } from '../constants/size';
 import { apiClient } from '../data/axios';
-import i18n from '../translations/i18n';
 import Navigation from '../services/Navigation';
+import i18n from '../translations/i18n';
 
 export default function Products() {
   const [search, setSearch] = useState('');
@@ -79,13 +79,16 @@ export default function Products() {
         {/** Navigation bar  */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <TouchableOpacity onPress={() => Navigation.back()}>
-            <Feather
-              name="chevron-left"
-              color={COLORS.dark}
-              strokeWidth={1.5}
-              width={30}
-              height={30}
-            />
+            {/*
+              <Feather
+                name="chevron-left"
+                color={COLORS.dark}
+                strokeWidth={1.5}
+                width={30}
+                height={30}
+              />
+            */}
+            <AntDesign name="arrowleft" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
             {i18n('produit_assurance')}
@@ -120,13 +123,16 @@ export default function Products() {
               console.log(search);
             }}
           >
-            <Feather
-              name="search"
-              color={COLORS.primary}
-              strokeWidth={2}
-              width={25}
-              height={25}
-            />
+            {/*
+              <Feather
+                name="search"
+                color={COLORS.primary}
+                strokeWidth={2}
+                width={25}
+                height={25}
+              />
+            */}
+            <AntDesign name="search1" size={24} color="black" />
           </TouchableOpacity>
         </View>
       </View>

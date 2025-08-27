@@ -1,3 +1,4 @@
+import { AntDesign } from '@expo/vector-icons';
 import {
   SafeAreaView,
   ScrollView,
@@ -6,11 +7,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Feather } from '@expo/vector-icons';
 import { COLORS } from '../constants/Colors';
 import { height, width } from '../constants/size';
-import i18n from '../translations/i18n';
 import Navigation from '../services/Navigation';
+import i18n from '../translations/i18n';
 
 export default function Infos() {
   return (
@@ -40,13 +40,16 @@ export default function Infos() {
               Navigation.back();
             }}
           >
-            <Feather
-              name="chevron-left"
-              color={COLORS.dark}
-              strokeWidth={1.5}
-              width={30}
-              height={30}
-            />
+            {/* 
+              <Feather
+                name="chevron-left"
+                color={COLORS.dark}
+                strokeWidth={1.5}
+                width={30}
+                height={30}
+              />
+            */}
+            <AntDesign name="arrowleft" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, flex: 1, fontWeight: 'bold' }}>
             {i18n('info_title')}
