@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   FlatList,
   Image,
+  KeyboardAvoidingView,
   Linking,
   Pressable,
   SafeAreaView,
@@ -85,17 +86,17 @@ export default function DetailSouscription(props: any) {
       return;
     }
     const message = `
-            Bonjour, je suis intéressé par le plan ${souscription.plan.name} de l'assurance ${souscription.insurer.name} et souhaite de avoir de l'aide.
-            Message: ${text}
-            Voici les détails de ma souscription :
-            - Type d'assurance : ${souscription.product}
-            - Souscrit le : ${souscription.subscribed_at.slice(0, 10)}
-            - Activé le : ${souscription.start_at ? souscription.start_at.slice(0, 10) : '--'}
-            - Validité : ${souscription.end_at ? souscription.end_at.slice(0, 10) : '--'}
-            - Prime : ${souscription.plan?.price} XAF
-            - Description : ${souscription.plan?.description}
-            Merci de me contacter pour plus d'informations.
-        `;
+      Bonjour, je suis intéressé par le plan ${souscription.plan.name} de l'assurance ${souscription.insurer.name} et souhaite de avoir de l'aide.
+      Message: ${text}
+      Voici les détails de ma souscription :
+      - Type d'assurance : ${souscription.product}
+      - Souscrit le : ${souscription.subscribed_at.slice(0, 10)}
+      - Activé le : ${souscription.start_at ? souscription.start_at.slice(0, 10) : '--'}
+      - Validité : ${souscription.end_at ? souscription.end_at.slice(0, 10) : '--'}
+      - Prime : ${souscription.plan?.price} XAF
+      - Description : ${souscription.plan?.description}
+      Merci de me contacter pour plus d'informations.
+    `;
     try {
       const phoneNumber = '237658880708'; // Replace with your desired phone number
       const url = `whatsapp://send?phone=${phoneNumber}&text=${message}`;
@@ -288,15 +289,13 @@ export default function DetailSouscription(props: any) {
           paddingHorizontal: 20,
           paddingTop: 35,
           gap: 30,
-        }}
-      >
+        }}>
         {/** Navigation bar  */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <TouchableOpacity
             onPress={() => {
               Navigation.back();
-            }}
-          >
+            }}>
             {/*
               <Feather
                 name="chevron-left"
@@ -314,7 +313,7 @@ export default function DetailSouscription(props: any) {
           </Text>
         </View>
       </View>
-      <View style={{ flex: 1 }}>
+      <KeyboardAvoidingView style={{ flex: 1 }}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6' }}>
@@ -711,7 +710,7 @@ export default function DetailSouscription(props: any) {
           </View>
           <View style={{ width: '100%', height: 80 }} />
         </ScrollView>
-      </View>
+      </KeyboardAvoidingView>
 
       {/** Modal du message d'aide à la souscription */}
       <Portal>
