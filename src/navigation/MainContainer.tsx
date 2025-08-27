@@ -1,5 +1,5 @@
+import { AntDesign, Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Feather } from '@expo/vector-icons';
 import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';
 import Home from '../screens/home';
@@ -28,27 +28,31 @@ const MainContainer = () => {
           let rn = route.name;
 
           if (rn.includes(ROUTES.HOME)) {
-            icon = (
+            {/*
               <Feather
                 name="home"
                 color={focused ? COLORS.primary : COLORS.gray}
                 strokeWidth={3}
                 width={20}
                 height={20}
-              />
+              />  
+            */}
+            icon = (
+              <AntDesign name="home" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );
           } else if (rn.includes(ROUTES.PRODUITS)) {
-            icon = (
-              <Feather
+            {/* <Feather
                 name="package"
                 color={focused ? COLORS.primary : COLORS.gray}
                 strokeWidth={3}
                 width={20}
                 height={20}
-              />
+              /> */}
+            icon = (
+              <AntDesign name="isv" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );
           } else if (rn.includes(ROUTES.SOUSCRIPTIONS)) {
-            icon = (
+            {/*
               <Feather
                 name="file-text"
                 color={focused ? COLORS.primary : COLORS.gray}
@@ -56,9 +60,12 @@ const MainContainer = () => {
                 width={20}
                 height={20}
               />
+            */}
+            icon = (
+              <AntDesign name="filetext1" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );
           } else if (rn.includes(ROUTES.INFOS)) {
-            icon = (
+            {/*
               <Feather
                 name="info"
                 color={focused ? COLORS.primary : COLORS.gray}
@@ -66,6 +73,10 @@ const MainContainer = () => {
                 width={20}
                 height={20}
               />
+            */}
+             
+            icon = (
+              <AntDesign name="infocirlceo" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );
           }
           return icon;

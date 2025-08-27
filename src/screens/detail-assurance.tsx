@@ -3,15 +3,15 @@ import {
   FlatList,
   Image,
   Pressable,
+  SafeAreaView,
   ScrollView,
   StatusBar,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { AntDesign, Feather } from '@expo/vector-icons';
 import RenderHtml from 'react-native-render-html';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';
 import { height, width } from '../constants/size';
@@ -78,13 +78,16 @@ export default function DetailAssurance(props: any) {
               Navigation.back();
             }}
           >
-            <Feather
-              name="chevron-left"
-              color={COLORS.dark}
-              strokeWidth={1.5}
-              width={30}
-              height={30}
-            />
+            {/*
+              <Feather
+                name="chevron-left"
+                color={COLORS.dark}
+                strokeWidth={1.5}
+                width={30}
+                height={30}
+              />
+            */}
+            <AntDesign name="arrowleft" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
             {i18n('desc_assurance')}
@@ -184,24 +187,26 @@ export default function DetailAssurance(props: any) {
                         plan: item,
                         insurer,
                       });
-                    }}
-                  >
-                    <Feather
-                      name="chevron-right"
-                      color={COLORS.primary}
-                      strokeWidth={2}
-                      width={25}
-                      height={25}
-                    />
+                    }}>
+                    {/*
+                      <Feather
+                        name="chevron-right"
+                        color={COLORS.primary}
+                        strokeWidth={2}
+                        width={25}
+                        height={25}
+                      />
+                    */}
+                    <AntDesign name="right" size={16} color="black" />
                   </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'row', gap: 10 }}>
                   <Text>{i18n('prime_ttc')}</Text>
                   <View>
                     {/**
-                                            <Text style={{ fontWeight: 'bold'}}>{item.price} XAF - Enfant</Text>
-                                            <Text style={{ fontWeight: 'bold'}}>74 000 XAF - Adulte</Text>
-                                        */}
+                      <Text style={{ fontWeight: 'bold'}}>{item.price} XAF - Enfant</Text>
+                      <Text style={{ fontWeight: 'bold'}}>74 000 XAF - Adulte</Text>
+                    */}
                     <Text style={{ fontWeight: 'bold' }}>{item.price} XAF</Text>
                   </View>
                 </View>

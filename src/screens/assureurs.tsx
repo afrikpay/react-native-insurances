@@ -1,3 +1,4 @@
+import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -10,15 +11,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Feather } from '@expo/vector-icons';
 import { Box } from '../components/ui/Box';
 import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';
 import { height, width } from '../constants/size';
 import { apiClient } from '../data/axios';
-import type { Insurer } from '../types';
-import i18n from '../translations/i18n';
 import Navigation from '../services/Navigation';
+import i18n from '../translations/i18n';
+import type { Insurer } from '../types';
 
 export default function Assureurs(props: any) {
   // Get params from navigation
@@ -71,13 +71,16 @@ export default function Assureurs(props: any) {
               Navigation.back();
             }}
           >
-            <Feather
-              name="chevron-left"
-              color={COLORS.dark}
-              strokeWidth={1.5}
-              width={30}
-              height={30}
-            />
+            {/* 
+              <Feather
+                name="chevron-left"
+                color={COLORS.dark}
+                strokeWidth={1.5}
+                width={30}
+                height={30}
+              />
+            */}
+            <AntDesign name="arrowleft" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
             {i18n('assureurs')}
@@ -177,13 +180,16 @@ export default function Assureurs(props: any) {
                     });
                   }}
                 >
-                  <Feather
-                    name="chevron-right"
-                    color={COLORS.primary}
-                    strokeWidth={1.5}
-                    width={30}
-                    height={30}
-                  />
+                  {/* 
+                    <Feather
+                      name="chevron-right"
+                      color={COLORS.primary}
+                      strokeWidth={1.5}
+                      width={30}
+                      height={30}
+                    />
+                  */}
+                  <AntDesign name="right" size={24} color="black" />
                 </TouchableOpacity>
               </Pressable>
             </Box>

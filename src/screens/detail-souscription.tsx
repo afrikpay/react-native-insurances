@@ -1,3 +1,4 @@
+import { AntDesign, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -12,7 +13,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Feather } from '@expo/vector-icons';
 import { Button, Modal, Portal, TextInput } from 'react-native-paper';
 import RenderHtml from 'react-native-render-html';
 import SimpleToast from 'react-native-simple-toast';
@@ -25,9 +25,9 @@ import { apiClient } from '../data/axios';
 import WebviewScreen from './forms/components/WebviewScreen';
 
 import * as DocumentPicker from 'expo-document-picker';
-import { uploadFile } from '../utils/uploadFiles';
-import i18n from '../translations/i18n';
 import Navigation from '../services/Navigation';
+import i18n from '../translations/i18n';
+import { uploadFile } from '../utils/uploadFiles';
 
 const operateursMobile: Record<string, any>[] = [
   {
@@ -297,13 +297,17 @@ export default function DetailSouscription(props: any) {
               Navigation.back();
             }}
           >
-            <Feather
-              name="chevron-left"
-              color={COLORS.dark}
-              strokeWidth={1.5}
-              width={30}
-              height={30}
-            />
+            {/*
+              <Feather
+                name="chevron-left"
+                color={COLORS.dark}
+                strokeWidth={1.5}
+                width={30}
+                height={30}
+              />
+            */}
+            
+            <AntDesign name="arrowleft" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
             {i18n('detail_souscription_titre')}
@@ -340,13 +344,17 @@ export default function DetailSouscription(props: any) {
                 alignItems: 'center',
               }}
             >
-              <Feather
-                name="message-square"
-                color={COLORS.white}
-                strokeWidth={2}
-                width={20}
-                height={20}
-              />
+              {/* 
+                <Feather
+                  name="message-square"
+                  color={COLORS.white}
+                  strokeWidth={2}
+                  width={20}
+                  height={20}
+                />
+                <AntDesign name="message1" size={24} color="black" />
+              */}
+              <MaterialCommunityIcons name="message-text-outline" size={24} color="white" />
             </TouchableOpacity>
           </View>
           <Box width={'100%'} padding={18}>
