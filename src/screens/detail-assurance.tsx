@@ -1,3 +1,5 @@
+import { AntDesign } from '@expo/vector-icons';
+import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -10,16 +12,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { AntDesign, Feather } from '@expo/vector-icons';
 import RenderHtml from 'react-native-render-html';
 import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';
 import { height, width } from '../constants/size';
-import type { Plan } from '../types';
-import { useEffect, useState } from 'react';
 import { apiClient } from '../data/axios';
-import i18n from '../translations/i18n';
 import Navigation from '../services/Navigation';
+import i18n from '../translations/i18n';
+import type { Plan } from '../types';
 
 export default function DetailAssurance(props: any) {
   const [loading, setLoading] = useState(false);

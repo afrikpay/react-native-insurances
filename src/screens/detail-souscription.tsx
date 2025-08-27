@@ -367,8 +367,7 @@ export default function DetailSouscription(props: any) {
                       flexDirection: 'column',
                       alignItems: 'flex-start',
                       gap: 8,
-                    }}
-                  >
+                    }}>
                     <View
                       style={{
                         height: 10,
@@ -384,8 +383,7 @@ export default function DetailSouscription(props: any) {
                             ? COLORS.success
                             : COLORS.dark,
                         fontSize: 11,
-                      }}
-                    >
+                      }}>
                       {souscription.display_status}
                     </Text>
                   </View>
@@ -405,8 +403,7 @@ export default function DetailSouscription(props: any) {
                         fontSize: 12,
                         fontWeight: 'bold',
                         color: COLORS.dark,
-                      }}
-                    >
+                      }}>
                       Type:
                     </Text>
                     <Text
@@ -416,8 +413,7 @@ export default function DetailSouscription(props: any) {
                         fontSize: 14,
                         fontWeight: 'bold',
                         color: COLORS.primary,
-                      }}
-                    >
+                      }}>
                       {souscription.product}
                     </Text>
                   </View>
@@ -504,8 +500,7 @@ export default function DetailSouscription(props: any) {
             {souscription.status === 'M' && (
               <TouchableOpacity
                 onPress={sendContract}
-                style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}
-              >
+                style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                 {sending && (
                   <ActivityIndicator
                     size={'small'}
@@ -518,8 +513,7 @@ export default function DetailSouscription(props: any) {
                     color: COLORS.primary,
                     fontSize: 12,
                     fontWeight: 'bold',
-                  }}
-                >
+                  }}>
                   {i18n('telecharger_contrat')}
                 </Text>
               </TouchableOpacity>
@@ -530,8 +524,7 @@ export default function DetailSouscription(props: any) {
             />
             <View style={{ flexDirection: 'column', marginVertical: 20 }}>
               <Text
-                style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}
-              >
+                style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>
                 {i18n('assures')}
               </Text>
               {Object.keys(souscription.data).map((key, index) => (
