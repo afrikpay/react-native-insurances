@@ -51,6 +51,9 @@ const en = {
   btn_appliquer: 'Apply',
   par_mois: 'XAF/month',
   validite: 'Validity',
+  information: "Information",
+  information_msg: "To proceed with the payment of your subscription, please verify your email address by clicking on the link that was sent to you by email. If you have not received it, click on the button below to resend the email.",
+  information_resend_btn: "Resend the email", 
 
   // Assureurs
   assureurs: 'Insurers',

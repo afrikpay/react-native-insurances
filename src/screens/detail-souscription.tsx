@@ -556,13 +556,13 @@ export default function DetailSouscription(props: any) {
               ))}
             </View>
             <View style={{ width: '100%', borderWidth: 0.8, borderColor: COLORS.light_blue, borderRadius: 20, backgroundColor: '#fefce8', padding: 20  }} >
-              <Text style={{ fontSize: 16, fontWeight: "bold", marginBottom: 6 }}>Information !</Text>
-              <Text style={{ color: "#374151" }}>Pour procéder au payement de votre souscription, veuillez vérifier votre adresse email en cliquant sur le lien qui vous été envoyé par mail. Si vous n'avez pas reçu, cliquez sur le bouton ci-dessous pour ré-envoyer le mail.</Text>
+              <Text style={{ fontSize: 16, fontWeight: "bold", marginBottom: 6 }}>{i18n("information")}</Text>
+              <Text style={{ color: "#374151" }}>{i18n("information_msg")}</Text>
               <View style={{ flex: 1,  display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
                 <Pressable 
                   onPress={resendVerifitionLinkByEmail}
                   style={{ marginTop: 20, paddingVertical: 10, paddingHorizontal: 20, borderRadius: 100, borderWidth: 1, borderColor: COLORS.primary, alignSelf: 'flex-start' }}>
-                  <Text style={{ color: COLORS.primary }}>Ré-envoyer le mail</Text>
+                  <Text style={{ color: COLORS.primary }}>{i18n("information_resend_btn")}</Text>
                 </Pressable>
               </View>
             </View>

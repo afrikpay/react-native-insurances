@@ -51,6 +51,9 @@ const fr = {
   btn_appliquer: 'Appliquer',
   par_mois: 'XAF/mois',
   validite: 'Validité',
+  information: "Information",
+  information_msg: "Pour procéder au payement de votre souscription, veuillez vérifier votre adresse email en cliquant sur le lien qui vous été envoyé par mail. Si vous n'avez pas reçu, cliquez sur le bouton ci-dessous pour ré-envoyer le mail.",
+  information_resend_btn: "Ré-envoyer le mail", 
 
   // Assureurs
   assureurs: 'Assureurs',
