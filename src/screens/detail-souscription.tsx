@@ -29,6 +29,7 @@ import * as DocumentPicker from 'expo-document-picker';
 import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import { uploadFile } from '../utils/uploadFiles';
+import { ROUTES } from '../constants/Routes';
 
 const operateursMobile: Record<string, any>[] = [
   {
@@ -52,8 +53,7 @@ const operateursMobile: Record<string, any>[] = [
 ];
 
 export default function DetailSouscription(props: any) {
-  const { souscription } = props.route.params;
-  // console.log(JSON.stringify(souscription, null, 2));
+  const { souscription } = props.route.params
 
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -270,15 +270,25 @@ export default function DetailSouscription(props: any) {
   };
 
   const resendVerifitionLinkByEmail = async () =>  {
+    if (loading) return 
+    setLoading(true)
     console.log("Resend email...");
     try {
-      // const response: any = await apiClient.post('url',{});
-      setTimeout(() => {
-        SimpleToast.show("Mail envoyé avec succès !", 3);
-      }, 2000);
+      const response: any = await apiClient.post('/secure/mobile/ask-verify-email/v1',{
+        referenceNumber: souscription.reference
+      })
+
+      if (response.code === 200 && response.result.status === "SUCCESS" ){
+        SimpleToast.show(`${response.result.message}`, 25);
+        setTimeout(() => {
+          Navigation.navigate(ROUTES.BOTTOMPTAPS)
+        }, 5000);
+      }
     } catch (error: any) {
       SimpleToast.show(`Erreur survenue lors de l'envoi des documents: ${error.message}`, 15);
     }
+
+    finally{ setLoading(false)}
   }
 
   return (
@@ -555,18 +565,29 @@ export default function DetailSouscription(props: any) {
                 </Pressable>
               ))}
             </View>
-            <View style={{ width: '100%', borderWidth: 0.8, borderColor: COLORS.light_blue, borderRadius: 20, backgroundColor: '#fefce8', padding: 20  }} >
-              <Text style={{ fontSize: 16, fontWeight: "bold", marginBottom: 6 }}>{i18n("information")}</Text>
-              <Text style={{ color: "#374151" }}>{i18n("information_msg")}</Text>
-              <View style={{ flex: 1,  display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
-                <Pressable 
-                  onPress={resendVerifitionLinkByEmail}
-                  style={{ marginTop: 20, paddingVertical: 10, paddingHorizontal: 20, borderRadius: 100, borderWidth: 1, borderColor: COLORS.primary, alignSelf: 'flex-start' }}>
-                  <Text style={{ color: COLORS.primary }}>{i18n("information_resend_btn")}</Text>
-                </Pressable>
-              </View>
-            </View>
-            {souscription.status === 'P' && (
+            {
+              souscription.status !== "V" && (
+                <View style={{ width: '100%', borderWidth: 0.8, borderColor: COLORS.light_blue, borderRadius: 20, backgroundColor: '#fefce8', padding: 20  }} >
+                  <Text style={{ fontSize: 16, fontWeight: "bold", marginBottom: 6 }}>{i18n("information")}</Text>
+                  <Text style={{ color: "#374151" }}>{i18n("information_msg")}</Text>
+                  <View style={{ flex: 1,  display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+                    <Pressable 
+                      disabled={loading}
+                      onPress={resendVerifitionLinkByEmail}
+                      style={{ flexDirection: 'row', justifyContent: "center", alignItems: 'center', gap: 5, marginTop: 20, paddingVertical: 10, paddingHorizontal: 20, borderRadius: 100, borderWidth: 1, borderColor: COLORS.primary, alignSelf: 'flex-start' }}>
+                        { loading && (
+                          <ActivityIndicator
+                            color={COLORS.primary}
+                            style={{ height: 20, width: 20 }}
+                          />
+                        )}
+                      <Text style={{ color: COLORS.primary }}>{i18n("information_resend_btn")}</Text>
+                    </Pressable>
+                  </View>
+                </View>
+              )
+            }
+            {souscription.status === 'V' && (
               <View style={{ marginTop: 20 }}>
                 <View style={{ flexDirection: 'column', gap: 12 }}>
                   <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>
