@@ -71,9 +71,7 @@ export default function DetailSouscription(props: any) {
   const [paymentUrl, setPaymentUrl] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [serviceSlug, setServiceSlug] = useState('');
-  const [selectedInsurer, setSelectedInsurer] = useState<
-    Record<string, any> | any
-  >(null);
+  const [selectedInsurer, setSelectedInsurer] = useState<Record<string, any> | any>(null);
   const [selectedDoc, setSelectedDoc] = useState<Record<string, any>>();
 
   const [documents, setDocuments] = useState<Record<string, any>[]>([]);
@@ -270,6 +268,18 @@ export default function DetailSouscription(props: any) {
       setIsDocSending(false);
     }
   };
+
+  const resendVerifitionLinkByEmail = async () =>  {
+    console.log("Resend email...");
+    try {
+      // const response: any = await apiClient.post('url',{});
+      setTimeout(() => {
+        SimpleToast.show("Mail envoyé avec succès !", 3);
+      }, 2000);
+    } catch (error: any) {
+      SimpleToast.show(`Erreur survenue lors de l'envoi des documents: ${error.message}`, 15);
+    }
+  }
 
   return (
     <SafeAreaView
@@ -544,6 +554,17 @@ export default function DetailSouscription(props: any) {
                   </Text>
                 </Pressable>
               ))}
+            </View>
+            <View style={{ width: '100%', borderWidth: 0.8, borderColor: COLORS.light_blue, borderRadius: 20, backgroundColor: '#fefce8', padding: 20  }} >
+              <Text style={{ fontSize: 16, fontWeight: "bold", marginBottom: 6 }}>Information !</Text>
+              <Text style={{ color: "#374151" }}>Pour procéder au payement de votre souscription, veuillez vérifier votre adresse email en cliquant sur le lien qui vous été envoyé par mail. Si vous n'avez pas reçu, cliquez sur le bouton ci-dessous pour ré-envoyer le mail.</Text>
+              <View style={{ flex: 1,  display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+                <Pressable 
+                  onPress={resendVerifitionLinkByEmail}
+                  style={{ marginTop: 20, paddingVertical: 10, paddingHorizontal: 20, borderRadius: 100, borderWidth: 1, borderColor: COLORS.primary, alignSelf: 'flex-start' }}>
+                  <Text style={{ color: COLORS.primary }}>Ré-envoyer le mail</Text>
+                </Pressable>
+              </View>
             </View>
             {souscription.status === 'P' && (
               <View style={{ marginTop: 20 }}>
