@@ -24,9 +24,7 @@ import type { ProduitAssurance, Souscription } from '../types';
 import Auth from '../utils/Auth';
 
 export default function Home() {
-
   const [username, setUsername] = useState("")
-
   useEffect(() => {
     (async () => {
       const name = await Auth.getUsername();
