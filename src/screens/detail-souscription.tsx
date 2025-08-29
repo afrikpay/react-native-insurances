@@ -54,6 +54,8 @@ const operateursMobile: Record<string, any>[] = [
 
 export default function DetailSouscription(props: any) {
   const { souscription } = props.route.params
+  // console.log(JSON.stringify(souscription, null, 2));
+  
 
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -207,20 +209,23 @@ export default function DetailSouscription(props: any) {
     try {
       // Upload the file to your server or handle it as needed
       const task = await uploadFile(
-        `https://insurances.afrikpay.com/api/uploads/document/${souscription.id}/${souscription.reference}/`,
+        `https://insurances.afrikpay.com/api/uploads/document/${souscription.reference}/`,
         file![doc.key].uri as string,
         { key: doc.key || '' },
         { 'Content-Type': 'multipart/form-data' },
         'file',
         file![doc.key].mimeType,
-        () => {
+        /* () => {
           setSelectedInsurer(null);
           SimpleToast.show('Fichier envoyé avec succès !', 5);
           setFile(undefined);
           setSelectedDoc(undefined);
-        }
+        } */
+        console.log
       );
-      task.uploadAsync();
+      task.uploadAsync().then((data) => {
+        console.log('Upload complete:', data);
+      });
     } catch (error) {
       console.error('Error sending file:', error);
     } finally {
@@ -516,7 +521,7 @@ export default function DetailSouscription(props: any) {
                 </View>
               </View>
             </Box>
-            {souscription.status === 'M' && (
+            {  ["A", "C", "D", "R"].includes(souscription.status) && (
               <TouchableOpacity
                 onPress={sendContract}
                 style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
@@ -566,7 +571,7 @@ export default function DetailSouscription(props: any) {
               ))}
             </View>
             {
-              souscription.status !== "V" && (
+              souscription.status === "P" && (
                 <View style={{ width: '100%', borderWidth: 0.8, borderColor: COLORS.light_blue, borderRadius: 20, backgroundColor: '#fefce8', padding: 20  }} >
                   <Text style={{ fontSize: 16, fontWeight: "bold", marginBottom: 6 }}>{i18n("information")}</Text>
                   <Text style={{ color: "#374151" }}>{i18n("information_msg")}</Text>
