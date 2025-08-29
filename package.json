@@ -1,6 +1,6 @@
 {
   "name": "react-native-calculator",
-  "version": "0.1.41",
+  "version": "0.1.42",
   "description": "Calculator gateway",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
