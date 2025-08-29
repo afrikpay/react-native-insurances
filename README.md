@@ -1,24 +1,24 @@
-# react-native-insurances
+# react-native-calculator
 
-Insurances gateway
+Calculator gateway
 
 ## Installation
 
 ```sh
-npm install react-native-insurances
+npm install react-native-calculator
 ```
 
 ## Usage
 
 ```js
-import { InsuranceApp } from 'react-native-insurances';
+import { Calculator } from 'react-native-calculator';
 
 // ...
 
 export default function App() {
   return (
     <View>
-      <InsuranceApp appToken="`your insurance system token`" lang="en" />
+      <Calculator />
     </View>
   );
 }
