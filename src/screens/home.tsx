@@ -42,8 +42,7 @@ export default function Home() {
         backgroundColor: COLORS.white,
         flexDirection: 'column',
         gap: 20,
-      }}
-    >
+      }}>
       <StatusBar hidden />
       <View style={{}}>
         <View
