@@ -307,7 +307,7 @@ export default function DetailSouscription(props: any) {
         gap: 20,
       }}
     >
-      <StatusBar hidden />
+      <StatusBar barStyle={'dark-content'} hidden={false} />
       <View
         style={{
           backgroundColor: COLORS.white,

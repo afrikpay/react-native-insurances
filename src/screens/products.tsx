@@ -5,6 +5,7 @@ import {
   Pressable,
   SafeAreaView,
   ScrollView,
+  StatusBar,
   Text,
   TextInput,
   TouchableOpacity,
@@ -68,6 +69,7 @@ export default function Products() {
         gap: 20,
       }}
     >
+      <StatusBar barStyle={'dark-content'} hidden={false} />
       <View
         style={{
           backgroundColor: COLORS.white,

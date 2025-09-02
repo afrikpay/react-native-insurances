@@ -7,6 +7,7 @@ import {
   FlatList,
   Platform,
   SafeAreaView,
+  StatusBar,
   Text,
   TextInput,
   TouchableOpacity,
@@ -134,6 +135,7 @@ export default function Souscriptions() {
         gap: 20,
       }}
     >
+      <StatusBar barStyle={'dark-content'} hidden={false} />
       <View
         style={{
           backgroundColor: COLORS.white,
