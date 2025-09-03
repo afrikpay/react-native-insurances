@@ -193,8 +193,11 @@ export function ProductSection() {
           '/secure/mobile/categories/v1',
           {}
         );
+
         setProducts(response.result ?? ([] as ProduitAssurance[]));
       } catch (error) {
+        console.log("================== PRODUCTS =================");
+        console.log(JSON.stringify(error, null, 2));
         console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
@@ -290,7 +293,7 @@ export function RenderSubscriptionSection() {
   const [souscriptions, setSouscriptions] = useState<Souscription[]>([]);
 
   useEffect(() => {
-    (async () => {
+    const findSouscriptions = async () => {
       setLoading(true);
       try {
         const response: any = await apiClient.post(
@@ -301,12 +304,19 @@ export function RenderSubscriptionSection() {
         setSouscriptions(
           response.result.subscriptions ?? ([] as Souscription[])
         );
-      } catch (error) {
+      } catch (error: any) {
+        console.log("================== SUBSCRIPTIONS =================");
+        console.log(JSON.stringify(error, null, 2));
+        if ( error.statusCode === 502) {
+          findSouscriptions()
+        }
         console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
-    })();
+    }
+    
+    findSouscriptions();
   }, [])
 
   return (
@@ -316,8 +326,7 @@ export function RenderSubscriptionSection() {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-        }}
-      >
+        }}>
         <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
           {i18n('dernieres_souscriptions')}
         </Text>
@@ -345,8 +354,7 @@ export function RenderSubscriptionSection() {
           flexWrap: 'wrap',
           flexDirection: 'row',
           gap: 10,
-        }}
-      >
+        }}>
         {loading && (
           <View
             style={{
@@ -354,8 +362,7 @@ export function RenderSubscriptionSection() {
               height: 100,
               justifyContent: 'center',
               alignItems: 'center',
-            }}
-          >
+            }}>
             <ActivityIndicator
               color={COLORS.gray}
               style={{ height: 50, width: 50 }}
@@ -366,19 +373,19 @@ export function RenderSubscriptionSection() {
           <SouscriptionComponent key={index} souscription={souscription} />
         ))}
         {!loading && souscriptions.length === 0 && (
-        <View
-          style={{
-            height: 320,
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text style={{ color: COLORS.gray }}>
-            {i18n('aucune_souscription')}
-          </Text>
-        </View>
-      )}
+          <View
+            style={{
+              height: 320,
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Text style={{ color: COLORS.gray }}>
+              {i18n('aucune_souscription')}
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );

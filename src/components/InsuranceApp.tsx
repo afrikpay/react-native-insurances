@@ -2,6 +2,7 @@ import { StatusBar, View } from 'react-native';
 import RootNavigator from '../navigation/RootNavigator';
 import { useEffect } from 'react';
 import Auth from '../utils/Auth';
+import { ThemeProvider } from 'react-native-paper';
 
 const InsuranceApp = ({
   appToken,
@@ -24,10 +25,12 @@ const InsuranceApp = ({
   }, [appToken, lang]);
 
   return (
-    <View style={{ flex: 1, height: '100%' }}>
-      <StatusBar hidden />
-      <RootNavigator />
-    </View>
+    <ThemeProvider theme={{ dark: false, mode: 'exact' }}>
+      <View style={{ flex: 1, height: '100%' }}>
+        <StatusBar hidden />
+        <RootNavigator />
+      </View>
+    </ThemeProvider>
   );
 };
 
