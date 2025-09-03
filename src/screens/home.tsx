@@ -191,7 +191,7 @@ export function ProductSection() {
   const [products, setProducts] = useState<ProduitAssurance[]>([]);
 
   useEffect(() => {
-    (async () => {
+    const findCategories = async () => {
       setLoading(true);
       try {
         const response: any = await apiClient.post(
@@ -200,14 +200,18 @@ export function ProductSection() {
         );
 
         setProducts(response.result ?? ([] as ProduitAssurance[]));
-      } catch (error) {
+      } catch (error: any) {
         console.log("================== PRODUCTS =================");
         console.log(JSON.stringify(error, null, 2));
+        if ( error.status === 502) {
+          findCategories()
+        }
         console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
-    })();
+    }
+    findCategories()
   }, []);
 
   return (
@@ -312,7 +316,7 @@ export function RenderSubscriptionSection() {
       } catch (error: any) {
         console.log("================== SUBSCRIPTIONS =================");
         console.log(JSON.stringify(error, null, 2));
-        if ( error.statusCode === 502) {
+        if ( error.status === 502) {
           findSouscriptions()
         }
         console.error('Error fetching data:', error);
