@@ -1,14 +1,12 @@
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   Image,
   Pressable,
   SafeAreaView,
   ScrollView,
-  StatusBar,
   Text,
-  TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import { Box } from '../components/ui/Box';
