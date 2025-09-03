@@ -39,6 +39,7 @@ export default function Home() {
         height: height,
         width: width,
         padding: 20,
+        paddingTop: 30,
         backgroundColor: COLORS.white,
         flexDirection: 'column',
         gap: 20,
@@ -50,16 +51,14 @@ export default function Home() {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-          }}
-        >
+          }}>
           <View style={{ flexDirection: 'column' }}>
             <Text
               style={{
                 fontSize: 20,
                 fontWeight: 'bold',
                 color: COLORS.primary,
-              }}
-            >
+              }}>
               {i18n('bon_retour')}
             </Text>
             <Text style={{ fontSize: 14, fontWeight: '500' }}>{username}</Text>
@@ -67,8 +66,7 @@ export default function Home() {
           <View>
             <TouchableOpacity
               style={{ position: 'relative' }}
-              onPress={() => {}}
-            >
+              onPress={() => {}}>
               <Feather
                 name="bell"
                 color={COLORS.light_blue}
@@ -87,15 +85,13 @@ export default function Home() {
                   borderRadius: 100,
                   justifyContent: 'center',
                   alignItems: 'center',
-                }}
-              >
+                }}>
                 <Text
                   style={{
                     fontSize: 9,
                     color: COLORS.white,
                     fontWeight: 'bold',
-                  }}
-                >
+                  }}>
                   02
                 </Text>
               </View>
@@ -208,13 +204,11 @@ export function ProductSection() {
 
   return (
     <View style={{ flexDirection: 'column', gap: 10 }}>
-      <View
-        style={{
+      <View style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-        }}
-      >
+        }}>
         <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
           {i18n('produits_assurance')}
         </Text>
