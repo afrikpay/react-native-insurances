@@ -7,11 +7,10 @@ import {
   FlatList,
   Platform,
   SafeAreaView,
-  StatusBar,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { Button, Modal, Portal, RadioButton } from 'react-native-paper';
 import DropdownComponent from '../components/ui/DropdownComponent';
@@ -135,7 +134,6 @@ export default function Souscriptions() {
         gap: 20,
       }}
     >
-      <StatusBar barStyle={'dark-content'} hidden={false} />
       <View
         style={{
           backgroundColor: COLORS.white,

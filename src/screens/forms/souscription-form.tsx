@@ -181,9 +181,7 @@ export default function SouscriptionForm(props: any) {
         backgroundColor: COLORS.white,
         flexDirection: 'column',
         gap: 20,
-      }}
-    >
-      <StatusBar barStyle={'dark-content'} hidden={false} />
+      }}>
       <View
         style={{
           backgroundColor: COLORS.white,
@@ -193,15 +191,13 @@ export default function SouscriptionForm(props: any) {
           paddingBottom: 20,
           borderBottomWidth: 0.305,
           borderBottomColor: COLORS.light_gray,
-        }}
-      >
+        }}>
         {/** Navigation bar  */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <TouchableOpacity
             onPress={() => {
               Navigation.back();
-            }}
-          >
+            }}>
             {/*
               <Feather
                 name="chevron-left"
@@ -220,8 +216,7 @@ export default function SouscriptionForm(props: any) {
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ flex: 1, padding: 20 }}
-      >
+        style={{ flex: 1, padding: 20 }}>
         {loading && (
           <View
             style={{

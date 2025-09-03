@@ -22,12 +22,12 @@ const InsuranceApp = ({
       await Auth.setTerminalId(terminalId);
       await Auth.setUsername(username);
     })();
-  }, [appToken, lang]);
+  }, [appToken, terminalId, username, lang]);
 
   return (
     <ThemeProvider theme={{ dark: false, mode: 'exact' }}>
       <View style={{ flex: 1, height: '100%' }}>
-        <StatusBar hidden />
+        <StatusBar barStyle={'dark-content'} hidden={false} />
         <RootNavigator />
       </View>
     </ThemeProvider>

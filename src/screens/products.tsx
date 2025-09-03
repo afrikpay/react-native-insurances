@@ -5,11 +5,10 @@ import {
   Pressable,
   SafeAreaView,
   ScrollView,
-  StatusBar,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import { COLORS } from '../constants/Colors';
@@ -69,7 +68,6 @@ export default function Products() {
         gap: 20,
       }}
     >
-      <StatusBar barStyle={'dark-content'} hidden={false} />
       <View
         style={{
           backgroundColor: COLORS.white,

@@ -1,4 +1,4 @@
-import { Feather } from '@expo/vector-icons';
+import { AntDesign, Feather } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   Image,
@@ -44,61 +44,68 @@ export default function Home() {
         flexDirection: 'column',
         gap: 20,
       }}>
-      <StatusBar barStyle={'dark-content'} hidden={false} />
-      <View style={{}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <View style={{ flexDirection: 'column' }}>
+      {/* Section 1 */}
+      <View style={{ 
+        backgroundColor: COLORS.white, padding: 0, display: 'flex', 
+        flexDirection: 'row', justifyContent: 'space-between',
+        alignItems: 'center', gap: 10 }}>
+        <Pressable
+            onPress={() => Navigation.back()}>
+            <AntDesign name="arrowleft" size={24} color="black" />
+        </Pressable>
+        <Text style={{ fontWeight: 'bold', flex: 2 }}>{username}</Text>
+        <View style={{ flex: 1 }}></View>
+      </View>
+      {/* <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        <View style={{ flexDirection: 'column' }}>
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: 'bold',
+              color: COLORS.primary,
+            }}>
+            {i18n('bon_retour')}
+          </Text>
+          <Text style={{ fontSize: 14, fontWeight: '500' }}>{username}</Text>
+        </View>
+        <TouchableOpacity
+          style={{ position: 'relative' }}
+          onPress={() => {}}>
+          <Feather
+            name="bell"
+            color={COLORS.light_blue}
+            strokeWidth={2}
+            width={30}
+            height={30}
+          />
+          <View
+            style={{
+              backgroundColor: COLORS.danger,
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              height: 18,
+              width: 18,
+              borderRadius: 100,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
             <Text
               style={{
-                fontSize: 20,
+                fontSize: 9,
+                color: COLORS.white,
                 fontWeight: 'bold',
-                color: COLORS.primary,
               }}>
-              {i18n('bon_retour')}
+              02
             </Text>
-            <Text style={{ fontSize: 14, fontWeight: '500' }}>{username}</Text>
           </View>
-          <View>
-            <TouchableOpacity
-              style={{ position: 'relative' }}
-              onPress={() => {}}>
-              <Feather
-                name="bell"
-                color={COLORS.light_blue}
-                strokeWidth={2}
-                width={30}
-                height={30}
-              />
-              <View
-                style={{
-                  backgroundColor: COLORS.danger,
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  height: 18,
-                  width: 18,
-                  borderRadius: 100,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Text
-                  style={{
-                    fontSize: 9,
-                    color: COLORS.white,
-                    fontWeight: 'bold',
-                  }}>
-                  02
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+        </TouchableOpacity>
+      </View> */}
 
       {/** Subscription Card */}
       <HomeCard />
@@ -134,7 +141,7 @@ export function HomeCard() {
         paddingHorizontal: 20,
         paddingTop: 20,
         backgroundColor: COLORS.primary,
-        height: 200,
+        minHeight: 200, 
       }}
     >
       <View style={{ flex: 1, flexDirection: 'row', gap: 10 }}>

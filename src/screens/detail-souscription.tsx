@@ -9,10 +9,9 @@ import {
   Pressable,
   SafeAreaView,
   ScrollView,
-  StatusBar,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { Button, Modal, Portal, TextInput } from 'react-native-paper';
 import RenderHtml from 'react-native-render-html';
@@ -26,10 +25,10 @@ import { apiClient } from '../data/axios';
 import WebviewScreen from './forms/components/WebviewScreen';
 
 import * as DocumentPicker from 'expo-document-picker';
+import { ROUTES } from '../constants/Routes';
 import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import { uploadFile } from '../utils/uploadFiles';
-import { ROUTES } from '../constants/Routes';
 
 const operateursMobile: Record<string, any>[] = [
   {
@@ -307,7 +306,6 @@ export default function DetailSouscription(props: any) {
         gap: 20,
       }}
     >
-      <StatusBar barStyle={'dark-content'} hidden={false} />
       <View
         style={{
           backgroundColor: COLORS.white,

@@ -7,10 +7,9 @@ import {
   Pressable,
   SafeAreaView,
   ScrollView,
-  StatusBar,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import RenderHtml from 'react-native-render-html';
 import { COLORS } from '../constants/Colors';
@@ -62,7 +61,6 @@ export default function DetailAssurance(props: any) {
         gap: 20,
       }}
     >
-      <StatusBar barStyle={'dark-content'} hidden={false} />
       <View
         style={{
           backgroundColor: COLORS.white,

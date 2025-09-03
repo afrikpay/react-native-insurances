@@ -1,20 +1,19 @@
+import { AntDesign } from '@expo/vector-icons';
 import {
   Image,
   Pressable,
   SafeAreaView,
   ScrollView,
-  StatusBar,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
 import RenderHtml from 'react-native-render-html';
 import { COLORS } from '../constants/Colors';
-import { height, width } from '../constants/size';
 import { ROUTES } from '../constants/Routes';
-import i18n from '../translations/i18n';
+import { height, width } from '../constants/size';
 import Navigation from '../services/Navigation';
+import i18n from '../translations/i18n';
 
 export default function DetailFormule(props: any) {
   const { plan, insurer } = props.route.params;
@@ -30,7 +29,6 @@ export default function DetailFormule(props: any) {
         gap: 20,
       }}
     >
-      <StatusBar barStyle={'dark-content'} hidden={false} />
       <View
         style={{
           backgroundColor: COLORS.white,

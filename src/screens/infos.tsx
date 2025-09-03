@@ -2,10 +2,9 @@ import { AntDesign } from '@expo/vector-icons';
 import {
   SafeAreaView,
   ScrollView,
-  StatusBar,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { COLORS } from '../constants/Colors';
 import { height, width } from '../constants/size';
@@ -24,7 +23,6 @@ export default function Infos() {
         gap: 20,
       }}
     >
-      <StatusBar barStyle={'dark-content'} hidden={false} />
       <View
         style={{
           backgroundColor: COLORS.white,
