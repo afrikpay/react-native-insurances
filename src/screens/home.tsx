@@ -47,11 +47,11 @@ export default function Home() {
         backgroundColor: COLORS.white, padding: 0, display: 'flex', 
         flexDirection: 'row', justifyContent: 'space-between',
         alignItems: 'center', gap: 10 }}>
-        <Pressable
+        <Pressable style={{ flex: 1}}
             onPress={() => Navigation.back()}>
             <AntDesign name="arrowleft" size={24} color="black" />
         </Pressable>
-        <Text style={{ fontWeight: 'bold', flex: 2 }}>{username}</Text>
+        <Text style={{ fontWeight: 'bold', flex: 1 }}>{username}</Text>
         <View style={{ flex: 1 }}></View>
       </View>
       {/* <View
