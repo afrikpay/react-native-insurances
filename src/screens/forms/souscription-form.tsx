@@ -1,14 +1,13 @@
+import { AntDesign, Feather } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Pressable,
   ScrollView,
-  StatusBar,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import { AntDesign, Feather } from '@expo/vector-icons';
 import SimpleToast from 'react-native-simple-toast';
 import StepFormBuilder from '../../components/form/StepFormBuilder';
 import type { FormStep } from '../../components/form/types/types';
@@ -16,8 +15,8 @@ import { COLORS } from '../../constants/Colors';
 import { ROUTES } from '../../constants/Routes';
 import { height, width } from '../../constants/size';
 import { apiClient } from '../../data/axios';
-import i18n from '../../translations/i18n';
 import Navigation from '../../services/Navigation';
+import i18n from '../../translations/i18n';
 
 export default function SouscriptionForm(props: any) {
   const { planId, insurerId } = props.route.params;
