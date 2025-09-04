@@ -54,13 +54,13 @@ export default function Souscriptions() {
     []
   );
 
-  const fetchSubscription = async () => {
+  const fetchSubscription = async (currentPage?: number) => {
     setLoading(true);
     try {
       const response: any = await apiClient.post(
         '/secure/mobile/insurance/subscription-list/v1',
         {
-          page: page,
+          page: currentPage ?? page,
           pageSize: 10,
         }
       );
@@ -122,6 +122,12 @@ export default function Souscriptions() {
     );
     setSouscriptions(filtered);
   };
+
+  const onRefresh = async () => {
+    const currentPage = page + 1
+    setPage(currentPage)
+    await fetchSubscription(currentPage);
+  }
 
   return (
     <SafeAreaView
@@ -247,6 +253,8 @@ export default function Souscriptions() {
             )}
             onEndReached={() => setPage(page + 1)}
             onEndReachedThreshold={0.5}
+            onRefresh={onRefresh}
+            refreshing={loading}
           />
 
           {loading && page > 1 && (
@@ -332,8 +340,7 @@ export default function Souscriptions() {
           </Text>
           <RadioButton.Group
             onValueChange={(newValue) => setValue(newValue)}
-            value={value}
-          >
+            value={value}>
             <View style={{ flexDirection: 'row', gap: 10, marginTop: 5 }}>
               <View
                 style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}
@@ -361,8 +368,7 @@ export default function Souscriptions() {
               justifyContent: 'space-between',
               gap: 10,
               marginTop: 20,
-            }}
-          >
+            }}>
             <Text style={{ fontWeight: 'bold', marginTop: 25 }}>
               {i18n('filtre_produit')}
             </Text>
@@ -403,8 +409,7 @@ export default function Souscriptions() {
               justifyContent: 'space-between',
               gap: 10,
               marginTop: 20,
-            }}
-          >
+            }}>
             <Text style={{ fontWeight: 'bold', marginTop: 25 }}>
               {i18n('filtre_formule')}
             </Text>
@@ -436,8 +441,7 @@ export default function Souscriptions() {
               flexDirection: 'row',
               justifyContent: 'space-between',
               gap: 10,
-            }}
-          >
+            }}>
             <Text style={{ fontWeight: 'bold', marginTop: 25 }}>
               {i18n('filtre_periode')}
             </Text>
@@ -472,8 +476,7 @@ export default function Souscriptions() {
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-            }}
-          >
+            }}>
             <Text style={{ fontSize: 12, marginTop: 25 }}>Et: </Text>
             <TouchableOpacity
               onPress={() => {

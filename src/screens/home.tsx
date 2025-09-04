@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import {
   Image,
   Pressable,
+  RefreshControl,
   SafeAreaView,
   ScrollView,
   Text,
@@ -23,12 +24,21 @@ import Auth from '../utils/Auth';
 
 export default function Home() {
   const [username, setUsername] = useState("")
+  const [refreshing, setRefreshing] = useState(false)
+
+
   useEffect(() => {
     (async () => {
       const name = await Auth.getUsername();
       setUsername(name!)
     })();
   }, [])
+
+
+  const onRefresh = () => {
+    setRefreshing(true)
+  }
+
   
   return (
     <SafeAreaView
@@ -108,14 +118,27 @@ export default function Home() {
       {/** Subscription Card */}
       <HomeCard />
 
-      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+      <ScrollView 
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+        showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         {/** Product Section */}
-        <ProductSection />
+        <ProductSection 
+          refreshing={refreshing}
+          setRefreshing={setRefreshing}
+        />
 
         <View style={{ marginTop: 20 }} />
 
         {/** Subscriptions section */}
-        <RenderSubscriptionSection />
+        <RenderSubscriptionSection 
+          refreshing={refreshing} 
+          setRefreshing={setRefreshing}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -186,33 +209,39 @@ export function HomeCard() {
   );
 }
 
-export function ProductSection() {
+export function ProductSection(
+  { refreshing, setRefreshing}: {
+    refreshing: boolean, setRefreshing: (val: boolean) => void
+  }
+) {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<ProduitAssurance[]>([]);
 
-  useEffect(() => {
-    const findCategories = async () => {
-      setLoading(true);
-      try {
-        const response: any = await apiClient.post(
-          '/secure/mobile/categories/v1',
-          {}
-        );
+  const findCategories = async () => {
+    if (!refreshing) { setLoading(true);}
+    setProducts([])
+    try {
+      const response: any = await apiClient.post(
+        '/secure/mobile/categories/v1',{});
 
-        setProducts(response.result ?? ([] as ProduitAssurance[]));
-      } catch (error: any) {
-        console.log("================== PRODUCTS =================");
-        console.log(JSON.stringify(error, null, 2));
-        if ( error.status === 502) {
-          findCategories()
-        }
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
+      setProducts(response.result ?? ([] as ProduitAssurance[]));
+    } catch (error: any) {
+      if ( error.status === 502) {
+        findCategories()
       }
+    } finally {
+      setLoading(false);
+      setRefreshing(false)
     }
+  }
+
+  useEffect(() => {
     findCategories()
   }, []);
+
+  useEffect(() => {
+    if (refreshing){findCategories()}
+  }, [refreshing]);
 
   return (
     <View style={{ flexDirection: 'column', gap: 10 }}>
@@ -297,36 +326,41 @@ export function ProductSection() {
     </View>
   );
 }
-export function RenderSubscriptionSection() {
+export function RenderSubscriptionSection(
+  { refreshing, setRefreshing }: { refreshing: boolean, setRefreshing: (val: boolean) => void }
+) {
   const [loading, setLoading] = useState(false);
   const [souscriptions, setSouscriptions] = useState<Souscription[]>([]);
 
-  useEffect(() => {
-    const findSouscriptions = async () => {
-      setLoading(true);
-      try {
-        const response: any = await apiClient.post(
-          '/secure/mobile/insurance/subscription-list/v1',
-          { page: 1, pageSize: 4 }
-        )
-        
-        setSouscriptions(
-          response.result.subscriptions ?? ([] as Souscription[])
-        );
-      } catch (error: any) {
-        console.log("================== SUBSCRIPTIONS =================");
-        console.log(JSON.stringify(error, null, 2));
-        if ( error.status === 502) {
-          findSouscriptions()
-        }
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
+  const findSouscriptions = async () => {
+    if (!refreshing) { setLoading(true);}
+    setSouscriptions([])
+    try {
+      const response: any = await apiClient.post(
+        '/secure/mobile/insurance/subscription-list/v1',
+        { page: 1, pageSize: 4 }
+      )
+      
+      setSouscriptions(
+        response.result.subscriptions ?? ([] as Souscription[])
+      );
+    } catch (error: any) {
+      if ( error.status === 502) {
+        findSouscriptions()
       }
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
     }
-    
+  }
+  
+  useEffect(() => {
     findSouscriptions();
   }, [])
+
+  useEffect(() => {
+    if (refreshing){ findSouscriptions(); }
+  }, [refreshing])
 
   return (
     <View style={{ flexDirection: 'column', gap: 10 }}>

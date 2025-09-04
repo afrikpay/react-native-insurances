@@ -1,8 +1,10 @@
 import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
+  FlatList,
   Image,
   Pressable,
+  RefreshControl,
   SafeAreaView,
   ScrollView,
   Text,
@@ -22,25 +24,29 @@ import i18n from '../translations/i18n';
 export default function Products() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [products, setProducts] = useState<any[]>([]);
   const [productsCopy, setProductsCopy] = useState<any[]>([]);
 
+  const findProducts = (async (refreshingData?: boolean) => {
+    if (!refreshingData){ setLoading(true)}
+    try {
+      const response: any = await apiClient.post(
+        '/secure/mobile/categories/v1',
+        {}
+      );
+      setProducts(response.result);
+      setProductsCopy(response.result);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
+      setRefreshing(false)
+    }
+  })
+
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      try {
-        const response: any = await apiClient.post(
-          '/secure/mobile/categories/v1',
-          {}
-        );
-        setProducts(response.result);
-        setProductsCopy(response.result);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    })();
+    findProducts();
   }, []);
 
   // Filter insurance product by name
@@ -57,6 +63,11 @@ export default function Products() {
     );
     setProducts(filtered);
   };
+
+  const onRefresh = async() => {
+    setRefreshing(true)
+    await findProducts(true)
+  }
 
   return (
     <SafeAreaView
@@ -79,15 +90,6 @@ export default function Products() {
         {/** Navigation bar  */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <TouchableOpacity onPress={() => Navigation.back()}>
-            {/*
-              <Feather
-                name="chevron-left"
-                color={COLORS.dark}
-                strokeWidth={1.5}
-                width={30}
-                height={30}
-              />
-            */}
             <AntDesign name="arrowleft" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
@@ -139,7 +141,12 @@ export default function Products() {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6' }}
-      >
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }>
         {loading && (
           <View
             style={{
@@ -162,8 +169,7 @@ export default function Products() {
             flexWrap: 'wrap',
             flexDirection: 'row',
             gap: 10,
-          }}
-        >
+          }}>
           {products.map((product: any, index: number) => (
             <View
               key={index}
@@ -183,8 +189,7 @@ export default function Products() {
                 alignItems: 'center',
                 flexWrap: 'wrap',
                 overflow: 'hidden',
-              }}
-            >
+              }}>
               <Image
                 alt={product.name}
                 source={{ uri: product.image || ImageSante }}
@@ -206,8 +211,7 @@ export default function Products() {
                 <Text
                   numberOfLines={2}
                   ellipsizeMode="tail"
-                  style={{ fontWeight: '500' }}
-                >
+                  style={{ fontWeight: '500' }}>
                   {product.name}
                 </Text>
                 <Text
