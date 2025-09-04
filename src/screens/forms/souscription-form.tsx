@@ -89,7 +89,7 @@ export default function SouscriptionForm(props: any) {
   const addInsurer = (formData: Record<string, any>) => {
     if (savingData) return;
     // Ajouter l'utilisateur à la liste des assurés
-    setAssures((prev) => [formData, ...prev]);
+    setAssures((prev) => [...prev, formData]);
     setFormStep([]);
     setDefaultValues(null);
   };
@@ -110,6 +110,7 @@ export default function SouscriptionForm(props: any) {
         '/secure/mobile/subscription/v1',
         { ...data }
       );
+      
       setFormResult(response.result);
       SimpleToast.show(response.result.message, 15);
       setTimeout(() => {
@@ -190,7 +191,9 @@ export default function SouscriptionForm(props: any) {
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <TouchableOpacity
             onPress={() => {
-              Navigation.back();
+              if (!savingData){
+                Navigation.back();
+              }
             }}>
             <AntDesign name="arrowleft" size={24} color="black" />
           </TouchableOpacity>
@@ -209,8 +212,7 @@ export default function SouscriptionForm(props: any) {
               height: 100,
               justifyContent: 'center',
               alignItems: 'center',
-            }}
-          >
+            }}>
             <ActivityIndicator
               size={'large'}
               color={COLORS.gray}
@@ -281,8 +283,7 @@ export default function SouscriptionForm(props: any) {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 paddingHorizontal: 20,
-              }}
-            >
+              }}>
               <Text style={{ fontWeight: 'bold' }}>
                 {i18n('ajouter_assure')}
               </Text>
@@ -293,8 +294,7 @@ export default function SouscriptionForm(props: any) {
                   width: 80,
                   backgroundColor: COLORS.white,
                   borderRadius: 100,
-                }}
-              >
+                }}>
                 <Text style={{ color: COLORS.dark, textAlign: 'center' }}>
                   {i18n('retour')}
                 </Text>
@@ -319,8 +319,7 @@ export default function SouscriptionForm(props: any) {
                 padding: 20,
                 flexDirection: 'column',
                 gap: 8,
-              }}
-            >
+              }}>
               <Text style={{ fontWeight: 'bold' }}>{i18n('souscripteur')}</Text>
               <View style={{ flexDirection: 'column', gap: 4 }}>
                 <Text>

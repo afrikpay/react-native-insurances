@@ -64,6 +64,7 @@ export default function Souscriptions() {
           pageSize: 10,
         }
       );
+      
       setSouscriptions((prev) =>
         prev.concat(response.result.subscriptions ?? ([] as Souscription[]))
       );
@@ -285,32 +286,6 @@ export default function Souscriptions() {
           </Text>
         </View>
       )}
-      {/*
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6'}}>
-                    <View style={{display: 'flex',
-                        flexWrap: 'wrap',
-                        flexDirection: 'row',
-                        gap: 10}}>
-                        {
-                            loading && (
-                                <View style={{ width: '100%', height: 100, justifyContent: 'center', alignItems: 'center' }}>
-                                    <ActivityIndicator color={COLORS.gray} style={{ height: 80, width: 80 }} />
-                                </View>
-                            )
-                        }
-                        {
-                            souscriptions.map((souscription, index) => (
-                            <SouscriptionComponent key={index} souscription={souscription} />
-                            ))
-                        }
-                    </View>
-                    <View style={{ height: 80, width: '100%'}}/>
-
-                </ScrollView>
-            */}
-
       {/** Modal de filtre des souscriptions */}
       <Portal>
         <Modal

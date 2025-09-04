@@ -48,6 +48,7 @@ export default function Home() {
         width: width,
         padding: 20,
         paddingTop: 30,
+        paddingBlock: 0,
         backgroundColor: COLORS.white,
         flexDirection: 'column',
         gap: 20,
@@ -162,19 +163,14 @@ export function HomeCard() {
         paddingHorizontal: 20,
         paddingTop: 20,
         backgroundColor: COLORS.primary,
-        minHeight: 200, 
-      }}
-    >
+        minHeight: 200
+      }}>
       <View style={{ flex: 1, flexDirection: 'row', gap: 10 }}>
         <View style={{ flex: 1, flexDirection: 'column', gap: 10 }}>
-          <Text
-            style={{ fontWeight: '400', fontSize: 15, color: COLORS.white }}
-          >
+          <Text style={{ fontWeight: '400', fontSize: 15, color: COLORS.white }}>
             {i18n('favorite_sous_titre')}
           </Text>
-          <Text
-            style={{ fontSize: 24, fontWeight: 'bold', color: COLORS.white }}
-          >
+          <Text style={{ fontSize: 24, fontWeight: 'bold', color: COLORS.white }}>
             {i18n('favorite_titre')}
           </Text>
           <View style={{ flexDirection: 'row', marginTop: 10 }}>
@@ -187,15 +183,13 @@ export function HomeCard() {
                 paddingHorizontal: 30,
                 backgroundColor: COLORS.white,
                 borderRadius: 100,
-              }}
-            >
+              }}>
               <Text
                 style={{
                   color: COLORS.primary,
                   fontWeight: 'bold',
                   fontSize: 12,
-                }}
-              >
+                }}>
                 {i18n('souscrire')}
               </Text>
             </Pressable>

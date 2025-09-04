@@ -29,6 +29,7 @@ import { ROUTES } from '../constants/Routes';
 import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import { uploadFile } from '../utils/uploadFiles';
+import useDate from '../utils/useDate';
 
 const operateursMobile: Record<string, any>[] = [
   {
@@ -54,7 +55,8 @@ const operateursMobile: Record<string, any>[] = [
 export default function DetailSouscription(props: any) {
   const { souscription } = props.route.params
   // console.log(JSON.stringify(souscription, null, 2));
-  
+
+  const { formatDate } = useDate()
 
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -73,6 +75,7 @@ export default function DetailSouscription(props: any) {
   const [errorMessage, setErrorMessage] = useState('');
   const [serviceSlug, setServiceSlug] = useState('');
   const [selectedInsurer, setSelectedInsurer] = useState<Record<string, any> | any>(null);
+  const [selectedInsurerKey, setSelectedInsurerKey] = useState<string>('');
   const [selectedDoc, setSelectedDoc] = useState<Record<string, any>>();
 
   const [documents, setDocuments] = useState<Record<string, any>[]>([]);
@@ -135,7 +138,7 @@ export default function DetailSouscription(props: any) {
         referenceNumber: `${souscription.reference}`,
         amount: +souscription.amount,
         externalId: `${new Date().getTime()}`,
-        paymentWallet: `237${phoneNumber}`, // 'patrick1kenne@gmail.com',
+        paymentWallet: `237${phoneNumber}`,
         data: { insurerId: souscription.insurer.id },
       };
       const response: any = await apiClient.post(
@@ -203,6 +206,8 @@ export default function DetailSouscription(props: any) {
   }, [souscription]);
 
   const sendFile = async (doc: Record<string, any>) => {
+    console.log(selectedInsurerKey);
+    
     if (submitting) return;
     setSubmitting(true);
     try {
@@ -210,7 +215,7 @@ export default function DetailSouscription(props: any) {
       const task = await uploadFile(
         `https://insurances.afrikpay.com/api/uploads/document/${souscription.reference}/`,
         file![doc.key].uri as string,
-        { key: doc.key || '' },
+        { key: doc.key || '', owner: selectedInsurerKey },
         { 'Content-Type': 'multipart/form-data' },
         'file',
         file![doc.key].mimeType,
@@ -223,7 +228,13 @@ export default function DetailSouscription(props: any) {
         console.log
       );
       task.uploadAsync().then((data) => {
-        console.log('Upload complete:', data);
+        if (data?.status === 201) {
+          setSelectedInsurer(null);
+          SimpleToast.show('Fichier envoyé avec succès !', 5);
+          setFile(undefined);
+          setSelectedDoc(undefined);
+        }
+        console.log(JSON.stringify(data, null, 2));
       });
     } catch (error) {
       console.error('Error sending file:', error);
@@ -276,7 +287,6 @@ export default function DetailSouscription(props: any) {
   const resendVerifitionLinkByEmail = async () =>  {
     if (loading) return 
     setLoading(true)
-    console.log("Resend email...");
     try {
       const response: any = await apiClient.post('/secure/mobile/ask-verify-email/v1',{
         referenceNumber: souscription.reference
@@ -304,8 +314,7 @@ export default function DetailSouscription(props: any) {
         backgroundColor: COLORS.white,
         flexDirection: 'column',
         gap: 20,
-      }}
-    >
+      }}>
       <View
         style={{
           backgroundColor: COLORS.white,
@@ -363,16 +372,6 @@ export default function DetailSouscription(props: any) {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                {/* 
-                  <Feather
-                    name="message-square"
-                    color={COLORS.white}
-                    strokeWidth={2}
-                    width={20}
-                    height={20}
-                  />
-                  <AntDesign name="message1" size={24} color="black" />
-                */}
                 <MaterialCommunityIcons name="message-text-outline" size={24} color="white" />
               </TouchableOpacity>
             </View>
@@ -452,9 +451,12 @@ export default function DetailSouscription(props: any) {
                       }}>
                       {i18n('souscrit_le')} :
                     </Text>
-                    <Text numberOfLines={2} ellipsizeMode="tail">
-                      {souscription.subscribed_at.slice(0, 10)}
-                    </Text>
+                    { 
+                      souscription.start_at &&
+                      <Text numberOfLines={2} ellipsizeMode="tail">
+                        {formatDate(souscription.plan.unit, souscription.start_at, souscription.plan.duration)}
+                      </Text>
+                    }
                   </View>
                   <View
                     style={{
@@ -551,7 +553,10 @@ export default function DetailSouscription(props: any) {
               </Text>
               {Object.keys(souscription.data).map((key, index) => (
                 <Pressable
-                  onPress={() => setSelectedInsurer(souscription.data[key])}
+                  onPress={() => {
+                    setSelectedInsurer(souscription.data[key])
+                    setSelectedInsurerKey(key)
+                  }}
                   key={index}
                   style={{
                     flexDirection: 'row',
@@ -692,7 +697,7 @@ export default function DetailSouscription(props: any) {
                     paddingVertical: 12,
                     paddingHorizontal: 16,
                     marginTop: 40,
-                    backgroundColor: COLORS.primary,
+                    backgroundColor: !phoneNumber && !serviceSlug.includes('paypal')? COLORS.gray : COLORS.primary,
                     borderRadius: 100,
                     flexDirection: 'row',
                     justifyContent: 'center',
@@ -935,8 +940,7 @@ export default function DetailSouscription(props: any) {
                   style={{ marginRight: 10, paddingVertical: 10 }}
                   onPress={() => {
                     handleFileUpload(doc);
-                  }}
-                >
+                  }}>
                   <Text style={{ fontSize: 14, color: COLORS.dark }}>
                     {doc.key}
                   </Text>

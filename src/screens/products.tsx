@@ -1,7 +1,6 @@
 import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
-  FlatList,
   Image,
   Pressable,
   RefreshControl,
