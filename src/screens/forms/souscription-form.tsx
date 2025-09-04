@@ -166,8 +166,8 @@ export default function SouscriptionForm(props: any) {
     if (defaultValues != null){
       addInsurer(defaultValues)
     }
-  };
-
+  }
+  
   return (
     <View
       style={{
