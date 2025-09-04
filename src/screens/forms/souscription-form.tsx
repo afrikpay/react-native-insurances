@@ -163,11 +163,9 @@ export default function SouscriptionForm(props: any) {
   };
 
   const goBack = () => {
-    if (defaultValues != null){
-      addInsurer(defaultValues)
-    }
+    if (defaultValues != null){addInsurer(defaultValues)}
   }
-  
+
   return (
     <View
       style={{
