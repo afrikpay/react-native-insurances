@@ -234,13 +234,12 @@ export default function DetailSouscription(props: any) {
           setFile(undefined);
           setSelectedDoc(undefined);
         }
-        console.log(JSON.stringify(data, null, 2));
+        setSubmitting(false);
       });
     } catch (error) {
-      console.error('Error sending file:', error);
-    } finally {
       setSubmitting(false);
-    }
+      console.error('Error sending file:', error);
+    } 
   };
 
   const sendContract = async () => {
