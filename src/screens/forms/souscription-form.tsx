@@ -1,4 +1,4 @@
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -21,12 +21,7 @@ import i18n from '../../translations/i18n';
 export default function SouscriptionForm(props: any) {
   const { planId, insurerId } = props.route.params;
 
-  // const [visible, setVisible] = useState(false);
-
-  // const showModal = () => setVisible(true);
-  // const hideModal = () => setVisible(false);
-
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [savingData, setSavingData] = useState(false);
 
   const [formResult, setFormResult] = useState<Record<string, any>>();
@@ -82,6 +77,7 @@ export default function SouscriptionForm(props: any) {
           setFormStep((prev) => [...prev, item]);
           setFormStepCopy((prev) => [...prev, item]);
         });
+        
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -167,8 +163,9 @@ export default function SouscriptionForm(props: any) {
   };
 
   const goBack = () => {
-    setFormStep([]);
-    setDefaultValues(null);
+    if (defaultValues != null){
+      addInsurer(defaultValues)
+    }
   };
 
   return (
@@ -197,15 +194,6 @@ export default function SouscriptionForm(props: any) {
             onPress={() => {
               Navigation.back();
             }}>
-            {/*
-              <Feather
-                name="chevron-left"
-                color={COLORS.dark}
-                strokeWidth={1.5}
-                width={30}
-                height={30}
-              />
-            */}
             <AntDesign name="arrowleft" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
@@ -232,7 +220,7 @@ export default function SouscriptionForm(props: any) {
             />
           </View>
         )}
-        {!subscriber && !loading && (
+        { (!loading &&!subscriber) && (
           <View>
             <Text style={{ paddingHorizontal: 20, fontWeight: 'bold' }}>
               {i18n('infos_souscripteur')}
@@ -370,17 +358,11 @@ export default function SouscriptionForm(props: any) {
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'center',
-                      gap: 10,
+                      gap: 18,
                     }}
                   >
-                    <Feather
-                      name="edit-2"
-                      onPress={() => editInsurer(insurer)}
-                    />
-                    <Feather
-                      name="trash-2"
-                      onPress={() => deleteInsurer(insurer)}
-                    />
+                    <AntDesign onPress={() => editInsurer(insurer)} name="edit" size={24} color="black" />
+                    <AntDesign onPress={() => deleteInsurer(insurer)} name="delete" size={24} color="red" />
                   </View>
                 </View>
               ))}
