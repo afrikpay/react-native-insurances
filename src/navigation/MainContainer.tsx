@@ -28,53 +28,18 @@ const MainContainer = () => {
           let rn = route.name;
 
           if (rn.includes(ROUTES.HOME)) {
-            {/*
-              <Feather
-                name="home"
-                color={focused ? COLORS.primary : COLORS.gray}
-                strokeWidth={3}
-                width={20}
-                height={20}
-              />  
-            */}
             icon = (
               <AntDesign name="home" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );
           } else if (rn.includes(ROUTES.PRODUITS)) {
-            {/* <Feather
-                name="package"
-                color={focused ? COLORS.primary : COLORS.gray}
-                strokeWidth={3}
-                width={20}
-                height={20}
-              /> */}
             icon = (
               <AntDesign name="isv" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );
           } else if (rn.includes(ROUTES.SOUSCRIPTIONS)) {
-            {/*
-              <Feather
-                name="file-text"
-                color={focused ? COLORS.primary : COLORS.gray}
-                strokeWidth={3}
-                width={20}
-                height={20}
-              />
-            */}
             icon = (
               <AntDesign name="filetext1" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );
           } else if (rn.includes(ROUTES.INFOS)) {
-            {/*
-              <Feather
-                name="info"
-                color={focused ? COLORS.primary : COLORS.gray}
-                strokeWidth={3}
-                width={20}
-                height={20}
-              />
-            */}
-             
             icon = (
               <AntDesign name="infocirlceo" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );

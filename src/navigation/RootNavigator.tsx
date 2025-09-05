@@ -11,7 +11,13 @@ const Stack = createStackNavigator();
 
 const RootNavigator = () => {
   return (
-    <PaperProvider>
+    <PaperProvider theme={{
+      dark: false,
+      colors: {
+        background: COLORS.white,
+        text: COLORS.dark
+      }
+    }}>
       <Stack.Navigator
         detachInactiveScreens={false}
         initialRouteName={ROUTES.APPSTACK}
