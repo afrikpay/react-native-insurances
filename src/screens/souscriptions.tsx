@@ -4,6 +4,7 @@ import moment from 'moment';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
+  Alert,
   FlatList,
   Platform,
   SafeAreaView,
@@ -29,6 +30,7 @@ export default function Souscriptions() {
   const [visible, setVisible] = useState(false);
   const [value, setValue] = useState('actif');
   const [page, setPage] = useState(1);
+  const [nextPage, setNextPage] = useState(null);
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -49,6 +51,7 @@ export default function Souscriptions() {
   );
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [souscriptions, setSouscriptions] = useState<Souscription[]>([]);
   const [souscriptionsCopy, setSouscriptionsCopy] = useState<Souscription[]>(
     []
@@ -65,12 +68,17 @@ export default function Souscriptions() {
         }
       );
       
-      setSouscriptions((prev) =>
-        prev.concat(response.result.subscriptions ?? ([] as Souscription[]))
-      );
-      setSouscriptionsCopy((prev) =>
-        prev.concat(response.result.subscriptions ?? ([] as Souscription[]))
-      );
+      setNextPage(response.result.next)
+
+      if (response.result.subscriptions){
+        setSouscriptions((prev) =>
+          prev.concat(response.result.subscriptions ?? ([] as Souscription[]))
+        );
+        setSouscriptionsCopy((prev) =>
+          prev.concat(response.result.subscriptions ?? ([] as Souscription[]))
+        );
+      }
+
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -80,7 +88,7 @@ export default function Souscriptions() {
 
   useEffect(() => {
     fetchSubscription();
-  }, [page]);
+  }, []);
 
   const onChangeStart = (event: any, seletedDate: any) => {
     // console.log('onChangeStart', event, seletedDate)
@@ -124,10 +132,19 @@ export default function Souscriptions() {
     setSouscriptions(filtered);
   };
 
-  const onRefresh = async () => {
+  const onEndReached = async () => {
+    if (nextPage === null) return
     const currentPage = page + 1
     setPage(currentPage)
     await fetchSubscription(currentPage);
+  }
+
+  const onRefresh = async () => {
+    setRefreshing(true)
+    const currentPage = 1
+    setPage(currentPage)
+    await fetchSubscription(currentPage)
+    setRefreshing(false)
   }
 
   return (
@@ -241,7 +258,7 @@ export default function Souscriptions() {
         </View>
       )}
       {souscriptions.length > 0 && (
-        <View style={{ flex: 1, paddingHorizontal: 20 }}>
+        <View style={{flex:1, paddingHorizontal: 20 }}>
           <FlatList
             data={souscriptions}
             extraData={(item: any) => `${item.id}`}
@@ -252,24 +269,26 @@ export default function Souscriptions() {
                 <SouscriptionComponent souscription={item} />
               </View>
             )}
-            onEndReached={() => setPage(page + 1)}
-            onEndReachedThreshold={0.5}
+            onEndReached={onEndReached}
+            onEndReachedThreshold={0.8}
             onRefresh={onRefresh}
-            refreshing={loading}
+            refreshing={refreshing}
+            ListFooterComponent={ () => {
+              if (souscriptions.length > 0 && loading){
+                return (<View
+                  style={{
+                    paddingVertical: 15,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                <ActivityIndicator size="small" color={COLORS.gray} />
+              </View>)
+              }
+              return <View></View>
+            }}
           />
-
-          {loading && page > 1 && (
-            <View
-              style={{
-                paddingVertical: 15,
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <ActivityIndicator size="small" color={COLORS.gray} />
-            </View>
-          )}
         </View>
       )}
       {!loading && souscriptions.length === 0 && (
@@ -279,8 +298,7 @@ export default function Souscriptions() {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-          }}
-        >
+          }}>
           <Text style={{ color: COLORS.gray }}>
             {i18n('aucune_souscription')}
           </Text>

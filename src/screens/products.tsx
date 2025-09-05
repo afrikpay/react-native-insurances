@@ -21,6 +21,7 @@ import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 
 export default function Products() {
+  
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState<boolean>(false);
   const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -34,8 +35,10 @@ export default function Products() {
         '/secure/mobile/categories/v1',
         {}
       );
-      setProducts(response.result);
-      setProductsCopy(response.result);
+      if (response.result){
+        setProducts(response.result);
+        setProductsCopy(response.result);
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -76,16 +79,14 @@ export default function Products() {
         backgroundColor: COLORS.white,
         flexDirection: 'column',
         gap: 20,
-      }}
-    >
+      }}>
       <View
         style={{
           backgroundColor: COLORS.white,
           paddingHorizontal: 20,
           paddingTop: 35,
           gap: 30,
-        }}
-      >
+        }}>
         {/** Navigation bar  */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <TouchableOpacity onPress={() => Navigation.back()}>
@@ -122,8 +123,7 @@ export default function Products() {
             style={{ marginRight: 4, position: 'absolute', top: 12, right: 10 }}
             onPress={() => {
               console.log(search);
-            }}
-          >
+            }}>
             {/*
               <Feather
                 name="search"
