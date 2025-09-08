@@ -1,11 +1,11 @@
 import { Image, Pressable, Text, View } from 'react-native';
-import type { Souscription } from '../../types';
-import { Box } from './Box';
-import Navigation from '../../services/Navigation';
 import { ROUTES } from '../../constants/Routes';
-import { COLORS } from '../../constants/Colors';
+import Navigation from '../../services/Navigation';
 import i18n from '../../translations/i18n';
+import type { Souscription } from '../../types';
 import useDate from '../../utils/useDate';
+import { Box } from './Box';
+import { getColor } from '../../constants';
 
 export default function SouscriptionComponent({
   souscription,
@@ -57,19 +57,13 @@ export default function SouscriptionComponent({
                   style={{
                     height: 10,
                     width: 10,
-                    backgroundColor:
-                      souscription.status === 'P'
-                        ? COLORS.success
-                        : COLORS.dark,
+                    backgroundColor: getColor(souscription.status),
                     borderRadius: 10,
                   }}
                 />
                 <Text
                   style={{
-                    color:
-                      souscription.status === 'P'
-                        ? COLORS.success
-                        : COLORS.dark,
+                    color: getColor(souscription.status),
                     fontSize: 16,
                   }}>
                   {souscription.display_status}

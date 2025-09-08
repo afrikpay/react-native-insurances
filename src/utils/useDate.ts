@@ -17,6 +17,12 @@ const useDate = () => {
         return addMonths(result, months);
     };
 
+    const addYears = (date: Date, years: number): Date => {
+        const result = new Date(date);
+        result.setFullYear(result.getFullYear() + years);
+        return result;
+    };
+
     const formatDate = (unit: string, date: string | null, duration: number) => {
         if (date === null) return ''
     
@@ -29,15 +35,19 @@ const useDate = () => {
           newDate = addMonths(newDate, duration)
           return newDate.toISOString().slice(0, 10)
         }
+        if ( unit === "y" ) {
+            newDate = addYears(newDate, duration)
+            return newDate.toISOString().slice(0, 10)
+        }
     
         // Return default Date
-        return ""
+        return date?.slice(0, 10)
     }
-
     return {
         addDays,
         addMonths,
         addDaysAndMonths,
+        addYears,
         formatDate
     }
 }

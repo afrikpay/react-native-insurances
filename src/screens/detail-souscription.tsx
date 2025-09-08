@@ -30,6 +30,7 @@ import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import { uploadFile } from '../utils/uploadFiles';
 import useDate from '../utils/useDate';
+import { getColor } from '../constants';
 
 const operateursMobile: Record<string, any>[] = [
   {
@@ -54,7 +55,7 @@ const operateursMobile: Record<string, any>[] = [
 
 export default function DetailSouscription(props: any) {
   const { souscription } = props.route.params
-  // console.log(JSON.stringify(souscription, null, 2));
+  // console.log(JSON.stringify(souscription.documents, null, 2));
 
   const { formatDate } = useDate()
 
@@ -206,8 +207,7 @@ export default function DetailSouscription(props: any) {
   }, [souscription]);
 
   const sendFile = async (doc: Record<string, any>) => {
-    console.log(selectedInsurerKey);
-    
+
     if (submitting) return;
     setSubmitting(true);
     try {
@@ -327,16 +327,6 @@ export default function DetailSouscription(props: any) {
             onPress={() => {
               Navigation.back();
             }}>
-            {/*
-              <Feather
-                name="chevron-left"
-                color={COLORS.dark}
-                strokeWidth={1.5}
-                width={30}
-                height={30}
-              />
-            */}
-            
             <AntDesign name="arrowleft" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
@@ -360,9 +350,7 @@ export default function DetailSouscription(props: any) {
                 {souscription.plan?.name}
               </Text>
               <TouchableOpacity
-                onPress={() => {
-                  showModal();
-                }}
+                onPress={() => showModal()}
                 style={{
                   width: 40,
                   height: 40,
@@ -392,16 +380,13 @@ export default function DetailSouscription(props: any) {
                       style={{
                         height: 10,
                         width: 10,
-                        backgroundColor: COLORS.success,
+                        backgroundColor: getColor(souscription.status),
                         borderRadius: 10,
                       }}
                     />
                     <Text
                       style={{
-                        color:
-                          souscription.status === 'P'
-                            ? COLORS.success
-                            : COLORS.dark,
+                        color: getColor(souscription.status),
                         fontSize: 11,
                       }}>
                       {souscription.display_status}
@@ -451,9 +436,9 @@ export default function DetailSouscription(props: any) {
                       {i18n('souscrit_le')} :
                     </Text>
                     { 
-                      souscription.start_at &&
+                      souscription.subscribed_at &&
                       <Text numberOfLines={2} ellipsizeMode="tail">
-                        {formatDate(souscription.plan.unit, souscription.start_at, souscription.plan.duration)}
+                        {formatDate(souscription.plan.unit, souscription.subscribed_at, souscription.plan.duration)}
                       </Text>
                     }
                   </View>
@@ -867,8 +852,7 @@ export default function DetailSouscription(props: any) {
             width: '90%',
             margin: 'auto',
             borderRadius: 10,
-          }}
-        >
+          }}>
           <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
             {i18n('detail_assurer')}
           </Text>
@@ -893,8 +877,7 @@ export default function DetailSouscription(props: any) {
                     borderWidth: 0.5,
                     borderColor: COLORS.light_gray,
                     borderRadius: 8,
-                  }}
-                >
+                  }}>
                   <Text style={{ fontSize: 14, color: COLORS.dark }}>
                     {selectedInsurer[key]}
                   </Text>
@@ -904,34 +887,34 @@ export default function DetailSouscription(props: any) {
               {i18n('pieces_jointes')}
             </Text>
             {/*
-                            <View style={{ height: 50}}>
-                                <ScrollView showsHorizontalScrollIndicator={false} horizontal style={{ marginTop: 10, }}>
-                                    { documents.map((doc, index) => (
-                                        <TouchableOpacity key={index} style={{ marginRight: 10, paddingVertical: 10, paddingHorizontal: 20, backgroundColor: selectedDoc?.key === doc.key ? COLORS.primary : COLORS.light_gray, borderRadius: 100 }} onPress={() => { setSelectedDoc(doc) }}>
-                                            <Text style={{ fontSize: 14, color: selectedDoc?.key === doc.key ? COLORS.white : COLORS.dark }}>{doc.key}</Text>
-                                        </TouchableOpacity>
-                                    ))}
-                                </ScrollView>
-                            </View>
-                            <View style={{  height: 200, marginTop: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f4f4f4',}}>
-                                <Text style={{ marginBottom: 20, }}>Choisir un fichier</Text>
-                                <TouchableOpacity style={{ borderColor: COLORS.primary, padding: 10, borderRadius: 100, borderWidth: 0.93 }} onPress={handleFileUpload}>
-                                    <Text style={{ color: COLORS.primary }}>Selectionner le fichier</Text>
-                                </TouchableOpacity>
-                                {fileName! && <Text style={{ marginTop: 20, fontSize: 16, color: '#333' }}>Uploaded: {fileName}</Text>}
-                            </View>
-                            <Pressable
-                                onPress={sendFile}
-                                style= {{ paddingVertical: 10, width: '100%', backgroundColor: COLORS.primary, borderRadius: 100,
-                                    flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 8, marginTop: 20
-                                }}>
-                                {
-                                    submitting &&
-                                    <ActivityIndicator size={'small'} color={COLORS.white} style={{ height: 20, width: 20 }} />
-                                }
-                                <Text style={{ color: COLORS.white, fontWeight: "bold", textAlign: "center"}}>Envoyer</Text>
-                            </Pressable>
-                        */}
+                <View style={{ height: 50}}>
+                    <ScrollView showsHorizontalScrollIndicator={false} horizontal style={{ marginTop: 10, }}>
+                        { documents.map((doc, index) => (
+                            <TouchableOpacity key={index} style={{ marginRight: 10, paddingVertical: 10, paddingHorizontal: 20, backgroundColor: selectedDoc?.key === doc.key ? COLORS.primary : COLORS.light_gray, borderRadius: 100 }} onPress={() => { setSelectedDoc(doc) }}>
+                                <Text style={{ fontSize: 14, color: selectedDoc?.key === doc.key ? COLORS.white : COLORS.dark }}>{doc.key}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
+                </View>
+                <View style={{  height: 200, marginTop: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f4f4f4',}}>
+                    <Text style={{ marginBottom: 20, }}>Choisir un fichier</Text>
+                    <TouchableOpacity style={{ borderColor: COLORS.primary, padding: 10, borderRadius: 100, borderWidth: 0.93 }} onPress={handleFileUpload}>
+                        <Text style={{ color: COLORS.primary }}>Selectionner le fichier</Text>
+                    </TouchableOpacity>
+                    {fileName! && <Text style={{ marginTop: 20, fontSize: 16, color: '#333' }}>Uploaded: {fileName}</Text>}
+                </View>
+                <Pressable
+                    onPress={sendFile}
+                    style= {{ paddingVertical: 10, width: '100%', backgroundColor: COLORS.primary, borderRadius: 100,
+                        flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 8, marginTop: 20
+                    }}>
+                    {
+                        submitting &&
+                        <ActivityIndicator size={'small'} color={COLORS.white} style={{ height: 20, width: 20 }} />
+                    }
+                    <Text style={{ color: COLORS.white, fontWeight: "bold", textAlign: "center"}}>Envoyer</Text>
+                </Pressable>
+            */}
 
             {documents.map((doc, index) => (
               <View key={index}>
@@ -952,9 +935,17 @@ export default function DetailSouscription(props: any) {
                         borderColor: COLORS.primary,
                       }}
                     />
-                    <Text style={{ fontSize: 12, color: COLORS.primary }}>
-                      {file?.[doc.key]?.name ?? 'Aucun fichier choisi'}
-                    </Text>
+                    { 
+                      ( souscription.documents && 
+                        souscription.documents[selectedInsurerKey] && 
+                        souscription.documents[selectedInsurerKey].includes(doc.key)) ?
+                      <Text style={{ fontSize: 12, color: COLORS.success }}>
+                        Déjà envoyé
+                      </Text> :
+                      <Text style={{ fontSize: 12, color: COLORS.primary }}>
+                        {file?.[doc.key]?.name ?? 'Aucun fichier choisi'}
+                      </Text>
+                    }
                   </View>
                 </TouchableOpacity>
                 {file?.[doc.key] && (
@@ -974,8 +965,7 @@ export default function DetailSouscription(props: any) {
                       gap: 8,
                       marginBottom: 20,
                       marginTop: 8,
-                    }}
-                  >
+                    }}>
                     {submitting && selectedDoc?.key === doc.key && (
                       <ActivityIndicator
                         size={'small'}
@@ -988,8 +978,7 @@ export default function DetailSouscription(props: any) {
                         color: COLORS.white,
                         fontWeight: 'bold',
                         textAlign: 'center',
-                      }}
-                    >
+                      }}>
                       {i18n('envoyer')}
                     </Text>
                   </Pressable>
