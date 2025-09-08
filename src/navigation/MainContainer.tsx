@@ -6,13 +6,13 @@ import Home from '../screens/home';
 import Infos from '../screens/infos';
 import Products from '../screens/products';
 import Souscriptions from '../screens/souscriptions';
+import i18n from '../translations/i18n';
 
 const Tab = createBottomTabNavigator();
 
 const MainContainer = () => {
   return (
     <Tab.Navigator
-      initialRouteName={ROUTES.HOME}
       screenOptions={({ route }: any) => ({
         tabBarShowLabel: true,
         headerShown: false,
@@ -26,20 +26,20 @@ const MainContainer = () => {
         tabBarIcon: ({ focused }: any) => {
           let icon;
           let rn = route.name;
-
-          if (rn.includes(ROUTES.HOME)) {
+          
+          if (rn.includes(i18n(ROUTES.HOME))) {
             icon = (
               <AntDesign name="home" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );
-          } else if (rn.includes(ROUTES.PRODUITS)) {
+          } else if (rn.includes(i18n(ROUTES.PRODUITS))) {
             icon = (
               <AntDesign name="isv" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );
-          } else if (rn.includes(ROUTES.SOUSCRIPTIONS)) {
+          } else if (rn.includes(i18n(ROUTES.SOUSCRIPTIONS))) {
             icon = (
               <AntDesign name="filetext1" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );
-          } else if (rn.includes(ROUTES.INFOS)) {
+          } else if (rn.includes(i18n(ROUTES.INFOS))) {
             icon = (
               <AntDesign name="infocirlceo" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );
@@ -48,10 +48,10 @@ const MainContainer = () => {
         },
       })}
     >
-      <Tab.Screen name={ROUTES.HOME} component={Home} />
-      <Tab.Screen name={ROUTES.PRODUITS} component={Products} />
-      <Tab.Screen name={ROUTES.SOUSCRIPTIONS} component={Souscriptions} />
-      <Tab.Screen name={ROUTES.INFOS} component={Infos} />
+      <Tab.Screen name={i18n(ROUTES.HOME)} component={Home} />
+      <Tab.Screen name={i18n(ROUTES.PRODUITS)} component={Products} />
+      <Tab.Screen name={i18n(ROUTES.SOUSCRIPTIONS)} component={Souscriptions} />
+      <Tab.Screen name={i18n(ROUTES.INFOS)} component={Infos} />
     </Tab.Navigator>
   );
 };

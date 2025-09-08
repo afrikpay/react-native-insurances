@@ -1,8 +1,8 @@
 const en = {
   // Login
   home: 'Home',
-  produits: 'Produits',
-  souscriptions: 'Souscriptions',
+  produits: 'Products',
+  souscriptions: 'Subscriptions',
   infos: 'Infos',
 
   // Home
