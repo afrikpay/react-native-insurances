@@ -31,6 +31,8 @@ export default function SouscriptionForm(props: any) {
   const [assures, setAssures] = useState<Record<string, any>[]>([]);
   const [defaultValues, setDefaultValues] = useState<any>(null);
   const [subscriber, setSubscriber] = useState<any>(null);
+  const [subscribeFor, setSubscribeFor] = useState<'myself' | 'other'>('myself');
+
 
   useEffect(() => {
     (async () => {
@@ -222,9 +224,66 @@ export default function SouscriptionForm(props: any) {
         )}
         { (!loading &&!subscriber) && (
           <View>
-            <Text style={{ paddingHorizontal: 20, fontWeight: 'bold' }}>
-              {i18n('infos_souscripteur')}
-            </Text>
+            <View style={{ paddingHorizontal: 20, gap: 10 }}>
+              <Text style={{ fontSize: 12 }}>Souscripteur:</Text>
+              <View style={{ flexDirection: "row", gap: 4 }}>
+                <Pressable
+                  onPress={() => setSubscribeFor("myself")}
+                  style={{
+                    paddingVertical: 8,
+                    flexDirection: "row",
+                    justifyContent: 'center', alignItems: 'center',
+                    gap: 5,
+                    paddingHorizontal: 14,
+                    borderColor: subscribeFor === "myself" ? COLORS.primary: COLORS.gray,
+                    borderWidth: 1,
+                    borderRadius: 100,
+                  }}>
+                  <View style={{ height: 16, width: 16, 
+                    justifyContent: 'center', alignItems: 'center', 
+                    backgroundColor: subscribeFor === "myself" ? COLORS.primary : COLORS.gray, 
+                    borderRadius: 100, padding: 2 }}>
+                    <View style={{ height: 10, width: 10, backgroundColor: COLORS.white, borderRadius: 100 }}></View>
+                  </View>
+                  <Text
+                    style={{
+                      color: subscribeFor === "myself" ? COLORS.primary : COLORS.gray,
+                      fontWeight: 'bold',
+                      textAlign: 'center' }}>
+                    moi
+                  </Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => setSubscribeFor("other")}
+                  style={{
+                    paddingVertical: 8,
+                    flexDirection: "row",
+                    justifyContent: 'center', alignItems: 'center',
+                    gap: 5,
+                    paddingHorizontal: 10,
+                    borderColor: subscribeFor === "other" ? COLORS.primary: COLORS.gray,
+                    borderWidth: 1,
+                    borderRadius: 100,
+                  }}>
+                  <View style={{ height: 16, width: 16, 
+                    justifyContent: 'center', alignItems: 'center', 
+                    backgroundColor: subscribeFor === "other" ? COLORS.primary : COLORS.gray, 
+                    borderRadius: 100, padding: 2 }}>
+                    <View style={{ height: 10, width: 10, backgroundColor: COLORS.white, borderRadius: 100 }}></View>
+                  </View>
+                  <Text
+                    style={{
+                      color: subscribeFor === "other" ? COLORS.primary : COLORS.gray,
+                      fontWeight: 'bold',
+                      textAlign: 'center' }}>
+                    un proche
+                  </Text>
+                </Pressable>
+              </View>
+              <Text style={{ fontWeight: 'bold' }}>
+                {i18n('infos_souscripteur')}
+              </Text>
+            </View>
             <StepFormBuilder
               onSubmit={setSubscriber}
               steps={[
@@ -382,8 +441,7 @@ export default function SouscriptionForm(props: any) {
                   width: 150,
                   backgroundColor: COLORS.gray,
                   borderRadius: 100,
-                }}
-              >
+                }}>
                 <Text
                   style={{
                     color: COLORS.white,

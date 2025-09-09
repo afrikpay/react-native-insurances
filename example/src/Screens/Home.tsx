@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import { InsuranceApp } from 'react-native-insurances';
 
 export default function Home() {
-    const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTczMTY4MTMsImV4cCI6MTc1NzQwMzIxMywicm9sZXMiOlsiUk9MRV9PV05FUiJdLCJ1c2VybmFtZSI6InN1cGVyS0o3IiwidG9rZW5LZXkiOiJNVlJFVFdvNWMyVmlhMEV2U1ZFMGJUUm1Zems0VVQwOSIsInRlcm1pbmFsSWRlbnRpZmllciI6IjBFNjNBOERFODUxREFCMzYiLCJ0ZXJtaW5hbFR5cGUiOiJtb2JpbGUiLCJ0ZXJtaW5hbFVzZXJBZ2VudCI6Im9raHR0cC80LjkuMiIsImlwQWRkcmVzcyI6IjE2OS4yNTQuMTY5LjEyNiJ9.i2ehr7AkL2oDeFEja5yORRYwNvfaNdFA2cxsOvVtXR4oFlNjIReT3qdtqGrDA-XrqehF_i8pAaizQ3EdhZUiBercFpJZ3x1AYFDZSnS1kAlpU5EA6xdlnYBTIJg2m6y7Fyi9D05qye2PBu2f9lT89M2eXvdZ6HXjxk8dpum6H8B9X8VlPAoxEuxY8D6YZc-h8QT6IJ4FOpkIRE-MfWYigaZ6xuOe7Rt-erZh7GP35Gav5Kg06_R16DnPurWA5dlwT5uBra5sHJ-v0lwF_fczlFg_9qfG4L5mxFtVjmDdwmJrn25kr2M7NmvJGmd6QcdBnhYk4CilIRos1zXjBVVBxQ'
+    const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTczNDk5MzgsImV4cCI6MTc1NzQzNjMzOCwicm9sZXMiOlsiUk9MRV9PV05FUiJdLCJ1c2VybmFtZSI6IjIzNzY1MjMxMDgyOSIsInRva2VuS2V5IjoiZDJ0UU1XMXhZMnhpVDFwMWJEaGtRamRVVFZWNlp6MDkiLCJ0ZXJtaW5hbElkZW50aWZpZXIiOiIwRTYzQThERTg1MURBQjM2IiwidGVybWluYWxUeXBlIjoibW9iaWxlIiwidGVybWluYWxVc2VyQWdlbnQiOiJva2h0dHAvNC45LjIiLCJpcEFkZHJlc3MiOiIxNjkuMjU0LjE2OS4xMjYifQ.IVWT0TwdwVXuFMKzkk4aVMbjpclhjc1Ms5cIbNPMtq4b8_2qLpLxtGeAo46sBEXbkQHmXcPyEhYMPF3PWlBsRyln73fVR5GPypMSvS815OrDxiFg8DBGuIulmF59StBot1SLKsFVrIiyUt8vaf5ajtGD4tXJmGdyL9pDy2xO4KHJw4GeaYghVPMLk0II4PnMOAYDb16npah6sZ_c8vT_Kvz53cFDVw1ORv5vta4SpQHYPX6z2bAPH7ozivDj4xPJBYJCgqKV_gWPpjU3w9JuJ5RE2idnen2VcnWzn9CAYlpIerZ758wOV27rW8ceP9rm-g36rQhgrSd8rn67vCFAGA'
     const terminalId = '0E63A8DE851DAB36';
     
     return (
@@ -12,7 +12,7 @@ export default function Home() {
                 lang="fr" 
                 terminalId={terminalId}
                 username="Manu Decca"
-             />
+            />
         </View>
     )
 }
