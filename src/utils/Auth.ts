@@ -1,4 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
+import type { User } from '../types';
 
 async function setLang(lang: string) {
   return await SecureStore.setItemAsync('lang-afrikpay-insurance', lang);
@@ -43,6 +44,18 @@ async function getUsername() {
     | undefined;
 }
 
+async function setUser(user: User) {
+  return await SecureStore.setItemAsync('user-afrikpay', JSON.stringify(user));
+}
+
+async function getUser() {
+  const user = (await SecureStore.getItemAsync('user-afrikpay')) as
+    | string
+    | undefined;
+  if (user != undefined) return JSON.parse(user) as User
+  else return undefined
+}
+
 export default {
   logout,
   setToken,
@@ -54,4 +67,7 @@ export default {
 
   setUsername,
   getUsername,
+
+  setUser,
+  getUser,
 };

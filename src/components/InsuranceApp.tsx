@@ -1,20 +1,21 @@
-import { StatusBar, View } from 'react-native';
-import RootNavigator from '../navigation/RootNavigator';
 import { useEffect } from 'react';
-import Auth from '../utils/Auth';
+import { StatusBar, View } from 'react-native';
 import { ThemeProvider } from 'react-native-paper';
-import * as SecureStore  from "expo-secure-store";
+import RootNavigator from '../navigation/RootNavigator';
+import Auth from '../utils/Auth';
 
 const InsuranceApp = ({
   appToken,
   lang,
   terminalId,
   username,
+  user,
 }: {
   appToken: string;
   lang: string;
   terminalId: string;
   username: string;
+  user?: any;
 }) => {
   useEffect(() => {
     (async () => {
@@ -22,10 +23,9 @@ const InsuranceApp = ({
       await Auth.setLang(lang);
       await Auth.setTerminalId(terminalId);
       await Auth.setUsername(username);
-      const appId = await SecureStore.getItemAsync("app-id")
-      console.log("Application id", appId);
+      if ( user ){await Auth.setUser(user);}
     })();
-  }, [appToken, terminalId, username, lang]);
+  }, [appToken, terminalId, username, lang, user]);
 
   return (
     <ThemeProvider theme={{ dark: false, mode: 'exact' }}>

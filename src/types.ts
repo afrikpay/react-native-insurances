@@ -62,3 +62,22 @@ export interface Field {
   is_required: false;
   value: any;
 }
+
+
+export type User = {
+  _id?: string;
+  email: string;
+  phone: string;
+  name: string;
+  accountId: string;
+  username: string;
+  accountNumber: string;
+  idNumber: string;
+  accountDepositBalance?: number;
+  accountCommissionBalance?: number;
+  language: string;
+  birthDate: string;
+  gender: string;
+  depositAccounts: any[];
+  terminal: any,
+}
