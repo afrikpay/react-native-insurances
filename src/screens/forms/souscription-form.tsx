@@ -32,6 +32,7 @@ export default function SouscriptionForm(props: any) {
   const [defaultValues, setDefaultValues] = useState<any>(null);
   const [subscriber, setSubscriber] = useState<any>(null);
   const [subscribeFor, setSubscribeFor] = useState<'myself' | 'other'>('myself');
+  const [insurer, setInsurer] = useState<'myself' | 'other'>('other');
 
 
   useEffect(() => {
@@ -250,7 +251,7 @@ export default function SouscriptionForm(props: any) {
                       color: subscribeFor === "myself" ? COLORS.primary : COLORS.gray,
                       fontWeight: 'bold',
                       textAlign: 'center' }}>
-                    moi
+                    Moi
                   </Text>
                 </Pressable>
                 <Pressable
@@ -276,7 +277,7 @@ export default function SouscriptionForm(props: any) {
                       color: subscribeFor === "other" ? COLORS.primary : COLORS.gray,
                       fontWeight: 'bold',
                       textAlign: 'center' }}>
-                    un proche
+                    Autre
                   </Text>
                 </Pressable>
               </View>
@@ -358,6 +359,63 @@ export default function SouscriptionForm(props: any) {
                   {i18n('retour')}
                 </Text>
               </Pressable>
+            </View>
+            <View style={{ paddingHorizontal: 20, gap: 10 }}>
+              <Text style={{ fontSize: 12 }}>Je souscris pour:</Text>
+              <View style={{ flexDirection: "row", gap: 4 }}>
+                <Pressable
+                  onPress={() => setInsurer("myself")}
+                  style={{
+                    paddingVertical: 8,
+                    flexDirection: "row",
+                    justifyContent: 'center', alignItems: 'center',
+                    gap: 5,
+                    paddingHorizontal: 14,
+                    borderColor: insurer === "myself" ? COLORS.primary: COLORS.gray,
+                    borderWidth: 1,
+                    borderRadius: 100,
+                  }}>
+                  <View style={{ height: 16, width: 16, 
+                    justifyContent: 'center', alignItems: 'center', 
+                    backgroundColor: insurer === "myself" ? COLORS.primary : COLORS.gray, 
+                    borderRadius: 100, padding: 2 }}>
+                    <View style={{ height: 10, width: 10, backgroundColor: COLORS.white, borderRadius: 100 }}></View>
+                  </View>
+                  <Text
+                    style={{
+                      color: insurer === "myself" ? COLORS.primary : COLORS.gray,
+                      fontWeight: 'bold',
+                      textAlign: 'center' }}>
+                    Moi
+                  </Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => setInsurer("other")}
+                  style={{
+                    paddingVertical: 8,
+                    flexDirection: "row",
+                    justifyContent: 'center', alignItems: 'center',
+                    gap: 5,
+                    paddingHorizontal: 10,
+                    borderColor: insurer === "other" ? COLORS.primary: COLORS.gray,
+                    borderWidth: 1,
+                    borderRadius: 100,
+                  }}>
+                  <View style={{ height: 16, width: 16, 
+                    justifyContent: 'center', alignItems: 'center', 
+                    backgroundColor: insurer === "other" ? COLORS.primary : COLORS.gray, 
+                    borderRadius: 100, padding: 2 }}>
+                    <View style={{ height: 10, width: 10, backgroundColor: COLORS.white, borderRadius: 100 }}></View>
+                  </View>
+                  <Text
+                    style={{
+                      color: insurer === "other" ? COLORS.primary : COLORS.gray,
+                      fontWeight: 'bold',
+                      textAlign: 'center' }}>
+                    Un proche
+                  </Text>
+                </Pressable>
+              </View>
             </View>
             <StepFormBuilder
               onSubmit={addInsurer}

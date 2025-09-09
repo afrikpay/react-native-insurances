@@ -3,6 +3,7 @@ import RootNavigator from '../navigation/RootNavigator';
 import { useEffect } from 'react';
 import Auth from '../utils/Auth';
 import { ThemeProvider } from 'react-native-paper';
+import * as SecureStore  from "expo-secure-store";
 
 const InsuranceApp = ({
   appToken,
@@ -21,6 +22,8 @@ const InsuranceApp = ({
       await Auth.setLang(lang);
       await Auth.setTerminalId(terminalId);
       await Auth.setUsername(username);
+      const appId = await SecureStore.getItemAsync("app-id")
+      console.log("Application id", appId);
     })();
   }, [appToken, terminalId, username, lang]);
 
