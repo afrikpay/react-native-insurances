@@ -13,7 +13,6 @@ import { ActivityIndicator } from 'react-native-paper';
 import { Box } from '../components/ui/Box';
 import SouscriptionComponent from '../components/ui/souscription-component';
 import { COLORS } from '../constants/Colors';
-import { ImageSante } from '../constants/Images';
 import { ROUTES } from '../constants/Routes';
 import { height, width } from '../constants/size';
 import { apiClient } from '../data/axios';
