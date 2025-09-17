@@ -39,7 +39,6 @@ export default function Home() {
     setRefreshing(true)
   }
 
-  
   return (
     <SafeAreaView
       style={{
@@ -146,7 +145,7 @@ export default function Home() {
 }
 
 export function HomeCard() {
-  const product: ProduitAssurance = {
+  const defaultProduct: ProduitAssurance = {
     id: 1,
     slug: 'assurance-maladie-1',
     name: 'Assurance Maladie',
@@ -155,6 +154,18 @@ export function HomeCard() {
     image:
       'https://storage.googleapis.com/afrikpay_insurances/media/categories/Assurance_Maladie.jpg',
   };
+  const [product, setProduct] = useState<ProduitAssurance>(defaultProduct)
+  
+  useEffect(() => {
+    ( async () => {
+      const response: any = await apiClient.post(
+        '/secure/mobile/categories/v1',{})
+      if (response.code === 200 && response.message === "success" && response.result.length > 0 ){
+        setProduct({...response.result[0]})
+      }
+    })()
+  }, [])
+  
   return (
     <View
       style={{
@@ -171,7 +182,8 @@ export function HomeCard() {
             {i18n('favorite_sous_titre')}
           </Text>
           <Text style={{ fontSize: 24, fontWeight: 'bold', color: COLORS.white }}>
-            {i18n('favorite_titre')}
+            {/* {i18n('favorite_titre')} */}
+            {product.name}
           </Text>
           <View style={{ flexDirection: 'row', marginTop: 10 }}>
             <Pressable
@@ -195,8 +207,16 @@ export function HomeCard() {
             </Pressable>
           </View>
         </View>
-        <View style={{ width: 110 }}>
-          <Image alt="Image de l'assurance santé" source={ImageSante} />
+        <View style={{ width: 100 }}>
+          <Image
+            alt={product.name}
+            source={{ uri: product.image }}
+            style={{
+              height: 100,
+              width: 100,
+              borderRadius: 100,
+            }}
+          />
         </View>
       </View>
     </View>
