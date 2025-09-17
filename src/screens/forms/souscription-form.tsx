@@ -25,7 +25,7 @@ export default function SouscriptionForm(props: any) {
 
   const [loading, setLoading] = useState(true);
   const [savingData, setSavingData] = useState(false);
-  const [user, setUser] = useState<User>();
+  const [_, setUser] = useState<User>();
 
   const [formResult, setFormResult] = useState<Record<string, any>>();
 
@@ -96,10 +96,7 @@ export default function SouscriptionForm(props: any) {
       } finally {
         setLoading(false);
       }
-    })();
-
-
-    console.log(user);
+    })()
     
   }, []);
 
