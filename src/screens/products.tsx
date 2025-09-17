@@ -34,7 +34,8 @@ export default function Products() {
       const response: any = await apiClient.post(
         '/secure/mobile/categories/v1',
         {}
-      );
+      )
+      
       if (response.result){
         setProducts(response.result);
         setProductsCopy(response.result);

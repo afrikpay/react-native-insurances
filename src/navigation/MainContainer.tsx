@@ -27,19 +27,19 @@ const MainContainer = () => {
           let icon;
           let rn = route.name;
           
-          if (rn.includes(i18n(ROUTES.HOME))) {
+          if (rn.includes(ROUTES.HOME)) {
             icon = (
               <AntDesign name="home" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );
-          } else if (rn.includes(i18n(ROUTES.PRODUITS))) {
+          } else if (rn.includes(ROUTES.PRODUITS)) {
             icon = (
               <AntDesign name="isv" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );
-          } else if (rn.includes(i18n(ROUTES.SOUSCRIPTIONS))) {
+          } else if (rn.includes(ROUTES.SOUSCRIPTIONS)) {
             icon = (
               <AntDesign name="filetext1" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );
-          } else if (rn.includes(i18n(ROUTES.INFOS))) {
+          } else if (rn.includes(ROUTES.INFOS)) {
             icon = (
               <AntDesign name="infocirlceo" size={24} color={focused ? COLORS.primary : COLORS.gray} />
             );
@@ -48,10 +48,22 @@ const MainContainer = () => {
         },
       })}
     >
-      <Tab.Screen name={i18n(ROUTES.HOME)} component={Home} />
-      <Tab.Screen name={i18n(ROUTES.PRODUITS)} component={Products} />
-      <Tab.Screen name={i18n(ROUTES.SOUSCRIPTIONS)} component={Souscriptions} />
-      <Tab.Screen name={i18n(ROUTES.INFOS)} component={Infos} />
+      <Tab.Screen 
+        options={{ tabBarLabel: i18n('home') }}
+        name={ROUTES.HOME} component={Home}
+      />
+      <Tab.Screen 
+        options={{ tabBarLabel: i18n('produits') }}
+        name={ROUTES.PRODUITS} component={Products}
+      />
+      <Tab.Screen 
+        options={{ tabBarLabel: i18n('souscriptions') }}
+        name={ROUTES.SOUSCRIPTIONS} component={Souscriptions}
+      />
+      <Tab.Screen
+        options={{ tabBarLabel: i18n('infos') }}
+        name={ROUTES.INFOS} component={Infos}
+      />
     </Tab.Navigator>
   );
 };

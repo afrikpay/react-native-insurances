@@ -17,12 +17,15 @@ import { height, width } from '../../constants/size';
 import { apiClient } from '../../data/axios';
 import Navigation from '../../services/Navigation';
 import i18n from '../../translations/i18n';
+import type { User } from '../../types';
+import Auth from '../../utils/Auth';
 
 export default function SouscriptionForm(props: any) {
   const { planId, insurerId } = props.route.params;
 
   const [loading, setLoading] = useState(true);
   const [savingData, setSavingData] = useState(false);
+  const [user, setUser] = useState<User>();
 
   const [formResult, setFormResult] = useState<Record<string, any>>();
 
@@ -30,6 +33,7 @@ export default function SouscriptionForm(props: any) {
   const [formStepCopy, setFormStepCopy] = useState<FormStep[]>([]);
   const [assures, setAssures] = useState<Record<string, any>[]>([]);
   const [defaultValues, setDefaultValues] = useState<any>(null);
+  const [defaultSubscriberValues, setDefaultSubscriberValues] = useState<any>(null);
   const [subscriber, setSubscriber] = useState<any>(null);
   const [subscribeFor, setSubscribeFor] = useState<'myself' | 'other'>('myself');
   const [insurer, setInsurer] = useState<'myself' | 'other'>('other');
@@ -39,14 +43,20 @@ export default function SouscriptionForm(props: any) {
     (async () => {
       setLoading(true);
       try {
+        const userData = await Auth.getUser()
+        setUser(userData)
+        setDefaultSubscriberValues({
+          customerName: userData?.name,
+          phone: userData?.phone,
+          email: userData?.email
+        })
+        
         const data = {
           planId: planId,
           insurerId: insurerId,
           page: 1,
         };
-        const response: any = await apiClient.post('/secure/mobile/form/v1', {
-          ...data,
-        });
+        const response: any = await apiClient.post('/secure/mobile/form/v1', { ...data });
         setFormResult(response.result);
         response.result.fields.map((f: any) => {
           const item: FormStep = {
@@ -87,12 +97,16 @@ export default function SouscriptionForm(props: any) {
         setLoading(false);
       }
     })();
+
+
+    console.log(user);
+    
   }, []);
 
   const addInsurer = (formData: Record<string, any>) => {
     if (savingData) return;
     // Ajouter l'utilisateur à la liste des assurés
-    setAssures((prev) => [...prev, formData]);
+    setAssures((prev) => [ ...prev, formData ]);
     setFormStep([]);
     setDefaultValues(null);
   };
@@ -109,10 +123,7 @@ export default function SouscriptionForm(props: any) {
         ...subscriber,
         formData: getCorrectFormOfData(),
       };
-      const response: any = await apiClient.post(
-        '/secure/mobile/subscription/v1',
-        { ...data }
-      );
+      const response: any = await apiClient.post('/secure/mobile/subscription/v1', { ...data });
       
       setFormResult(response.result);
       SimpleToast.show(response.result.message, 15);
@@ -168,6 +179,10 @@ export default function SouscriptionForm(props: any) {
 
   const goBack = () => {
     if (defaultValues != null){addInsurer(defaultValues)}
+    else {
+      setFormStep([])
+      setDefaultValues(null)
+    }
   }
 
   return (
@@ -306,7 +321,7 @@ export default function SouscriptionForm(props: any) {
                     {
                       name: 'phone',
                       label: i18n('tel_souscripteur'),
-                      type: 'text',
+                      type: 'number',
                       validation: {
                         required: {
                           message: 'This field is required',
@@ -328,7 +343,7 @@ export default function SouscriptionForm(props: any) {
                   ],
                 },
               ]}
-              defaultValues={{}}
+              defaultValues={defaultSubscriberValues}
               externalValues={{}}
               onError={console.error}
               onExternalValueChange={console.warn}
@@ -505,8 +520,7 @@ export default function SouscriptionForm(props: any) {
                     color: COLORS.white,
                     fontWeight: 'bold',
                     textAlign: 'center',
-                  }}
-                >
+                  }}>
                   {i18n('ajouter_assure')}
                 </Text>
               </Pressable>
@@ -536,8 +550,7 @@ export default function SouscriptionForm(props: any) {
                     color: COLORS.white,
                     fontWeight: 'bold',
                     textAlign: 'center',
-                  }}
-                >
+                  }}>
                   {i18n('souscrire')}
                 </Text>
               </Pressable>
