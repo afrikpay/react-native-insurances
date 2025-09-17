@@ -25,7 +25,7 @@ export default function SouscriptionForm(props: any) {
 
   const [loading, setLoading] = useState(true);
   const [savingData, setSavingData] = useState(false);
-  const [_, setUser] = useState<User>();
+  const [user, setUser] = useState<User>();
 
   const [formResult, setFormResult] = useState<Record<string, any>>();
 
@@ -45,12 +45,6 @@ export default function SouscriptionForm(props: any) {
       try {
         const userData = await Auth.getUser()
         setUser(userData)
-        setDefaultSubscriberValues({
-          customerName: userData?.name,
-          phone: userData?.phone,
-          email: userData?.email
-        })
-        
         const data = {
           planId: planId,
           insurerId: insurerId,
@@ -96,8 +90,7 @@ export default function SouscriptionForm(props: any) {
       } finally {
         setLoading(false);
       }
-    })()
-    
+    })();
   }, []);
 
   const addInsurer = (formData: Record<string, any>) => {
@@ -182,6 +175,20 @@ export default function SouscriptionForm(props: any) {
     }
   }
 
+  const handleUpdateSubcriber =  async (subscribeTo: "myself" | "other") => {
+    setSubscribeFor(subscribeTo)
+    if (subscribeTo === "myself"){
+      setDefaultSubscriberValues({
+        customerName: user?.name,
+        phone: user?.phone,
+        email: user?.email
+      })
+    }
+    else{
+      setDefaultSubscriberValues({})
+    }
+  }
+
   return (
     <View
       style={{
@@ -241,7 +248,7 @@ export default function SouscriptionForm(props: any) {
               <Text style={{ fontSize: 12 }}>Souscripteur:</Text>
               <View style={{ flexDirection: "row", gap: 4 }}>
                 <Pressable
-                  onPress={() => setSubscribeFor("myself")}
+                  onPress={() => handleUpdateSubcriber("myself")}
                   style={{
                     paddingVertical: 8,
                     flexDirection: "row",
@@ -267,7 +274,7 @@ export default function SouscriptionForm(props: any) {
                   </Text>
                 </Pressable>
                 <Pressable
-                  onPress={() => setSubscribeFor("other")}
+                  onPress={() => handleUpdateSubcriber("other")}
                   style={{
                     paddingVertical: 8,
                     flexDirection: "row",
@@ -340,7 +347,7 @@ export default function SouscriptionForm(props: any) {
                   ],
                 },
               ]}
-              defaultValues={defaultSubscriberValues}
+              defaultValues={{ ...defaultSubscriberValues }}
               externalValues={{}}
               onError={console.error}
               onExternalValueChange={console.warn}
@@ -475,8 +482,7 @@ export default function SouscriptionForm(props: any) {
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                  }}
-                >
+                  }}>
                   <Text style={{ color: COLORS.primary }}>
                     {i18n('assure')} N°{index + 1}
                   </Text>
@@ -485,8 +491,7 @@ export default function SouscriptionForm(props: any) {
                       flexDirection: 'row',
                       justifyContent: 'center',
                       gap: 18,
-                    }}
-                  >
+                    }}>
                     <AntDesign onPress={() => editInsurer(insurer)} name="edit" size={24} color="black" />
                     <AntDesign onPress={() => deleteInsurer(insurer)} name="delete" size={24} color="red" />
                   </View>
@@ -498,8 +503,7 @@ export default function SouscriptionForm(props: any) {
                 flexDirection: 'row',
                 justifyContent: 'flex-end',
                 gap: 8,
-              }}
-            >
+              }}>
               <Pressable
                 onPress={() => {
                   if (!savingData) {
