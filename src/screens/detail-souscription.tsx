@@ -55,7 +55,7 @@ const operateursMobile: Record<string, any>[] = [
 
 export default function DetailSouscription(props: any) {
   const { souscription } = props.route.params
-  // console.log(JSON.stringify(souscription.documents, null, 2));
+  console.log(JSON.stringify(souscription, null, 2));
 
   const { formatDate } = useDate()
 
@@ -228,6 +228,8 @@ export default function DetailSouscription(props: any) {
         console.log
       );
       task.uploadAsync().then((data) => {
+        console.log(JSON.stringify(data, null, 2));
+        
         if (data?.status === 201) {
           setSelectedInsurer(null);
           SimpleToast.show('Fichier envoyé avec succès !', 5);
@@ -722,8 +724,7 @@ export default function DetailSouscription(props: any) {
                   justifyContent: 'center',
                   gap: 10,
                   alignItems: 'center',
-                }}
-              >
+                }}>
                 {isDocSending && (
                   <ActivityIndicator
                     color={COLORS.white}

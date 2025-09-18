@@ -234,14 +234,11 @@ export function ProductSection(
     if (!refreshing) { setLoading(true);}
     setProducts([])
     try {
-      const response: any = await apiClient.post(
-        '/secure/mobile/categories/v1',{});
-
+      const response: any = await apiClient.post('/secure/mobile/categories/v1',{});
+      
       setProducts(response.result ?? ([] as ProduitAssurance[]));
     } catch (error: any) {
-      if ( error.status === 502) {
-        findCategories()
-      }
+      if ( error.status === 502) { findCategories() }
     } finally {
       setLoading(false);
       setRefreshing(false)

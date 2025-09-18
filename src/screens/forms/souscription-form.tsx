@@ -45,6 +45,12 @@ export default function SouscriptionForm(props: any) {
       try {
         const userData = await Auth.getUser()
         setUser(userData)
+        setDefaultSubscriberValues({
+          customerName: userData?.name,
+          phone: userData?.phone,
+          email: userData?.email
+        })
+
         const data = {
           planId: planId,
           insurerId: insurerId,
@@ -133,7 +139,7 @@ export default function SouscriptionForm(props: any) {
           display_status:
             response.result.providerStatus === 'P' ? 'En cours' : 'Terminé',
         };
-        Navigation.navigate(ROUTES.DETAIL_SOUSCRIPTIONS, { souscription });
+        Navigation.replace(ROUTES.DETAIL_SOUSCRIPTIONS, { souscription });
       }, 2000);
     } catch (error: any) {
       console.error('Error saving data:', error);
