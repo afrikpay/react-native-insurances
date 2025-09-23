@@ -109,6 +109,7 @@ export default function SouscriptionForm(props: any) {
 
   const handleSubmitForm = async () => {
     if (savingData) return;
+    if (assures.length === 0){ SimpleToast.show(`Veuillez ajouter au-moins un assuré !`, 5) }
     setSavingData(true);
 
     try {
