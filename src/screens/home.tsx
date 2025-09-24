@@ -308,11 +308,8 @@ export function ProductSection(
         {products.slice(0, 4).map((product: any, index: number) => (
           <Box key={index} width={width / 2 - 26} padding={10}>
             <Pressable
-              onPress={() => {
-                Navigation.navigate(ROUTES.ASSUREURS, { product });
-              }}
-              style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}
-            >
+              onPress={() => { Navigation.navigate(ROUTES.ASSUREURS, { product }); }}
+              style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
               <Image
                 alt={product.name}
                 source={{ uri: product.image }}
@@ -323,10 +320,9 @@ export function ProductSection(
                 }}
               />
               <Text
-                numberOfLines={4}
+                numberOfLines={2}
                 lineBreakMode="clip"
-                style={{ paddingRight: 35, width: '100%' }}
-              >
+                style={{ paddingRight: 35, width: '100%' }}>
                 {product.name}
               </Text>
             </Pressable>

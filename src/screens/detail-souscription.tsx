@@ -689,8 +689,7 @@ export default function DetailSouscription(props: any) {
                     justifyContent: 'center',
                     gap: 10,
                     alignItems: 'center',
-                  }}
-                >
+                  }}>
                   {loading && (
                     <ActivityIndicator
                       color={COLORS.white}
@@ -703,14 +702,13 @@ export default function DetailSouscription(props: any) {
                       fontWeight: 'bold',
                       fontSize: 18,
                       textAlign: 'center',
-                    }}
-                  >
+                    }}>
                     {i18n('payer_ma_souscription')}
                   </Text>
                 </Pressable>
               </View>
             )}
-            {souscription.status === 'M' && (
+            {souscription.has_sent_document && (
               <Pressable
                 onPress={handleDocumentsConfirmation}
                 disabled={isDocSending}
