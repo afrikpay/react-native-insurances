@@ -38,6 +38,8 @@ export default function DetailAssurance(props: any) {
             tenantId: insurer.id,
           }
         );
+        console.log(JSON.stringify(response, null, 2));
+        
         const data = response.result.plans;
         if (data && Object.keys(data).length > 0) {
           setPlans(Object.keys(data).map((key: string) => data[key] as Plan));

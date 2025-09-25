@@ -225,11 +225,9 @@ export default function DetailSouscription(props: any) {
           setFile(undefined);
           setSelectedDoc(undefined);
         } */
-        console.log
+        // console.log
       );
       task.uploadAsync().then((data) => {
-        console.log(JSON.stringify(data, null, 2));
-        
         if (data?.status === 201) {
           setSelectedInsurer(null);
           SimpleToast.show('Fichier envoyé avec succès !', 5);
@@ -938,7 +936,7 @@ export default function DetailSouscription(props: any) {
                       ( souscription.documents && 
                         souscription.documents[selectedInsurerKey] && 
                         souscription.documents[selectedInsurerKey].includes(doc.key)) ?
-                      <Text style={{ fontSize: 12, color: COLORS.success }}>
+                      <Text style={{ fontSize: 12, color: COLORS.light_blue }}>
                         Déjà envoyé
                       </Text> :
                       <Text style={{ fontSize: 12, color: COLORS.primary }}>

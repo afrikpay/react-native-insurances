@@ -27,8 +27,7 @@ export default function DetailFormule(props: any) {
         backgroundColor: COLORS.white,
         flexDirection: 'column',
         gap: 20,
-      }}
-    >
+      }}>
       <View
         style={{
           backgroundColor: COLORS.white,
@@ -38,8 +37,7 @@ export default function DetailFormule(props: any) {
           paddingBottom: 20,
           borderBottomWidth: 0.305,
           borderBottomColor: COLORS.light_gray,
-        }}
-      >
+        }}>
         {/** Navigation bar  */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <TouchableOpacity

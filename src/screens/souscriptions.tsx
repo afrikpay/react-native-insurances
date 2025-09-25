@@ -7,6 +7,7 @@ import {
   FlatList,
   Platform,
   SafeAreaView,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -24,48 +25,92 @@ import type { Souscription } from '../types';
 
 const pattern = 'YYYY/MM/DD'; //  HH:mm:ss'
 
+
+const status = [
+  {
+    label: "En attente",
+    value: "P"
+  },
+  {
+    label: "Verifiée",
+    value: "V"
+  },
+  {
+    label: "Payé",
+    value: "M"
+  },
+  {
+    label: "Acceptée",
+    value: "A"
+  },
+  {
+    label: "Rejetée",
+    value: "U"
+  },
+  {
+    label: "Suspendue",
+    value: "S"
+  },
+  {
+    label: "Completée",
+    value: "C"
+  },
+  {
+    label: "Prết",
+    value: "R"
+  },
+  {
+    label: "Passée",
+    value: "D"
+  },
+]
+
 export default function Souscriptions() {
   const [search, setSearch] = useState('');
   const [visible, setVisible] = useState(false);
-  const [value, setValue] = useState('actif');
   const [page, setPage] = useState(1);
   const [nextPage, setNextPage] = useState(null);
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
 
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [endDate, setEndDate] = useState<Date  | null>(new Date());
 
   const [mode, setMode] = useState<'date' | 'countdown' | 'time' | 'datetime'>(
     'date'
   );
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
-  const [selectedStartDate, setSelectedStartDate] = useState(
-    moment(startDate).format(pattern)
-  );
-  const [selectedEndDate, setSelectedEndDate] = useState(
-    moment(endDate).format(pattern)
-  );
+  const [selectedStartDate, setSelectedStartDate] = useState(moment(startDate).format(pattern));
+  const [selectedEndDate, setSelectedEndDate] = useState(moment(endDate).format(pattern));
 
   const [loading, setLoading] = useState<boolean>(false);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [souscriptions, setSouscriptions] = useState<Souscription[]>([]);
-  const [souscriptionsCopy, setSouscriptionsCopy] = useState<Souscription[]>(
-    []
-  );
+  const [souscriptionsCopy, setSouscriptionsCopy] = useState<Souscription[]>([]);
+
+  const [selectedStatus, setSelectedStatus] = useState("")
 
   const fetchSubscription = async (currentPage?: number) => {
     setLoading(true);
     try {
-      const response: any = await apiClient.post(
-        '/secure/mobile/insurance/subscription-list/v1',
-        {
-          page: currentPage ?? page,
-          pageSize: 10,
-        }
-      );
+      let body: any = {
+        page: currentPage ?? page,
+        pageSize: 10,
+      }
+      if ( selectedStatus){
+        body = { ...body, requestStatus: selectedStatus }
+      }
+      if (currentPage && startDate){
+        body = { ...body, startAtGte: startDate.toISOString() }
+      }
+      if (currentPage && endDate){
+        body = { ...body, endAtGte: endDate.toISOString() }
+      }
+      // console.log(JSON.stringify(body, null, 2))
+
+      const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', body );
       
       setNextPage(response.result.next)
 
@@ -77,6 +122,10 @@ export default function Souscriptions() {
           prev.concat(response.result.subscriptions ?? ([] as Souscription[]))
         );
       }
+
+      setStartDate(null)
+      setEndDate(null)
+      setSelectedStatus('')
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -146,6 +195,20 @@ export default function Souscriptions() {
     setRefreshing(false)
   }
 
+  const onChangeValue = (item: Record<string, string>) => {
+    setSelectedStatus(item!.id!)
+  }
+
+  const handleApplyFilters = async () => {
+    const currentPage = 1
+    setPage(currentPage)
+    setSouscriptions([])
+    setSouscriptionsCopy([])
+    hideModal()
+    await fetchSubscription(currentPage)
+  }
+
+
   return (
     <SafeAreaView
       style={{
@@ -155,8 +218,7 @@ export default function Souscriptions() {
         backgroundColor: COLORS.white,
         flexDirection: 'column',
         gap: 20,
-      }}
-    >
+      }}>
       <View
         style={{
           backgroundColor: COLORS.white,
@@ -251,8 +313,7 @@ export default function Souscriptions() {
       </View>
       {loading && souscriptions.length === 0 && (
         <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <ActivityIndicator size="large" color={COLORS.gray} />
         </View>
       )}
@@ -309,217 +370,124 @@ export default function Souscriptions() {
           visible={visible}
           onDismiss={hideModal}
           contentContainerStyle={{
-            backgroundColor: 'white',
+            backgroundColor: COLORS.white,
             padding: 20,
             width: '90%',
             marginLeft: '5%',
             borderRadius: 10,
-          }}
-        >
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
-            {i18n('filtre_titre')}
-          </Text>
-          <View
-            style={{
-              borderBottomWidth: 0.6,
-              borderBottomColor: 'gray',
-              opacity: 0.3,
-              marginVertical: 10,
-            }}
-          />
-          <Text style={{ fontSize: 12, fontWeight: 'bold' }}>
-            {i18n('filtre_statut')}
-          </Text>
-          <RadioButton.Group
-            onValueChange={(newValue) => setValue(newValue)}
-            value={value}>
-            <View style={{ flexDirection: 'row', gap: 10, marginTop: 5 }}>
-              <View
-                style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}
-              >
-                <RadioButton value="actif" />
-                <Text>Actif</Text>
-              </View>
-              <View
-                style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}
-              >
-                <RadioButton value="inactif" />
-                <Text>Inactif</Text>
-              </View>
-              <View
-                style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}
-              >
-                <RadioButton value="attente" />
-                <Text>En attente</Text>
-              </View>
-            </View>
-          </RadioButton.Group>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              gap: 10,
-              marginTop: 20,
-            }}>
-            <Text style={{ fontWeight: 'bold', marginTop: 25 }}>
-              {i18n('filtre_produit')}
+          }}>
+            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
+              {i18n('filtre_titre')}
             </Text>
-            <View style={{ flex: 1 }}>
-              <DropdownComponent
-                label="Sélectionner un produit"
-                placeholder="Sélectionner un produit"
-                data={[
-                  { label: 'Assurance santé', value: 'assurance_sante' },
-                  { label: 'Assurance auto', value: 'assurance_auto' },
-                  {
-                    label: 'Assurance habitation',
-                    value: 'assurance_habitation',
-                  },
-                  { label: 'Assurance voyage', value: 'assurance_voyage' },
-                  { label: 'Assurance vie', value: 'assurance_vie' },
-                  {
-                    label: 'Assurance responsabilité civile',
-                    value: 'assurance_responsabilite_civile',
-                  },
-                  { label: 'Assurance scolaire', value: 'assurance_scolaire' },
-                  {
-                    label: 'Assurance animaux de compagnie',
-                    value: 'assurance_animaux_de_compagnie',
-                  },
-                  {
-                    label: 'Assurance professionnelle',
-                    value: 'assurance_professionnelle',
-                  },
-                ]}
-                onChangeValue={(item) => console.log(item)}
-              />
-            </View>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              gap: 10,
-              marginTop: 20,
-            }}>
-            <Text style={{ fontWeight: 'bold', marginTop: 25 }}>
-              {i18n('filtre_formule')}
-            </Text>
-            <View style={{ flex: 1 }}>
-              <DropdownComponent
-                label="Sélectionner une formule"
-                placeholder="Sélectionner une formule"
-                data={[
-                  { label: 'Formule de base', value: 'formule_de_base' },
-                  { label: 'Formule standard', value: 'formule_standard' },
-                  { label: 'Formule premium', value: 'formule_premium' },
-                  { label: 'Formule gold', value: 'formule_gold' },
-                  { label: 'Formule platinum', value: 'formule_platinum' },
-                  { label: 'Formule silver', value: 'formule_silver' },
-                  { label: 'Formule bronze', value: 'formule_bronze' },
-                  { label: 'Formule familiale', value: 'formule_familiale' },
-                  {
-                    label: 'Formule individuelle',
-                    value: 'formule_individuelle',
-                  },
-                  { label: 'Formule entreprise', value: 'formule_entreprise' },
-                ]}
-                onChangeValue={(item) => console.log(item)}
-              />
-            </View>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              gap: 10,
-            }}>
-            <Text style={{ fontWeight: 'bold', marginTop: 25 }}>
-              {i18n('filtre_periode')}
-            </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Text style={{ fontSize: 12, marginTop: 25 }}>Entre: </Text>
-            <TouchableOpacity
-              onPress={() => {
-                setShowStartDatePicker(true);
-                setMode('date');
-              }}
+            <View
               style={{
-                paddingHorizontal: 15,
-                paddingVertical: 10,
-                marginTop: 10,
-                flexDirection: 'row',
-                width: 'auto',
-                alignItems: 'center',
-                gap: 10,
+                borderBottomWidth: 0.6,
+                borderBottomColor: 'gray',
+                opacity: 0.3,
+                marginVertical: 10,
               }}
-            >
-              <Feather name="calendar" color={COLORS.dark} />
-              <Text style={{ color: COLORS.dark }}>{selectedStartDate}</Text>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-            <Text style={{ fontSize: 12, marginTop: 25 }}>Et: </Text>
-            <TouchableOpacity
-              onPress={() => {
-                setShowEndDatePicker(true);
-                setMode('date');
-              }}
+            />
+              <Text style={{ fontSize: 12, fontWeight: 'bold' }}>
+                {i18n('filtre_statut')}
+              </Text>
+              <View style={{ marginBottom: 40 }}>
+                <DropdownComponent
+                  label="Sélectionner un statut"
+                  placeholder="Sélectionner une statut"
+                  data={status}
+                  onChangeValue={onChangeValue}
+                />
+              </View>
+            <View
               style={{
-                paddingHorizontal: 15,
-                paddingVertical: 10,
-                marginTop: 10,
                 flexDirection: 'row',
-                width: 'auto',
-                alignItems: 'center',
+                justifyContent: 'space-between',
                 gap: 10,
-              }}
-            >
-              <Feather name="calendar" color={COLORS.dark} />
-              <Text style={{ color: COLORS.dark }}>{selectedEndDate} </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{}}>
-            {showStartDatePicker && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={startDate}
-                mode={mode}
-                is24Hour={true}
-                display="default"
-                onChange={onChangeStart}
-              />
-            )}
-            {showEndDatePicker && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={endDate}
-                mode={mode}
-                is24Hour={true}
-                display="default"
-                onChange={onChangeEnd}
-              />
-            )}
-          </View>
-          <View style={{ marginTop: 40 }}>
-            <Button
-              style={{ backgroundColor: COLORS.primary }}
-              mode="contained"
-              onPress={() => console.log('Pressed')}
-            >
-              {i18n('btn_appliquer')}
-            </Button>
-          </View>
+              }}>
+              <Text style={{ fontWeight: 'bold', marginTop: 20 }}>
+                {i18n('filtre_periode')}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <Text style={{ fontSize: 12, marginTop: 25 }}>Entre: </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setShowStartDatePicker(true);
+                  setMode('date');
+                }}
+                style={{
+                  paddingHorizontal: 15,
+                  paddingVertical: 10,
+                  marginTop: 10,
+                  flexDirection: 'row',
+                  width: 'auto',
+                  alignItems: 'center',
+                  gap: 10,
+                }}
+              >
+                <Feather name="calendar" color={COLORS.dark} />
+                <Text style={{ color: COLORS.dark }}>{selectedStartDate}</Text>
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <Text style={{ fontSize: 12, marginTop: 25 }}>Et: </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setShowEndDatePicker(true);
+                  setMode('date');
+                }}
+                style={{
+                  paddingHorizontal: 15,
+                  paddingVertical: 10,
+                  marginTop: 10,
+                  flexDirection: 'row',
+                  width: 'auto',
+                  alignItems: 'center',
+                  gap: 10,
+                }}
+              >
+                <Feather name="calendar" color={COLORS.dark} />
+                <Text style={{ color: COLORS.dark }}>{selectedEndDate} </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{}}>
+              {showStartDatePicker && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={startDate!}
+                  mode={mode}
+                  is24Hour={true}
+                  display="default"
+                  onChange={onChangeStart}
+                />
+              )}
+              {showEndDatePicker && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={endDate!}
+                  mode={mode}
+                  is24Hour={true}
+                  display="default"
+                  onChange={onChangeEnd}
+                />
+              )}
+            </View>
+            <View style={{ marginTop: 40 }}>
+              <Button
+                style={{ backgroundColor: COLORS.primary  }}
+                mode="contained"
+                onPress={handleApplyFilters}>
+                <Text style={{ color: COLORS.white }}>{i18n('btn_appliquer')}</Text>
+              </Button>
+            </View>
         </Modal>
       </Portal>
     </SafeAreaView>
