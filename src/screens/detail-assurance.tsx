@@ -25,7 +25,9 @@ export default function DetailAssurance(props: any) {
 
   // Get params from navigation
   const { product, insurer } = props.route.params;
-  const [plans, setPlans] = useState<Plan[]>([]);
+  // const [plans, setPlans] = useState<Plan[]>([]);
+  const [plans, setPlans] = useState<any>();
+  const [targets, setTargets] = useState<string[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -42,7 +44,10 @@ export default function DetailAssurance(props: any) {
         
         const data = response.result.plans;
         if (data && Object.keys(data).length > 0) {
-          setPlans(Object.keys(data).map((key: string) => data[key] as Plan));
+          const result = Object.keys(data).map((key: string) => data[key] as Plan)
+          const finalData = groupBy(result, "tags")
+          setTargets(Object.keys(finalData))
+          setPlans(finalData);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -51,6 +56,19 @@ export default function DetailAssurance(props: any) {
       }
     })();
   }, [insurer, product]);
+
+
+  function groupBy(tableauObjets: any, propriete: string) {
+    return tableauObjets.reduce((acc: any, obj: any) => {
+      var cle = obj[propriete] ?? `null_${Math.random().toString()}`;
+      if (!acc[cle]) {
+        acc[cle] = [];
+      }
+      acc[cle].push(obj);
+      return acc;
+    }, {});
+  }
+  
 
   return (
     <SafeAreaView
@@ -61,32 +79,20 @@ export default function DetailAssurance(props: any) {
         backgroundColor: COLORS.white,
         flexDirection: 'column',
         gap: 20,
-      }}
-    >
+      }}>
       <View
         style={{
           backgroundColor: COLORS.white,
           paddingHorizontal: 20,
           paddingTop: 35,
           gap: 30,
-        }}
-      >
+        }}>
         {/** Navigation bar  */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <TouchableOpacity
             onPress={() => {
               Navigation.back();
-            }}
-          >
-            {/*
-              <Feather
-                name="chevron-left"
-                color={COLORS.dark}
-                strokeWidth={1.5}
-                width={30}
-                height={30}
-              />
-            */}
+            }}>
             <AntDesign name="arrowleft" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
@@ -110,8 +116,7 @@ export default function DetailAssurance(props: any) {
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6' }}
-      >
+        style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6' }}>
         <RenderHtml
           contentWidth={width}
           source={{ html: product.description }}
@@ -127,8 +132,7 @@ export default function DetailAssurance(props: any) {
                 height: 100,
                 justifyContent: 'center',
                 alignItems: 'center',
-              }}
-            >
+              }}>
               <ActivityIndicator
                 size={`large`}
                 color={COLORS.gray}
@@ -137,92 +141,88 @@ export default function DetailAssurance(props: any) {
             </View>
           )}
           <FlatList
-            data={plans}
+            data={targets}
             showsHorizontalScrollIndicator={false}
             horizontal
-            extraData={(item: Plan) => `${item.id}`}
-            renderItem={({ item }: { item: Plan }) => (
-              <Pressable
-                onPress={() => {
-                  Navigation.navigate(ROUTES.DETAIL_FORMULE, {
-                    plan: item,
-                    insurer,
-                  });
-                }}
-                key={item.id}
-                style={{
-                  width: 250,
-                  height: 'auto',
-                  borderWidth: 0.05,
-                  borderRadius: 12,
-                  marginRight: 15,
-                  padding: 15,
-                  gap: 15,
-                  backgroundColor: COLORS.white, // Ajout d'une couleur de fond pour l'ombre
-                  shadowColor: COLORS.dark, // Couleur de l'ombre
-                  shadowOffset: { width: 0, height: 4 }, // Décalage de l'ombre
-                  shadowOpacity: 0.2, // Opacité de l'ombre
-                  shadowRadius: 6, // Rayon de flou de l'ombre
-                  elevation: 2, // Ombre pour Android
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: 'bold',
-                      color: COLORS.primary,
-                    }}
-                  >
-                    {item.name}
-                  </Text>
-                  <TouchableOpacity
-                    onPress={() => {
-                      Navigation.navigate(ROUTES.DETAIL_FORMULE, {
-                        plan: item,
-                        insurer,
-                      });
-                    }}>
-                    {/*
-                      <Feather
-                        name="chevron-right"
-                        color={COLORS.primary}
-                        strokeWidth={2}
-                        width={25}
-                        height={25}
-                      />
-                    */}
-                    <AntDesign name="right" size={16} color="black" />
-                  </TouchableOpacity>
-                </View>
-                <View style={{ flexDirection: 'row', gap: 10 }}>
-                  <Text>{i18n('prime_ttc')}</Text>
-                  <View>
-                    {/**
-                      <Text style={{ fontWeight: 'bold'}}>{item.price} XAF - Enfant</Text>
-                      <Text style={{ fontWeight: 'bold'}}>74 000 XAF - Adulte</Text>
-                    */}
-                    <Text style={{ fontWeight: 'bold' }}>{item.price} XAF</Text>
-                  </View>
-                </View>
-                {/** <Text>Couverture jusqu’a 500 000 XAF</Text> */}
-                <View style={{ flexDirection: 'row', gap: 10 }}>
-                  <Text style={{ fontWeight: 'bold' }}>{i18n('duree')}</Text>
-                  <Text style={{ fontWeight: 'bold' }}>
-                    {item.duration_display}
-                  </Text>
-                </View>
-              </Pressable>
+            extraData={(item: any, index: number) => `${item}-${index}`}
+            renderItem={({ item }: { item: any }) => (
+              <View style={{ borderWidth: 1, borderColor: COLORS.secondary, borderRadius: 10, padding: 10, gap: 10 }}>
+                {
+                  plans[item].map((plan: Plan) => (
+                    <Pressable
+                      onPress={() => {
+                        Navigation.navigate(ROUTES.DETAIL_FORMULE, {
+                          plan: plan,
+                          insurer,
+                        });
+                      }}
+                      key={plan.id}
+                      style={{
+                        width: 250,
+                        height: 'auto',
+                        borderWidth: 0.05,
+                        borderRadius: 12,
+                        padding: 15,
+                        gap: 15,
+                        backgroundColor: COLORS.white, // Ajout d'une couleur de fond pour l'ombre
+                        shadowColor: COLORS.dark, // Couleur de l'ombre
+                        shadowOffset: { width: 0, height: 4 }, // Décalage de l'ombre
+                        shadowOpacity: 0.2, // Opacité de l'ombre
+                        shadowRadius: 6, // Rayon de flou de l'ombre
+                        elevation: 2, // Ombre pour Android
+                      }}>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        }}>
+                        <Text
+                          style={{
+                            fontSize: 18,
+                            fontWeight: 'bold',
+                            color: COLORS.primary,
+                          }}>
+                          {plan.name}
+                        </Text>
+                        <TouchableOpacity
+                          onPress={() => {
+                            Navigation.navigate(ROUTES.DETAIL_FORMULE, {
+                              plan: plan,
+                              insurer,
+                            });
+                          }}>
+                          <AntDesign name="right" size={16} color="black" />
+                        </TouchableOpacity>
+                      </View>
+                      <View style={{ flexDirection: 'row', gap: 10 }}>
+                        <Text>{i18n('prime_ttc')}</Text>
+                        <View>
+                          {/**
+                            <Text style={{ fontWeight: 'bold'}}>{item.price} XAF - Enfant</Text>
+                            <Text style={{ fontWeight: 'bold'}}>74 000 XAF - Adulte</Text>
+                          */}
+                          <Text style={{ fontWeight: 'bold' }}>{plan.price} XAF</Text>
+                        </View>
+                      </View>
+                      {/** <Text>Couverture jusqu’a 500 000 XAF</Text> */}
+                      <View style={{ flexDirection: 'row', gap: 10 }}>
+                        <Text style={{ fontWeight: 'bold' }}>{i18n('duree')}</Text>
+                        <Text style={{ fontWeight: 'bold' }}>
+                          {plan.duration_display}
+                        </Text>
+                      </View>
+                    </Pressable>
+                  ))
+                }
+                
+              </View>
             )}
+            ItemSeparatorComponent={() => <View style={{  width: 10 }} /> }
           />
         </View>
         <View style={{ height: 80, width: '100%' }} />
       </ScrollView>
+      
     </SafeAreaView>
   );
 }

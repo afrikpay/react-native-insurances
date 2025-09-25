@@ -55,7 +55,7 @@ const operateursMobile: Record<string, any>[] = [
 
 export default function DetailSouscription(props: any) {
   const { souscription } = props.route.params
-  // console.log(JSON.stringify(souscription, null, 2));
+  console.log(JSON.stringify(souscription, null, 2));
 
   const { formatDate } = useDate()
 
@@ -706,7 +706,7 @@ export default function DetailSouscription(props: any) {
                 </Pressable>
               </View>
             )}
-            {souscription.has_sent_document && (
+            {!souscription.has_sent_document && (
               <Pressable
                 onPress={handleDocumentsConfirmation}
                 disabled={isDocSending}
