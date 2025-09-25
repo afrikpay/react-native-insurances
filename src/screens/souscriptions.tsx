@@ -7,13 +7,12 @@ import {
   FlatList,
   Platform,
   SafeAreaView,
-  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View
 } from 'react-native';
-import { Button, Modal, Portal, RadioButton } from 'react-native-paper';
+import { Button, Modal, Portal } from 'react-native-paper';
 import DropdownComponent from '../components/ui/DropdownComponent';
 import SouscriptionComponent from '../components/ui/souscription-component';
 import { COLORS } from '../constants/Colors';
