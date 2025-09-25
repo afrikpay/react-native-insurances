@@ -29,7 +29,7 @@ import { ROUTES } from '../constants/Routes';
 import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import { uploadFile } from '../utils/uploadFiles';
-import useDate from '../utils/useDate';
+import useDate from '../hooks/useDate';
 import { getColor } from '../constants';
 
 const operateursMobile: Record<string, any>[] = [

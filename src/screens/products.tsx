@@ -31,10 +31,7 @@ export default function Products() {
   const findProducts = (async (refreshingData?: boolean) => {
     if (!refreshingData){ setLoading(true)}
     try {
-      const response: any = await apiClient.post(
-        '/secure/mobile/categories/v1',
-        {}
-      )
+      const response: any = await apiClient.post('/secure/mobile/categories/v1',{})
       
       if (response.result){
         setProducts(response.result);
@@ -48,9 +45,7 @@ export default function Products() {
     }
   })
 
-  useEffect(() => {
-    findProducts();
-  }, []);
+  useEffect(() => {findProducts()}, []);
 
   // Filter insurance product by name
   const searchProducts = (searchTerm: string) => {

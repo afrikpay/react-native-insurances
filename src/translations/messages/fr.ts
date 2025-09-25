@@ -4,6 +4,7 @@ const fr = {
   produits: 'Produits',
   souscriptions: 'Souscriptions',
   infos: 'Infos',
+  produit: 'Produit',
 
   // Home
   bon_retour: 'Bon retour',

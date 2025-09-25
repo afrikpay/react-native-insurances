@@ -16,9 +16,11 @@ import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';
 import { height, width } from '../constants/size';
 import { apiClient } from '../data/axios';
+import useProduct from '../hooks/useProduct';
+import useSubscription from '../hooks/useSubscription';
 import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
-import type { ProduitAssurance, Souscription } from '../types';
+import type { ProduitAssurance } from '../types';
 import Auth from '../utils/Auth';
 
 export default function Home() {
@@ -227,16 +229,14 @@ export function ProductSection(
     refreshing: boolean, setRefreshing: (val: boolean) => void
   }
 ) {
+  const { products, setProducts, findProducts } = useProduct()
   const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState<ProduitAssurance[]>([]);
 
   const findCategories = async () => {
     if (!refreshing) { setLoading(true);}
     setProducts([])
     try {
-      const response: any = await apiClient.post('/secure/mobile/categories/v1',{});
-      
-      setProducts(response.result ?? ([] as ProduitAssurance[]));
+      await findProducts()
     } catch (error: any) {
       if ( error.status === 502) { findCategories() }
     } finally {
@@ -334,24 +334,16 @@ export function RenderSubscriptionSection(
   { refreshing, setRefreshing }: { refreshing: boolean, setRefreshing: (val: boolean) => void }
 ) {
   const [loading, setLoading] = useState(false);
-  const [souscriptions, setSouscriptions] = useState<Souscription[]>([]);
 
-  const findSouscriptions = async () => {
+  const { souscriptions, setSouscriptions, findSubscriptions} = useSubscription()
+
+  const fetchSouscriptions = async () => {
     if (!refreshing) { setLoading(true);}
     setSouscriptions([])
     try {
-      const response: any = await apiClient.post(
-        '/secure/mobile/insurance/subscription-list/v1',
-        { page: 1, pageSize: 4 }
-      )
-      
-      setSouscriptions(
-        response.result.subscriptions ?? ([] as Souscription[])
-      );
+      await findSubscriptions({ page: 1, pageSize: 4 })
     } catch (error: any) {
-      if ( error.status === 502) {
-        findSouscriptions()
-      }
+      if ( error.status === 502) {fetchSouscriptions()}
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -359,11 +351,11 @@ export function RenderSubscriptionSection(
   }
   
   useEffect(() => {
-    findSouscriptions();
+    fetchSouscriptions();
   }, [])
 
   useEffect(() => {
-    if (refreshing){ findSouscriptions(); }
+    if (refreshing){ fetchSouscriptions(); }
   }, [refreshing])
 
   return (

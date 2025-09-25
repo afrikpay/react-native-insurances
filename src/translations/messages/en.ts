@@ -4,6 +4,7 @@ const en = {
   produits: 'Products',
   souscriptions: 'Subscriptions',
   infos: 'Infos',
+  produit: 'Product',
 
   // Home
   bon_retour: 'Welcome back',

@@ -7,6 +7,7 @@ import {
   FlatList,
   Platform,
   SafeAreaView,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -21,6 +22,7 @@ import { apiClient } from '../data/axios';
 import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import type { Souscription } from '../types';
+import useProduct from '../hooks/useProduct';
 
 const pattern = 'YYYY/MM/DD'; //  HH:mm:ss'
 
@@ -65,6 +67,9 @@ const status = [
 ]
 
 export default function Souscriptions() {
+
+  const { products, findProducts } = useProduct()
+
   const [search, setSearch] = useState('');
   const [visible, setVisible] = useState(false);
   const [page, setPage] = useState(1);
@@ -85,11 +90,13 @@ export default function Souscriptions() {
   const [selectedEndDate, setSelectedEndDate] = useState(moment(endDate).format(pattern));
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [isFilter, setIsFilter] = useState<boolean>(false);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [souscriptions, setSouscriptions] = useState<Souscription[]>([]);
   const [souscriptionsCopy, setSouscriptionsCopy] = useState<Souscription[]>([]);
 
   const [selectedStatus, setSelectedStatus] = useState("")
+  const [selectedProduct, setSelectedProduct] = useState("")
 
   const fetchSubscription = async (currentPage?: number) => {
     setLoading(true);
@@ -98,19 +105,13 @@ export default function Souscriptions() {
         page: currentPage ?? page,
         pageSize: 10,
       }
-      if ( selectedStatus){
-        body = { ...body, requestStatus: selectedStatus }
-      }
-      if (currentPage && startDate){
-        body = { ...body, startAtGte: startDate.toISOString() }
-      }
-      if (currentPage && endDate){
-        body = { ...body, endAtGte: endDate.toISOString() }
-      }
-      // console.log(JSON.stringify(body, null, 2))
-
-      const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', body );
+      if (selectedStatus){ body = { ...body, requestStatus: selectedStatus }}
+      if (selectedProduct){ body = { ...body, category_id: selectedProduct }}
+      if (isFilter && startDate){ body = { ...body, startAtGte: startDate.toISOString().split(".")[0] }}
+      if (isFilter && endDate){ body = { ...body, endAtGte: endDate.toISOString().split(".")[0] }}
       
+      const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', body )
+      // console.log(JSON.stringify(response, null, 2));
       setNextPage(response.result.next)
 
       if (response.result.subscriptions){
@@ -121,10 +122,9 @@ export default function Souscriptions() {
           prev.concat(response.result.subscriptions ?? ([] as Souscription[]))
         );
       }
-
-      setStartDate(null)
-      setEndDate(null)
-      setSelectedStatus('')
+      setIsFilter(false)
+      setSelectedProduct("")
+      setSelectedStatus("")
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -135,6 +135,10 @@ export default function Souscriptions() {
 
   useEffect(() => {
     fetchSubscription();
+
+    ( async () => {
+      await findProducts()
+    })()
   }, []);
 
   const onChangeStart = (event: any, seletedDate: any) => {
@@ -143,6 +147,7 @@ export default function Souscriptions() {
       setShowStartDatePicker(false);
       return;
     }
+    setIsFilter(true)
     const currentDate = seletedDate || startDate;
     setShowStartDatePicker(Platform.OS === 'ios');
     setStartDate(currentDate);
@@ -153,6 +158,7 @@ export default function Souscriptions() {
       setShowStartDatePicker(false);
       return;
     }
+    setIsFilter(true)
     const currentDate = seletedDate || endDate;
     setShowEndDatePicker(Platform.OS === 'ios');
     setEndDate(currentDate);
@@ -198,6 +204,10 @@ export default function Souscriptions() {
     setSelectedStatus(item!.id!)
   }
 
+  const onProductChangeValue = (item: Record<string, string>) => {
+    setSelectedProduct(item!.id!)
+  }
+
   const handleApplyFilters = async () => {
     const currentPage = 1
     setPage(currentPage)
@@ -224,8 +234,7 @@ export default function Souscriptions() {
           paddingHorizontal: 20,
           paddingTop: 35,
           gap: 30,
-        }}
-      >
+        }}>
         {/** Navigation bar  */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <TouchableOpacity
@@ -295,17 +304,7 @@ export default function Souscriptions() {
             style={{ marginRight: 4, position: 'absolute', top: 12, right: 10 }}
             onPress={() => {
               console.log(search);
-            }}
-          >
-            {/*
-              <Feather
-                name="search"
-                color={COLORS.light_blue}
-                strokeWidth={2}
-                width={25}
-                height={25}
-              />
-            */}
+            }}>
             <AntDesign name="search1" size={24} color="black" />
           </TouchableOpacity>
         </View>
@@ -316,7 +315,8 @@ export default function Souscriptions() {
           <ActivityIndicator size="large" color={COLORS.gray} />
         </View>
       )}
-      {souscriptions.length > 0 && (
+      {
+        souscriptions.length > 0 && (
         <View style={{flex:1, paddingHorizontal: 20 }}>
           <FlatList
             data={souscriptions}
@@ -324,7 +324,7 @@ export default function Souscriptions() {
             keyExtractor={(item: Souscription) => item.id.toString()}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }: { item: Souscription }) => (
-              <View style={{ marginBottom: 15 }} key={item.id}>
+              <View style={{ marginBottom: 15 }}>
                 <SouscriptionComponent souscription={item} />
               </View>
             )}
@@ -350,7 +350,8 @@ export default function Souscriptions() {
           />
         </View>
       )}
-      {!loading && souscriptions.length === 0 && (
+      {
+        !loading && souscriptions.length === 0 && (
         <View
           style={{
             height: 320,
@@ -375,6 +376,7 @@ export default function Souscriptions() {
             marginLeft: '5%',
             borderRadius: 10,
           }}>
+          <ScrollView style={{ maxHeight: height * 0.8 }}>
             <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
               {i18n('filtre_titre')}
             </Text>
@@ -384,17 +386,27 @@ export default function Souscriptions() {
                 borderBottomColor: 'gray',
                 opacity: 0.3,
                 marginVertical: 10,
-              }}
-            />
+              }}/>
               <Text style={{ fontSize: 12, fontWeight: 'bold' }}>
                 {i18n('filtre_statut')}
               </Text>
-              <View style={{ marginBottom: 40 }}>
+              <View >
                 <DropdownComponent
                   label="Sélectionner un statut"
-                  placeholder="Sélectionner une statut"
+                  placeholder="Sélectionner un statut"
                   data={status}
                   onChangeValue={onChangeValue}
+                />
+              </View>
+              <Text style={{ fontSize: 12, fontWeight: 'bold'}}>
+                {i18n('produit')}
+              </Text>
+              <View>
+                <DropdownComponent
+                  label="Sélectionner un produit"
+                  placeholder="Sélectionner un produit"
+                  data={ products.map(p => ({label: `${p.name}`,value: `${p.id}`})) }
+                  onChangeValue={onProductChangeValue}
                 />
               </View>
             <View
@@ -479,7 +491,7 @@ export default function Souscriptions() {
                 />
               )}
             </View>
-            <View style={{ marginTop: 40 }}>
+            <View style={{ marginTop: 30 }}>
               <Button
                 style={{ backgroundColor: COLORS.primary  }}
                 mode="contained"
@@ -487,6 +499,7 @@ export default function Souscriptions() {
                 <Text style={{ color: COLORS.white }}>{i18n('btn_appliquer')}</Text>
               </Button>
             </View>
+          </ScrollView>
         </Modal>
       </Portal>
     </SafeAreaView>

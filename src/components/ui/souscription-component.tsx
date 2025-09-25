@@ -3,7 +3,7 @@ import { ROUTES } from '../../constants/Routes';
 import Navigation from '../../services/Navigation';
 import i18n from '../../translations/i18n';
 import type { Souscription } from '../../types';
-import useDate from '../../utils/useDate';
+import useDate from '../../hooks/useDate';
 import { Box } from './Box';
 import { getColor } from '../../constants';
 
