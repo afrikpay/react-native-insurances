@@ -25,7 +25,6 @@ export default function DetailAssurance(props: any) {
 
   // Get params from navigation
   const { product, insurer } = props.route.params;
-  // const [plans, setPlans] = useState<Plan[]>([]);
   const [plans, setPlans] = useState<any>();
   const [targets, setTargets] = useState<string[]>([]);
 
@@ -40,12 +39,10 @@ export default function DetailAssurance(props: any) {
             tenantId: insurer.id,
           }
         );
-        console.log(JSON.stringify(response, null, 2));
         
         const data = response.result.plans;
         if (data && Object.keys(data).length > 0) {
-          const result = Object.keys(data).map((key: string) => data[key] as Plan)
-          const finalData = groupBy(result, "tags")
+          const finalData = groupBy(Object.keys(data).map((key: string) => data[key] as Plan), "tags")
           setTargets(Object.keys(finalData))
           setPlans(finalData);
         }

@@ -273,8 +273,7 @@ export function ProductSection(
               paddingHorizontal: 16,
               backgroundColor: COLORS.primary,
               borderRadius: 100,
-            }}
-          >
+            }}>
             <Text
               style={{ color: COLORS.white, fontWeight: '400', fontSize: 10 }}>
               {i18n('voir_plus')}
@@ -288,8 +287,7 @@ export function ProductSection(
           flexWrap: 'wrap',
           flexDirection: 'row',
           gap: 10,
-        }}
-      >
+        }}>
         {loading && (
           <View
             style={{
