@@ -25,7 +25,7 @@ export default function SouscriptionForm(props: any) {
 
   const [loading, setLoading] = useState(true);
   const [savingData, setSavingData] = useState(false);
-  const [user, setUser] = useState<User>();
+  const [_, setUser] = useState<User>();
 
   const [formResult, setFormResult] = useState<Record<string, any>>();
 
@@ -35,27 +35,31 @@ export default function SouscriptionForm(props: any) {
   const [defaultValues, setDefaultValues] = useState<any>(null);
   const [defaultSubscriberValues, setDefaultSubscriberValues] = useState<any>(null);
   const [subscriber, setSubscriber] = useState<any>(null);
-  const [subscribeFor, setSubscribeFor] = useState<'myself' | 'other'>('myself');
-  const [insurer, setInsurer] = useState<'myself' | 'other'>('other');
+  // const [subscribeFor, setSubscribeFor] = useState<'myself' | 'other'>('myself');
+  // const [insurer, setInsurer] = useState<'myself' | 'other'>('other');
 
 
+  console.log(JSON.stringify({},));
+  
   useEffect(() => {
     (async () => {
       setLoading(true);
       try {
         const userData = await Auth.getUser()
         setUser(userData)
-        setDefaultSubscriberValues({
+        setDefaultSubscriberValues({})
+        /* setDefaultSubscriberValues({
           customerName: userData?.name,
           phone: userData?.phone,
           email: userData?.email
-        })
+        }) */
 
         const data = {
           planId: planId,
           insurerId: insurerId,
           page: 1,
         };
+
         const response: any = await apiClient.post('/secure/mobile/form/v1', { ...data });
         setFormResult(response.result);
         response.result.fields.map((f: any) => {
@@ -90,7 +94,6 @@ export default function SouscriptionForm(props: any) {
           setFormStep((prev) => [...prev, item]);
           setFormStepCopy((prev) => [...prev, item]);
         });
-        
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -182,7 +185,7 @@ export default function SouscriptionForm(props: any) {
     }
   }
 
-  const handleUpdateSubcriber =  async (subscribeTo: "myself" | "other") => {
+  /* const handleUpdateSubcriber =  async (subscribeTo: "myself" | "other") => {
     setSubscribeFor(subscribeTo)
     if (subscribeTo === "myself"){
       setDefaultSubscriberValues({
@@ -194,7 +197,7 @@ export default function SouscriptionForm(props: any) {
     else{
       setDefaultSubscriberValues({})
     }
-  }
+  } */
 
   return (
     <View
@@ -252,7 +255,7 @@ export default function SouscriptionForm(props: any) {
         { (!loading &&!subscriber) && (
           <View>
             <View style={{ paddingHorizontal: 20, gap: 10 }}>
-              <Text style={{ fontSize: 12 }}>Souscripteur:</Text>
+              {/* <Text style={{ fontSize: 12 }}>Souscripteur:</Text>
               <View style={{ flexDirection: "row", gap: 4 }}>
                 <Pressable
                   onPress={() => handleUpdateSubcriber("myself")}
@@ -306,7 +309,7 @@ export default function SouscriptionForm(props: any) {
                     Autre
                   </Text>
                 </Pressable>
-              </View>
+              </View> */}
               <Text style={{ fontWeight: 'bold' }}>
                 {i18n('infos_souscripteur')}
               </Text>
@@ -386,7 +389,7 @@ export default function SouscriptionForm(props: any) {
                 </Text>
               </Pressable>
             </View>
-            <View style={{ paddingHorizontal: 20, gap: 10 }}>
+            {/* <View style={{ paddingHorizontal: 20, gap: 10 }}>
               <Text style={{ fontSize: 12 }}>Je souscris pour:</Text>
               <View style={{ flexDirection: "row", gap: 4 }}>
                 <Pressable
@@ -442,7 +445,7 @@ export default function SouscriptionForm(props: any) {
                   </Text>
                 </Pressable>
               </View>
-            </View>
+            </View> */}
             <StepFormBuilder
               onSubmit={addInsurer}
               steps={formStep}

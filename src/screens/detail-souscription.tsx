@@ -142,6 +142,7 @@ export default function DetailSouscription(props: any) {
         paymentWallet: `237${phoneNumber}`,
         data: { insurerId: souscription.insurer.id },
       };
+
       const response: any = await apiClient.post(
         '/secure/mobile/subscription/payment/v1',
         { ...data },
@@ -505,11 +506,13 @@ export default function DetailSouscription(props: any) {
                 </View>
               </View>
             </Box>
-            {  ["A", "C", "D", "R"].includes(souscription.status) && (
+            {  
+              ["A", "C", "D", "R"].includes(souscription.status) && (
               <TouchableOpacity
                 onPress={sendContract}
                 style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-                {sending && (
+                {
+                  sending && (
                   <ActivityIndicator
                     size={'small'}
                     color={COLORS.gray}
@@ -579,7 +582,8 @@ export default function DetailSouscription(props: any) {
                 </View>
               )
             }
-            {souscription.status === 'V' && (
+            {
+              souscription.status === 'V' && (
               <View style={{ marginTop: 20 }}>
                 <View style={{ flexDirection: 'column', gap: 12 }}>
                   <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>
@@ -659,6 +663,10 @@ export default function DetailSouscription(props: any) {
                       multiline={false}
                       numberOfLines={1}
                     />
+                    <Text style={{
+                      fontSize: 12, color: COLORS.dark,
+                      fontStyle: "italic", marginLeft: 20
+                    }}>Numéro de téléphone sans code pays</Text>
                   </View>
                 )}
 
@@ -705,7 +713,8 @@ export default function DetailSouscription(props: any) {
                   </Text>
                 </Pressable>
               </View>
-            )}
+              )
+            }
             {!souscription.has_sent_document && (
               <Pressable
                 onPress={handleDocumentsConfirmation}
@@ -721,7 +730,8 @@ export default function DetailSouscription(props: any) {
                   gap: 10,
                   alignItems: 'center',
                 }}>
-                {isDocSending && (
+                {
+                  isDocSending && (
                   <ActivityIndicator
                     color={COLORS.white}
                     style={{ height: 30, width: 30 }}
@@ -815,8 +825,7 @@ export default function DetailSouscription(props: any) {
             backgroundColor: 'white',
             width: width,
             height: height,
-          }}
-        >
+          }}>
           <WebviewScreen
             paymentUrl={paymentUrl ?? ''}
             onPaymentSuccess={successPayment}

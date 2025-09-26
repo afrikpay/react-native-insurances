@@ -106,12 +106,11 @@ export default function Souscriptions() {
         pageSize: 10,
       }
       if (selectedStatus){ body = { ...body, requestStatus: selectedStatus }}
-      if (selectedProduct){ body = { ...body, category_id: selectedProduct }}
-      if (isFilter && startDate){ body = { ...body, startAtGte: startDate.toISOString().split(".")[0] }}
-      if (isFilter && endDate){ body = { ...body, endAtGte: endDate.toISOString().split(".")[0] }}
+      if (selectedProduct){ body = { ...body, categoryId: +selectedProduct }}
+      if (isFilter && startDate){ body = { ...body, startAtGte: startDate.toISOString() }}
+      if (isFilter && endDate){ body = { ...body, endAtLte: endDate.toISOString() }}
       
       const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', body )
-      // console.log(JSON.stringify(response, null, 2));
       setNextPage(response.result.next)
 
       if (response.result.subscriptions){
@@ -209,10 +208,10 @@ export default function Souscriptions() {
   }
 
   const handleApplyFilters = async () => {
+    setSouscriptions((_) => [])
+    setSouscriptionsCopy((_) => [])
     const currentPage = 1
     setPage(currentPage)
-    setSouscriptions([])
-    setSouscriptionsCopy([])
     hideModal()
     await fetchSubscription(currentPage)
   }
