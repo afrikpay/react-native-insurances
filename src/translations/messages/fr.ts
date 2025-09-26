@@ -62,14 +62,15 @@ const fr = {
   // Détail assurance
   desc_assurance: 'Description assurance',
   formule_offertes: 'Formules offertes',
-  prime_ttc: 'Prime TTC',
+  // prime_ttc: 'Prime TTC',
+  prime_ttc: 'Plafond/Capital',
   duree: 'Durée',
 
   // Détail souscription
   detail_souscription_titre: 'Détails souscription',
   souscrit_le: 'Souscrit le',
   active_le: 'Activé le',
-  prime: 'Prime',
+  capital: "Capital",
   telecharger_contrat: 'Télécharger le contrat',
   assures: 'Assurés',
   assure: 'Assuré',

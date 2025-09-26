@@ -60,7 +60,8 @@ const en = {
   assureurs: 'Insurers',
 
   // Détail assurance
-  prime_ttc: 'Prime TTC',
+  // prime_ttc: 'Prime TTC',
+  prime_ttc: "Ceiling/Capital",
   duree: 'Duration',
 
   // Détail souscription
@@ -69,7 +70,7 @@ const en = {
   detail_souscription_titre: 'Subscription details',
   souscrit_le: 'Subscribed on',
   active_le: 'Activated on',
-  prime: 'Bonus',
+  capital: "Capital",
   telecharger_contrat: 'Download contract',
   assures: 'Insured',
   assure: 'Insured',

@@ -96,7 +96,7 @@ export default function DetailSouscription(props: any) {
       - Souscrit le : ${souscription.subscribed_at.slice(0, 10)}
       - Activé le : ${souscription.start_at ? souscription.start_at.slice(0, 10) : '--'}
       - Validité : ${souscription.end_at ? souscription.end_at.slice(0, 10) : '--'}
-      - Prime : ${souscription.plan?.price} XAF
+      - Capital : ${souscription.plan?.price} XAF
       - Description : ${souscription.plan?.description}
       Merci de me contacter pour plus d'informations.
     `;
@@ -493,7 +493,7 @@ export default function DetailSouscription(props: any) {
                         color: COLORS.dark,
                       }}
                     >
-                      {i18n('prime')}:{' '}
+                      {i18n('capital')}:{' '}
                     </Text>
                     <Text
                       numberOfLines={2}

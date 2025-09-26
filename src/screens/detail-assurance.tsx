@@ -62,6 +62,8 @@ export default function DetailAssurance(props: any) {
         acc[cle] = [];
       }
       acc[cle].push(obj);
+  
+      // acc[cle].sort((a: any, b: any) =>  a.price > b.price )
       return acc;
     }, {});
   }
