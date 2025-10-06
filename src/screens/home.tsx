@@ -116,8 +116,8 @@ export default function Home() {
         </TouchableOpacity>
       </View> */}
 
-      {/** Subscription Card 
-      <HomeCard /> */}
+      {/** Subscription Card */}
+      <HomeCard />
 
       <ScrollView 
         refreshControl={

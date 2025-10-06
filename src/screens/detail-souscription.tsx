@@ -51,7 +51,7 @@ const operateursMobile: Record<string, any>[] = [
     logo: IMAGES.logoPaypal,
     slug: 'paypal-ecommerce-insurance-payment-service-feature',
   },
-];
+]
 
 export default function DetailSouscription(props: any) {
   const { souscription } = props.route.params
@@ -439,7 +439,7 @@ export default function DetailSouscription(props: any) {
                     { 
                       souscription.subscribed_at &&
                       <Text numberOfLines={2} ellipsizeMode="tail">
-                        {formatDate(souscription.plan.unit, souscription.subscribed_at, souscription.plan.duration)}
+                        {souscription.subscribed_at.slice(0, 10)}
                       </Text>
                     }
                   </View>
@@ -457,7 +457,7 @@ export default function DetailSouscription(props: any) {
                       {i18n('active_le')} :
                     </Text>
                     <Text numberOfLines={2} ellipsizeMode="tail">
-                      {souscription.startAt
+                      {souscription.start_at
                         ? souscription.start_at.slice(0, 10)
                         : '--'}
                     </Text>
@@ -476,8 +476,8 @@ export default function DetailSouscription(props: any) {
                       {i18n('validite')} :
                     </Text>
                     <Text numberOfLines={2} ellipsizeMode="tail">
-                      {souscription.end_at
-                        ? souscription.end_at.slice(0, 10)
+                      {souscription.start_at
+                        ? formatDate(souscription.plan.unit, souscription.start_at, souscription.plan.duration) // souscription.end_at.slice(0, 10)
                         : '--'}
                     </Text>
                   </View>

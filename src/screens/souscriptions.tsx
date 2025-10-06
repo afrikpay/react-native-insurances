@@ -107,9 +107,9 @@ export default function Souscriptions() {
       }
       if (selectedStatus){ body = { ...body, requestStatus: selectedStatus }}
       if (selectedProduct){ body = { ...body, categoryId: +selectedProduct }}
-      if (isFilter && startDate){ body = { ...body, startAtGte: startDate.toISOString() }}
-      if (isFilter && endDate){ body = { ...body, endAtLte: endDate.toISOString() }}
-      
+      if (isFilter && startDate){ body = { ...body, startAtGte: startDate.toISOString().split('.')[0] }}
+      if (isFilter && endDate){ body = { ...body, endAtLte: endDate.toISOString().split('.')[0] }}
+
       const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', body )
       setNextPage(response.result.next)
 
@@ -124,12 +124,9 @@ export default function Souscriptions() {
       setIsFilter(false)
       setSelectedProduct("")
       setSelectedStatus("")
-
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    } finally {
-      setLoading(false);
     }
+    catch (error) { console.error('Error fetching data:', error) }
+    finally { setLoading(false) }
   };
 
   useEffect(() => {

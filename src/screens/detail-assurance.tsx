@@ -54,7 +54,6 @@ export default function DetailAssurance(props: any) {
     })();
   }, [insurer, product]);
 
-
   function groupBy(tableauObjets: any, propriete: string) {
     return tableauObjets.reduce((acc: any, obj: any) => {
       var cle = obj[propriete] ?? `null_${Math.random().toString()}`;
@@ -62,13 +61,15 @@ export default function DetailAssurance(props: any) {
         acc[cle] = [];
       }
       acc[cle].push(obj);
-  
-      // acc[cle].sort((a: any, b: any) =>  a.price > b.price )
       return acc;
     }, {});
   }
-  
 
+  const sortPlans = (plans: Plan[]) => {
+    plans.sort((a: any, b: any) =>  a.price - b.price ).reverse()
+    return plans
+  }
+  
   return (
     <SafeAreaView
       style={{
@@ -147,7 +148,7 @@ export default function DetailAssurance(props: any) {
             renderItem={({ item }: { item: any }) => (
               <View style={{ borderWidth: 1, borderColor: COLORS.secondary, borderRadius: 10, padding: 10, gap: 10 }}>
                 {
-                  plans[item].map((plan: Plan) => (
+                  sortPlans(plans[item]).map((plan: Plan) => (
                     <Pressable
                       onPress={() => {
                         Navigation.navigate(ROUTES.DETAIL_FORMULE, {
