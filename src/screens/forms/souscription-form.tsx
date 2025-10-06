@@ -38,9 +38,6 @@ export default function SouscriptionForm(props: any) {
   // const [subscribeFor, setSubscribeFor] = useState<'myself' | 'other'>('myself');
   // const [insurer, setInsurer] = useState<'myself' | 'other'>('other');
 
-
-  console.log(JSON.stringify({},));
-  
   useEffect(() => {
     (async () => {
       setLoading(true);
