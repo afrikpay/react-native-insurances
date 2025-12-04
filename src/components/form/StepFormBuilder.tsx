@@ -11,6 +11,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import type { FormData, StepFormBuilderProps } from './types/types';
 import { StepFormHeader } from './StepFormHeader';
+import { COLORS } from '../../constants/Colors';
 
 export default function StepFormBuilder({
   steps,
@@ -145,7 +146,7 @@ export default function StepFormBuilder({
                 : handleNext
             }
             loading={isProcessing}
-            style={styles.button}
+            style={[styles.button, styles.primaryButton]}
             theme={{ roundness: 5 }}
             disabled={isProcessing || (isLastStep && !formIsValid)}
           >
@@ -181,6 +182,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   primaryButton: {
-    backgroundColor: '#3B82F6',
+    backgroundColor: COLORS.primary, // '#3B82F6',
   },
 });
