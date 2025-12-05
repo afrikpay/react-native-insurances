@@ -299,6 +299,8 @@ export default function DetailSouscription(props: any) {
       }
     } catch (error: any) {
       SimpleToast.show(`Erreur survenue lors de l'envoi des documents: ${error.message}`, 15);
+      console.log(`Erreur survenue lors de l'envoi des documents: ${error.message}`);
+      
     }
 
     finally{ setLoading(false)}
