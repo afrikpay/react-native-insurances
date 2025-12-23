@@ -95,7 +95,7 @@
     "react-native-svg": "13.4.0",
     "react-native-webview": "11.26.0",
     "release-it": "^17.10.0",
-    "typescript": "^4.9.4"
+    "typescript": "^5.2.2"
   },
   "peerDependencies": {
     "@expo/vector-icons": "*",
@@ -114,7 +114,6 @@
     "react-native-reanimated": "*",
     "react-native-webview": "*"
   },
-  "private": true,
   "packageManager": "yarn@3.6.1",
   "jest": {
     "preset": "react-native",
