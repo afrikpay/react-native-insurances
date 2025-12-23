@@ -89,7 +89,6 @@ export function StepFormField({
                 }
                 style={styles.input}
                 theme={{ roundness: 8 }}
-                {...inputProps}
               />
             )}
             {error && (
