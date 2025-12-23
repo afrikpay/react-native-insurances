@@ -31,6 +31,7 @@ import i18n from '../translations/i18n';
 import { uploadFile } from '../utils/uploadFiles';
 import useDate from '../hooks/useDate';
 import { getColor } from '../constants';
+import useSeparator from '../hooks/useSeparator';
 
 const operateursMobile: Record<string, any>[] = [
   {
@@ -57,6 +58,7 @@ export default function DetailSouscription(props: any) {
   const { souscription } = props.route.params
 
   const { formatDate } = useDate()
+  const { numberWithCommas } = useSeparator()
 
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -95,7 +97,7 @@ export default function DetailSouscription(props: any) {
       - Souscrit le : ${souscription.subscribed_at.slice(0, 10)}
       - Activé le : ${souscription.start_at ? souscription.start_at.slice(0, 10) : '--'}
       - Validité : ${souscription.end_at ? souscription.end_at.slice(0, 10) : '--'}
-      - Capital : ${souscription.plan?.price} XAF
+      - Capital : ${numberWithCommas(souscription.plan?.price!)} XAF
       - Description : ${souscription.plan?.description}
       Merci de me contacter pour plus d'informations.
     `;
@@ -501,7 +503,7 @@ export default function DetailSouscription(props: any) {
                       ellipsizeMode="tail"
                       style={{ fontSize: 14, fontWeight: 'bold' }}
                     >
-                      {souscription.amount} XAF
+                      {numberWithCommas(souscription.amount!)} XAF
                     </Text>
                   </View>
                 </View>

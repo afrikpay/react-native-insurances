@@ -159,10 +159,14 @@ export function HomeCard() {
   
   useEffect(() => {
     ( async () => {
-      const response: any = await apiClient.post(
-        '/secure/mobile/categories/v1',{})
-      if (response.code === 200 && response.message === "success" && response.result.length > 0 ){
-        setProduct({...response.result[0]})
+      try {
+        const response: any = await apiClient.post(
+          '/secure/mobile/categories/v1',{})
+        if (response.code === 200 && response.message === "success" && response.result.length > 0 ){
+          setProduct({...response.result[0]})
+        }
+      } catch (error) {
+        console.log(error)
       }
     })()
   }, [])
@@ -238,6 +242,7 @@ export function ProductSection(
     try {
       await findProducts()
     } catch (error: any) {
+      console.log(error);
       if ( error.status === 502) { findCategories() }
     } finally {
       setLoading(false);

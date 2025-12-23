@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useForm } from 'react-hook-form';
 import { StepFormField } from './StepFormField';
@@ -150,7 +150,7 @@ export default function StepFormBuilder({
             theme={{ roundness: 5 }}
             disabled={isProcessing || (isLastStep && !formIsValid)}
           >
-            {isLastStep ? 'Valider' : 'Suivant'}
+            <Text style={{ color: COLORS.white }}>{isLastStep ? 'Valider' : 'Suivant'}</Text>
           </Button>
         </Animated.View>
       </ScrollView>

@@ -19,6 +19,7 @@ import { apiClient } from '../data/axios';
 import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import type { Plan } from '../types';
+import useSeparator from '../hooks/useSeparator';
 
 export default function DetailAssurance(props: any) {
   const [loading, setLoading] = useState(false);
@@ -27,6 +28,8 @@ export default function DetailAssurance(props: any) {
   const { product, insurer } = props.route.params;
   const [plans, setPlans] = useState<any>();
   const [targets, setTargets] = useState<string[]>([]);
+
+  const { numberWithCommas } = useSeparator()
 
   useEffect(() => {
     (async () => {
@@ -201,7 +204,7 @@ export default function DetailAssurance(props: any) {
                             <Text style={{ fontWeight: 'bold'}}>{item.price} XAF - Enfant</Text>
                             <Text style={{ fontWeight: 'bold'}}>74 000 XAF - Adulte</Text>
                           */}
-                          <Text style={{ fontWeight: 'bold' }}>{plan.price} XAF</Text>
+                          <Text style={{ fontWeight: 'bold' }}>{numberWithCommas(plan.price!)} XAF</Text>
                         </View>
                       </View>
                       {/** <Text>Couverture jusqu’a 500 000 XAF</Text> */}

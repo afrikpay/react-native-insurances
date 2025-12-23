@@ -6,6 +6,7 @@ import type { Souscription } from '../../types';
 import useDate from '../../hooks/useDate';
 import { Box } from './Box';
 import { getColor } from '../../constants';
+import useSeparator from '../../hooks/useSeparator';
 
 export default function SouscriptionComponent({
   souscription,
@@ -13,6 +14,7 @@ export default function SouscriptionComponent({
   souscription: Souscription;
 }) {
   const { formatDate } = useDate()
+  const { numberWithCommas } = useSeparator()
 
   return (
     <Box width={'100%'} padding={18}>
@@ -94,7 +96,7 @@ export default function SouscriptionComponent({
             </Text>
             <View
               style={{ flexDirection: 'row', alignItems: 'baseline', gap: 2 }}>
-              <Text style={{ fontWeight: 'bold' }}>{souscription.amount}</Text>
+              <Text style={{ fontWeight: 'bold' }}>{ numberWithCommas(souscription.amount!) }</Text>
               <Text style={{ fontSize: 10, opacity: 0.7 }}>
                 {i18n('par_mois')}
               </Text>

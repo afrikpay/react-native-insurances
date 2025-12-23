@@ -386,63 +386,65 @@ export default function SouscriptionForm(props: any) {
                 </Text>
               </Pressable>
             </View>
-            {/* <View style={{ paddingHorizontal: 20, gap: 10 }}>
-              <Text style={{ fontSize: 12 }}>Je souscris pour:</Text>
-              <View style={{ flexDirection: "row", gap: 4 }}>
-                <Pressable
-                  onPress={() => setInsurer("myself")}
-                  style={{
-                    paddingVertical: 8,
-                    flexDirection: "row",
-                    justifyContent: 'center', alignItems: 'center',
-                    gap: 5,
-                    paddingHorizontal: 14,
-                    borderColor: insurer === "myself" ? COLORS.primary: COLORS.gray,
-                    borderWidth: 1,
-                    borderRadius: 100,
-                  }}>
-                  <View style={{ height: 16, width: 16, 
-                    justifyContent: 'center', alignItems: 'center', 
-                    backgroundColor: insurer === "myself" ? COLORS.primary : COLORS.gray, 
-                    borderRadius: 100, padding: 2 }}>
-                    <View style={{ height: 10, width: 10, backgroundColor: COLORS.white, borderRadius: 100 }}></View>
-                  </View>
-                  <Text
+            {/* 
+              <View style={{ paddingHorizontal: 20, gap: 10 }}>
+                <Text style={{ fontSize: 12 }}>Je souscris pour:</Text>
+                <View style={{ flexDirection: "row", gap: 4 }}>
+                  <Pressable
+                    onPress={() => setInsurer("myself")}
                     style={{
-                      color: insurer === "myself" ? COLORS.primary : COLORS.gray,
-                      fontWeight: 'bold',
-                      textAlign: 'center' }}>
-                    Moi
-                  </Text>
-                </Pressable>
-                <Pressable
-                  onPress={() => setInsurer("other")}
-                  style={{
-                    paddingVertical: 8,
-                    flexDirection: "row",
-                    justifyContent: 'center', alignItems: 'center',
-                    gap: 5,
-                    paddingHorizontal: 10,
-                    borderColor: insurer === "other" ? COLORS.primary: COLORS.gray,
-                    borderWidth: 1,
-                    borderRadius: 100,
-                  }}>
-                  <View style={{ height: 16, width: 16, 
-                    justifyContent: 'center', alignItems: 'center', 
-                    backgroundColor: insurer === "other" ? COLORS.primary : COLORS.gray, 
-                    borderRadius: 100, padding: 2 }}>
-                    <View style={{ height: 10, width: 10, backgroundColor: COLORS.white, borderRadius: 100 }}></View>
-                  </View>
-                  <Text
+                      paddingVertical: 8,
+                      flexDirection: "row",
+                      justifyContent: 'center', alignItems: 'center',
+                      gap: 5,
+                      paddingHorizontal: 14,
+                      borderColor: insurer === "myself" ? COLORS.primary: COLORS.gray,
+                      borderWidth: 1,
+                      borderRadius: 100,
+                    }}>
+                    <View style={{ height: 16, width: 16, 
+                      justifyContent: 'center', alignItems: 'center', 
+                      backgroundColor: insurer === "myself" ? COLORS.primary : COLORS.gray, 
+                      borderRadius: 100, padding: 2 }}>
+                      <View style={{ height: 10, width: 10, backgroundColor: COLORS.white, borderRadius: 100 }}></View>
+                    </View>
+                    <Text
+                      style={{
+                        color: insurer === "myself" ? COLORS.primary : COLORS.gray,
+                        fontWeight: 'bold',
+                        textAlign: 'center' }}>
+                      Moi
+                    </Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => setInsurer("other")}
                     style={{
-                      color: insurer === "other" ? COLORS.primary : COLORS.gray,
-                      fontWeight: 'bold',
-                      textAlign: 'center' }}>
-                    Un proche
-                  </Text>
-                </Pressable>
-              </View>
-            </View> */}
+                      paddingVertical: 8,
+                      flexDirection: "row",
+                      justifyContent: 'center', alignItems: 'center',
+                      gap: 5,
+                      paddingHorizontal: 10,
+                      borderColor: insurer === "other" ? COLORS.primary: COLORS.gray,
+                      borderWidth: 1,
+                      borderRadius: 100,
+                    }}>
+                    <View style={{ height: 16, width: 16, 
+                      justifyContent: 'center', alignItems: 'center', 
+                      backgroundColor: insurer === "other" ? COLORS.primary : COLORS.gray, 
+                      borderRadius: 100, padding: 2 }}>
+                      <View style={{ height: 10, width: 10, backgroundColor: COLORS.white, borderRadius: 100 }}></View>
+                    </View>
+                    <Text
+                      style={{
+                        color: insurer === "other" ? COLORS.primary : COLORS.gray,
+                        fontWeight: 'bold',
+                        textAlign: 'center' }}>
+                      Un proche
+                    </Text>
+                  </Pressable>
+                </View>
+              </View> 
+            */}
             <StepFormBuilder
               onSubmit={addInsurer}
               steps={formStep}
@@ -453,118 +455,121 @@ export default function SouscriptionForm(props: any) {
             />
           </View>
         )}
-        {formStep.length === 0 && !loading && (
-          <View>
-            <View
-              style={{
-                borderRadius: 8,
-                borderWidth: 0.3,
-                padding: 20,
-                flexDirection: 'column',
-                gap: 8,
-              }}>
-              <Text style={{ fontWeight: 'bold' }}>{i18n('souscripteur')}</Text>
-              <View style={{ flexDirection: 'column', gap: 4 }}>
-                <Text>
-                  {i18n('nom')}: {subscriber?.customerName}{' '}
-                </Text>
-                <Text>
-                  {i18n('tel_souscripteur')}: {subscriber?.phone}{' '}
-                </Text>
-                <Text>Email: {subscriber?.email} </Text>
+        {
+          formStep.length === 0 && !loading && (
+            <View>
+              <View
+                style={{
+                  borderRadius: 8,
+                  borderWidth: 0.3,
+                  padding: 20,
+                  flexDirection: 'column',
+                  gap: 8,
+                }}>
+                <Text style={{ fontWeight: 'bold' }}>{i18n('souscripteur')}</Text>
+                <View style={{ flexDirection: 'column', gap: 4 }}>
+                  <Text>
+                    {i18n('nom')}: {subscriber?.customerName}{' '}
+                  </Text>
+                  <Text>
+                    {i18n('tel_souscripteur')}: {subscriber?.phone}{' '}
+                  </Text>
+                  <Text>Email: {subscriber?.email} </Text>
+                </View>
               </View>
-            </View>
-            <View style={{ marginVertical: 15 }}>
-              {assures.map((insurer, index) => (
-                <View
-                  key={index}
+              <View style={{ marginVertical: 15 }}>
+                {
+                  assures.map((insurer, index) => (
+                    <View
+                      key={index}
+                      style={{
+                        paddingVertical: 10,
+                        paddingHorizontal: 7,
+                        borderWidth: 0.3,
+                        borderColor: COLORS.primary,
+                        borderRadius: 8,
+                        width: '100%',
+                        marginVertical: 6,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}>
+                      <Text style={{ color: COLORS.primary }}>
+                        {i18n('assure')} N°{index + 1}
+                      </Text>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'center',
+                          gap: 18,
+                        }}>
+                        <AntDesign onPress={() => editInsurer(insurer)} name="edit" size={24} color="black" />
+                        <AntDesign onPress={() => deleteInsurer(insurer)} name="delete" size={24} color="red" />
+                      </View>
+                    </View>
+                  ))
+                }
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+                  gap: 8,
+                }}>
+                <Pressable
+                  onPress={() => {
+                    if (!savingData) {
+                      setFormStep(formStepCopy);
+                    }
+                  }}
                   style={{
                     paddingVertical: 10,
-                    paddingHorizontal: 7,
-                    borderWidth: 0.3,
-                    borderColor: COLORS.primary,
-                    borderRadius: 8,
-                    width: '100%',
-                    marginVertical: 6,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
+                    width: 150,
+                    backgroundColor: COLORS.gray,
+                    borderRadius: 100,
                   }}>
-                  <Text style={{ color: COLORS.primary }}>
-                    {i18n('assure')} N°{index + 1}
-                  </Text>
-                  <View
+                  <Text
                     style={{
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                      gap: 18,
+                      color: COLORS.white,
+                      fontWeight: 'bold',
+                      textAlign: 'center',
                     }}>
-                    <AntDesign onPress={() => editInsurer(insurer)} name="edit" size={24} color="black" />
-                    <AntDesign onPress={() => deleteInsurer(insurer)} name="delete" size={24} color="red" />
-                  </View>
-                </View>
-              ))}
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
-                gap: 8,
-              }}>
-              <Pressable
-                onPress={() => {
-                  if (!savingData) {
-                    setFormStep(formStepCopy);
-                  }
-                }}
-                style={{
-                  paddingVertical: 10,
-                  width: 150,
-                  backgroundColor: COLORS.gray,
-                  borderRadius: 100,
-                }}>
-                <Text
+                    {i18n('ajouter_assure')}
+                  </Text>
+                </Pressable>
+                <Pressable
+                  onPress={handleSubmitForm}
+                  disabled={savingData || assures.length === 0}
                   style={{
-                    color: COLORS.white,
-                    fontWeight: 'bold',
-                    textAlign: 'center',
+                    paddingVertical: 10,
+                    width: 150,
+                    backgroundColor: COLORS.primary,
+                    borderRadius: 100,
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: 8,
                   }}>
-                  {i18n('ajouter_assure')}
-                </Text>
-              </Pressable>
-              <Pressable
-                onPress={handleSubmitForm}
-                disabled={savingData || assures.length === 0}
-                style={{
-                  paddingVertical: 10,
-                  width: 150,
-                  backgroundColor: COLORS.primary,
-                  borderRadius: 100,
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: 8,
-                }}
-              >
-                {savingData && (
-                  <ActivityIndicator
-                    size={'small'}
-                    color={COLORS.white}
-                    style={{ height: 20, width: 20 }}
-                  />
-                )}
-                <Text
-                  style={{
-                    color: COLORS.white,
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                  }}>
-                  {i18n('souscrire')}
-                </Text>
-              </Pressable>
+                  {savingData && (
+                    <ActivityIndicator
+                      size={'small'}
+                      color={COLORS.white}
+                      style={{ height: 20, width: 20 }}
+                    />
+                  )}
+                  <Text
+                    style={{
+                      color: COLORS.white,
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}>
+                    {i18n('souscrire')}
+                  </Text>
+                </Pressable>
+              </View>
             </View>
-          </View>
-        )}
+          )
+        }
         <View style={{ height: 80, width: '100%' }} />
       </ScrollView>
     </View>

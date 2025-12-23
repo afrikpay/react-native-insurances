@@ -31,7 +31,9 @@
       [
         "expo-document-picker"
       ],
-      "expo-localization"
+      "expo-localization",
+      "expo-font",
+      "expo-secure-store"
     ]
   }
 }
