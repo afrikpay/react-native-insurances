@@ -46,7 +46,7 @@ export default function Home() {
         flex: 1,
         height: height,
         width: width,
-        paddingVertical: 20,
+        padding: 20,
         paddingTop: 30,
         backgroundColor: COLORS.white,
         flexDirection: 'column',
