@@ -147,10 +147,10 @@ export default function StepFormBuilder({
             }
             loading={isProcessing}
             style={[styles.button, styles.primaryButton]}
-            theme={{ roundness: 5 }}
+            theme={{ roundness: 2 }}
             disabled={isProcessing || (isLastStep && !formIsValid)}
           >
-            <Text style={{ color: COLORS.white }}>{isLastStep ? 'Valider' : 'Suivant'}</Text>
+            <Text style={{ color: COLORS.white, fontSize: 16 }}>{isLastStep ? 'Valider' : 'Suivant'}</Text>
           </Button>
         </Animated.View>
       </ScrollView>
