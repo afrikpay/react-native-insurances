@@ -25,13 +25,14 @@ import { apiClient } from '../data/axios';
 import WebviewScreen from './forms/components/WebviewScreen';
 
 import * as DocumentPicker from 'expo-document-picker';
+import ErrorMessage from '../components/error-message';
+import { getColor } from '../constants';
 import { ROUTES } from '../constants/Routes';
+import useDate from '../hooks/useDate';
+import useSeparator from '../hooks/useSeparator';
 import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import { uploadFile } from '../utils/uploadFiles';
-import useDate from '../hooks/useDate';
-import { getColor } from '../constants';
-import useSeparator from '../hooks/useSeparator';
 
 const operateursMobile: Record<string, any>[] = [
   {
@@ -64,6 +65,7 @@ export default function DetailSouscription(props: any) {
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
   const [isDocSending, setIsDocSending] = useState(false);
+  const [error, setError] = useState("");
 
   const [visible, setVisible] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -157,13 +159,10 @@ export default function DetailSouscription(props: any) {
         setPaymentUrl(response.result.paymentLink);
         setShowPaymentModal(true);
       } else {
-        SimpleToast.show(
-          `${response?.result?.errorMessage ?? response?.message}`,
-          10
-        );
+        setError(`${response?.result?.errorMessage ?? response?.message}`);
       }
     } catch (error: any) {
-      SimpleToast.show(`${error.message}`, 10);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
@@ -209,7 +208,7 @@ export default function DetailSouscription(props: any) {
   }, [souscription]);
 
   const sendFile = async (doc: Record<string, any>) => {
-
+    
     if (submitting) return;
     setSubmitting(true);
     try {
@@ -255,7 +254,7 @@ export default function DetailSouscription(props: any) {
       SimpleToast.show('Contrat envoyé dans votre boîte mail avec succès!', 5);
     } catch (error: any) {
       console.error('Error sending contract:', error);
-      SimpleToast.show(`Error sending contract: ${error.message}`, 15);
+      setError(`Error sending contract: ${error.message}`);
     } finally {
       setSending(false);
     }
@@ -270,16 +269,12 @@ export default function DetailSouscription(props: any) {
         { referenceNumber: souscription.reference }
       );
       if (response.result.status === 'SUCCESS') {
-        SimpleToast.show(response.result.message, 25);
+        SimpleToast.show(response.result.message, 10000);
       } else {
-        SimpleToast.show("Le document n'a pas été envoyé", 10);
+        setError("Le document n'a pas été envoyé");
       }
     } catch (error: any) {
-      console.error('Error while sending documents confirmation:', error);
-      SimpleToast.show(
-        `Erreur survenue lors de l'envoi des documents: ${error.message}`,
-        15
-      );
+      setError(`Erreur survenue lors de l'envoi des documents: ${error.message}`);
     } finally {
       setIsDocSending(false);
     }
@@ -300,13 +295,20 @@ export default function DetailSouscription(props: any) {
         }, 5000);
       }
     } catch (error: any) {
-      SimpleToast.show(`Erreur survenue lors de l'envoi des documents: ${error.message}`, 15);
-      console.log(`Erreur survenue lors de l'envoi des documents: ${error.message}`);
-      
+      setError(`Erreur survenue lors de l'envoi des documents: ${error.message}`)
+      // SimpleToast.show(`Erreur survenue lors de l'envoi des documents: ${error.message}`, 15);
     }
 
     finally{ setLoading(false)}
   }
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError("");
+      }, 10000);
+    }
+  }, [error])
 
   return (
     <SafeAreaView
@@ -585,6 +587,7 @@ export default function DetailSouscription(props: any) {
                 </View>
               )
             }
+            <ErrorMessage message={error} />
             {
               souscription.status === 'V' && (
               <View style={{ marginTop: 20 }}>
@@ -638,7 +641,8 @@ export default function DetailSouscription(props: any) {
                   />
                 </View>
 
-                {serviceSlug && serviceSlug.includes('money') && (
+                {
+                  serviceSlug && serviceSlug.includes('money') && (
                   <View style={{ marginTop: 30 }}>
                     <Text style={{ fontWeight: 'bold', marginBottom: 10 }}>
                       {i18n('numero_telephone')} *
@@ -685,6 +689,7 @@ export default function DetailSouscription(props: any) {
                     {errorMessage}
                   </Text>
                 )}
+                
                 <Pressable
                   onPress={handleFetchPaymentUrl}
                   disabled={!phoneNumber && !serviceSlug.includes('paypal')}
@@ -718,7 +723,7 @@ export default function DetailSouscription(props: any) {
               </View>
               )
             }
-            {!souscription.has_sent_document && (
+            {souscription.has_sent_document && (
               <Pressable
                 onPress={handleDocumentsConfirmation}
                 disabled={isDocSending}
@@ -1000,3 +1005,4 @@ export default function DetailSouscription(props: any) {
     </SafeAreaView>
   );
 }
+

@@ -11,6 +11,9 @@ export default function useSubscription(){
             '/secure/mobile/insurance/subscription-list/v1',
             requestBody
         )
+        /* console.log("Subscriptions response:");
+        console.log(JSON.stringify(response.result.subscriptions, null, 2));
+         */
         
         setSouscriptions(response.result.subscriptions ?? ([] as Souscription[]));
     }

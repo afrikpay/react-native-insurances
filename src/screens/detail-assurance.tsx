@@ -20,6 +20,7 @@ import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import type { Plan } from '../types';
 import useSeparator from '../hooks/useSeparator';
+import ErrorMessage from '../components/error-message';
 
 export default function DetailAssurance(props: any) {
   const [loading, setLoading] = useState(false);
@@ -28,6 +29,7 @@ export default function DetailAssurance(props: any) {
   const { product, insurer } = props.route.params;
   const [plans, setPlans] = useState<any>();
   const [targets, setTargets] = useState<string[]>([]);
+  const [error, setError] = useState("");
 
   const { numberWithCommas } = useSeparator()
 
@@ -49,8 +51,8 @@ export default function DetailAssurance(props: any) {
           setTargets(Object.keys(finalData))
           setPlans(finalData);
         }
-      } catch (error) {
-        console.error('Error fetching data:', error);
+      } catch (error: any) {
+        setError(`Error fetching data: ${error}`);
       } finally {
         setLoading(false);
       }
@@ -72,6 +74,14 @@ export default function DetailAssurance(props: any) {
     plans.sort((a: any, b: any) =>  a.price - b.price ).reverse()
     return plans
   }
+ /*  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError("");
+      }, 10000);
+    }
+  }, [error])
+ */
   
   return (
     <SafeAreaView
@@ -143,6 +153,8 @@ export default function DetailAssurance(props: any) {
               />
             </View>
           )}
+          
+          <ErrorMessage message={error}/>
           <FlatList
             data={targets}
             showsHorizontalScrollIndicator={false}
