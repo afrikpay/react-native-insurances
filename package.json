@@ -1,6 +1,6 @@
 {
   "name": "react-native-insurances",
-  "version": "0.1.87",
+  "version": "0.1.88",
   "description": "Insurances gateway",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
