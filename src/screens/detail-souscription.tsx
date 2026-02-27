@@ -333,7 +333,12 @@ export default function DetailSouscription(props: any) {
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <TouchableOpacity
             onPress={() => {
-              Navigation.back();
+              if (souscription.redirectTo) {
+                Navigation.replace(souscription.redirectTo);
+              }
+              else {
+                Navigation.back();
+              }
             }}>
             <AntDesign name="arrowleft" size={24} color="black" />
           </TouchableOpacity>

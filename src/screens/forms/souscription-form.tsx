@@ -126,6 +126,7 @@ export default function SouscriptionForm(props: any) {
       SimpleToast.show(response.result.message, 15);
       setTimeout(() => {
         let souscription = {
+          redirectTo: ROUTES.BOTTOMPTAPS,
           reference: response.result.referenceNumber,
           owners: [],
           customer: response.result.customerName,
