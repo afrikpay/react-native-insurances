@@ -1,4 +1,4 @@
-import { AntDesign, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign, Feather } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -357,7 +357,7 @@ export default function DetailSouscription(props: any) {
                 }}>
                 {souscription.plan?.name}
               </Text>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => showModal()}
                 style={{
                   width: 40,
@@ -368,7 +368,7 @@ export default function DetailSouscription(props: any) {
                   alignItems: 'center',
                 }}>
                 <MaterialCommunityIcons name="message-text-outline" size={24} color="white" />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <Box width={'100%'} padding={18}>
               <View style={{ flexDirection: 'row', gap: 3 }}>
@@ -513,6 +513,25 @@ export default function DetailSouscription(props: any) {
                 </View>
               </View>
             </Box>
+            <ErrorMessage message={"Pour plus d'informations ou pour toute assistance, n'hésitez pas à nous contacter via le bouton de message ci-dessous."}
+              bgColor='#d9eddf'
+              borderLeftColor='#569877'
+              errorText='#569877'
+              iconColor='#569877'
+              >
+              {/* <Text style={{ color: '#569877', fontSize: 12, marginTop: 10 }}>
+                En cas de besoin, vous pouvez également partager les détails de votre souscription avec notre équipe d'assistance via WhatsApp.
+              </Text> */}
+              <View style={{ borderWidth: 0.8, borderColor: "#569877", borderRadius: 20, paddingHorizontal: 10, paddingVertical: 4, width: 180, marginTop: 10 }}>
+                <TouchableOpacity onPress={showModal} style={{ flexDirection: 'row', justifyContent: "center", alignItems: 'center', gap: 16 }}>
+                  <Feather name="share-2" size={20} color="#569877" />
+                  <Text style={{ color: '#569877', fontSize: 12, fontWeight: 'bold' }}>
+                    Laisser un message
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </ErrorMessage>
+
             {  
               ["A", "C", "D", "R"].includes(souscription.status) && (
               <TouchableOpacity
