@@ -10,15 +10,19 @@ npm install react-native-insurances
 
 ## Usage
 
-
 ```js
-import { multiply } from 'react-native-insurances';
+import { InsuranceApp } from 'react-native-insurances';
 
 // ...
 
-const result = await multiply(3, 7);
+export default function App() {
+  return (
+    <View>
+      <InsuranceApp appToken="`your insurance system token`" lang="en" />
+    </View>
+  );
+}
 ```
-
 
 ## Contributing
 

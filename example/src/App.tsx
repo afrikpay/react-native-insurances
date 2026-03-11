@@ -1,12 +1,14 @@
-import { multiply } from 'react-native-insurances';
-import { Text, View, StyleSheet } from 'react-native';
-
-const result = multiply(3, 7);
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { StatusBar, StyleSheet, View } from 'react-native';
+import Home from './Screens/Home';
+import Navigation from '../../src/services/Navigation';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <StatusBar hidden={true}/>
+      <RootNavigator />
     </View>
   );
 }
@@ -14,7 +16,27 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: "100%",
+    width: "100%"
   },
 });
+
+
+const Stack = createStackNavigator();
+
+const RootNavigator = () => {
+  return (
+    <NavigationContainer ref={r => Navigation.setTopLevelNavigator(r)}>
+      <Stack.Navigator
+        screenOptions={{
+        headerMode: 'float',
+        headerShown: false,
+        gestureEnabled: true }}>
+        <Stack.Screen
+          name="home"
+          component={Home}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}

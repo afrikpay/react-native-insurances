@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useForm } from 'react-hook-form';
 import { StepFormField } from './StepFormField';
@@ -9,8 +9,9 @@ import Animated, {
   SlideInRight,
   SlideOutLeft,
 } from 'react-native-reanimated';
-import { StepFormHeader } from './StepFormHeader';
 import type { FormData, StepFormBuilderProps } from './types/types';
+import { StepFormHeader } from './StepFormHeader';
+import { COLORS } from '../../constants/Colors';
 
 export default function StepFormBuilder({
   steps,
@@ -145,11 +146,11 @@ export default function StepFormBuilder({
                 : handleNext
             }
             loading={isProcessing}
-            style={styles.button}
-            theme={{ roundness: 5 }}
+            style={[styles.button, styles.primaryButton]}
+            theme={{ roundness: 2 }}
             disabled={isProcessing || (isLastStep && !formIsValid)}
           >
-            {isLastStep ? 'Valider' : 'Suivant'}
+            <Text style={{ color: COLORS.white, fontSize: 16 }}>{isLastStep ? 'Valider' : 'Suivant'}</Text>
           </Button>
         </Animated.View>
       </ScrollView>
@@ -181,6 +182,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   primaryButton: {
-    backgroundColor: '#3B82F6',
+    backgroundColor: COLORS.primary, // '#3B82F6',
   },
 });
