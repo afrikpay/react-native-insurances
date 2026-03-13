@@ -1,5 +1,5 @@
 {
-  "name": "react-native-insurances",
+  "name": "@afrikpay/react-native-insurances",
   "version": "0.2.2",
   "description": "Insurances gateway",
   "source": "./src/index.tsx",
