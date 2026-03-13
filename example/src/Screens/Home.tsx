@@ -2,8 +2,8 @@ import { StyleSheet, View } from 'react-native';
 import { InsuranceApp } from 'react-native-insurances';
 
 export default function Home() {
-  const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NzIxNzkzNTYsImV4cCI6MTc3MjI2NTc1Niwicm9sZXMiOlsiUk9MRV9PV05FUiJdLCJ1c2VybmFtZSI6IjIzNzY1MjMxMDgyOSIsInRva2VuS2V5IjoiZDJ0UU1XMXhZMnhpVDFwMWJEaGtRamRVVFZWNlp6MDkiLCJ0ZXJtaW5hbElkZW50aWZpZXIiOiI2QkRFMTNENDlDQzA5M0E1IiwidGVybWluYWxUeXBlIjoibW9iaWxlIiwidGVybWluYWxVc2VyQWdlbnQiOiJva2h0dHAvNC45LjIiLCJpcEFkZHJlc3MiOiIxNjkuMjU0LjE2OS4xMjYifQ.X2BPF3n9iI-CmEPbXOVwlTAU13q9YVZ3EBKbVfGBx17HGdBV3kyUlaibhn3WnMcN3FUI_l1a3pGzzj0FqLTmAv5S-QVP0G5v07LZoPef3IEzDbUWhOw0L2xsaHlVo3fuTgsatOYMbjP2lM1gLZ8kZbeI1-gKdK0pxFJaM1sR7-K7XHCWhcswXsPP_Ybx96MNPf-p3w64P2LcXOWErXniv1p4jMQvTrpwRNauE05xWuds_Bymn0oLGrlCRulgciq1vMapG9-N9dBRYtKujHhYcvbiOBFibAfS94oEF4fuKQKgJX033fmVNfYnLFQfoJ_eL8XrVUVDrwmdN00RTWwZeQ'
-  const terminalId = '6BDE13D49CC093A5';
+  const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NzMzOTA0MTcsImV4cCI6MTc3MzQ3NjgxNywicm9sZXMiOlsiUk9MRV9PV05FUiJdLCJ1c2VybmFtZSI6IjIzNzY1MjMxMDgyOSIsInRva2VuS2V5IjoiZDJ0UU1XMXhZMnhpVDFwMWJEaGtRamRVVFZWNlp6MDkiLCJ0ZXJtaW5hbElkZW50aWZpZXIiOiJmMDlmZTNjOS1kZTVjLTRlYjYtOGQzOS1hYjQyZmQwZTU0NjciLCJ0ZXJtaW5hbFR5cGUiOiJtb2JpbGUiLCJ0ZXJtaW5hbFVzZXJBZ2VudCI6Im9raHR0cC80LjkuMiIsImlwQWRkcmVzcyI6IjE2OS4yNTQuMTY5LjEyNiJ9.QthhUlQfGX5bSVG0A1wYSzrspdcFTiIV8iQTJTxVt9F6GLBp7oYv7dWGUtBDOuSb98qFmGbKX3gawfmIZIcgIXQNQyH4I34dcOELnknrL7OhwIVesKHaNacgE-S2A1FI7L94LUClqrs4aFTvs5wUSigYNCw9jXj6wX4x9kerZmhuibWN6xOI5BVnchTNGCvpNHAaB6QE4tiBKFqEXaotJI6TIMtb-yRlQmk6o0ZTyOaAFkH6mhkxxBqf9PkIjCeTw0_c2BDOZSMJiLW35FxFZr_p24jB1S9k5hG9sEKH4O_g-kDyGPyxV2QUHIKqhBB3NOMf4hbDsFFoawAqDloJ-g'
+  const terminalId = 'f09fe3c9-de5c-4eb6-8d39-ab42fd0e5467';
   return (
     <View style={styles.container}>
       <InsuranceApp
@@ -22,7 +22,7 @@ export default function Home() {
           gender: "male",
           language: "fr",
           accountStatus: "active",
-          terminalIdentifier: "6BDE13D49CC093A5"
+          terminalIdentifier: "f09fe3c9-de5c-4eb6-8d39-ab42fd0e5467"
         }}
       />
     </View>
