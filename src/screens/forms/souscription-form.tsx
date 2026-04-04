@@ -121,34 +121,38 @@ export default function SouscriptionForm(props: any) {
         formData: getCorrectFormOfData(),
       };
       const response: any = await apiClient.post('/secure/mobile/subscription/v1', { ...data });
-      
-      setFormResult(response.result);
-      SimpleToast.show(response.result.message, 15);
-      setTimeout(() => {
-        let souscription = {
-          redirectTo: ROUTES.BOTTOMPTAPS,
-          reference: response.result.referenceNumber,
-          owners: [],
-          customer: response.result.customerName,
-          amount: response.result.amount,
-          data: response.result.formData,
-          plan: response.result.plan,
-          product: response.result.product,
-          insurer: response.result.insurer,
-          subscribed_at: response.result.subscribeAt,
-          status: response.result.providerStatus,
-          duration_display: response.result.plan.duration_display,
-          display_status:
-            response.result.providerStatus === 'P' ? 'En cours' : 'Terminé',
-        };
-        Navigation.replace(ROUTES.DETAIL_SOUSCRIPTIONS, { souscription });
-      }, 2000);
+      if (response.code ===  200 && response.result.status !== 'FAILED') {
+        setFormResult(response.result);
+        SimpleToast.show(response.result.message, 15);
+        setTimeout(() => {
+          let souscription = {
+            redirectTo: ROUTES.BOTTOMPTAPS,
+            reference: response.result.referenceNumber,
+            owners: [],
+            customer: response.result.customerName,
+            amount: response.result.amount,
+            data: response.result.formData,
+            plan: response.result.plan,
+            product: response.result.product,
+            insurer: response.result.insurer,
+            subscribed_at: response.result.subscribeAt,
+            status: response.result.providerStatus,
+            duration_display: response.result.plan.duration_display,
+            display_status:
+              response.result.providerStatus === 'P' ? 'En cours' : 'Terminé',
+          };
+          Navigation.replace(ROUTES.DETAIL_SOUSCRIPTIONS, { souscription });
+        }, 2000);
+      }
+      if (response.result.status === 'FAILED') {
+        throw new Error('Une erreur est survenue lors de la souscription');
+      }
     } catch (error: any) {
       console.error('Error saving data:', error);
       SimpleToast.show(`Error saving data: ${error.message}`, 5);
     } finally {
       setSavingData(false);
-    }
+    } 
   };
 
   const getCorrectFormOfData = () => {
