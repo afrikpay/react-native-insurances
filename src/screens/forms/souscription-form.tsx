@@ -9,8 +9,6 @@ import {
   View
 } from 'react-native';
 import SimpleToast from 'react-native-simple-toast';
-import StepFormBuilder from '../../components/form/StepFormBuilder';
-import type { FormStep } from '../../components/form/types/types';
 import { COLORS } from '../../constants/Colors';
 import { ROUTES } from '../../constants/Routes';
 import { height, width } from '../../constants/size';
@@ -19,6 +17,7 @@ import Navigation from '../../services/Navigation';
 import i18n from '../../translations/i18n';
 import type { User } from '../../types';
 import Auth from '../../utils/Auth';
+import { StepFormBuilder, type FormStep } from '@afrikpay/rn-step-form';
 
 export default function SouscriptionForm(props: any) {
   const { planId, insurerId } = props.route.params;
@@ -59,12 +58,13 @@ export default function SouscriptionForm(props: any) {
 
         const response: any = await apiClient.post('/secure/mobile/form/v1', { ...data });
         setFormResult(response.result);
+        
         response.result.fields.map((f: any) => {
           const item: FormStep = {
             description: f.section,
             header: () => {
               return (
-                <Text style={{ fontWeight: 'bold', marginBottom: 20 }}>
+                <Text style={{ fontWeight: 'bold', marginBottom: 0 }}>
                   {' '}
                   {f.section}{' '}
                 </Text>
@@ -74,8 +74,14 @@ export default function SouscriptionForm(props: any) {
             fields: [
               ...f.fields.map((d: any) => ({
                 name: `${d.id}`,
-                label: `${d.readable_label}`,
+                label: d.title,  // `${d.readable_label}`,
                 type: d.field_type,
+                options: d.options_list
+                  ? d.options_list.map((o: any) => ({
+                      label: o.value,
+                      value: o.value,
+                    }))
+                  : undefined,
                 validation: {
                   required: {
                     message: 'This field is required',
@@ -120,6 +126,7 @@ export default function SouscriptionForm(props: any) {
         ...subscriber,
         formData: getCorrectFormOfData(),
       };
+      
       const response: any = await apiClient.post('/secure/mobile/subscription/v1', { ...data });
       if (response.code ===  200 && response.result.status !== 'FAILED') {
         setFormResult(response.result);
@@ -146,7 +153,8 @@ export default function SouscriptionForm(props: any) {
       }
       if (response.result.status === 'FAILED') {
         throw new Error('Une erreur est survenue lors de la souscription');
-      }
+      } 
+  
     } catch (error: any) {
       console.error('Error saving data:', error);
       SimpleToast.show(`Error saving data: ${error.message}`, 5);
@@ -312,9 +320,6 @@ export default function SouscriptionForm(props: any) {
                   </Text>
                 </Pressable>
               </View> */}
-              <Text style={{ fontWeight: 'bold' }}>
-                {i18n('infos_souscripteur')}
-              </Text>
             </View>
             <StepFormBuilder
               onSubmit={setSubscriber}
@@ -327,6 +332,7 @@ export default function SouscriptionForm(props: any) {
                       name: 'customerName',
                       label: i18n('nom_souscripteur'),
                       type: 'text',
+                      placeholder: i18n('nom_souscripteur'),
                       validation: {
                         required: {
                           message: 'This field is required',
@@ -338,6 +344,7 @@ export default function SouscriptionForm(props: any) {
                       name: 'phone',
                       label: i18n('tel_souscripteur'),
                       type: 'number',
+                      placeholder: i18n('tel_souscripteur'),
                       validation: {
                         required: {
                           message: 'This field is required',
@@ -349,6 +356,7 @@ export default function SouscriptionForm(props: any) {
                       name: 'email',
                       label: 'Email',
                       type: 'email',
+                      placeholder: 'Email',
                       validation: {
                         required: {
                           message: 'This field is required',

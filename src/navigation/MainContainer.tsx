@@ -13,6 +13,7 @@ const Tab = createBottomTabNavigator();
 const MainContainer = () => {
   return (
     <Tab.Navigator
+      id="MainContainer"
       screenOptions={({ route }: any) => ({
         tabBarShowLabel: true,
         headerShown: false,
@@ -26,43 +27,63 @@ const MainContainer = () => {
         tabBarIcon: ({ focused }: any) => {
           let icon;
           let rn = route.name;
-          
+
           if (rn.includes(ROUTES.HOME)) {
             icon = (
-              <AntDesign name="home" size={24} color={focused ? COLORS.primary : COLORS.gray} />
+              <AntDesign
+                name="home"
+                size={24}
+                color={focused ? COLORS.primary : COLORS.gray}
+              />
             );
           } else if (rn.includes(ROUTES.PRODUITS)) {
             icon = (
-              <AntDesign name="isv" size={24} color={focused ? COLORS.primary : COLORS.gray} />
+              <AntDesign
+                name="isv"
+                size={24}
+                color={focused ? COLORS.primary : COLORS.gray}
+              />
             );
           } else if (rn.includes(ROUTES.SOUSCRIPTIONS)) {
             icon = (
-              <AntDesign name="filetext1" size={24} color={focused ? COLORS.primary : COLORS.gray} />
+              <AntDesign
+                name="filetext1"
+                size={24}
+                color={focused ? COLORS.primary : COLORS.gray}
+              />
             );
           } else if (rn.includes(ROUTES.INFOS)) {
             icon = (
-              <AntDesign name="infocirlceo" size={24} color={focused ? COLORS.primary : COLORS.gray} />
+              <AntDesign
+                name="infocirlceo"
+                size={24}
+                color={focused ? COLORS.primary : COLORS.gray}
+              />
             );
           }
           return icon;
         },
       })}
     >
-      <Tab.Screen 
+      <Tab.Screen
         options={{ tabBarLabel: i18n('home') }}
-        name={ROUTES.HOME} component={Home}
+        name={ROUTES.HOME}
+        component={Home}
       />
-      <Tab.Screen 
+      <Tab.Screen
         options={{ tabBarLabel: i18n('produits') }}
-        name={ROUTES.PRODUITS} component={Products}
+        name={ROUTES.PRODUITS}
+        component={Products}
       />
-      <Tab.Screen 
+      <Tab.Screen
         options={{ tabBarLabel: i18n('souscriptions') }}
-        name={ROUTES.SOUSCRIPTIONS} component={Souscriptions}
+        name={ROUTES.SOUSCRIPTIONS}
+        component={Souscriptions}
       />
       <Tab.Screen
         options={{ tabBarLabel: i18n('infos') }}
-        name={ROUTES.INFOS} component={Infos}
+        name={ROUTES.INFOS}
+        component={Infos}
       />
     </Tab.Navigator>
   );
