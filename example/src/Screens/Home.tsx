@@ -1,9 +1,11 @@
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { InsuranceApp } from '@afrikpay/react-native-insurances';
+
+const { width, height } = Dimensions.get('window');
 
 export default function Home() {
   const token =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NzU3MjIxOTYsImV4cCI6MTc3NTgwODU5Niwicm9sZXMiOlsiUk9MRV9PV05FUiJdLCJ1c2VybmFtZSI6IjIzNzY1MjMxMDgyOSIsInRva2VuS2V5IjoiZDJ0UU1XMXhZMnhpVDFwMWJEaGtRamRVVFZWNlp6MDkiLCJ0ZXJtaW5hbElkZW50aWZpZXIiOiJmMDlmZTNjOS1kZTVjLTRlYjYtOGQzOS1hYjQyZmQwZTU0NjciLCJ0ZXJtaW5hbFR5cGUiOiJtb2JpbGUiLCJ0ZXJtaW5hbFVzZXJBZ2VudCI6Im9raHR0cC80LjkuMiIsImlwQWRkcmVzcyI6IjE2OS4yNTQuMTY5LjEyNiJ9.EhGu-TuoB7GhpPrdzKmA1cTG8X8WcOUQNcBqW0Iw9Q-QeSaTjOnRMxKkbKES4m9Rv9cOb-hzoaAT0ECqGlk9cvPfo3uAQeHGsIGl5sDfLkPuYBVhnSZbhIib5QhdyOtfH4Q2DbsojRXyRpa1WUnzLl9eHPoOdrf9nIJiNnYff1pDrCepXGqGwZyxmp3uz-h_9uW2zLBUzkOb2_sZqsmw_2QnvSIpTi1MiSlULv_bAjU8GZ7Zw5ZREPfvMkzgdxhCZTqzLJzEzj5cvL-oqdwz5HgK6bKYwovz-vJDaVBYXnNwKYwXYMnt5Z8YRi6Nq5rioW_Y7WdJl18HY7y8PWRkzQ';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NzY4Njc3NzksImV4cCI6MTc3Njk1NDE3OSwicm9sZXMiOlsiUk9MRV9PV05FUiJdLCJ1c2VybmFtZSI6IjIzNzY1MjMxMDgyOSIsInRva2VuS2V5IjoiZDJ0UU1XMXhZMnhpVDFwMWJEaGtRamRVVFZWNlp6MDkiLCJ0ZXJtaW5hbElkZW50aWZpZXIiOiJmMDlmZTNjOS1kZTVjLTRlYjYtOGQzOS1hYjQyZmQwZTU0NjciLCJ0ZXJtaW5hbFR5cGUiOiJtb2JpbGUiLCJ0ZXJtaW5hbFVzZXJBZ2VudCI6Im9raHR0cC80LjkuMiIsImlwQWRkcmVzcyI6IjE2OS4yNTQuMTY5LjEyNiJ9.GezlOiOl9rZdmb9a5Bzgipi2p9SuIzS14fMhQ0pMIYpYaNt6rqrg5m9Qz_BAn5ZhMw-I11cs25WdhoBGP51evf-ykteimCW6kFcTk73q3s-WIH6WKyC7cLmUq7U7xp8S296fggs3a6E-niwCxYn_4YOVrC58Dr35fedcSfYo4-GX6gvgx7UKTtIWmofEVMaVXUoLAknhcKuQNmsNARNJMpMUm1dtzFH4GCwB9tsE02Ng9DA7kcmAhIZWNyZsQmrFoGMqDEweQNh6q5OabHkMM1ne-X3bvBSsyqfSsRWTAvFFhgSpF2A4y97fQ_xxXIl3qEW3n_-mJh5Htb08uhZpRg';
   const terminalId = 'f09fe3c9-de5c-4eb6-8d39-ab42fd0e5467';
   return (
     <View style={styles.container}>
@@ -32,7 +34,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: '100%',
-    width: '100%',
+    height: height,
+    width: width,
   },
 });

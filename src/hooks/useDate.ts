@@ -43,6 +43,7 @@ const useDate = () => {
         // Return default Date
         return date?.slice(0, 10)
     }
+
     return {
         addDays,
         addMonths,
@@ -50,6 +51,7 @@ const useDate = () => {
         addYears,
         formatDate
     }
+    
 }
 
 export default useDate
