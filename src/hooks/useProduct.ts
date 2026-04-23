@@ -6,7 +6,6 @@ export default function useProduct(){
     const [products, setProducts] = useState<ProduitAssurance[]>([]);
     const findProducts = async () => {
         const response: any = await apiClient.post('/secure/mobile/categories/v1',{});
-        console.log(JSON.stringify(response, null, 2));
         setProducts(response.result ?? ([] as ProduitAssurance[]));
     }
     return {
