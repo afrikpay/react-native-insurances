@@ -18,10 +18,12 @@ import { apiClient } from '../data/axios';
 import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import type { Insurer } from '../types';
+import { useProviderCallback } from './forms/context';
 
 export default function Assureurs(props: any) {
   // Get params from navigation
   const product = props.route.params.product;
+  // const { onReady } = useProviderCallback();
 
   const [loading, setLoading] = useState(false);
   const [insurers, setInsurers] = useState<Insurer[]>([]);
@@ -33,7 +35,7 @@ export default function Assureurs(props: any) {
           '/secure/mobile/insurers/v1',
           { categoryId: product.id }
         );
-        
+
         setInsurers(response.result ?? ([] as Insurer[]));
       } catch (error: any) {
         console.error('Error fetching data:', error.message);
@@ -64,11 +66,11 @@ export default function Assureurs(props: any) {
         {/** Navigation bar  */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <TouchableOpacity
-            onPress={() => Navigation.back() }>
+            onPress={() => Navigation.back()}>
             <AntDesign name="arrowleft" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-            { i18n('assureurs') }
+            {i18n('assureurs')}
           </Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -98,24 +100,27 @@ export default function Assureurs(props: any) {
           }}>
           {
             loading && (
-            <View
-              style={{
-                width: '100%',
-                height: 100,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <ActivityIndicator
-                size={`large`}
-                color={COLORS.gray}
-                style={{ height: 50, width: 50 }}
-              />
-            </View>
-          )}
+              <View
+                style={{
+                  width: '100%',
+                  height: 100,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <ActivityIndicator
+                  size={`large`}
+                  color={COLORS.gray}
+                  style={{ height: 50, width: 50 }}
+                />
+              </View>
+            )}
           {insurers.map((insurer, index) => (
             <Box key={index} width={'100%'} padding={18}>
               <Pressable
                 onPress={() => {
+                  /* onReady!({
+                    ...insurer,
+                  }); */ // To be deleted later
                   Navigation.navigate(ROUTES.DETAIL_ASSURANCE, {
                     product,
                     insurer,
