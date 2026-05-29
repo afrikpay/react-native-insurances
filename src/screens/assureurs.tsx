@@ -18,12 +18,10 @@ import { apiClient } from '../data/axios';
 import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import type { Insurer } from '../types';
-import { useProviderCallback } from './forms/context';
 
 export default function Assureurs(props: any) {
   // Get params from navigation
   const product = props.route.params.product;
-  const { onReady } = useProviderCallback();
 
   const [loading, setLoading] = useState(false);
   const [insurers, setInsurers] = useState<Insurer[]>([]);
@@ -118,9 +116,6 @@ export default function Assureurs(props: any) {
             <Box key={index} width={'100%'} padding={18}>
               <Pressable
                 onPress={() => {
-                  onReady!({
-                    ...insurer,
-                  }); // To be deleted later
                   Navigation.navigate(ROUTES.DETAIL_ASSURANCE, {
                     product,
                     insurer,

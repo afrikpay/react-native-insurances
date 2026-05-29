@@ -44,7 +44,6 @@ export default function DetailAssurance(props: any) {
             tenantId: insurer.id,
           }
         );
-        
         const data = response.result.plans;
         if (data && Object.keys(data).length > 0) {
           const finalData = groupBy(Object.keys(data).map((key: string) => data[key] as Plan), "tags")
@@ -74,14 +73,7 @@ export default function DetailAssurance(props: any) {
     plans.sort((a: any, b: any) =>  a.price - b.price ).reverse()
     return plans
   }
- /*  useEffect(() => {
-    if (error) {
-      setTimeout(() => {
-        setError("");
-      }, 10000);
-    }
-  }, [error])
- */
+
   
   return (
     <SafeAreaView

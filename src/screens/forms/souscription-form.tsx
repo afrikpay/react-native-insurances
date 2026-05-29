@@ -1,3 +1,4 @@
+import { StepFormBuilder, type FormStep } from '@afrikpay/rn-step-form';
 import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
@@ -17,12 +18,9 @@ import Navigation from '../../services/Navigation';
 import i18n from '../../translations/i18n';
 import type { User } from '../../types';
 import Auth from '../../utils/Auth';
-import { StepFormBuilder, type FormStep } from '@afrikpay/rn-step-form';
-import { useProviderCallback } from './context';
 
 export default function SouscriptionForm(props: any) {
   const { planId, insurerId } = props.route.params;
-  const { onReady } = useProviderCallback();
 
   const [loading, setLoading] = useState(true);
   const [savingData, setSavingData] = useState(false);
@@ -129,9 +127,9 @@ export default function SouscriptionForm(props: any) {
         formData: getCorrectFormOfData(),
       };
 
-      if (onReady) onReady(data); // Envoyer les données au composant parent dès que le formulaire est soumis
+      // if (onReady) onReady(data); // Envoyer les données au composant parent dès que le formulaire est soumis
       
-      /* const response: any = await apiClient.post('/secure/mobile/subscription/v1', { ...data });
+      const response: any = await apiClient.post('/secure/mobile/subscription/v1', { ...data });
       if (response.code ===  200 && response.result.status !== 'FAILED') {
         setFormResult(response.result);
         SimpleToast.show(response.result.message, 15);
@@ -157,7 +155,7 @@ export default function SouscriptionForm(props: any) {
       }
       if (response.result.status === 'FAILED') {
         throw new Error('Une erreur est survenue lors de la souscription');
-      }  */
+      } 
   
     } catch (error: any) {
       console.error('Error saving data:', error);
@@ -198,20 +196,6 @@ export default function SouscriptionForm(props: any) {
       setDefaultValues(null)
     }
   }
-
-  /* const handleUpdateSubcriber =  async (subscribeTo: "myself" | "other") => {
-    setSubscribeFor(subscribeTo)
-    if (subscribeTo === "myself"){
-      setDefaultSubscriberValues({
-        customerName: user?.name,
-        phone: user?.phone,
-        email: user?.email
-      })
-    }
-    else{
-      setDefaultSubscriberValues({})
-    }
-  } */
 
   return (
     <View
