@@ -105,6 +105,12 @@ const fr = {
   retour: 'Retour',
   souscripteur: 'Souscripteur',
   nom: 'Nom',
+
+  recapitulatif: 'Récapitulatif',
+  assureur: 'Assureur',
+  formule: 'Formule',
+  personne_assurees: 'Personnes assurées',
+  totalAmount: 'Montant total',
 };
 
 export default fr;
