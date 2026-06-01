@@ -105,12 +105,6 @@ const en = {
   retour: 'Back',
   souscripteur: 'Subscriber',
   nom: 'Name',
-
-  recapitulatif: 'Summary',
-  assureur: 'Insurer',
-  formule: 'Formula',
-  personne_assurees: 'Insured individuals',
-  totalAmount: 'Total amount',
 };
 
 export default en;

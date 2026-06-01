@@ -11,20 +11,17 @@ import {
 } from 'react-native';
 import SimpleToast from 'react-native-simple-toast';
 import { COLORS } from '../../constants/Colors';
+import { ROUTES } from '../../constants/Routes';
 import { height, width } from '../../constants/size';
 import { apiClient } from '../../data/axios';
-import useSeparator from '../../hooks/useSeparator';
 import Navigation from '../../services/Navigation';
 import i18n from '../../translations/i18n';
 import type { User } from '../../types';
 import Auth from '../../utils/Auth';
-import { useProviderCallback } from './context';
 
 export default function SouscriptionForm(props: any) {
-  const { numberWithCommas } = useSeparator()
-  const { onReady } = useProviderCallback();
 
-  const { planId, planName, planPrice, duration_display, insurerId, insurerName } = props.route.params;
+  const { planId, insurerId } = props.route.params;
 
   const [loading, setLoading] = useState(true);
   const [savingData, setSavingData] = useState(false);
@@ -129,10 +126,8 @@ export default function SouscriptionForm(props: any) {
         insurerId: insurerId,
         ...subscriber,
         formData: getCorrectFormOfData(),
-      };
-      if (onReady) onReady(data); // Envoyer les données au composant parent dès que le formulaire est soumis
-      
-      /* 
+      }; 
+    
       const response: any = await apiClient.post('/secure/mobile/subscription/v1', { ...data });
       if (response.code ===  200 && response.result.status !== 'FAILED') {
         setFormResult(response.result);
@@ -160,7 +155,6 @@ export default function SouscriptionForm(props: any) {
       if (response.result.status === 'FAILED') {
         throw new Error('Une erreur est survenue lors de la souscription');
       } 
-      */ 
   
     } catch (error: any) {
       console.error('Error saving data:', error);
@@ -464,32 +458,6 @@ export default function SouscriptionForm(props: any) {
         {
           formStep.length === 0 && !loading && (
             <View>
-              <View
-                style={{
-                  borderRadius: 8,
-                  borderWidth: 0.3,
-                  padding: 20,
-                  flexDirection: 'column',
-                  gap: 8,
-                  marginBottom: 20,
-                }}>
-                <Text style={{ fontWeight: 'bold' }}>{i18n("recapitulatif")}</Text>
-                <View style={{ flexDirection: 'column', gap: 4 }}>
-                  <Text>
-                    {i18n('assureur')}: <Text style={{ fontWeight: 'bold' }}>{insurerName}{' '}</Text>
-                  </Text>
-                  <Text>
-                    {i18n('formule')}: <Text style={{ fontWeight: 'bold' }}>{planName}{' '} </Text>
-                  </Text>
-                  <Text>
-                    {i18n('duree')}: <Text style={{ fontWeight: 'bold' }}>{duration_display}{' '} </Text>
-                  </Text>
-                  <Text>
-                    {i18n('personne_assurees')}: <Text style={{ fontWeight: 'bold' }}>{assures.length}{' '} </Text>
-                  </Text>
-                  <Text>{i18n('totalAmount')}: <Text style={{ fontWeight: 'bold' }}>{numberWithCommas(assures.length * planPrice)} XAF </Text> </Text>
-                </View>
-              </View>
               <View
                 style={{
                   borderRadius: 8,

@@ -2,7 +2,6 @@ import { AntDesign, Feather } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
-  FlatList,
   Image,
   KeyboardAvoidingView,
   Linking,
@@ -16,13 +15,10 @@ import {
 import { Button, Modal, Portal, TextInput } from 'react-native-paper';
 import RenderHtml from 'react-native-render-html';
 import SimpleToast from 'react-native-simple-toast';
-import SuccessModal from '../components/modals/success-modal';
 import { Box } from '../components/ui/Box';
 import { COLORS } from '../constants/Colors';
-import { IMAGES } from '../constants/Images';
 import { height, width } from '../constants/size';
 import { apiClient } from '../data/axios';
-import WebviewScreen from './forms/components/WebviewScreen';
 
 import * as DocumentPicker from 'expo-document-picker';
 import ErrorMessage from '../components/error-message';
@@ -33,8 +29,9 @@ import useSeparator from '../hooks/useSeparator';
 import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import { uploadFile } from '../utils/uploadFiles';
+import { useProviderCallback } from './forms/context';
 
-const operateursMobile: Record<string, any>[] = [
+/* const operateursMobile: Record<string, any>[] = [
   {
     id: 1,
     name: 'MTN Money Cameroun',
@@ -53,13 +50,12 @@ const operateursMobile: Record<string, any>[] = [
     logo: IMAGES.logoPaypal,
     slug: 'paypal-ecommerce-insurance-payment-service-feature',
   },
-]
+] */
 
 export default function DetailSouscription(props: any) {
   const { souscription } = props.route.params
-  // console.log(JSON.stringify(souscription, null, 2));
   
-
+  const { onReady } = useProviderCallback();
   const { formatDate } = useDate()
   const { numberWithCommas } = useSeparator()
 
@@ -70,16 +66,16 @@ export default function DetailSouscription(props: any) {
   const [error, setError] = useState("");
 
   const [visible, setVisible] = useState(false);
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [successPaymentModal, setSuccessPaymentModal] = useState(false);
+  /* const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [successPaymentModal, setSuccessPaymentModal] = useState(false); */
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
 
   const [text, setText] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+/*   const [phoneNumber, setPhoneNumber] = useState('');
   const [paymentUrl, setPaymentUrl] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [serviceSlug, setServiceSlug] = useState('');
+  const [serviceSlug, setServiceSlug] = useState(''); */
   const [selectedInsurer, setSelectedInsurer] = useState<Record<string, any> | any>(null);
   const [selectedInsurerKey, setSelectedInsurerKey] = useState<string>('');
   const [selectedDoc, setSelectedDoc] = useState<Record<string, any>>();
@@ -114,7 +110,7 @@ export default function DetailSouscription(props: any) {
     } catch (error) {}
   };
 
-  const successPayment = () => {
+/*   const successPayment = () => {
     setTimeout(() => {
       SimpleToast.show('Payement effectué avec succès!', 5);
       setSuccessPaymentModal(true);
@@ -134,8 +130,9 @@ export default function DetailSouscription(props: any) {
     setTimeout(() => {
       setShowPaymentModal(false);
     }, 1500);
-  };
+  }; */
 
+/*   
   const handleFetchPaymentUrl = async () => {
     if (loading && !verifyPhoneNumber()) return;
     setLoading(true);
@@ -169,15 +166,30 @@ export default function DetailSouscription(props: any) {
       setLoading(false);
     }
   };
+*/
+  
+  const handleSubmit = async () => {
+    if (onReady) {
+      onReady({
+        reference: souscription.reference,
+        inusuresNumber: Number(souscription.owners.length),
+        amount: Number(souscription.amount),
+        planName: souscription.plan.name,
+        duration_display: souscription.duration_display,
+        productName: souscription.product,
+        insurerName: souscription.insurer.name,
+      });
+    } 
+  }
 
-  const verifyPhoneNumber = () => {
+/*   const verifyPhoneNumber = () => {
     setErrorMessage('');
     if (!phoneNumber && !serviceSlug.includes('paypal')) {
       setErrorMessage('Numéro de téléphone requis');
       return false;
     }
     return true;
-  };
+  }; */
 
   const handleFileUpload = async (doc: Record<string, any>) => {
     try {
@@ -616,58 +628,60 @@ export default function DetailSouscription(props: any) {
             <ErrorMessage message={error} />
             {
               souscription.status === 'V' && (
-              <View style={{ marginTop: 20 }}>
-                <View style={{ flexDirection: 'column', gap: 12 }}>
-                  <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>
-                    {i18n('moyens_paiements')}
-                  </Text>
-                  <FlatList
-                    data={operateursMobile}
-                    showsHorizontalScrollIndicator={false}
-                    horizontal
-                    extraData={(item: any) => `${item.id}`}
-                    renderItem={({ item }: { item: any }) => (
-                      <Pressable
-                        onPress={() => setServiceSlug(item.slug)}
-                        key={item.id}
-                        style={{
-                          width: 80,
-                          height: 80,
-                          borderWidth: 0.05,
-                          borderRadius: 12,
-                          marginRight: 10,
-                          padding: 5,
-                          gap: 15,
-                          backgroundColor:
-                            serviceSlug === item.slug
-                              ? COLORS.success
-                              : COLORS.white, // Ajout d'une couleur de fond pour l'ombre
-                          shadowColor: COLORS.dark, // Couleur de l'ombre
-                          shadowOffset: { width: 0, height: 4 }, // Décalage de l'ombre
-                          shadowOpacity: 0.2, // Opacité de l'ombre
-                          shadowRadius: 6, // Rayon de flou de l'ombre
-                          elevation: 2, // Ombre pour Android
-                        }}>
-                        <View
+              <View style={{ marginTop: 0 }}>
+                {/* 
+                  <View style={{ flexDirection: 'column', gap: 12 }}>
+                    <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>
+                      {i18n('moyens_paiements')}
+                    </Text>
+                    <FlatList
+                      data={operateursMobile}
+                      showsHorizontalScrollIndicator={false}
+                      horizontal
+                      extraData={(item: any) => `${item.id}`}
+                      renderItem={({ item }: { item: any }) => (
+                        <Pressable
+                          onPress={() => setServiceSlug(item.slug)}
+                          key={item.id}
                           style={{
-                            width: '100%',
-                            height: '100%',
-                            backgroundColor: COLORS.white,
-                            overflow: 'hidden',
-                            borderRadius: 10,
+                            width: 80,
+                            height: 80,
+                            borderWidth: 0.05,
+                            borderRadius: 12,
+                            marginRight: 10,
+                            padding: 5,
+                            gap: 15,
+                            backgroundColor:
+                              serviceSlug === item.slug
+                                ? COLORS.success
+                                : COLORS.white, // Ajout d'une couleur de fond pour l'ombre
+                            shadowColor: COLORS.dark, // Couleur de l'ombre
+                            shadowOffset: { width: 0, height: 4 }, // Décalage de l'ombre
+                            shadowOpacity: 0.2, // Opacité de l'ombre
+                            shadowRadius: 6, // Rayon de flou de l'ombre
+                            elevation: 2, // Ombre pour Android
                           }}>
-                          <Image
-                            alt="Image de l'assurance santé"
-                            source={item.logo}
-                            style={{ width: '100%', height: '100%' }}
-                          />
-                        </View>
-                      </Pressable>
-                    )}
-                  />
-                </View>
+                          <View
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              backgroundColor: COLORS.white,
+                              overflow: 'hidden',
+                              borderRadius: 10,
+                            }}>
+                            <Image
+                              alt="Image de l'assurance santé"
+                              source={item.logo}
+                              style={{ width: '100%', height: '100%' }}
+                            />
+                          </View>
+                        </Pressable>
+                      )}
+                    />
+                  </View> 
+                */}
 
-                {
+                {/* {
                   serviceSlug && serviceSlug.includes('money') && (
                   <View style={{ marginTop: 30 }}>
                     <Text style={{ fontWeight: 'bold', marginBottom: 10 }}>
@@ -701,36 +715,40 @@ export default function DetailSouscription(props: any) {
                       fontStyle: "italic", marginLeft: 20
                     }}>Numéro de téléphone sans code pays</Text>
                   </View>
-                )}
+                )} */}
 
-                {errorMessage && (
+                {/* {
+                  errorMessage && (
                   <Text
                     style={{
                       flex: 1,
                       marginTop: 8,
                       fontSize: 12,
                       color: COLORS.danger,
-                    }}
-                  >
+                    }}>
                     {errorMessage}
                   </Text>
-                )}
+                )} */}
                 
                 <Pressable
-                  onPress={handleFetchPaymentUrl}
-                  disabled={!phoneNumber && !serviceSlug.includes('paypal')}
+                  onPress={handleSubmit}
+                  // onPress={handleFetchPaymentUrl}
+                  // disabled={!phoneNumber && !serviceSlug.includes('paypal')}
+                  disabled={souscription.status != 'V'}
                   style={{
                     paddingVertical: 12,
                     paddingHorizontal: 16,
                     marginTop: 40,
-                    backgroundColor: !phoneNumber && !serviceSlug.includes('paypal')? COLORS.gray : COLORS.primary,
+                    // backgroundColor: !phoneNumber && !serviceSlug.includes('paypal')? COLORS.gray : COLORS.primary,
+                    backgroundColor:  souscription.status != 'V' ? COLORS.gray : COLORS.primary,
                     borderRadius: 100,
                     flexDirection: 'row',
                     justifyContent: 'center',
                     gap: 10,
                     alignItems: 'center',
                   }}>
-                  {loading && (
+                  {
+                    loading && (
                     <ActivityIndicator
                       color={COLORS.white}
                       style={{ height: 30, width: 30 }}
@@ -851,7 +869,7 @@ export default function DetailSouscription(props: any) {
       </Portal>
 
       {/** Modal de payement de la souscription */}
-      <Portal>
+      {/* <Portal>
         <Modal
           visible={showPaymentModal}
           onDismiss={() => setShowPaymentModal(false)}
@@ -868,9 +886,9 @@ export default function DetailSouscription(props: any) {
           />
         </Modal>
       </Portal>
-
+ */}
       {/** Modal de succès */}
-      <SuccessModal
+      {/* <SuccessModal
         visible={successPaymentModal}
         title={i18n('modal_succes_titre')}
         message={i18n('modal_succes_desc')}
@@ -878,7 +896,7 @@ export default function DetailSouscription(props: any) {
         onPress={() => {
           console.log('Pressed');
         }}
-      />
+      /> */}
 
       {/** Modal de détail d'un assuré */}
       <Portal>
