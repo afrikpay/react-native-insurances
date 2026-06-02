@@ -171,9 +171,10 @@ export default function DetailSouscription(props: any) {
   const handleSubmit = async () => {
     if (onReady) {
       onReady({
+        flowType: "Souscription d'assurance",
         reference: souscription.reference,
         inusuresNumber: Number(souscription.owners.length),
-        amount: Number(souscription.amount),
+        totalAmount: Number(souscription.amount),
         planName: souscription.plan.name,
         duration_display: souscription.duration_display,
         productName: souscription.product,
