@@ -69,8 +69,7 @@ export default function Infos() {
             fontSize: 20,
             marginTop: 20,
             marginBottom: 12,
-          }}
-        >
+          }}>
           {i18n('mission_titre')}
         </Text>
         <Text

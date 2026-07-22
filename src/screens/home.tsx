@@ -162,7 +162,7 @@ export function HomeCard() {
         const response: any = await apiClient.post(
           '/secure/mobile/categories/v1',{})
         if (response.code === 200 && response.message === "success" && response.result.length > 0 ){
-          setProduct({...response.result[0]})
+          setProduct({...response.result.find((p: any) => p.id == product.id)})
         }
       } catch (error) {
         console.log(error)
@@ -234,6 +234,8 @@ export function ProductSection(
 ) {
   const { products, setProducts, findProducts } = useProduct()
   const [loading, setLoading] = useState(false);
+
+  
 
   const findCategories = async () => {
     if (!refreshing) { setLoading(true);}

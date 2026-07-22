@@ -29,7 +29,7 @@ const fr = {
   question_1:
     "1) - Choisissez votre produit d'assurance : Explorez notre gamme de produits (auto, santé, habitation, etc.) adaptés au marché camerounais.",
   question_2:
-    '2) - Obtenez un devis instantané : Entrez vos informations pour recevoir un devis personnalisé immédiatement.',
+    '2) - Obtenez un devis instantané : Entrez vos informations pour recevoir un devis personnalisé.',
   question_3:
     "3) - Souscrivez en ligne : Payez en toute sécurité via des méthodes de paiement locales (Mobile Money, cartes bancaires) et recevez votre police d'assurance numériquement.",
   question_4:
