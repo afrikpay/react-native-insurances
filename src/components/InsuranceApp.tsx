@@ -6,9 +6,7 @@ import Auth from '../utils/Auth';
 import { ProviderCallback } from '../screens/forms/context';
 
 const InsuranceApp = ({
-  appToken,
   lang,
-  terminalId,
   username,
   user,
   onReady,
@@ -22,13 +20,11 @@ const InsuranceApp = ({
 }) => {
   useEffect(() => {
     (async () => {
-      await Auth.setToken(appToken);
       await Auth.setLang(lang);
-      await Auth.setTerminalId(terminalId);
       await Auth.setUsername(username);
       if ( user ){await Auth.setUser(user);}
     })();
-  }, [appToken, terminalId, username, lang, user]);
+  }, [ username, lang, user]);
 
   return (
     <ProviderCallback onReady={onReady}>
