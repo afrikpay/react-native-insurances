@@ -15,8 +15,13 @@ export default function Home() {
     console.log(JSON.stringify(data, null, 2))
   }
 
+  const callApiFetch = async () => {
+    const result =  await fetch("http://sandbx.api.afrikpy.com/api")
+    return result
+  }
+
   return (
-    <FetchClientProvider client={{}}>
+    <FetchClientProvider client={{ fetch: callApiFetch }}>
       <View style={styles.container}>
         <InsuranceApp
           appToken={token}

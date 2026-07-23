@@ -2,7 +2,8 @@ import type { ReactNode } from 'react';
 import { createContext, useContext } from 'react';
 
 export interface FetchClient {
-  fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
+  // fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
+  fetch: (url: string, headers?: any, body?: any,) => Promise<Response>;
 }
 
 const FetchClientContext = createContext<FetchClient | null>(null);
