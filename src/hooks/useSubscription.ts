@@ -18,7 +18,6 @@ export default function useSubscription(){
         console.log("response", JSON.stringify(response, null, 2));
         setSouscriptions(response.result.subscriptions ?? ([] as Souscription[]));
     }
-
     return {
         findSubscriptions,
         souscriptions,
