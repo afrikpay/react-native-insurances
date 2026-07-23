@@ -152,7 +152,7 @@ export function HomeCard() {
     description:
       '<p>L&#39;assurance maladie est un dispositif de la S&eacute;curit&eacute; Sociale qui vise &agrave; prot&eacute;ger financi&egrave;rement les individus et leurs familles contre les risques li&eacute;s &agrave; la maladie, la maternit&eacute;, les accidents, l&#39;invalidit&eacute;, les maladies professionnelles et le d&eacute;c&egrave;s.&nbsp;Elle permet de garantir l&#39;acc&egrave;s aux soins et prend en charge tout ou partie des d&eacute;penses de sant&eacute;</p>',
     image:
-      'https://storage.googleapis.com/afrikpay_insurances/media/categories/Assurance_Maladie.jpg',
+      'https://storage.googleapis.com/afrikpay_insurances/media/categories/Capture_13.jpeg',
   };
   const [product, setProduct] = useState<ProduitAssurance>(defaultProduct)
 
