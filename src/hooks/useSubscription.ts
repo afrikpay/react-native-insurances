@@ -8,11 +8,13 @@ export default function useSubscription(){
     const client = useFetchClient()
 
     const findSubscriptions = async (requestBody: any) => {
-        /* const response: any = await apiClient.post(
+        /* 
+        const response: any = await apiClient.post(
             '/secure/mobile/insurance/subscription-list/v1',
             requestBody
-        ) */
-        const response: any = await client.fetch("/secure/mobile/insurance/subscription-list/v1", {}, requestBody );
+        ) 
+        */
+        const response: any = await client.fetch("secure/mobile/insurance/subscription-list/v1", {}, requestBody );
         console.log("response", JSON.stringify(response, null, 2));
         setSouscriptions(response.result.subscriptions ?? ([] as Souscription[]));
     }
