@@ -14,7 +14,7 @@ import { Box } from '../components/ui/Box';
 import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';
 import { height, width } from '../constants/size';
-import { apiClient } from '../data/axios';
+import { useFetchClient } from '../context/FetchClientProvider';
 import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import type { Insurer } from '../types';
@@ -23,14 +23,16 @@ export default function Assureurs(props: any) {
   // Get params from navigation
   const product = props.route.params.product;
 
+  const client = useFetchClient()
+
   const [loading, setLoading] = useState(false);
   const [insurers, setInsurers] = useState<Insurer[]>([]);
   useEffect(() => {
     (async () => {
       setLoading(true);
       try {
-        const response: any = await apiClient.post(
-          '/secure/mobile/insurers/v1',
+        const response: any = await client.fetch(
+          'secure/mobile/insurers/v1', {},
           { categoryId: product.id }
         );
 

@@ -15,7 +15,7 @@ import SouscriptionComponent from '../components/ui/souscription-component';
 import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';
 import { height, width } from '../constants/size';
-import { apiClient } from '../data/axios';
+import { useFetchClient } from '../context/FetchClientProvider';
 import useProduct from '../hooks/useProduct';
 import useSubscription from '../hooks/useSubscription';
 import Navigation from '../services/Navigation';
@@ -155,12 +155,14 @@ export function HomeCard() {
       'https://storage.googleapis.com/afrikpay_insurances/media/categories/Assurance_Maladie.jpg',
   };
   const [product, setProduct] = useState<ProduitAssurance>(defaultProduct)
+
+  const client = useFetchClient() 
   
   useEffect(() => {
     ( async () => {
       try {
-        const response: any = await apiClient.post(
-          '/secure/mobile/categories/v1',{})
+        const response: any = await client.fetch(
+          'secure/mobile/categories/v1',{},{})
         if (response.code === 200 && response.message === "success" && response.result.length > 0 ){
           setProduct({...response.result.find((p: any) => p.id == product.id)})
         }

@@ -15,12 +15,12 @@ import RenderHtml from 'react-native-render-html';
 import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';
 import { height, width } from '../constants/size';
-import { apiClient } from '../data/axios';
 import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import type { Plan } from '../types';
 import useSeparator from '../hooks/useSeparator';
 import ErrorMessage from '../components/error-message';
+import { useFetchClient } from '../context/FetchClientProvider';
 
 export default function DetailAssurance(props: any) {
   const [loading, setLoading] = useState(false);
@@ -32,13 +32,14 @@ export default function DetailAssurance(props: any) {
   const [error, setError] = useState("");
 
   const { numberWithCommas } = useSeparator()
+  const client  = useFetchClient()
 
   useEffect(() => {
     (async () => {
       setLoading(true);
       try {
-        const response: any = await apiClient.post(
-          '/secure/mobile/products/v1',
+        const response: any = await client.fetch(
+          'secure/mobile/products/v1', {},
           {
             categoryId: product.id,
             tenantId: insurer.id,

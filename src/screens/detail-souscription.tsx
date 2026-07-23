@@ -18,12 +18,12 @@ import SimpleToast from 'react-native-simple-toast';
 import { Box } from '../components/ui/Box';
 import { COLORS } from '../constants/Colors';
 import { height, width } from '../constants/size';
-import { apiClient } from '../data/axios';
 
 import * as DocumentPicker from 'expo-document-picker';
 import ErrorMessage from '../components/error-message';
 import { getColor } from '../constants';
 import { ROUTES } from '../constants/Routes';
+import { useFetchClient } from '../context/FetchClientProvider';
 import useDate from '../hooks/useDate';
 import useSeparator from '../hooks/useSeparator';
 import Navigation from '../services/Navigation';
@@ -31,29 +31,11 @@ import i18n from '../translations/i18n';
 import { uploadFile } from '../utils/uploadFiles';
 import { useProviderCallback } from './forms/context';
 
-/* const operateursMobile: Record<string, any>[] = [
-  {
-    id: 1,
-    name: 'MTN Money Cameroun',
-    logo: IMAGES.mtnMoney,
-    slug: 'mtn-mobile-money-ecommerce-insurance-payment-service-feature',
-  },
-  {
-    id: 2,
-    name: 'Orange Money Cameroun',
-    logo: IMAGES.orangeMoney,
-    slug: 'orange-money-ecommerce-insurance-payment-service-feature',
-  },
-  {
-    id: 3,
-    name: 'PayPal',
-    logo: IMAGES.logoPaypal,
-    slug: 'paypal-ecommerce-insurance-payment-service-feature',
-  },
-] */
 
 export default function DetailSouscription(props: any) {
   const { souscription } = props.route.params
+
+  const client = useFetchClient()
   
   const { onReady } = useProviderCallback();
   const { formatDate } = useDate()
@@ -110,64 +92,7 @@ export default function DetailSouscription(props: any) {
     } catch (error) {}
   };
 
-/*   const successPayment = () => {
-    setTimeout(() => {
-      SimpleToast.show('Payement effectué avec succès!', 5);
-      setSuccessPaymentModal(true);
-      Navigation.back();
-    }, 1000);
-  };
 
-  const failedPayment = () => {
-    SimpleToast.show('Le payement a échouée !', 5);
-    setTimeout(() => {
-      setShowPaymentModal(false);
-    }, 1500);
-  };
-
-  const cancelPayment = () => {
-    SimpleToast.show('Le payement a été annuler !', 5);
-    setTimeout(() => {
-      setShowPaymentModal(false);
-    }, 1500);
-  }; */
-
-/*   
-  const handleFetchPaymentUrl = async () => {
-    if (loading && !verifyPhoneNumber()) return;
-    setLoading(true);
-    try {
-      const data = {
-        referenceNumber: `${souscription.reference}`,
-        amount: +souscription.amount,
-        externalId: `${new Date().getTime()}`,
-        paymentWallet: `237${phoneNumber}`,
-        data: { insurerId: souscription.insurer.id },
-      };
-
-      const response: any = await apiClient.post(
-        '/secure/mobile/subscription/payment/v1',
-        { ...data },
-        { Service: `${serviceSlug}` }
-      );
-      if (
-        response.code === 200 &&
-        response.result.errorCode == null &&
-        response.result.status === 'SUCCESS'
-      ) {
-        setPaymentUrl(response.result.paymentLink);
-        setShowPaymentModal(true);
-      } else {
-        setError(`${response?.result?.errorMessage ?? response?.message}`);
-      }
-    } catch (error: any) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-*/
-  
   const handleSubmit = async () => {
     if (onReady) {
       onReady({
@@ -183,14 +108,7 @@ export default function DetailSouscription(props: any) {
     } 
   }
 
-/*   const verifyPhoneNumber = () => {
-    setErrorMessage('');
-    if (!phoneNumber && !serviceSlug.includes('paypal')) {
-      setErrorMessage('Numéro de téléphone requis');
-      return false;
-    }
-    return true;
-  }; */
+
 
   const handleFileUpload = async (doc: Record<string, any>) => {
     try {
@@ -211,9 +129,7 @@ export default function DetailSouscription(props: any) {
       insurerId: souscription.insurer.id,
       page: 1,
     };
-    const response: any = await apiClient.post('/secure/mobile/form/v1', {
-      ...data,
-    });
+    const response: any = await client.fetch('secure/mobile/form/v1', {}, data);
     setDocuments(response.result.documents || []);
   };
 
@@ -262,7 +178,7 @@ export default function DetailSouscription(props: any) {
     if (sending) return;
     setSending(true);
     try {
-      await apiClient.post('/secure/mobile/document/contract/v1', {
+      await client.fetch('secure/mobile/document/contract/v1', {}, {
         referenceNumber: souscription.reference,
         insurerId: souscription.insurer.id,
       });
@@ -279,8 +195,8 @@ export default function DetailSouscription(props: any) {
     if (isDocSending) return;
     setIsDocSending(true);
     try {
-      const response: any = await apiClient.post(
-        '/secure/mobile/document/confirmation/v1',
+      const response: any = await client.fetch(
+        'secure/mobile/document/confirmation/v1', {},
         { referenceNumber: souscription.reference }
       );
       if (response.result.status === 'SUCCESS') {
@@ -299,10 +215,9 @@ export default function DetailSouscription(props: any) {
     if (loading) return 
     setLoading(true)
     try {
-      const response: any = await apiClient.post('/secure/mobile/ask-verify-email/v1',{
+      const response: any = await client.fetch('secure/mobile/ask-verify-email/v1', {}, {
         referenceNumber: souscription.reference
       })
-
       if (response.code === 200 && response.result.status === "SUCCESS" ){
         SimpleToast.show(`${response.result.message}`, 25);
         setTimeout(() => {

@@ -13,7 +13,7 @@ import SimpleToast from 'react-native-simple-toast';
 import { COLORS } from '../../constants/Colors';
 import { ROUTES } from '../../constants/Routes';
 import { height, width } from '../../constants/size';
-import { apiClient } from '../../data/axios';
+import { useFetchClient } from '../../context/FetchClientProvider';
 import Navigation from '../../services/Navigation';
 import i18n from '../../translations/i18n';
 import type { User } from '../../types';
@@ -26,6 +26,8 @@ export default function SouscriptionForm(props: any) {
   const [loading, setLoading] = useState(true);
   const [savingData, setSavingData] = useState(false);
   const [_, setUser] = useState<User>();
+
+  const client = useFetchClient()
 
   const [formResult, setFormResult] = useState<Record<string, any>>();
 
@@ -57,7 +59,7 @@ export default function SouscriptionForm(props: any) {
           page: 1,
         };
 
-        const response: any = await apiClient.post('/secure/mobile/form/v1', { ...data });
+        const response: any = await client.fetch('secure/mobile/form/v1', {}, data);
         setFormResult(response.result);
         
         response.result.fields.map((f: any) => {
@@ -128,7 +130,7 @@ export default function SouscriptionForm(props: any) {
         formData: getCorrectFormOfData(),
       }; 
     
-      const response: any = await apiClient.post('/secure/mobile/subscription/v1', { ...data });
+      const response: any = await client.fetch('secure/mobile/subscription/v1', {}, data);
       if (response.code ===  200 && response.result.status !== 'FAILED') {
         setFormResult(response.result);
         SimpleToast.show(response.result.message, 15);
