@@ -21,7 +21,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@afrikpay/react-native-insurances@workspace:."
   dependencies:
-    "@afrikpay/rn-step-form": ^2.0.7
+    "@afrikpay/rn-step-form": ^3.4.0
     "@commitlint/config-conventional": ^19.6.0
     "@eslint/compat": ^1.2.7
     "@eslint/eslintrc": ^3.3.0
@@ -88,9 +88,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@afrikpay/rn-step-form@npm:^2.0.7":
-  version: 2.0.7
-  resolution: "@afrikpay/rn-step-form@npm:2.0.7"
+"@afrikpay/rn-step-form@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "@afrikpay/rn-step-form@npm:3.4.0::__archiveUrl=https%3A%2F%2Feurope-west4-npm.pkg.dev%2Fprod-app-base-060623%2Fafrikpay-npm%2F%40afrikpay%2Frn-step-form%2F-%2F%40afrikpay%2Frn-step-form-3.4.0.tgz"
   peerDependencies:
     "@gorhom/bottom-sheet": ">=5"
     "@react-native-community/datetimepicker": ">=7"
@@ -107,7 +107,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: b947825438c812d68e1f33b81f714f3759e99beb76fec7f482647c9156aa51c6b97af0bf40ee5be57e1d23317238f831aa361a7b824453018666c06b4a5a1598
+  checksum: a520caa0e7f178465f40187415d06a5a9ace8d7c8484aef1007f1407ca6fdfb483f95897e14142b969168866504cf4702d895752adb7b3c026d61d2f27572598
   languageName: node
   linkType: hard
 
@@ -13909,7 +13909,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "react-native-insurances-example@workspace:example"
   dependencies:
-    "@afrikpay/rn-step-form": ^2.0.7
+    "@afrikpay/rn-step-form": ^3.4.0
     "@babel/core": ^7.20.0
     "@expo/metro-runtime": ~5.0.5
     "@expo/vector-icons": ^14.1.0
