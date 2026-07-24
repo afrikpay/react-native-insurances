@@ -1,6 +1,6 @@
 {
   "name": "@afrikpay/react-native-insurances",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "description": "Insurances gateway",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
