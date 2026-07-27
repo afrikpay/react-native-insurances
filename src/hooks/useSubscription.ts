@@ -1,23 +1,16 @@
 import { useState } from "react";
-import { apiClient } from "../data/axios";
 import type { Souscription } from "../types";
+import { useFetchClient } from "../context/FetchClientProvider";
 
 export default function useSubscription(){
 
     const [souscriptions, setSouscriptions] = useState<Souscription[]>([]);
+    const client = useFetchClient()
 
     const findSubscriptions = async (requestBody: any) => {
-        const response: any = await apiClient.post(
-            '/secure/mobile/insurance/subscription-list/v1',
-            requestBody
-        )
-        /* console.log("Subscriptions response:");
-        console.log(JSON.stringify(response.result.subscriptions, null, 2));
-         */
-        
+        const response: any = await client.fetch("secure/mobile/insurance/subscription-list/v1", {}, requestBody );
         setSouscriptions(response.result.subscriptions ?? ([] as Souscription[]));
     }
-
     return {
         findSubscriptions,
         souscriptions,

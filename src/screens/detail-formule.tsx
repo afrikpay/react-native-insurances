@@ -100,7 +100,11 @@ export default function DetailFormule(props: any) {
           onPress={() => {
             Navigation.navigate(ROUTES.SOUSCRIPTION_FORM, {
               planId: plan.id,
+              planName: plan.name,
+              planPrice: plan.price,
+              duration_display: plan.duration_display,
               insurerId: insurer.id,
+              insurerName: insurer.name,
             });
           }}
           style={{

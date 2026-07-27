@@ -16,7 +16,7 @@ import { COLORS } from '../constants/Colors';
 import { ImageSante } from '../constants/Images';
 import { ROUTES } from '../constants/Routes';
 import { width } from '../constants/size';
-import { apiClient } from '../data/axios';
+import { useFetchClient } from '../context/FetchClientProvider';
 import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 
@@ -28,10 +28,12 @@ export default function Products() {
   const [products, setProducts] = useState<any[]>([]);
   const [productsCopy, setProductsCopy] = useState<any[]>([]);
 
+  const client = useFetchClient()
+
   const findProducts = (async (refreshingData?: boolean) => {
     if (!refreshingData){ setLoading(true)}
     try {
-      const response: any = await apiClient.post('/secure/mobile/categories/v1',{})
+      const response: any = await client.fetch("secure/mobile/categories/v1", {}, {});
       
       if (response.result){
         setProducts(response.result);

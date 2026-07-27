@@ -1,3 +1,4 @@
+import { StepFormBuilder, type FormStep } from '@afrikpay/rn-step-form';
 import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
@@ -12,19 +13,21 @@ import SimpleToast from 'react-native-simple-toast';
 import { COLORS } from '../../constants/Colors';
 import { ROUTES } from '../../constants/Routes';
 import { height, width } from '../../constants/size';
-import { apiClient } from '../../data/axios';
+import { useFetchClient } from '../../context/FetchClientProvider';
 import Navigation from '../../services/Navigation';
 import i18n from '../../translations/i18n';
 import type { User } from '../../types';
 import Auth from '../../utils/Auth';
-import { StepFormBuilder, type FormStep } from '@afrikpay/rn-step-form';
 
 export default function SouscriptionForm(props: any) {
+
   const { planId, insurerId } = props.route.params;
 
   const [loading, setLoading] = useState(true);
   const [savingData, setSavingData] = useState(false);
   const [_, setUser] = useState<User>();
+
+  const client = useFetchClient()
 
   const [formResult, setFormResult] = useState<Record<string, any>>();
 
@@ -56,7 +59,7 @@ export default function SouscriptionForm(props: any) {
           page: 1,
         };
 
-        const response: any = await apiClient.post('/secure/mobile/form/v1', { ...data });
+        const response: any = await client.fetch('secure/mobile/form/v1', {}, data);
         setFormResult(response.result);
         
         response.result.fields.map((f: any) => {
@@ -125,9 +128,9 @@ export default function SouscriptionForm(props: any) {
         insurerId: insurerId,
         ...subscriber,
         formData: getCorrectFormOfData(),
-      };
-      
-      const response: any = await apiClient.post('/secure/mobile/subscription/v1', { ...data });
+      }; 
+    
+      const response: any = await client.fetch('secure/mobile/subscription/v1', {}, data);
       if (response.code ===  200 && response.result.status !== 'FAILED') {
         setFormResult(response.result);
         SimpleToast.show(response.result.message, 15);
@@ -194,20 +197,6 @@ export default function SouscriptionForm(props: any) {
       setDefaultValues(null)
     }
   }
-
-  /* const handleUpdateSubcriber =  async (subscribeTo: "myself" | "other") => {
-    setSubscribeFor(subscribeTo)
-    if (subscribeTo === "myself"){
-      setDefaultSubscriberValues({
-        customerName: user?.name,
-        phone: user?.phone,
-        email: user?.email
-      })
-    }
-    else{
-      setDefaultSubscriberValues({})
-    }
-  } */
 
   return (
     <View

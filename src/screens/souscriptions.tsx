@@ -18,11 +18,11 @@ import DropdownComponent from '../components/ui/DropdownComponent';
 import SouscriptionComponent from '../components/ui/souscription-component';
 import { COLORS } from '../constants/Colors';
 import { height, width } from '../constants/size';
-import { apiClient } from '../data/axios';
+import { useFetchClient } from '../context/FetchClientProvider';
+import useProduct from '../hooks/useProduct';
 import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import type { Souscription } from '../types';
-import useProduct from '../hooks/useProduct';
 
 const pattern = 'YYYY/MM/DD'; //  HH:mm:ss'
 
@@ -98,6 +98,8 @@ export default function Souscriptions() {
   const [selectedStatus, setSelectedStatus] = useState("")
   const [selectedProduct, setSelectedProduct] = useState("")
 
+  const client = useFetchClient()
+
   const fetchSubscription = async (currentPage?: number) => {
     setLoading(true);
     try {
@@ -110,7 +112,7 @@ export default function Souscriptions() {
       if (isFilter && startDate){ body = { ...body, startAtGte: startDate.toISOString().split('.')[0] }}
       if (isFilter && endDate){ body = { ...body, endAtLte: endDate.toISOString().split('.')[0] }}
 
-      const response: any = await apiClient.post('/secure/mobile/insurance/subscription-list/v1', body )
+      const response: any = await client.fetch("secure/mobile/insurance/subscription-list/v1", {}, body);
       setNextPage(response.result.next)
 
       if (response.result.subscriptions){

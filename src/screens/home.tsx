@@ -15,7 +15,7 @@ import SouscriptionComponent from '../components/ui/souscription-component';
 import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';
 import { height, width } from '../constants/size';
-import { apiClient } from '../data/axios';
+import { useFetchClient } from '../context/FetchClientProvider';
 import useProduct from '../hooks/useProduct';
 import useSubscription from '../hooks/useSubscription';
 import Navigation from '../services/Navigation';
@@ -152,17 +152,19 @@ export function HomeCard() {
     description:
       '<p>L&#39;assurance maladie est un dispositif de la S&eacute;curit&eacute; Sociale qui vise &agrave; prot&eacute;ger financi&egrave;rement les individus et leurs familles contre les risques li&eacute;s &agrave; la maladie, la maternit&eacute;, les accidents, l&#39;invalidit&eacute;, les maladies professionnelles et le d&eacute;c&egrave;s.&nbsp;Elle permet de garantir l&#39;acc&egrave;s aux soins et prend en charge tout ou partie des d&eacute;penses de sant&eacute;</p>',
     image:
-      'https://storage.googleapis.com/afrikpay_insurances/media/categories/Assurance_Maladie.jpg',
+      'https://storage.googleapis.com/afrikpay_insurances/media/categories/Capture_13.jpeg',
   };
   const [product, setProduct] = useState<ProduitAssurance>(defaultProduct)
+
+  const client = useFetchClient() 
   
   useEffect(() => {
     ( async () => {
       try {
-        const response: any = await apiClient.post(
-          '/secure/mobile/categories/v1',{})
+        const response: any = await client.fetch(
+          'secure/mobile/categories/v1',{},{})
         if (response.code === 200 && response.message === "success" && response.result.length > 0 ){
-          setProduct({...response.result[0]})
+          setProduct({...response.result.find((p: any) => p.id == product.id)})
         }
       } catch (error) {
         console.log(error)
@@ -234,6 +236,8 @@ export function ProductSection(
 ) {
   const { products, setProducts, findProducts } = useProduct()
   const [loading, setLoading] = useState(false);
+
+  
 
   const findCategories = async () => {
     if (!refreshing) { setLoading(true);}

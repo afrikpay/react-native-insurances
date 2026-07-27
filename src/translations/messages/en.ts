@@ -29,7 +29,7 @@ const en = {
   question_1:
     '1) - Choose your insurance product: Explore our range of products (car, health, home, etc.) adapted to the Cameroonian market.',
   question_2:
-    '2) - Get an instant quote: Enter your details to receive a personalized quote immediately.',
+    '2) - Get an instant quote: Enter your details to receive a personalized quote.',
   question_3:
     '3) - Subscribe online: Pay securely using local payment methods (Mobile Money, credit cards) and receive your insurance policy digitally.',
   question_4:
