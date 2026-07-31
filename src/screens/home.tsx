@@ -52,8 +52,6 @@ export default function Home() {
         backgroundColor: COLORS.white,
         flexDirection: 'column',
         gap: 20,
-        borderWidth: 6,
-        borderColor: "yellow"
       }}>
       {/* Section 1 */}
       <View style={{ 
