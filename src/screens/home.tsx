@@ -10,11 +10,12 @@ import {
   View
 } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Box } from '../components/ui/Box';
 import SouscriptionComponent from '../components/ui/souscription-component';
 import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';
-import { height, width } from '../constants/size';
+import { width } from '../constants/size';
 import { useFetchClient } from '../context/FetchClientProvider';
 import useProduct from '../hooks/useProduct';
 import useSubscription from '../hooks/useSubscription';
@@ -26,6 +27,7 @@ import Auth from '../utils/Auth';
 export default function Home() {
   const [username, setUsername] = useState("")
   const [refreshing, setRefreshing] = useState(false)
+  const insets = useSafeAreaInsets()
 
 
   useEffect(() => {
@@ -44,13 +46,14 @@ export default function Home() {
     <SafeAreaView
       style={{
         flex: 1,
-        height: height,
         width: width,
-        padding: 20,
+        paddingHorizontal: 20,
         paddingTop: 30,
         backgroundColor: COLORS.white,
         flexDirection: 'column',
         gap: 20,
+        borderWidth: 6,
+        borderColor: "yellow"
       }}>
       {/* Section 1 */}
       <View style={{ 
@@ -125,6 +128,7 @@ export default function Home() {
             onRefresh={onRefresh}
           />
         }
+        contentContainerStyle={{ padding: insets.bottom }}
         showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         {/** Product Section */}
         <ProductSection 

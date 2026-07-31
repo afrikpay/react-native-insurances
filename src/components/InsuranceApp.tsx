@@ -29,7 +29,7 @@ const InsuranceApp = ({
   return (
     <ProviderCallback onReady={onReady}>
       <ThemeProvider theme={{ dark: false, mode: 'exact' }}>
-        <View style={{ flex: 1, height: '100%' }}>
+        <View style={{ flex: 1, height: '100%', borderWidth: 2, borderColor: "red", backgroundColor: "green" }}>
           <StatusBar barStyle={'dark-content'} hidden={false} />
           <RootNavigator />
         </View>
