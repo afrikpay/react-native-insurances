@@ -65,7 +65,9 @@ export default function Home() {
         <Text style={{ fontWeight: 'bold', flex: 1 }}>{username}</Text>
         <View style={{ flex: 1 }}></View>
       </View>
-      {/* <View
+
+      {/* 
+      <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
