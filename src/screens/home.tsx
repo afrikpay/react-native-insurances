@@ -41,14 +41,11 @@ export default function Home() {
   }
 
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
-        height: height,
-        width: width,
         paddingHorizontal: 20,
         backgroundColor: COLORS.white,
-        flexDirection: 'column',
         gap: 20,
         borderWidth: 2,
         borderColor: "blue"
@@ -144,7 +141,7 @@ export default function Home() {
           setRefreshing={setRefreshing}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
