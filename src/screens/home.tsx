@@ -371,7 +371,7 @@ export function RenderSubscriptionSection(
   }, [refreshing])
 
   return (
-    <View style={{ flexDirection: 'column', gap: 10 }}>
+    <View style={{ width: "100%", flex: 1, flexDirection: 'column', gap: 10 }}>
       <View
         style={{
           flexDirection: 'row',
@@ -404,6 +404,7 @@ export function RenderSubscriptionSection(
           display: 'flex',
           flexWrap: 'wrap',
           flexDirection: 'row',
+          justifyContent: 'space-between',
           gap: 10,
         }}>
         {loading && (
