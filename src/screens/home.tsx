@@ -44,12 +44,12 @@ export default function Home() {
     <SafeAreaView
       style={{
         flex: 1,
-        width: width,
         paddingHorizontal: 20,
-        // paddingTop: 30,
         backgroundColor: COLORS.white,
         flexDirection: 'column',
         gap: 20,
+        borderWidth: 2,
+        borderColor: "blue"
       }}>
       {/* Section 1 */}
       <View style={{ 
