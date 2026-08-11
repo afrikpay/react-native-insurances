@@ -10,7 +10,6 @@ import {
   View
 } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Box } from '../components/ui/Box';
 import SouscriptionComponent from '../components/ui/souscription-component';
 import { COLORS } from '../constants/Colors';
@@ -27,7 +26,6 @@ import Auth from '../utils/Auth';
 export default function Home() {
   const [username, setUsername] = useState("")
   const [refreshing, setRefreshing] = useState(false)
-  const insets = useSafeAreaInsets()
 
 
   useEffect(() => {
