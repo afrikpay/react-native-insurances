@@ -4,6 +4,7 @@ import {
   Image,
   Pressable,
   RefreshControl,
+  SafeAreaView,
   ScrollView,
   Text,
   View
@@ -13,7 +14,7 @@ import { Box } from '../components/ui/Box';
 import SouscriptionComponent from '../components/ui/souscription-component';
 import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';
-import { width } from '../constants/size';
+import { height, width } from '../constants/size';
 import { useFetchClient } from '../context/FetchClientProvider';
 import useProduct from '../hooks/useProduct';
 import useSubscription from '../hooks/useSubscription';
@@ -40,11 +41,12 @@ export default function Home() {
   }
 
   return (
-    <View
+    <SafeAreaView
       style={{
-        flex: 1,
+        height: height,
         paddingHorizontal: 20,
         backgroundColor: COLORS.white,
+        flexDirection: 'column',
         gap: 20,
         borderWidth: 2,
         borderColor: "blue"
@@ -140,7 +142,7 @@ export default function Home() {
           setRefreshing={setRefreshing}
         />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
