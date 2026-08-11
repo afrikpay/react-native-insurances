@@ -46,6 +46,7 @@ export default function Home() {
   return (
     <SafeAreaView
       style={{
+        flex: 1,
         width: width,
         paddingHorizontal: 20,
         backgroundColor: COLORS.white,
