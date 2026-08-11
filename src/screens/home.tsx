@@ -4,7 +4,6 @@ import {
   Image,
   Pressable,
   RefreshControl,
-  SafeAreaView,
   ScrollView,
   Text,
   View
@@ -14,7 +13,7 @@ import { Box } from '../components/ui/Box';
 import SouscriptionComponent from '../components/ui/souscription-component';
 import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';
-import { height, width } from '../constants/size';
+import { width } from '../constants/size';
 import { useFetchClient } from '../context/FetchClientProvider';
 import useProduct from '../hooks/useProduct';
 import useSubscription from '../hooks/useSubscription';
