@@ -57,7 +57,8 @@ export default function Home() {
       }}>
       {/* Section 1 */}
       <View style={{ 
-        backgroundColor: COLORS.white, padding: 0, display: 'flex', 
+        backgroundColor: COLORS.white, 
+        padding: 0, display: 'flex', 
         flexDirection: 'row', justifyContent: 'space-between',
         alignItems: 'center', gap: 10 }}>
         <Pressable style={{ flex: 1}}
@@ -130,7 +131,7 @@ export default function Home() {
             onRefresh={onRefresh}
           />
         }
-        contentContainerStyle={{ padding: insets.bottom }}
+        contentContainerStyle={{ paddingBottom: insets.bottom }}
         showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         {/** Product Section */}
         <ProductSection 
