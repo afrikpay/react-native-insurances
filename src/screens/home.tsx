@@ -128,7 +128,7 @@ export default function Home() {
             onRefresh={onRefresh}
           />
         }
-        contentContainerStyle={{ padding: insets.bottom }}
+        // contentContainerStyle={{ padding: insets.bottom }}
         showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         {/** Product Section */}
         <ProductSection 
