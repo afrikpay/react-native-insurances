@@ -267,7 +267,7 @@ export function ProductSection(
   }, [refreshing])
 
   return (
-    <View style={{ width: "100%", flex: 1, flexDirection: 'column', gap: 10 }}>
+    <View style={{ flexDirection: 'column', gap: 10 }}>
       <View style={{
           flex: 1,
           flexDirection: 'row',
