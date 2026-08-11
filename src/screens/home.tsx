@@ -300,7 +300,6 @@ export function ProductSection(
           display: 'flex',
           flexWrap: 'wrap',
           flexDirection: 'row',
-          justifyContent: 'space-between',
           gap: 10,
         }}>
         {loading && (
@@ -319,7 +318,7 @@ export function ProductSection(
           </View>
         )}
         {products.slice(0, 4).map((product: any, index: number) => (
-          <Box key={index} width={width / 2 - 26} padding={10}>
+          <Box key={index} width={width / 2 - 24} padding={10}>
             <Pressable
               onPress={() => { Navigation.navigate(ROUTES.ASSUREURS, { product }); }}
               style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
