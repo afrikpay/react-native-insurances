@@ -48,7 +48,7 @@ export default function Home() {
         flex: 1,
         width: width,
         paddingHorizontal: 20,
-        paddingTop: 30,
+        // paddingTop: 30,
         backgroundColor: COLORS.white,
         flexDirection: 'column',
         gap: 20,
@@ -241,8 +241,6 @@ export function ProductSection(
   const { products, setProducts, findProducts } = useProduct()
   const [loading, setLoading] = useState(false);
 
-  
-
   const findCategories = async () => {
     if (!refreshing) { setLoading(true);}
     setProducts([])
@@ -263,11 +261,12 @@ export function ProductSection(
 
   useEffect(() => {
     if (refreshing){findCategories()}
-  }, [refreshing]);
+  }, [refreshing])
 
   return (
-    <View style={{ flexDirection: 'column', gap: 10 }}>
+    <View style={{ width: "100%", flex: 1, flexDirection: 'column', gap: 10 }}>
       <View style={{
+          flex: 1,
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -298,6 +297,7 @@ export function ProductSection(
           display: 'flex',
           flexWrap: 'wrap',
           flexDirection: 'row',
+          justifyContent: 'space-between',
           gap: 10,
         }}>
         {loading && (
