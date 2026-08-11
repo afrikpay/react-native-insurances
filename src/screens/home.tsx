@@ -318,7 +318,7 @@ export function ProductSection(
           </View>
         )}
         {products.slice(0, 4).map((product: any, index: number) => (
-          <Box key={index} width={width / 2 - 26} padding={10}>
+          <Box key={index} width={width / 2 - 20} padding={10}>
             <Pressable
               onPress={() => { Navigation.navigate(ROUTES.ASSUREURS, { product }); }}
               style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
@@ -373,7 +373,7 @@ export function RenderSubscriptionSection(
   }, [refreshing])
 
   return (
-    <View style={{ width: "100%", flex: 1, flexDirection: 'column', gap: 10 }}>
+    <View style={{ width: "100%", flexDirection: 'column', gap: 10 }}>
       <View
         style={{
           flexDirection: 'row',
