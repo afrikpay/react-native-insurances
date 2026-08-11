@@ -318,7 +318,7 @@ export function ProductSection(
           </View>
         )}
         {products.slice(0, 4).map((product: any, index: number) => (
-          <Box key={index} width={width / 2.5} padding={10}>
+          <Box key={index} width={width / 2.4} padding={10}>
             <Pressable
               onPress={() => { Navigation.navigate(ROUTES.ASSUREURS, { product }); }}
               style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
