@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { StatusBar, View } from 'react-native';
+import { View } from 'react-native';
 import { ThemeProvider } from 'react-native-paper';
 import RootNavigator from '../navigation/RootNavigator';
-import Auth from '../utils/Auth';
 import { ProviderCallback } from '../screens/forms/context';
+import Auth from '../utils/Auth';
 
 const InsuranceApp = ({
   lang,
@@ -30,7 +30,6 @@ const InsuranceApp = ({
     <ProviderCallback onReady={onReady}>
       <ThemeProvider theme={{ dark: false, mode: 'exact' }}>
         <View style={{ flex: 1, height: '100%' }}>
-          <StatusBar barStyle={'dark-content'} hidden={false} />
           <RootNavigator />
         </View>
       </ThemeProvider>

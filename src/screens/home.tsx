@@ -4,12 +4,12 @@ import {
   Image,
   Pressable,
   RefreshControl,
-  SafeAreaView,
   ScrollView,
   Text,
   View
 } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Box } from '../components/ui/Box';
 import SouscriptionComponent from '../components/ui/souscription-component';
 import { COLORS } from '../constants/Colors';
@@ -22,7 +22,6 @@ import Navigation from '../services/Navigation';
 import i18n from '../translations/i18n';
 import type { ProduitAssurance } from '../types';
 import Auth from '../utils/Auth';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function Home() {
   const [username, setUsername] = useState("")
@@ -47,8 +46,6 @@ export default function Home() {
     <View
       style={{
         flex: 1,
-        /* width: "100%",
-        height: "100%", */
         paddingHorizontal: 20,
         backgroundColor: COLORS.white,
         flexDirection: 'column',
