@@ -1,4 +1,4 @@
-import { AntDesign } from '@expo/vector-icons';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { useEffect, useState } from 'react';
 import {
   Image,
@@ -57,6 +57,7 @@ export default function Home() {
         padding: 0, display: 'flex', 
         flexDirection: 'row', justifyContent: 'space-between',
         alignItems: 'center', gap: 10 }}>
+          Icon.ChevronLeft
         <Pressable style={{ flex: 1}}
             onPress={() => Navigation.back()}>
             <AntDesign name="arrowleft" size={24} color="black" />
