@@ -295,7 +295,7 @@ export default function Souscriptions() {
             editable={true}
           />
           <TouchableOpacity
-            style={{ marginRight: 4, position: 'absolute', top: 12, right: 10 }}
+            style={{ marginRight: 4, position: 'absolute', top: 12, right: 2 }}
             onPress={() => {
               console.log(search);
             }}>
@@ -303,6 +303,7 @@ export default function Souscriptions() {
                 name="search"
                 color={COLORS.primary}
                 strokeWidth={3}
+                size={40}
               />
           </TouchableOpacity>
         </View>
