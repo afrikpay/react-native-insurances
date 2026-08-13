@@ -261,12 +261,12 @@ export default function Souscriptions() {
           >
             {i18n('mes_souscriptions')}
           </Text>
-          <TouchableOpacity onPress={showModal} style={{ marginTop: 10, marginLeft: 20 }}>
+          <TouchableOpacity onPress={showModal} style={{ marginTop: 8, marginLeft: 18 }}>
             <Feather
               name="filter"
               color={COLORS.primary}
               strokeWidth={1.5}
-              size={24}
+              size={22}
             />
           </TouchableOpacity>
         </View>
@@ -295,16 +295,16 @@ export default function Souscriptions() {
             editable={true}
           />
           <TouchableOpacity
-            style={{ marginRight: 4, position: 'absolute', top: 12, right: 2 }}
+            style={{ marginRight: 4, position: 'absolute', top: 12, right: 8 }}
             onPress={() => {
               console.log(search);
             }}>
-              <Feather
-                name="search"
-                color={COLORS.primary}
-                strokeWidth={3}
-                size={24}
-              />
+            <Feather
+              name="search"
+              color={COLORS.primary}
+              strokeWidth={3}
+              size={22}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -320,7 +320,7 @@ export default function Souscriptions() {
           <FlatList
             data={souscriptions}
             extraData={(item: any) => `${item.id}`}
-            keyExtractor={(item: Souscription) => item.id.toString()}
+            keyExtractor={(item: Souscription, index: number) => `${item.id}-${index}` }
             showsVerticalScrollIndicator={false}
             renderItem={({ item }: { item: Souscription }) => (
               <View style={{ marginBottom: 15 }}>
@@ -333,16 +333,16 @@ export default function Souscriptions() {
             refreshing={refreshing}
             ListFooterComponent={ () => {
               if (souscriptions.length > 0 && loading){
-                return (<View
-                  style={{
-                    paddingVertical: 15,
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                <ActivityIndicator size="small" color={COLORS.gray} />
-              </View>)
+                return (
+                  <View
+                    style={{
+                      paddingVertical: 15,
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <ActivityIndicator size="small" color={COLORS.gray} />
+                  </View>)
               }
               return <View></View>
             }}
