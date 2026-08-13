@@ -261,11 +261,12 @@ export default function Souscriptions() {
           >
             {i18n('mes_souscriptions')}
           </Text>
-          <TouchableOpacity onPress={showModal}>
+          <TouchableOpacity onPress={showModal} style={{ marginTop: 10, marginLeft: 20 }}>
             <Feather
               name="filter"
               color={COLORS.primary}
               strokeWidth={1.5}
+              size={45}
             />
           </TouchableOpacity>
         </View>
