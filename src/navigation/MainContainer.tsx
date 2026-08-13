@@ -55,7 +55,7 @@ const MainContainer = () => {
           } else if (rn.includes(ROUTES.INFOS)) {
             icon = (
               <AntDesign
-                name="infocirlceo"
+                name="info"
                 size={24}
                 color={focused ? COLORS.primary : COLORS.gray}
               />
