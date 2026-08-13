@@ -1,4 +1,5 @@
 import { AntDesign } from '@expo/vector-icons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';
@@ -38,26 +39,26 @@ const MainContainer = () => {
             );
           } else if (rn.includes(ROUTES.PRODUITS)) {
             icon = (
-              <AntDesign
-                name="isv"
-                size={24}
+              <AntDesign 
+                name="product" 
+                size={24} 
                 color={focused ? COLORS.primary : COLORS.gray}
               />
             );
           } else if (rn.includes(ROUTES.SOUSCRIPTIONS)) {
             icon = (
               <AntDesign
-                name="filetext1"
+                name="file-text"
                 size={24}
                 color={focused ? COLORS.primary : COLORS.gray}
               />
             );
           } else if (rn.includes(ROUTES.INFOS)) {
             icon = (
-              <AntDesign
-                name="info"
-                size={24}
-                color={focused ? COLORS.primary : COLORS.gray}
+              <Ionicons 
+                name="information-circle-outline" 
+                size={24} 
+                color={focused ? COLORS.primary : COLORS.gray} 
               />
             );
           }
