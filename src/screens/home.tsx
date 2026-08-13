@@ -1,4 +1,4 @@
-import AntDesign from '@expo/vector-icons/AntDesign';
+import { Feather } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   Image,
@@ -51,6 +51,7 @@ export default function Home() {
         flexDirection: 'column',
         gap: 20,
       }}>
+        
       {/* Section 1 */}
       <View style={{ 
         backgroundColor: COLORS.white, 
@@ -60,7 +61,7 @@ export default function Home() {
           Icon.ChevronLeft
         <Pressable style={{ flex: 1}}
             onPress={() => Navigation.back()}>
-            <AntDesign name="arrowleft" size={24} color="black" />
+            <Feather name="arrow-left" size={24} color="black" />
         </Pressable>
         <Text style={{ fontWeight: 'bold', flex: 1 }}>{username}</Text>
         <View style={{ flex: 1 }}></View>
