@@ -1,5 +1,5 @@
 import { StepFormBuilder, type FormStep } from '@afrikpay/rn-step-form';
-import { AntDesign } from '@expo/vector-icons';
+import { Feather, AntDesign} from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -226,7 +226,7 @@ export default function SouscriptionForm(props: any) {
                 Navigation.back();
               }
             }}>
-            <AntDesign name="arrowleft" size={24} color="black" />
+            <Feather name="arrow-left" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
             {i18n('souscription')}
@@ -505,7 +505,7 @@ export default function SouscriptionForm(props: any) {
                           justifyContent: 'center',
                           gap: 18,
                         }}>
-                        <AntDesign onPress={() => editInsurer(insurer)} name="edit" size={24} color="black" />
+                        <Feather onPress={() => editInsurer(insurer)} name="edit" size={24} color="black" />
                         <AntDesign onPress={() => deleteInsurer(insurer)} name="delete" size={24} color="red" />
                       </View>
                     </View>
