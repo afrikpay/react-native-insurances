@@ -118,19 +118,16 @@ export default function Products() {
             editable={true}
           />
           <TouchableOpacity
-            style={{ marginRight: 4, position: 'absolute', top: 12, right: 10 }}
+            style={{ marginRight: 4, position: 'absolute', top: 12, right: 8 }}
             onPress={() => {
               console.log(search);
             }}>
-            
             <Feather
               name="search"
               color={COLORS.primary}
-              strokeWidth={2}
-              width={25}
-              height={25}
+              strokeWidth={3}
+              size={22}
             />
-           
           </TouchableOpacity>
         </View>
       </View>
