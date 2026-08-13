@@ -261,13 +261,11 @@ export default function Souscriptions() {
           >
             {i18n('mes_souscriptions')}
           </Text>
-          <TouchableOpacity onPress={showModal} style={{ marginTop: 10, marginLeft: 10 }}>
+          <TouchableOpacity onPress={showModal}>
             <Feather
               name="filter"
               color={COLORS.primary}
-              strokeWidth={2.3}
-              width={45}
-              height={45}
+              strokeWidth={1.5}
             />
           </TouchableOpacity>
         </View>
@@ -297,15 +295,13 @@ export default function Souscriptions() {
           />
           <TouchableOpacity
             style={{ marginRight: 4, position: 'absolute', top: 12, right: 10 }}
-              onPress={() => {
-                console.log(search);
-              }}>
+            onPress={() => {
+              console.log(search);
+            }}>
               <Feather
                 name="search"
                 color={COLORS.primary}
                 strokeWidth={3}
-                width={45}
-                height={45}
               />
           </TouchableOpacity>
         </View>
