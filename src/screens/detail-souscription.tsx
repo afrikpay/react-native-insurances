@@ -1,4 +1,4 @@
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -268,7 +268,7 @@ export default function DetailSouscription(props: any) {
                 Navigation.back();
               }
             }}>
-            <AntDesign name="arrowleft" size={24} color="black" />
+            <Feather name="arrow-left" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
             {i18n('detail_souscription_titre')}

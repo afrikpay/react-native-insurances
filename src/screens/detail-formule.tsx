@@ -1,4 +1,4 @@
-import { AntDesign } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import {
   Image,
   Pressable,
@@ -43,18 +43,8 @@ export default function DetailFormule(props: any) {
           <TouchableOpacity
             onPress={() => {
               Navigation.back();
-            }}
-          >
-            {/* 
-              <Feather
-                name="chevron-left"
-                color={COLORS.dark}
-                strokeWidth={1.5}
-                width={30}
-                height={30}
-              />
-            */}
-            <AntDesign name="arrowleft" size={24} color="black" />
+            }}>
+           <Feather name="arrow-left" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
             {i18n('detail_formule')}
@@ -83,15 +73,13 @@ export default function DetailFormule(props: any) {
             fontWeight: 'bold',
             color: COLORS.primary,
             textAlign: 'center',
-          }}
-        >
+          }}>
           {plan.name}
         </Text>
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ flex: 1, padding: 20 }}
-      >
+        style={{ flex: 1, padding: 20 }}>
         <RenderHtml
           contentWidth={width}
           source={{ html: `${plan.description}` }}
@@ -113,16 +101,14 @@ export default function DetailFormule(props: any) {
             marginTop: 40,
             backgroundColor: COLORS.primary,
             borderRadius: 100,
-          }}
-        >
+          }}>
           <Text
             style={{
               color: COLORS.white,
               fontWeight: 'bold',
               fontSize: 18,
               textAlign: 'center',
-            }}
-          >
+            }}>
             {i18n('souscrire')}
           </Text>
         </Pressable>

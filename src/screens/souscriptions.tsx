@@ -1,4 +1,4 @@
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
@@ -249,7 +249,7 @@ export default function Souscriptions() {
                 height={30}
               />
             */}
-            <AntDesign name="arrowleft" size={24} color="black" />
+            <Feather name="arrow-left" size={24} color="black" />
           </TouchableOpacity>
           <Text
             style={{
@@ -262,16 +262,13 @@ export default function Souscriptions() {
             {i18n('mes_souscriptions')}
           </Text>
           <TouchableOpacity onPress={showModal}>
-            {/* 
-              <Feather
-                name="filter"
-                color={COLORS.primary}
-                strokeWidth={1.5}
-                width={25}
-                height={25}
-              />
-            */}
-            <AntDesign name="filter" size={24} color="black" />
+            <Feather
+              name="filter"
+              color={COLORS.primary}
+              strokeWidth={1.5}
+              width={25}
+              height={25}
+            />
           </TouchableOpacity>
         </View>
         <View style={{ height: 45 }}>
@@ -303,7 +300,13 @@ export default function Souscriptions() {
             onPress={() => {
               console.log(search);
             }}>
-            <AntDesign name="search1" size={24} color="black" />
+              <Feather
+              name="search"
+              color={COLORS.primary}
+              strokeWidth={2}
+              width={25}
+              height={25}
+            />
           </TouchableOpacity>
         </View>
       </View>

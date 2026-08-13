@@ -29,7 +29,6 @@ export default function Home() {
 
   const insets = useSafeAreaInsets()
 
-
   useEffect(() => {
     (async () => {
       const name = await Auth.getUsername();

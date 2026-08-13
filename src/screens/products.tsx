@@ -1,4 +1,4 @@
-import { AntDesign } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   Image,
@@ -88,7 +88,7 @@ export default function Products() {
         {/** Navigation bar  */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <TouchableOpacity onPress={() => Navigation.back()}>
-            <AntDesign name="arrowleft" size={24} color="black" />
+          <Feather name="arrow-left" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
             {i18n('produit_assurance')}
@@ -122,16 +122,15 @@ export default function Products() {
             onPress={() => {
               console.log(search);
             }}>
-            {/*
-              <Feather
-                name="search"
-                color={COLORS.primary}
-                strokeWidth={2}
-                width={25}
-                height={25}
-              />
-            */}
-            <AntDesign name="search1" size={24} color="black" />
+            
+            <Feather
+              name="search"
+              color={COLORS.primary}
+              strokeWidth={2}
+              width={25}
+              height={25}
+            />
+           
           </TouchableOpacity>
         </View>
       </View>

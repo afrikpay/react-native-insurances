@@ -1,4 +1,4 @@
-import { AntDesign } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -67,7 +67,7 @@ export default function Assureurs(props: any) {
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <TouchableOpacity
             onPress={() => Navigation.back()}>
-            <AntDesign name="arrowleft" size={24} color="black" />
+            <Feather name="arrow-left" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
             {i18n('assureurs')}
@@ -164,7 +164,7 @@ export default function Assureurs(props: any) {
                       insurer,
                     });
                   }}>
-                  <AntDesign name="right" size={24} color="black" />
+                  <Feather name="chevron-right" size={24} color="black" />
                 </TouchableOpacity>
               </Pressable>
             </Box>
