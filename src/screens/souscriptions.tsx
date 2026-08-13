@@ -266,7 +266,7 @@ export default function Souscriptions() {
               name="filter"
               color={COLORS.primary}
               strokeWidth={1.5}
-              size={45}
+              size={24}
             />
           </TouchableOpacity>
         </View>
@@ -303,7 +303,7 @@ export default function Souscriptions() {
                 name="search"
                 color={COLORS.primary}
                 strokeWidth={3}
-                size={40}
+                size={24}
               />
           </TouchableOpacity>
         </View>
