@@ -167,7 +167,8 @@ export function HomeCard() {
         const response: any = await client.fetch(
           'secure/mobile/categories/v1',{},{})
         if (response.code === 200 && response.message === "success" && response.result.length > 0 ){
-          setProduct({...response.result.find((p: any) => p.id == product.id)})
+          // setProduct({...response.result.find((p: any) => p.id == product.id)})
+          setProduct({...response.result[0]})
         }
       } catch (error) {
         console.log(error)
@@ -419,9 +420,11 @@ export function RenderSubscriptionSection(
             />
           </View>
         )}
-        {souscriptions.map((souscription: any, index: number) => (
-          <SouscriptionComponent key={index} souscription={souscription} />
-        ))}
+        {
+          souscriptions.map((souscription: any, index: number) => (
+            <SouscriptionComponent key={index} souscription={souscription} />
+          ))
+        }
         {!loading && souscriptions.length === 0 && (
           <View
             style={{
