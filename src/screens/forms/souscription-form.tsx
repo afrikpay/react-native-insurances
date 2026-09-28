@@ -3,6 +3,7 @@ import { Feather, AntDesign} from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
+  Alert,
   Pressable,
   ScrollView,
   Text,
@@ -186,9 +187,21 @@ export default function SouscriptionForm(props: any) {
 
   const editInsurer = (insurer: Record<string, any>) => {
     if (savingData) return;
-    setFormStep(formStepCopy);
-    setDefaultValues(insurer);
-    deleteInsurer(insurer);
+    Alert.alert("Suppression", "Voulez-vous vraiment supprimer cet assuré ?", [
+      {
+        text: "Non",
+        style: 'cancel',
+      },
+      {
+        text: "Oui",
+        style: 'destructive',
+        onPress: () => {
+          setFormStep(formStepCopy);
+          setDefaultValues(insurer);
+          deleteInsurer(insurer);
+        }
+      }
+    ])
   };
 
   const goBack = () => {
