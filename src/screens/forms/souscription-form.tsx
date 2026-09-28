@@ -181,12 +181,6 @@ export default function SouscriptionForm(props: any) {
 
   const deleteInsurer = (insurer: Record<string, any>) => {
     if (savingData) return;
-    const firstKey = Object.keys(insurer)[0] as any;
-    setAssures((prev) => prev.filter((p) => p[firstKey] !== insurer[firstKey]));
-  };
-
-  const editInsurer = (insurer: Record<string, any>) => {
-    if (savingData) return;
     Alert.alert("Suppression", "Voulez-vous vraiment supprimer cet assuré ?", [
       {
         text: "Non",
@@ -196,12 +190,18 @@ export default function SouscriptionForm(props: any) {
         text: "Oui",
         style: 'destructive',
         onPress: () => {
-          setFormStep(formStepCopy);
-          setDefaultValues(insurer);
-          deleteInsurer(insurer);
+          const firstKey = Object.keys(insurer)[0] as any;
+          setAssures((prev) => prev.filter((p) => p[firstKey] !== insurer[firstKey]));
         }
       }
     ])
+  };
+
+  const editInsurer = (insurer: Record<string, any>) => {
+    if (savingData) return;
+    setFormStep(formStepCopy);
+    setDefaultValues(insurer);
+    deleteInsurer(insurer);
   };
 
   const goBack = () => {
