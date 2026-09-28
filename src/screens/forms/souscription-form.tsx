@@ -12,12 +12,12 @@ import {
 import SimpleToast from 'react-native-simple-toast';
 import { COLORS } from '../../constants/Colors';
 import { ROUTES } from '../../constants/Routes';
-import { height, width } from '../../constants/size';
 import { useFetchClient } from '../../context/FetchClientProvider';
 import Navigation from '../../services/Navigation';
 import i18n from '../../translations/i18n';
 import type { User } from '../../types';
 import Auth from '../../utils/Auth';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function SouscriptionForm(props: any) {
 
@@ -28,6 +28,7 @@ export default function SouscriptionForm(props: any) {
   const [_, setUser] = useState<User>();
 
   const client = useFetchClient()
+  const insets = useSafeAreaInsets()
 
   const [formResult, setFormResult] = useState<Record<string, any>>();
 
@@ -202,8 +203,6 @@ export default function SouscriptionForm(props: any) {
     <View
       style={{
         flex: 1,
-        height: height,
-        width: width,
         backgroundColor: COLORS.white,
         flexDirection: 'column',
         gap: 20,
@@ -235,7 +234,7 @@ export default function SouscriptionForm(props: any) {
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ flex: 1, padding: 20 }}>
+        style={{ flex: 1, paddingHorizontal: 10, paddingBottom: insets.bottom }}>
         {loading && (
           <View
             style={{
