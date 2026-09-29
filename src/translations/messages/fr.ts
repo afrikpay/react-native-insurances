@@ -98,13 +98,18 @@ const fr = {
 
   // Formulaire de souscription
   souscription: 'Souscription',
-  infos_souscripteur: 'Infos du souscripteur',
+  infos_souscripteur: 'Informations du souscripteur',
   nom_souscripteur: 'Nom du souscripteur',
   tel_souscripteur: 'Téléphone',
   ajouter_assure: 'Ajouter un assuré',
   retour: 'Retour',
   souscripteur: 'Souscripteur',
   nom: 'Nom',
+
+  deletion: 'Suppression',
+  confirm_deletion: 'Êtes-vous sûr de vouloir supprimer cet assuré ?',
+  confirm: 'Confirmer',
+  cancel: 'Annuler',
 };
 
 export default fr;

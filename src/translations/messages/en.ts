@@ -105,6 +105,11 @@ const en = {
   retour: 'Back',
   souscripteur: 'Subscriber',
   nom: 'Name',
+
+  deletion: 'Deletion',
+  confirm_deletion: 'Are you sure you want to delete this insured?',
+  confirm: 'Confirm',
+  cancel: 'Cancel',
 };
 
 export default en;

@@ -181,13 +181,13 @@ export default function SouscriptionForm(props: any) {
 
   const deleteInsurer = (insurer: Record<string, any>) => {
     if (savingData) return;
-    Alert.alert("Suppression", "Voulez-vous vraiment supprimer cet assuré ?", [
+    Alert.alert(i18n("deletion"), i18n("confirm_deletion"), [
       {
-        text: "Non",
+        text: i18n("cancel"),
         style: 'cancel',
       },
       {
-        text: "Oui",
+        text: i18n("confirm"),
         style: 'destructive',
         onPress: () => {
           const firstKey = Object.keys(insurer)[0] as any;
@@ -326,7 +326,7 @@ export default function SouscriptionForm(props: any) {
               onSubmit={setSubscriber}
               steps={[
                 {
-                  title: 'Informations du souscripteur',
+                  title: i18n("infos_souscripteur"),
                   description: '',
                   fields: [
                     {
