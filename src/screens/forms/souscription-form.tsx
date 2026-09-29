@@ -188,7 +188,7 @@ export default function SouscriptionForm(props: any) {
       },
       {
         text: i18n("confirm"),
-        style: 'destructive',
+        style: 'default',
         onPress: () => {
           const firstKey = Object.keys(insurer)[0] as any;
           setAssures((prev) => prev.filter((p) => p[firstKey] !== insurer[firstKey]));
@@ -247,7 +247,7 @@ export default function SouscriptionForm(props: any) {
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ flex: 1, paddingHorizontal: 10, paddingBottom: insets.bottom }}>
+        style={{ flexGrow: 1, paddingHorizontal: 10, paddingBottom: insets.bottom }}>
         {loading && (
           <View
             style={{
