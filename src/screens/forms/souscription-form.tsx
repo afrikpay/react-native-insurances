@@ -179,6 +179,11 @@ export default function SouscriptionForm(props: any) {
     return data;
   };
 
+  const removeInsured = (insurer: Record<string, any>) =>  {
+    const firstKey = Object.keys(insurer)[0] as any;
+    setAssures((prev) => prev.filter((p) => p[firstKey] !== insurer[firstKey]));
+  }
+
   const deleteInsurer = (insurer: Record<string, any>) => {
     if (savingData) return;
     Alert.alert(i18n("deletion"), i18n("confirm_deletion"), [
@@ -189,10 +194,7 @@ export default function SouscriptionForm(props: any) {
       {
         text: i18n("confirm"),
         style: 'default',
-        onPress: () => {
-          const firstKey = Object.keys(insurer)[0] as any;
-          setAssures((prev) => prev.filter((p) => p[firstKey] !== insurer[firstKey]));
-        }
+        onPress: () => removeInsured(insurer)
       }
     ])
   };
@@ -201,7 +203,7 @@ export default function SouscriptionForm(props: any) {
     if (savingData) return;
     setFormStep(formStepCopy);
     setDefaultValues(insurer);
-    deleteInsurer(insurer);
+    removeInsured(insurer)
   };
 
   const goBack = () => {
