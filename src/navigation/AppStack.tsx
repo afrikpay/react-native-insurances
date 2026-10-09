@@ -7,6 +7,7 @@ import { COLORS } from '../constants/Colors';
 import { ROUTES } from '../constants/Routes';
 import MainContainer from './MainContainer';
 import Assureurs from '../screens/assureurs';
+import BulletinSouscription from '../screens/bulletin-souscription';
 import DetailAssurance from '../screens/detail-assurance';
 import DetailFormule from '../screens/detail-formule';
 import Souscriptions from '../screens/souscriptions';
@@ -47,6 +48,10 @@ const AppStack = () => {
       <Stack.Screen
         name={ROUTES.SOUSCRIPTION_FORM}
         component={SouscriptionForm}
+      />
+      <Stack.Screen
+        name={ROUTES.BULLETIN_SOUSCRIPTION}
+        component={BulletinSouscription}
       />
     </Stack.Navigator>
   );

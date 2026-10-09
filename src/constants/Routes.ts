@@ -11,4 +11,5 @@ export const ROUTES = {
   ASSUREURS: 'Assureurs',
   DETAIL_ASSURANCE: 'Detail_Assurance',
   DETAIL_FORMULE: 'Detail_Formule',
+  BULLETIN_SOUSCRIPTION: 'Bulletin_Souscription',
 };

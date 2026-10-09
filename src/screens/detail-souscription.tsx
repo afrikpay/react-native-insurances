@@ -10,7 +10,7 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import { Button, Modal, Portal, TextInput } from 'react-native-paper';
 import RenderHtml from 'react-native-render-html';
@@ -31,21 +31,20 @@ import i18n from '../translations/i18n';
 import { uploadFile } from '../utils/uploadFiles';
 import { useProviderCallback } from './forms/context';
 
-
 export default function DetailSouscription(props: any) {
-  const { souscription } = props.route.params
+  const { souscription } = props.route.params;
 
-  const client = useFetchClient()
-  
+  const client = useFetchClient();
+
   const { onReady } = useProviderCallback();
-  const { formatDate } = useDate()
-  const { numberWithCommas } = useSeparator()
+  const { formatDate } = useDate();
+  const { numberWithCommas } = useSeparator();
 
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
   const [isDocSending, setIsDocSending] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const [visible, setVisible] = useState(false);
   /* const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -54,11 +53,13 @@ export default function DetailSouscription(props: any) {
   const hideModal = () => setVisible(false);
 
   const [text, setText] = useState('');
-/*   const [phoneNumber, setPhoneNumber] = useState('');
+  /*   const [phoneNumber, setPhoneNumber] = useState('');
   const [paymentUrl, setPaymentUrl] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [serviceSlug, setServiceSlug] = useState(''); */
-  const [selectedInsurer, setSelectedInsurer] = useState<Record<string, any> | any>(null);
+  const [selectedInsurer, setSelectedInsurer] = useState<
+    Record<string, any> | any
+  >(null);
   const [selectedInsurerKey, setSelectedInsurerKey] = useState<string>('');
   const [selectedDoc, setSelectedDoc] = useState<Record<string, any>>();
 
@@ -92,7 +93,6 @@ export default function DetailSouscription(props: any) {
     } catch (error) {}
   };
 
-
   const handleSubmit = async () => {
     if (onReady) {
       onReady({
@@ -105,10 +105,8 @@ export default function DetailSouscription(props: any) {
         productName: souscription.product,
         insurerName: souscription.insurer.name,
       });
-    } 
-  }
-
-
+    }
+  };
 
   const handleFileUpload = async (doc: Record<string, any>) => {
     try {
@@ -139,7 +137,6 @@ export default function DetailSouscription(props: any) {
   }, [souscription]);
 
   const sendFile = async (doc: Record<string, any>) => {
-    
     if (submitting) return;
     setSubmitting(true);
     try {
@@ -150,7 +147,7 @@ export default function DetailSouscription(props: any) {
         { key: doc.key || '', owner: selectedInsurerKey },
         { 'Content-Type': 'multipart/form-data' },
         'file',
-        file![doc.key].mimeType,
+        file![doc.key].mimeType
         /* () => {
           setSelectedInsurer(null);
           SimpleToast.show('Fichier envoyé avec succès !', 5);
@@ -171,17 +168,21 @@ export default function DetailSouscription(props: any) {
     } catch (error) {
       setSubmitting(false);
       console.error('Error sending file:', error);
-    } 
+    }
   };
 
   const sendContract = async () => {
     if (sending) return;
     setSending(true);
     try {
-      await client.fetch('secure/mobile/document/contract/v1', {}, {
-        referenceNumber: souscription.reference,
-        insurerId: souscription.insurer.id,
-      });
+      await client.fetch(
+        'secure/mobile/document/contract/v1',
+        {},
+        {
+          referenceNumber: souscription.reference,
+          insurerId: souscription.insurer.id,
+        }
+      );
       SimpleToast.show('Contrat envoyé dans votre boîte mail avec succès!', 5);
     } catch (error: any) {
       console.error('Error sending contract:', error);
@@ -196,7 +197,8 @@ export default function DetailSouscription(props: any) {
     setIsDocSending(true);
     try {
       const response: any = await client.fetch(
-        'secure/mobile/document/confirmation/v1', {},
+        'secure/mobile/document/confirmation/v1',
+        {},
         { referenceNumber: souscription.reference }
       );
       if (response.result.status === 'SUCCESS') {
@@ -205,40 +207,48 @@ export default function DetailSouscription(props: any) {
         setError("Le document n'a pas été envoyé");
       }
     } catch (error: any) {
-      setError(`Erreur survenue lors de l'envoi des documents: ${error.message}`);
+      setError(
+        `Erreur survenue lors de l'envoi des documents: ${error.message}`
+      );
     } finally {
       setIsDocSending(false);
     }
   };
 
-  const resendVerifitionLinkByEmail = async () =>  {
-    if (loading) return 
-    setLoading(true)
+  const resendVerifitionLinkByEmail = async () => {
+    if (loading) return;
+    setLoading(true);
     try {
-      const response: any = await client.fetch('secure/mobile/ask-verify-email/v1', {}, {
-        referenceNumber: souscription.reference
-      })
-      if (response.code === 200 && response.result.status === "SUCCESS" ){
+      const response: any = await client.fetch(
+        'secure/mobile/ask-verify-email/v1',
+        {},
+        {
+          referenceNumber: souscription.reference,
+        }
+      );
+      if (response.code === 200 && response.result.status === 'SUCCESS') {
         SimpleToast.show(`${response.result.message}`, 25);
         setTimeout(() => {
-          Navigation.navigate(ROUTES.BOTTOMPTAPS)
+          Navigation.navigate(ROUTES.BOTTOMPTAPS);
         }, 5000);
       }
     } catch (error: any) {
-      setError(`Erreur survenue lors de l'envoi des documents: ${error.message}`)
+      setError(
+        `Erreur survenue lors de l'envoi des documents: ${error.message}`
+      );
       // SimpleToast.show(`Erreur survenue lors de l'envoi des documents: ${error.message}`, 15);
+    } finally {
+      setLoading(false);
     }
-
-    finally{ setLoading(false)}
-  }
+  };
 
   useEffect(() => {
     if (error) {
       setTimeout(() => {
-        setError("");
+        setError('');
       }, 10000);
     }
-  }, [error])
+  }, [error]);
 
   return (
     <SafeAreaView
@@ -249,25 +259,27 @@ export default function DetailSouscription(props: any) {
         backgroundColor: COLORS.white,
         flexDirection: 'column',
         gap: 20,
-      }}>
+      }}
+    >
       <View
         style={{
           backgroundColor: COLORS.white,
           paddingHorizontal: 20,
           paddingTop: 35,
           gap: 30,
-        }}>
+        }}
+      >
         {/** Navigation bar  */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <TouchableOpacity
             onPress={() => {
               if (souscription.redirectTo) {
                 Navigation.replace(souscription.redirectTo);
-              }
-              else {
+              } else {
                 Navigation.back();
               }
-            }}>
+            }}
+          >
             <Feather name="arrow-left" size={24} color="black" />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
@@ -278,16 +290,19 @@ export default function DetailSouscription(props: any) {
       <KeyboardAvoidingView style={{ flex: 1 }}>
         <ScrollView
           showsVerticalScrollIndicator={false}
-          style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6' }}>
+          style={{ flex: 1, padding: 20, backgroundColor: '#F4F5F6' }}
+        >
           <View style={{ gap: 20 }}>
             <View
-              style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+            >
               <Text
                 style={{
                   fontSize: 22,
                   fontWeight: 'bold',
                   color: COLORS.primary,
-                }}>
+                }}
+              >
                 {souscription.plan?.name}
               </Text>
               {/* <TouchableOpacity
@@ -316,7 +331,8 @@ export default function DetailSouscription(props: any) {
                       flexDirection: 'column',
                       alignItems: 'flex-start',
                       gap: 8,
-                    }}>
+                    }}
+                  >
                     <View
                       style={{
                         height: 10,
@@ -329,7 +345,8 @@ export default function DetailSouscription(props: any) {
                       style={{
                         color: getColor(souscription.status),
                         fontSize: 11,
-                      }}>
+                      }}
+                    >
                       {souscription.display_status}
                     </Text>
                   </View>
@@ -343,13 +360,15 @@ export default function DetailSouscription(props: any) {
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                       gap: 4,
-                    }}>
+                    }}
+                  >
                     <Text
                       style={{
                         fontSize: 12,
                         fontWeight: 'bold',
                         color: COLORS.dark,
-                      }}>
+                      }}
+                    >
                       Type:
                     </Text>
                     <Text
@@ -359,7 +378,8 @@ export default function DetailSouscription(props: any) {
                         fontSize: 14,
                         fontWeight: 'bold',
                         color: COLORS.primary,
-                      }}>
+                      }}
+                    >
                       {souscription.product}
                     </Text>
                   </View>
@@ -367,33 +387,36 @@ export default function DetailSouscription(props: any) {
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
-                    }}>
+                    }}
+                  >
                     <Text
                       style={{
                         fontSize: 12,
                         fontWeight: 'bold',
                         color: COLORS.dark,
-                      }}>
+                      }}
+                    >
                       {i18n('souscrit_le')} :
                     </Text>
-                    { 
-                      souscription.subscribed_at &&
+                    {souscription.subscribed_at && (
                       <Text numberOfLines={2} ellipsizeMode="tail">
                         {souscription.subscribed_at.slice(0, 10)}
                       </Text>
-                    }
+                    )}
                   </View>
                   <View
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
-                    }}>
+                    }}
+                  >
                     <Text
                       style={{
                         fontSize: 12,
                         fontWeight: 'bold',
                         color: COLORS.dark,
-                      }}>
+                      }}
+                    >
                       {i18n('active_le')} :
                     </Text>
                     <Text numberOfLines={2} ellipsizeMode="tail">
@@ -406,18 +429,24 @@ export default function DetailSouscription(props: any) {
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
-                    }}>
+                    }}
+                  >
                     <Text
                       style={{
                         fontSize: 12,
                         fontWeight: 'bold',
                         color: COLORS.dark,
-                      }}>
+                      }}
+                    >
                       {i18n('validite')} :
                     </Text>
                     <Text numberOfLines={2} ellipsizeMode="tail">
                       {souscription.start_at
-                        ? formatDate(souscription.plan.unit, souscription.start_at, souscription.plan.duration) // souscription.end_at.slice(0, 10)
+                        ? formatDate(
+                            souscription.plan.unit,
+                            souscription.start_at,
+                            souscription.plan.duration
+                          ) // souscription.end_at.slice(0, 10)
                         : '--'}
                     </Text>
                   </View>
@@ -425,7 +454,8 @@ export default function DetailSouscription(props: any) {
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
-                    }}>
+                    }}
+                  >
                     <Text
                       style={{
                         fontSize: 12,
@@ -446,32 +476,103 @@ export default function DetailSouscription(props: any) {
                 </View>
               </View>
             </Box>
-            <ErrorMessage message={"Pour plus d'informations ou pour toute assistance, n'hésitez pas à nous contacter via le bouton de message ci-dessous."}
-              bgColor='#d9eddf'
-              borderLeftColor='#569877'
-              errorText='#569877'
-              iconColor='#569877'
-              >
+            <ErrorMessage
+              message={
+                "Pour plus d'informations ou pour toute assistance, n'hésitez pas à nous contacter via le bouton de message ci-dessous."
+              }
+              bgColor="#d9eddf"
+              borderLeftColor="#569877"
+              errorText="#569877"
+              iconColor="#569877"
+            >
               {/* <Text style={{ color: '#569877', fontSize: 12, marginTop: 10 }}>
                 En cas de besoin, vous pouvez également partager les détails de votre souscription avec notre équipe d'assistance via WhatsApp.
               </Text> */}
-              <View style={{ borderWidth: 0.8, borderColor: "#569877", borderRadius: 20, paddingHorizontal: 10, paddingVertical: 4, width: 180, marginTop: 10 }}>
-                <TouchableOpacity onPress={showModal} style={{ flexDirection: 'row', justifyContent: "center", alignItems: 'center', gap: 16 }}>
+              <View
+                style={{
+                  borderWidth: 0.8,
+                  borderColor: '#569877',
+                  borderRadius: 20,
+                  paddingHorizontal: 10,
+                  paddingVertical: 4,
+                  width: 180,
+                  marginTop: 10,
+                }}
+              >
+                <TouchableOpacity
+                  onPress={showModal}
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: 16,
+                  }}
+                >
                   <Feather name="share-2" size={20} color="#569877" />
-                  <Text style={{ color: '#569877', fontSize: 12, fontWeight: 'bold' }}>
+                  <Text
+                    style={{
+                      color: '#569877',
+                      fontSize: 12,
+                      fontWeight: 'bold',
+                    }}
+                  >
                     Laisser un message
                   </Text>
                 </TouchableOpacity>
               </View>
             </ErrorMessage>
 
-            {  
-              ["A", "C", "D", "R"].includes(souscription.status) && (
+            <TouchableOpacity
+              onPress={() =>
+                Navigation.navigate(ROUTES.BULLETIN_SOUSCRIPTION, {
+                  souscription,
+                })
+              }
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: 14,
+                backgroundColor: COLORS.white,
+                borderRadius: 10,
+                borderWidth: 0.6,
+                borderColor: COLORS.primary,
+              }}
+            >
+              <View
+                style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}
+              >
+                <Feather name="file-text" size={20} color={COLORS.primary} />
+                <View>
+                  <Text
+                    style={{
+                      color: COLORS.primary,
+                      fontSize: 14,
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {i18n('voir_bulletin')}
+                  </Text>
+                  <Text
+                    style={{
+                      color: COLORS.gray,
+                      fontSize: 11,
+                      marginTop: 2,
+                    }}
+                  >
+                    {i18n('voir_bulletin_desc')}
+                  </Text>
+                </View>
+              </View>
+              <Feather name="chevron-right" size={20} color={COLORS.primary} />
+            </TouchableOpacity>
+
+            {['A', 'C', 'D', 'R'].includes(souscription.status) && (
               <TouchableOpacity
                 onPress={sendContract}
-                style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-                {
-                  sending && (
+                style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}
+              >
+                {sending && (
                   <ActivityIndicator
                     size={'small'}
                     color={COLORS.gray}
@@ -483,7 +584,8 @@ export default function DetailSouscription(props: any) {
                     color: COLORS.primary,
                     fontSize: 12,
                     fontWeight: 'bold',
-                  }}>
+                  }}
+                >
                   {i18n('telecharger_contrat')}
                 </Text>
               </TouchableOpacity>
@@ -494,14 +596,15 @@ export default function DetailSouscription(props: any) {
             />
             <View style={{ flexDirection: 'column', marginVertical: 20 }}>
               <Text
-                style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>
+                style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}
+              >
                 {i18n('assures')}
               </Text>
               {Object.keys(souscription.data).map((key, index) => (
                 <Pressable
                   onPress={() => {
-                    setSelectedInsurer(souscription.data[key])
-                    setSelectedInsurerKey(key)
+                    setSelectedInsurer(souscription.data[key]);
+                    setSelectedInsurerKey(key);
                   }}
                   key={index}
                   style={{
@@ -512,38 +615,73 @@ export default function DetailSouscription(props: any) {
                     borderWidth: 0.5,
                     borderColor: COLORS.light_gray,
                     borderRadius: 8,
-                  }}>
+                  }}
+                >
                   <Text style={{ fontSize: 14, color: COLORS.dark }}>
                     {i18n('assure')} N°{index + 1}
                   </Text>
                 </Pressable>
               ))}
             </View>
-            {
-              souscription.status === "P" && (
-                <View style={{ width: '100%', borderWidth: 0.8, borderColor: COLORS.light_blue, borderRadius: 20, backgroundColor: '#fefce8', padding: 20  }} >
-                  <Text style={{ fontSize: 16, fontWeight: "bold", marginBottom: 6 }}>{i18n("information")}</Text>
-                  <Text style={{ color: "#374151" }}>{i18n("information_msg")}</Text>
-                  <View style={{ flex: 1,  display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
-                    <Pressable 
-                      disabled={loading}
-                      onPress={resendVerifitionLinkByEmail}
-                      style={{ flexDirection: 'row', justifyContent: "center", alignItems: 'center', gap: 5, marginTop: 20, paddingVertical: 10, paddingHorizontal: 20, borderRadius: 100, borderWidth: 1, borderColor: COLORS.primary, alignSelf: 'flex-start' }}>
-                        { loading && (
-                          <ActivityIndicator
-                            color={COLORS.primary}
-                            style={{ height: 20, width: 20 }}
-                          />
-                        )}
-                      <Text style={{ color: COLORS.primary }}>{i18n("information_resend_btn")}</Text>
-                    </Pressable>
-                  </View>
+            {souscription.status === 'P' && (
+              <View
+                style={{
+                  width: '100%',
+                  borderWidth: 0.8,
+                  borderColor: COLORS.light_blue,
+                  borderRadius: 20,
+                  backgroundColor: '#fefce8',
+                  padding: 20,
+                }}
+              >
+                <Text
+                  style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 6 }}
+                >
+                  {i18n('information')}
+                </Text>
+                <Text style={{ color: '#374151' }}>
+                  {i18n('information_msg')}
+                </Text>
+                <View
+                  style={{
+                    flex: 1,
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    width: '100%',
+                  }}
+                >
+                  <Pressable
+                    disabled={loading}
+                    onPress={resendVerifitionLinkByEmail}
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      gap: 5,
+                      marginTop: 20,
+                      paddingVertical: 10,
+                      paddingHorizontal: 20,
+                      borderRadius: 100,
+                      borderWidth: 1,
+                      borderColor: COLORS.primary,
+                      alignSelf: 'flex-start',
+                    }}
+                  >
+                    {loading && (
+                      <ActivityIndicator
+                        color={COLORS.primary}
+                        style={{ height: 20, width: 20 }}
+                      />
+                    )}
+                    <Text style={{ color: COLORS.primary }}>
+                      {i18n('information_resend_btn')}
+                    </Text>
+                  </Pressable>
                 </View>
-              )
-            }
+              </View>
+            )}
             <ErrorMessage message={error} />
-            {
-              souscription.status === 'V' && (
+            {souscription.status === 'V' && (
               <View style={{ marginTop: 0 }}>
                 {/* 
                   <View style={{ flexDirection: 'column', gap: 12 }}>
@@ -645,7 +783,7 @@ export default function DetailSouscription(props: any) {
                     {errorMessage}
                   </Text>
                 )} */}
-                
+
                 <Pressable
                   onPress={handleSubmit}
                   // onPress={handleFetchPaymentUrl}
@@ -656,15 +794,16 @@ export default function DetailSouscription(props: any) {
                     paddingHorizontal: 16,
                     marginTop: 40,
                     // backgroundColor: !phoneNumber && !serviceSlug.includes('paypal')? COLORS.gray : COLORS.primary,
-                    backgroundColor:  souscription.status != 'V' ? COLORS.gray : COLORS.primary,
+                    backgroundColor:
+                      souscription.status != 'V' ? COLORS.gray : COLORS.primary,
                     borderRadius: 100,
                     flexDirection: 'row',
                     justifyContent: 'center',
                     gap: 10,
                     alignItems: 'center',
-                  }}>
-                  {
-                    loading && (
+                  }}
+                >
+                  {loading && (
                     <ActivityIndicator
                       color={COLORS.white}
                       style={{ height: 30, width: 30 }}
@@ -676,13 +815,13 @@ export default function DetailSouscription(props: any) {
                       fontWeight: 'bold',
                       fontSize: 18,
                       textAlign: 'center',
-                    }}>
+                    }}
+                  >
                     {i18n('payer_ma_souscription')}
                   </Text>
                 </Pressable>
               </View>
-              )
-            }
+            )}
             {!souscription.has_sent_document && (
               <Pressable
                 onPress={handleDocumentsConfirmation}
@@ -697,9 +836,9 @@ export default function DetailSouscription(props: any) {
                   justifyContent: 'center',
                   gap: 10,
                   alignItems: 'center',
-                }}>
-                {
-                  isDocSending && (
+                }}
+              >
+                {isDocSending && (
                   <ActivityIndicator
                     color={COLORS.white}
                     style={{ height: 30, width: 30 }}
@@ -710,7 +849,8 @@ export default function DetailSouscription(props: any) {
                     color: COLORS.white,
                     fontWeight: 'bold',
                     textAlign: 'center',
-                  }}>
+                  }}
+                >
                   {i18n('confirmer_envoi_docs')}
                 </Text>
               </Pressable>
@@ -745,7 +885,7 @@ export default function DetailSouscription(props: any) {
             }}
           />
           <Text style={{ lineHeight: 20 }}>{i18n('message_aide_desc')}</Text>
-          
+
           <View style={{ marginTop: 30, height: 140 }}>
             <Text style={{ fontWeight: 'bold', marginBottom: 10 }}>
               {i18n('message_aide')} *
@@ -774,11 +914,13 @@ export default function DetailSouscription(props: any) {
 
           <View style={{ marginTop: 40 }}>
             <Button
-              style={{ backgroundColor: COLORS.primary, }}
+              style={{ backgroundColor: COLORS.primary }}
               mode="contained"
               onPress={shareWhatsapp}
             >
-              <Text style={{ color: COLORS.white }}>{i18n('message_aide_sousmettre')}</Text>
+              <Text style={{ color: COLORS.white }}>
+                {i18n('message_aide_sousmettre')}
+              </Text>
             </Button>
           </View>
         </Modal>
@@ -825,7 +967,8 @@ export default function DetailSouscription(props: any) {
             width: '90%',
             margin: 'auto',
             borderRadius: 10,
-          }}>
+          }}
+        >
           <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
             {i18n('detail_assurer')}
           </Text>
@@ -850,7 +993,8 @@ export default function DetailSouscription(props: any) {
                     borderWidth: 0.5,
                     borderColor: COLORS.light_gray,
                     borderRadius: 8,
-                  }}>
+                  }}
+                >
                   <Text style={{ fontSize: 14, color: COLORS.dark }}>
                     {selectedInsurer[key]}
                   </Text>
@@ -895,7 +1039,8 @@ export default function DetailSouscription(props: any) {
                   style={{ marginRight: 10, paddingVertical: 10 }}
                   onPress={() => {
                     handleFileUpload(doc);
-                  }}>
+                  }}
+                >
                   <Text style={{ fontSize: 14, color: COLORS.dark }}>
                     {doc.key}
                   </Text>
@@ -908,17 +1053,19 @@ export default function DetailSouscription(props: any) {
                         borderColor: COLORS.primary,
                       }}
                     />
-                    { 
-                      ( souscription.documents && 
-                        souscription.documents[selectedInsurerKey] && 
-                        souscription.documents[selectedInsurerKey].includes(doc.key)) ?
+                    {souscription.documents &&
+                    souscription.documents[selectedInsurerKey] &&
+                    souscription.documents[selectedInsurerKey].includes(
+                      doc.key
+                    ) ? (
                       <Text style={{ fontSize: 12, color: COLORS.light_blue }}>
                         Déjà envoyé
-                      </Text> :
+                      </Text>
+                    ) : (
                       <Text style={{ fontSize: 12, color: COLORS.primary }}>
                         {file?.[doc.key]?.name ?? 'Aucun fichier choisi'}
                       </Text>
-                    }
+                    )}
                   </View>
                 </TouchableOpacity>
                 {file?.[doc.key] && (
@@ -938,7 +1085,8 @@ export default function DetailSouscription(props: any) {
                       gap: 8,
                       marginBottom: 20,
                       marginTop: 8,
-                    }}>
+                    }}
+                  >
                     {submitting && selectedDoc?.key === doc.key && (
                       <ActivityIndicator
                         size={'small'}
@@ -951,7 +1099,8 @@ export default function DetailSouscription(props: any) {
                         color: COLORS.white,
                         fontWeight: 'bold',
                         textAlign: 'center',
-                      }}>
+                      }}
+                    >
                       {i18n('envoyer')}
                     </Text>
                   </Pressable>
@@ -965,4 +1114,3 @@ export default function DetailSouscription(props: any) {
     </SafeAreaView>
   );
 }
-
